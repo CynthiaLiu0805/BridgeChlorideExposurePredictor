@@ -39,7 +39,7 @@
 % For easy change of table widths
 \newcommand{\colZwidth}{1.0\textwidth}
 \newcommand{\colAwidth}{0.13\textwidth}
-\newcommand{\colBwidth}{0.9\textwidth}
+\newcommand{\colBwidth}{0.82\textwidth}
 \newcommand{\colCwidth}{0.1\textwidth}
 \newcommand{\colDwidth}{0.05\textwidth}
 \newcommand{\colEwidth}{0.8\textwidth}
@@ -245,6 +245,8 @@ $SD_{BW}$ & $kg/m^{3}$ & amount of water in 1 $m^{3}$ volume of air by a single 
 $SD_{SW}$ & $kg/m^{3}$ & amount of water in 1 $m^{3}$ volume of air by a single tire due to side waves
 \\ 
 $SD_{total}$ & $kg/m^{3}$ & mass of water per unit air volume kicked up by each passing truck
+\\
+$t_2$ & days & number of days with snow melting
 \\ 
 \bottomrule
 \end{longtable*}
@@ -273,6 +275,8 @@ $SD_{total}$ & $kg/m^{3}$ & mass of water per unit air volume kicked up by each 
   TP & Tread Pickup\\
   BW & Bow Waves\\
   SW & Side Waves\\
+  AADT & Annual Average Daily Traffic\\
+  AADTT & Annual Average Daily Truck Traffic \\
 
   \bottomrule
 \end{tabular}\\
@@ -546,7 +550,9 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item Mass flow rate: 
+\item Mass flow rate: The amount of water displaced by a single tire 
+\item Spray density: The water concentration(mass of water per unit air volume) in the environment
+TODO
 TODO
 
 \end{itemize}
@@ -744,17 +750,24 @@ on.  \plt{Modify the examples below for your problem, and add additional models
 \noindent
 
 %TM1
-\deftheory
-% #2 refname of theory
-{TM:WaterThickness}
-% #3 label
-{Water film thickness}
-% #4 equation
-{
-$WD = 6 \times 10^{-4} \cdot T^{0.09} (L \cdot I)^{0.6} \cdot S^{-0.33} $
-}
-% #5 description
-{
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& TM\refstepcounter{theorynum}\thetheorynum \label{wft}\\
+\hline
+Label &\bf Water film thickness\\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{m}\\
+\hline
+Equation& $WD = 6 \times 10^{-4} \cdot T^{0.09} (L \cdot I)^{0.6} \cdot S^{-0.33} $\\
+\hline
+Description & 
 The above equation compute the water film thickness based on the rainfall intensity and pavement surface properties, where
 \begin{itemize}
 
@@ -770,41 +783,40 @@ The above equation compute the water film thickness based on the rainfall intens
 
 
 \end{itemize}
-}
-% #6 Notes
-{
-None.
-}
-% #7 Source
-{
 
-TODO:  https://vtechworks.lib.vt.edu/server/api/core/bitstreams/7bd4fcc4-0b9c-40d5-b359-d64095912d20/content
-}
-% #8 Referenced by
-{
-  maxwater \ref{MaxWater} TODO
-}
-% #9 Preconditions
-{
- none
-}
+\\
+\hline
+  Source & Citation here \\
+  \hline
+  Ref.\ By & \tref{mfrg} \\
+  \hline
+  Use\ &none \\
+  \hline
+\end{tabular}
+
+\end{minipage}\\
 
 
 %TM2
-~\newline
 \noindent
-\deftheory
-% #2 refname of theory
-{TM:MaxWater}
-% #3 label
-{Maximum amount of water available}
-% #4 equation
-{
-$MR_W = V \cdot b \cdot WD \cdot \rho_{water} $
-}
-% #5 description
-{
-The above equation computes the maximum amount of water available for splash and spray, $MR_W$, where
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& TM\refstepcounter{theorynum}\thetheorynum \label{mfrg}\\
+\hline
+Label &\bf Max flow rate general \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per s}\\
+\hline
+Equation& $MR_W = V \cdot b \cdot WD \cdot \rho_{water} $\\
+
+\hline
+Description & 
+The above equation is the general equation for mass flow rate, which is the maximum amount of water available for splash and spray.
 \begin{itemize}
 
 \item $V$ is the truck speed ($km/h$)
@@ -816,29 +828,67 @@ The above equation computes the maximum amount of water available for splash and
 \item $\rho_{water}$ is the density of water ($kg/m^{3}$)
 
 \end{itemize}
-}
-% #6 Notes
-{
-None.
-}
-% #7 Source
-{
 
-TODO:  https://vtechworks.lib.vt.edu/server/api/core/bitstreams/7bd4fcc4-0b9c-40d5-b359-d64095912d20/content
 
-}
-% #8 Referenced by
-{
-  \dref{ROCT}
-}
-% #9 Preconditions
-{
-None
-}
-% #1 derivation - not applicable by default
-{}
+\\
+\hline
+  Source & Citation here \\
+  \hline
+  Ref.\ By & \dref{mfr}\\ 
+  \hline
+  Use\ & none\\
+  \hline
+\end{tabular}
 
-%TM3 TODO the sum of 4sd
+\end{minipage}\\
+
+%TM3
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& TM\refstepcounter{theorynum}\thetheorynum \label{csasg}\\
+  \hline
+  Label& \bf Chloride sprayed and splashed \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per\metre^3\per vehicle} \\
+\hline
+Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\oslash} \times \frac{ADT-N}{N_{lane}}+ SD_{total~cl} \times \frac{N}{N_{lane}}) \times t_{snow}$ \\
+  \hline
+  Description& Accounting for all the days with snow in a typical winter season, the cumulative mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier every winter can be expressed as shown below, where
+  
+\begin{itemize}
+
+\item $SD_{total~cl}$ is the mass of chloride ions per unit air volume ($kg/m^3/vehicle$)
+
+\item $\oslash$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles
+
+\item $ADT$ is the average daily traffic
+
+\item $N$ is the fractional number of heavy-duty vehicles out of all vehicles
+
+\item $N_{lane}$ is the number of lanes
+
+\item $t_{snow}$ is the number of days with snow
+
+\end{itemize}
+
+
+\\
+\hline
+  Source & Citation here \\
+  \hline
+  Ref.\ By & \dref{csas} \\ 
+  \hline
+  Use \ &  \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
 \plt{``Ref.\ By'' is used repeatedly with the different types of information.
   This stands for Referenced By.  It means that the models, definitions and
   assumptions listed reference the current model, definition or assumption.
@@ -944,7 +994,7 @@ Equation&
       SD_{TP} = (1.16 \times 10^{-5} \times V - 5.25 \times 10^{-5}) \times MR_{TP} & \text{for} ~ TP\\      
       SD_{BW} = (2.67 \times 10^{-5} \times V - 4.71 \times 10^{-4}) \times MR_{BW} & \text{for} ~ BW\\
        SD_{SW} = (1.65 \times 10^{-5} \times V - 3.99 \times 10^{-4}) \times MR_{SW} & \text{for} ~ SW\\      
-      \end{cases}
+      \end{cases}\nonumber
   \end{equation}
 \\
 \hline
@@ -965,9 +1015,51 @@ Description & Spray density is derived by conducting computational fluid dynamic
   Use \ & \dref{mfr} \\
   \hline
 \end{tabular}
-
-
 \end{minipage}\\
+
+%GD3
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& GD\refstepcounter{defnum}\thedefnum \label{csas}\\
+  \hline
+  Label& \bf Chloride sprayed and splashed \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per\metre^3\per vehicle}\\
+  \hline
+  Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\oslash} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total~cl} \times AADTT ~per~ lane) \times t_2$ \\
+  \hline
+  Description& The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of says with snow melting, where
+  
+\begin{itemize}
+
+\item $SD_{total~cl}$ is the mass of chloride ions per unit air volume ($kg/m^3/vehicle$)
+
+\item $\oslash$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles
+
+\item $AADT ~per~ lane$ is the annual average daily traffic per lane
+
+\item $AADTT~ per~ lane$ is the annual average daily truck traffic per lane
+
+\item $t_2$ is the number of days with snow melting
+\end{itemize}
+
+  \\
+  \hline
+  Sources& Denby, B. R., Sundvor, I., Johansson, C., Pirjola, L., Ketzel, M., Norman, M., ... and Omstedt, G. 2013. “A coupled road dust and surface moisture model to predict non-exhaust road traffic induced particle emissions (NORTRIP). Part 2: Surface moisture and salt impact modelling.” Atmospheric Environment, 81: 485-503, Wang, H., Ranade, R., and Okumus, P. 2022. “Estimating chloride exposure of reinforced concrete bridges using vehicle spray and splash mechanisms.”Structure and Infrastructure Engineering, 1-11.TODO\\
+  \hline
+  Ref.\ By & \\
+  \hline
+  Use \ & \ddref{sdtcl}, \tref{csasg} \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
 
 \subsubsection*{Detailed derivation of simplified rate of change of temperature}
 
@@ -995,7 +1087,7 @@ models. The dimension of each quantity is also given.  \plt{Modify the examples
 
 ~\newline
 
-%DD1, step 1
+%DD1, Mapp
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1021,20 +1113,18 @@ Symbol &$M_{app}$\\
 \item $M_{total}$ is the total amount of deicing salts applied on the road during the winter season ($kg/m^2$)
 
 \item $t_{1}$ is the number of days with snowfall.
-
-
 \end{itemize}
 
   \\
   \hline
   Sources& Citation here \\
   \hline
-  Ref.\ By & TODO   \\
+  Ref.\ By & \ddref{rsw}   \\
   \hline
 \end{tabular}
 \end{minipage}\\
 
-%DD2, step 2
+%DD2, water thickness
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1068,6 +1158,160 @@ Symbol &$h_{app}$\\
   Sources& Citation here \\
   \hline
   Ref.\ By & \dref{mfr} TODO\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+%DD3, molar mass ratio of chlorine
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{rcl}\\
+\hline
+Label &\bf Ratio of chlorine in deicing salts \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&none\\
+\hline
+Equation & $\theta_{chloride}=\frac{\text{mass of }Cl^{-}}{\text{mass of } NaCl}$ \\
+\hline
+Description & This equation computes the molar mass ratio of chlorine to deicing salts, where
+\begin{itemize}
+\item $Cl^-$ is the chloride ions whose exposure we want to investigate
+\item $NaCl$ is the most commonly used salt
+\end{itemize}
+
+\\
+\hline
+%(https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/04%3A_Atomic_Structure/4.05%3A_Mass_Ratio_Calculation)
+  Source & todo\\
+  \hline
+  Ref.\ By & \ddref{sdtcl} \\ 
+  \hline
+  Use \ & none \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+
+%DD4, total spray density
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{tsd}\\
+\hline
+Label &\bf Total spray density\\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per m^3 \per vehicle}\\
+\hline
+Equation& $SD_{total} = SD_{CA} + SD_{TP} + SD_{BW} + SD_{SW}$\\
+\hline
+Description & The spray density (i.e. mass of water per unit air volume kicked up by each passing truck), is the sum of the four mechanism.
+
+\begin{itemize}
+
+\item $SD_{CA}$ is the spray density due to capillary adhesion
+\item $SD_{TP}$ is the spray density due to tread pickup
+\item $SD_{BW}$ is the spray density due to bow waves
+\item $SD_{SW}$ is the spray density due to side waves
+
+\end{itemize}
+
+\\
+\hline
+  Source & Citation here \\
+  \hline
+  Ref.\ By & \ddref{sdtcl} \\ % \ddref{dsq}, \ddref{dwft}\\
+  \hline
+  Use\ & \dref{sd}\\
+  \hline
+\end{tabular}
+
+\end{minipage}\\
+
+
+%DD5, ratio of salt over water
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{rsw}\\
+\hline
+Label &\bf Ratio of salt over water \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&none\\
+\hline
+Equation & $\delta_{salt} =\frac{M_{app}}{h_{app} \times \rho_{water}}$ \\
+\hline
+Description & This equation computes the ratio of the mass of salt applied per unit area of road to the mass of water per unit area of road, where
+\begin{itemize}
+
+\item $M_{app}$ is the quantity of deicing salts applied per day ($kg/m^2$)
+
+\item $h_{app}$ is the thickness of melted water per day ($m$)
+
+\item $\rho_{water}$ is the density of water ($kg/m^{3}$) 
+\end{itemize}
+
+\\
+\hline
+  Source & Citation here \\
+  \hline
+  Ref.\ By & \ddref{sdtcl} \\ 
+  \hline
+  Use \ & \ddref{dsq}, \ddref{dwft} \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+%DD6, SDtotal cl
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{sdtcl}\\
+\hline
+Label &\bf Mass of chloride ions \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per\metre^3\per vehicle} \\
+\hline
+Equation & $SD_{total ~cl} =SD_{total} \times \delta_{salt} \times \theta_{chloride}$ \\
+\hline
+Description & This equation computes the mass of chloride ions per unit air volume, where
+\begin{itemize}
+
+\item $SD_{total}$ is the mass of water per unit air volume ($kg/m^3/vehicle$)
+
+\item $\delta_{salt}$ is the salt-to-water mass ratio per unit area of road
+
+\item $\theta_{chloride}$ is the molar mass ratio of chlorine to deicing salts
+
+\end{itemize}
+
+\\
+\hline
+  Source & Citation here \\
+  \hline
+  Ref.\ By & \tref{csasg} \\ 
+  \hline
+  Use \ & \ddref{tsd}, \ddref{rsw}, \ddref{rcl} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1113,8 +1357,6 @@ models. \plt{Modify the examples below for your problem, and add additional
 \end{minipage}\\
 
 \subsubsection{Instance Models} \label{sec_instance}    
-
-step 456?
 \plt{The motivation for this section is to reduce the problem defined in
   ``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one
   expressed in mathematical terms. The IMs are built by refining the TMs and/or
@@ -1133,34 +1375,63 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 
 ~\newline
 
-%Instance Model 1
-
+%IM1
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ewatt}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{cots}\\
   \hline
-  Label& \bf Energy balance on water to find $T_W$\\
+  Label& \bf Chloride on the surface \\
   \hline
-  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, $T_C$, 
-  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so that $T_\text{init} \leq T_C$ (\aref{A_charge})\\
+  Input& $C_{s_{air}}, e, d$\\
   \hline
-  Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
-  &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
-  &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+  Output& $C_s$ \\
   \hline
-  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-  &$T_C$ is the coil temperature (\si{\celsius}).\\
-  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-  & The above equation applies as long as the water is in liquid form,
-  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
-  and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
+  Equation& $C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \times  e^{-0.5d}$\\ 
+  \hline
+  Description& The above equation computes the chloride ions deposition on bridge substructure, taking into account the distance between the edge of the road near the bridge substructure and the bridge substructure, where
+\begin{itemize}
+
+\item $C_{s_{air}}$ is the cumulative mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier($kg/m^3$)
+
+\item $d$ is the distance between the road edge and nearby bridge structure($m$)
+
+\item $e$ is the base of natural logarithm.
+
+\end{itemize}
+
+TODO: talk about 0.015 etc
+
+  \\
+  \hline
+  Sources& Lundmark, A., and Olofsson, B. 2007. “Chloride deposition and distribution in soils along a deiced highway–assessment using different methods of measurement.” Water, Air, and Soil Pollution, 182: 173-185. \\
+  \hline
+  Ref.\ By & \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+%IM2 input coordinate and output the data
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{ldfsb}\\
+  \hline
+  Label& \bf Locate data for specific bridge \\
+  \hline
+  Input& \\
+  \hline
+  Output& \\
+  \hline
+  Equation& \\
+  \hline
+  Description&
   \\
   \hline
   Sources& Citation here \\
