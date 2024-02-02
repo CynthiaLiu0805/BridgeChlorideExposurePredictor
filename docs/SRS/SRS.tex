@@ -21,6 +21,8 @@
 
 \usepackage{gensymb}
 
+
+\usepackage{enumitem}
 \usepackage[round]{natbib}
 
 %\usepackage{refcheck}
@@ -1664,6 +1666,9 @@ be covered in the Verification and Validation document.}
 
 \subsection{Rationale}
 
+The assumptions made in this document are based on practical considerations to simplify and quantify the data required in the model. In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. In \aref{A_laneWidth}, it simplifies the model by assuming a standardized lane width across all roads. While lane widths can vary depending on road type and location, assuming a uniform lane width streamlines the analysis and allows for consistent calculations. Additionally, a lane width of 3 meters is commonly used in many road design standards and provides a reasonable approximation for modeling purposes. Similarly, NaCl is one of the most widely used deicing salts due to its effectiveness and affordability, so \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions. Lastly, AADT is an important parameter for assessing traffic volume on roads and is typically used to classify roads into different categories based on their traffic intensity, \aref{A_AADT} simplifies the analysis by providing a standardized measure of traffic volume. By incorporating these assumptions, the model can effectively simulate real-world scenarios and provide valuable insights into the factors influencing bridge corrosion."
+
+
 \plt{Provide a rationale for the decisions made in the documentation.  Rationale
 should be provided for scope decisions, modelling decisions, assumptions and
 typical values.}
@@ -1832,17 +1837,7 @@ instance models, requirements, and data constraints on each other.
 % 	\end{center}
 % \end{figure}
 
-\section{Development Plan}
-
-\plt{This section is optional.  It is used to explain the plan for developing
-  the software.  In particular, this section gives a list of the order in which
-  the requirements will be implemented.  In the context of a course  this is
-  where you can indicate which requirements will be implemented as part of the
-  course, and which will be ``faked'' as future work.  This section can be
-  organized as a prioritized list of requirements, or it could should the
-  requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
-
-\section{Values of Auxiliary Constants}
+\section{Values of Auxiliary Constants} TODO
 
 \plt{Show the values of the symbolic parameters introduced in the report.}
 
@@ -1850,11 +1845,31 @@ instance models, requirements, and data constraints on each other.
 Their values are defined in this section for easy maintenance.}
 
 \plt{The value of FRACTION, for the Maintainability NFR would be given here.}
+\begin{table}[!h]
+\caption{Output Variables} \label{TblOutputVar}
+\renewcommand{\arraystretch}{1.2}
+\noindent \begin{longtable*}{l l} 
+  \toprule
+  \textbf{Var} & \textbf{Physical Constraints} \\
+  \midrule 
+  $C_s$ & $C_s < 357 kg/m^3$ (by~%\reref{}TODO)
+  \\
+  
+   \bottomrule
+\end{longtable*}
+\end{table}
 
 \newpage
+\section*{Reference}
+\begin{enumerate}[label={[\arabic*]}]
+\item \refstepcounter{refnum} \label{ref1}
+Smith, W. Spencer and Koothoor, Nirmitha. "A Document-Driven Method for Certifying Scientific Computing Software for Use in Nuclear Safety Analysis." Nuclear Engineering and Technology, vol. 48, no. 2, April, 2016. http://www.sciencedirect.com/-\\science/article/pii/S1738573315002582. pp. 404–418.
+\item \refstepcounter{refnum} \label{ref2}
+Smith, W. Spencer and Lai, Lei. "A new requirements template for scientific computing." Proceedings of the First International Workshop on Situational Requirements Engineering Processes - Methods, Techniques and Tools to Support Situation-Specific Requirements Engineering Processes, SREP'05. Edited by PJ Agerfalk, N. Kraiem, and J. Ralyte, Paris, France: 2005. pp. 107–121. In conjunction with 13th IEEE International Requirements Engineering Conference,
+\item \refstepcounter{refnum} \label{ref3}
+Smith, W. Spencer, Lai, Lei, and Khedri, Ridha. "Requirements Analysis for Engineering Computation: A Systematic Approach for Improving Software Reliability." Reliable Computing, Special Issue on Reliable Engineering Computation, vol. 13, no. 1, February, 2007. https://doi.org/10.1007/s11155-006-9020-7. pp. 83–107.
+\end{enumerate}
 
-\bibliographystyle {plainnat}
-\bibliography {../../refs/References}
 
 \newpage
 
