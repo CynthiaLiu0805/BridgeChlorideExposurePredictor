@@ -176,12 +176,11 @@ description of the unit and the SI name.
     \toprule		
     \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
     \midrule 
+
     \si{\metre} & length & metre\\
-    \si{\kilogram} & mass	& kilogram\\
+    \si{\kilogram} & mass & kilogram\\
     \si{\second} & time & second\\
-    \si{\celsius} & temperature & centigrade\\
-    \si{\joule} & energy & joule\\
-    \si{\watt} & power & watt (W = \si{\joule\per\second})\\
+
     \bottomrule
   \end{tabular}
   %	\caption{Provide a caption}
@@ -220,43 +219,45 @@ systems.  The symbols are listed in alphabetical order.
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
-\midrule 
-$V_{speed}$ & $km/h$ & heavy vehicle speed
-\\
-$V$ & $miles/h$ & heavy vehicle speed
-\\
-$b$ & $m$ & tire width 
-\\
-$WD$ & $m$ & water depth/thickness 
-\\ 
-$K$ & $m$ & ratio of the tire width that is not a groove to the tire width 
-\\ 
-$h_{film}$ & $m$ & depth of the water film picked up in each rotation
-\\ 
-$\rho_{water}$ & $kg/m^{3}$ & density of water 
-\\ 
-$h_{app}$ & $m$ & daily water film thickness on the road
-\\ 
-$MR_{CA}$ & $kg/s$ & amount of water displaced by a single tire due to capillary adhesion
-\\ 
-$MR_{TP}$ & $kg/s$ & amount of water displaced by a single tire due to tread pickup
-\\ 
-$MR_{BW}$ & $kg/s$ & amount of water displaced by a single tire due to bow
-\\ 
-$MR_{SW}$ & $kg/s$ & amount of water displaced by a single tire due to side waves
-\\ 
-$SD_{CA}$ & $kg/m^{3}$ & amount of water in 1 $m^{3}$ volume of air by a single tire due to capillary adhesion
-\\ 
-$SD_{TP}$ & $kg/m^{3}$ & amount of water in 1 $m^{3}$ volume of air by a single tire due to tread pickup
-\\ 
-$SD_{BW}$ & $kg/m^{3}$ & amount of water in 1 $m^{3}$ volume of air by a single tire due to bow
-\\ 
-$SD_{SW}$ & $kg/m^{3}$ & amount of water in 1 $m^{3}$ volume of air by a single tire due to side waves
-\\ 
-$SD_{total}$ & $kg/m^{3}$ & mass of water per unit air volume kicked up by each passing truck
-\\
-$t_2$ & days & number of days with snow melting
-\\ 
+\midrule $b$ & $m$ & tire width\\
+$C_s$ & $kg/m^3/vehicle$ & chloride on the bridge substructure\\
+$C_{s_{air}}$ & $kg/m^3/vehicle$ & chloride sprayed and splashed per unit air volume per vehicle\\
+$\delta_{salt}$ & $N/A$ & ratio of salt over water per unit area of road\\
+$d$ & $m$ & distance between road edge and nearby bridge structure\\
+$h_{app}$ & $m$ & daily water film thickness on the road\\
+$h_{film}$ & $m$ & depth of the water film picked up in each rotation\\
+$h_{total}$ & $m$ & water equivalent of snowfall\\
+$I$ & $m/h$ & rainfall intensity\\
+$K$ & $N/A$ & ratio of the tire width that is not a groove to the tire width\\
+$L$ & $m$ & drainage length\\
+$M_{app}$ & $kg/m^2$ & deicing salts quantity applied per day\\
+$M_{total}$ & $kg/m^2$ & total amount of deicing salts quantity over winter\\
+$MR_{BW}$ & $kg/s$ & MFR displaced by a single tire due to bow\\
+$MR_{CA}$ & $kg/s$ & MFR displaced by a single tire due to capillary adhesion\\
+$MR_{SW}$ & $kg/s$ & MFR displaced by a single tire due to side waves\\
+$MR_{TP}$ & $kg/s$ & MFR displaced by a single tire due to tread pickup\\
+$MR_{W}$ & $kg/s$ & general MFR displaced by a single tire due to capillary adhesion\\
+$N_{lane}$ & lane & number of lanes\\
+$\rho_{water}$ & $kg/m^{3}$ & density of water\\
+$SD_{BW}$ & $kg/m^{3}/vehicle$ & spray density by a single tire due to bow\\
+$SD_{CA}$ & $kg/m^{3}/vehicle$ & spray density by a single tire due to capillary adhesion\\
+$SD_{SW}$ & $kg/m^{3}/vehicle$ & spray density by a single tire due to side waves\\
+$SD_{TP}$ & $kg/m^{3}/vehicle$ & spray density by a single tire due to tread pickup\\
+$SD_{total}$ & $kg/m^{3}/vehicle$ & spray density kicked up by each passing truck\\
+$SD_{total~cl}$ & $kg/m^3/vehicle$ & mass of chloride ions per unit air volume\\
+$S$ & $N/A$ & slope as a ratio\\
+$T$ & $mm$ & profile depth\\
+$t_1$ & days & number of days with snowfall\\
+$t_2$ & days & number of days with snow melting\\
+$t_{snow}$ & days & number of days with snow\\
+$V$ & $m/s$ & truck speed\\
+$V_{salt}$ & $tonnes/cm/km$ & normalized salt application rate\\
+$V_{speed}$ & $km/h$ & heavy vehicle speed\\
+$V'$ & $miles/h$ & heavy vehicle speed\\
+$W_{lane}$ & $m$ & lane width\\
+$WD$ & $m$ & water depth/thickness\\
+$\Theta$ & $N/A$ & ratio of chloride ions sprayed and splashed by trucks over those by light duty vehicles\\
+$\theta_{chloride}$ & $N/A$ & molar mass ratio of chloride ions over deicing salts\\
 \bottomrule
 \end{longtable*}
 \plt{Use your problems actual symbols.  The si package is a good idea to use for
@@ -264,7 +265,7 @@ $t_2$ & days & number of days with snow melting
 
 \subsection{Abbreviations and Acronyms}
 
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.2}F
 \begin{tabular}{l l} 
   \toprule		
   \textbf{symbol} & \textbf{description}\\
@@ -278,12 +279,14 @@ $t_2$ & days & number of days with snow melting
   PS & Physical System Description\\
   R & Requirement\\
   SRS & Software Requirements Specification\\
-  \progname{} & \plt{put an expanded version of your program name here (as appropriate)}\\
+  BS & Bridge Corrosion\\
   TM & Theoretical Model\\
   CA & Capillary Adhesion \\
   TP & Tread Pickup\\
   BW & Bow Waves\\
   SW & Side Waves\\
+  MFR & Mass Flow Rate\\
+  ADT & Average Daily Traffic\\
   AADT & Annual Average Daily Traffic\\
   AADTT & Annual Average Daily Truck Traffic \\
 
@@ -291,20 +294,6 @@ $t_2$ & days & number of days with snow melting
 \end{tabular}\\
 
 \plt{Add any other abbreviations or acronyms that you add}
-
-\subsection{Mathematical Notation}
-
-\plt{This section is optional, but should be included for projects that make use
-  of notation to convey mathematical information.  For instance, if typographic
-  conventions (like bold face font) are used to distinguish matrices, this
-  should be stated here.  If symbols are used to show mathematical operations,
-  these should be summarized here.  In some cases the easiest way to summarize
-  the notation is to point to a text or other source that explains the
-  notation.}
-
-\plt{This section was added to the template because some students use very
-  domain specific notation.  This notation will not be readily understandable to
-  people outside of your domain.  It should be explained.}
 
 \newpage
 
@@ -793,7 +782,7 @@ The above equation compute the water film thickness based on the rainfall intens
 
 \item $T$ is the texture ($mm$)
 
-\item $L$ is the drainage lengt ($m$)
+\item $L$ is the drainage length ($m$)
 
 \item $I$ is the rainfall intensity ($m/h$)
 
@@ -837,7 +826,7 @@ Description &
 The above equation is the general equation for mass flow rate, which is the maximum amount of water available for splash and spray.
 \begin{itemize}
 
-\item $V$ is the truck speed ($km/h$)
+\item $V$ is the truck speed ($m/s$)
 
 \item $b$ is the tire width ($m$)
 
@@ -877,7 +866,7 @@ SI Units&\si{kg\per\metre^3\per vehicle} \\
 \hline
 Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times \frac{ADT-N}{N_{lane}}+ SD_{total~cl} \times \frac{N}{N_{lane}}) \times t_{snow}$ \\
   \hline
-  Description& Accounting for all the days with snow in a typical winter season, the cumulative mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier every winter can be expressed as shown below, where
+  Description& The above equation computes the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier every winter, accounting for all the days with snow in a typical winter season.
   
 \begin{itemize}
 
@@ -968,7 +957,7 @@ Description & $MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}$ is the amount of water displa
 
 \item $b$ is the tire width ($m$)
 
-\item $K$ is the water depth/thickness ($m$)
+\item $K$ is the ratio of the tire width that is not a groove to the tire width
 
 \item $h_{film}$ is the depth of the water film picked up in each rotation ($m$)
 
@@ -1008,10 +997,10 @@ SI Units&\si{kg\per\metre^3\per vehicle}\\
 Equation&
 \begin{equation}
      \begin{cases}
-     SD_{CA} = (-2.69 \times 10^{-5} \times V + 2.43 \times 10^{-3}) \times MR_{CA}& \text{for} ~ CA \\
-      SD_{TP} = (1.16 \times 10^{-5} \times V - 5.25 \times 10^{-5}) \times MR_{TP} & \text{for} ~ TP\\      
-      SD_{BW} = (2.67 \times 10^{-5} \times V - 4.71 \times 10^{-4}) \times MR_{BW} & \text{for} ~ BW\\
-       SD_{SW} = (1.65 \times 10^{-5} \times V - 3.99 \times 10^{-4}) \times MR_{SW} & \text{for} ~ SW\\      
+     SD_{CA} = (-2.69 \times 10^{-5} \times V' + 2.43 \times 10^{-3}) \times MR_{CA}& \text{for} ~ CA \\
+      SD_{TP} = (1.16 \times 10^{-5} \times V' - 5.25 \times 10^{-5}) \times MR_{TP} & \text{for} ~ TP\\      
+      SD_{BW} = (2.67 \times 10^{-5} \times V' - 4.71 \times 10^{-4}) \times MR_{BW} & \text{for} ~ BW\\
+       SD_{SW} = (1.65 \times 10^{-5} \times V' - 3.99 \times 10^{-4}) \times MR_{SW} & \text{for} ~ SW\\      
       \end{cases}\nonumber
   \end{equation}
 \\
@@ -1019,7 +1008,7 @@ Equation&
 Description & Spray density is derived by conducting computational fluid dynamics simulations on \dref{mfr} to compute the concentration of water kicked up to the environment.  
 \begin{itemize}
 
-\item $V$ is the heavy vehicle speed ($miles/h$)
+\item $V'$ is the heavy vehicle speed ($miles/h$)
 
 \item $MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}$ is the mass flow rate for capillary adhesion, tread pickup, bow waves and side waves correspondingly ($kg/s$)
 \end{itemize}
@@ -1190,7 +1179,7 @@ Symbol &$h_{app}$\\
 \end{tabular}
 \end{minipage}\\
 
-%DD3, molar mass ratio of chlorine
+%DD3, molar mass ratio of chloride
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1199,7 +1188,7 @@ Symbol &$h_{app}$\\
 \rowcolor[gray]{0.9}
 Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{rcl}\\
 \hline
-Label &\bf Ratio of chlorine in deicing salts \\
+Label &\bf Ratio of chloride in deicing salts \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
@@ -1207,7 +1196,7 @@ SI Units&none\\
 \hline
 Equation & $\theta_{chloride}=\frac{\text{mass of }Cl^{-}}{\text{mass of } NaCl}$ \\
 \hline
-Description & This equation computes the molar mass ratio of chlorine to deicing salts, where
+Description & This equation computes the molar mass ratio of chloride to deicing salts, where
 \begin{itemize}
 \item $Cl^-$ is the chloride ions whose exposure we want to investigate
 \item $NaCl$ is the most commonly used salt
@@ -1329,7 +1318,7 @@ Description & This equation computes the mass of chloride ions per unit air volu
 
 \item $\delta_{salt}$ is the salt-to-water mass ratio per unit area of road
 
-\item $\theta_{chloride}$ is the molar mass ratio of chlorine to deicing salts
+\item $\theta_{chloride}$ is the molar mass ratio of chloride to deicing salts
 
 \end{itemize}
 
@@ -1510,29 +1499,29 @@ Table~\ref{TblSpecParams}.
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
   %%%%%TODO: read paper
-  $TODOOO$ & $L > 0$ & $L_{\text{min}} \leq L \leq L_{\text{max}}$ & 1.5 \si[per-mode=symbol] {\metre} & 10\%
+  $d$ & $d > 0$ & $d>0$ & 3m & 10\%
+  \\
+  $t_{snow}$ & $0 \leq t_{snow} \leq 365$ & $0 \leq t_{snow} \leq 365$ & 65days & 10\%
+  \\
+  $V'$ & $37 \leq V' \leq 65$ & $V'_{min}\leq V' \leq V'_{max}$ & 65miles/h & 10\%
+  \\
+  $V_{speed}$ & $60 \leq V_{speed} \leq 105$ & $V_{speed_{min}} \leq V_{speed} \leq V_{speed_{max}}$ & 105km/h & 10\%
+  \\
+  $b$ & $0.2 \leq b \leq 0.71$ & $b_{min} \leq b \leq b_{max}$ & 0.56m & 10\%
+  \\
+  $K$ & $0 \leq K \leq 1$ & $b_{min} \leq K \leq b_{max}$ & 0.75 & 10\%
+  \\
+  $h_{film}$ & $h_{film} > 0$ & $h_{film} > 0$ & 0.0001m & 10\%
+  \\
+  $\Theta$ & $0 \leq \theta < 1$ & $0 \leq \theta < 1$ & 0.61 & 10\%
+  \\
+  $t_2$ & $0 \leq t_2 \leq 365$ & $t_{snow} \leq t_2 \leq 365$ & 70days & 10\%
   \\
   \bottomrule
 \end{longtable*}
 \end{table}
 
 \noindent 
-\begin{description}
-\item[(*)] \plt{you might need to add some notes or clarifications}
-\end{description}
-
-\begin{table}[!h]
-\caption{Specification Parameter Values} \label{TblSpecParams}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Value} \\
-  \midrule 
-  $L_\text{min}$ & 0.1 \si{\metre}\\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
 \subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
 
 \noindent
@@ -1666,7 +1655,8 @@ be covered in the Verification and Validation document.}
 
 \subsection{Rationale}
 
-The assumptions made in this document are based on practical considerations to simplify and quantify the data required in the model. In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. In \aref{A_laneWidth}, it simplifies the model by assuming a standardized lane width across all roads. While lane widths can vary depending on road type and location, assuming a uniform lane width streamlines the analysis and allows for consistent calculations. Additionally, a lane width of 3 meters is commonly used in many road design standards and provides a reasonable approximation for modeling purposes. Similarly, NaCl is one of the most widely used deicing salts due to its effectiveness and affordability, so \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions. Lastly, AADT is an important parameter for assessing traffic volume on roads and is typically used to classify roads into different categories based on their traffic intensity, \aref{A_AADT} simplifies the analysis by providing a standardized measure of traffic volume. By incorporating these assumptions, the model can effectively simulate real-world scenarios and provide valuable insights into the factors influencing bridge corrosion."
+The assumptions made in this document are based on practical considerations to simplify and quantify the data required in the model. In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. In \aref{A_laneWidth}, it simplifies the model by assuming a standardized lane width across all roads. While lane widths can vary depending on road type and location, assuming a uniform lane width streamlines the analysis and allows for consistent calculations. Additionally, a lane width of 3 meters is commonly used in many road design standards and provides a reasonable approximation for modeling purposes. Similarly, NaCl is one of the most widely used deicing salts due to its effectiveness and affordability, so \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions. Lastly, AADT is an important parameter for assessing traffic volume on roads and is typically used to classify roads into different categories based on their traffic intensity, \aref{A_AADT} simplifies the analysis by providing a standardized measure of traffic volume. By incorporating these assumptions, the model can effectively simulate real-world scenarios and provide valuable insights into the factors influencing bridge corrosion.
+The constraints in Table\ref{TblInputVar} are defined considering real-world scenarios. For example,  the speed constraints adhere to established speed limits, ensuring a realistic representation of vehicle speeds. Similarly, the constraints associated with the variable about days are confined within the bounds of the annual calendar, reflecting a practical consideration of time duration within a given year.
 
 
 \plt{Provide a rationale for the decisions made in the documentation.  Rationale
@@ -1845,19 +1835,36 @@ instance models, requirements, and data constraints on each other.
 Their values are defined in this section for easy maintenance.}
 
 \plt{The value of FRACTION, for the Maintainability NFR would be given here.}
+
 \begin{table}[!h]
-\caption{Output Variables} \label{TblOutputVar}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
+  \caption{Input Variables} \label{TblInputVar}
+  \renewcommand{\arraystretch}{1.2}
+\noindent \begin{longtable*}{l l l l c} 
   \toprule
-  \textbf{Var} & \textbf{Physical Constraints} \\
+ \textbf{Symbol} & \textbf{Description} & \textbf{Value} & \textbf{Unit}\\
+
   \midrule 
-  $C_s$ & $C_s < 357 kg/m^3$ (by~%\reref{}TODO)
+  %%%%%TODO: read paper
+  $V'_{min}$ & $d > 0$ & $d>0$ & 3m  \\
+  $V'_{max}$ & $d > 0$ & $d>0$ & 3m   \\
+  $V_{speed_{min}}$ & $d > 0$ & $d>0$ & 3m   \\
+  $V_{speed_{max}}$ & $d > 0$ & $d>0$ & 3m 
+  \\
+  $b_{min}$ & $d > 0$ & $d>0$ & 3m 
+  \\
+  $b_{max}$ & $d > 0$ & $d>0$ & 3m 
+  \\  
+  $N$ & ratio of number of heavy-duty vehivles:all vehicles & 0.1 & N/A 
+  \\
+  $W_{lane}$ & lane width & 3 & m
+  \\  
+  $V_{salt}$ & salt application rate & 0.06 & tonnes/cm/km
   \\
   
-   \bottomrule
+  \bottomrule
 \end{longtable*}
 \end{table}
+
 
 \newpage
 \section*{Reference}
