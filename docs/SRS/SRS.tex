@@ -578,7 +578,7 @@ TODO
   interactions between the elements and their physical environment; ii) the
   interactions between elements; and, iii) the initial or boundary conditions.}
 
-The key physical system of Bridge Corrosion, as shown in Figure 2, simulate the situation that a vehicle spray and splash the water, it includes the following elements:
+The key physical system of Bridge Corrosion, as shown in Figure \ref{4mechanism}, simulate the situation that a vehicle spray and splash the water, it includes the following elements:
 
 \begin{itemize}
 
@@ -775,7 +775,7 @@ SI Units&\si{m}\\
 Equation& $WD = 6 \times 10^{-4} \cdot T^{0.09} (L \cdot I)^{0.6} \cdot S^{-0.33} $\\
 \hline
 Description & 
-The above equation compute the water film thickness based on the rainfall intensity and pavement surface properties, where
+The above equation compute the water film thickness based on the rainfall intensity and pavement surface properties.
 \begin{itemize}
 
 \item $WD$ is the water depth ($m$)
@@ -876,7 +876,7 @@ Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times \frac{
 
 \item $ADT$ is the average daily traffic
 
-\item $N$ is the fractional number of heavy-duty vehicles out of all vehicles
+\item $N$ is the average number of heavy-duty vehicles per day
 
 \item $N_{lane}$ is the number of lanes
 
@@ -885,6 +885,9 @@ Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times \frac{
 \end{itemize}
 
 
+\\
+\hline
+Notes & The first part in the parentheses calculate the chloride exposure by light-duty vehicle, and the second part is for heavy-duty vehicles. The calculation focues on the road lane that is closest to the bridge component, so $N_{lane}$ is included in the denominator.
 \\
 \hline
   Source & Citation here \\
@@ -949,7 +952,7 @@ Equation&
   
   \\
 \hline
-Description & $MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}$ is the amount of water displaced by a single tire(also called mass flow rate) for capillary adhesion, tread pickup, bow waves and side waves correspondingly ($kg/s$)
+Description & The above equations compute the contribution to the amount of water displaced by a single tire(also called mass flow rate) of each splash and spray mechanism, using the following equations in the order presented until the total amount of available water is exhausted. $MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}$ stands for capillary adhesion, tread pickup, bow waves and side waves correspondingly.
 
 \begin{itemize}
 
@@ -967,6 +970,9 @@ Description & $MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}$ is the amount of water displa
 
 \end{itemize}
 
+\\
+\hline
+The tread pickup will be activated only if there is water remaining after the capillarity adhesion, and the bow and side waves will be activated only if there is water remaining after the capillary adhesion and tread pickup
 \\
 \hline
   Source & Citation here \\
@@ -1005,7 +1011,7 @@ Equation&
   \end{equation}
 \\
 \hline
-Description & Spray density is derived by conducting computational fluid dynamics simulations on \dref{mfr} to compute the concentration of water kicked up to the environment.  
+Description & Spray density is derived by conducting regression analysis to develop relationship between spray density, mass flow rate and vehicle speed, to compute the concentration of water kicked up to the environment.  
 \begin{itemize}
 
 \item $V'$ is the heavy vehicle speed ($miles/h$)
@@ -1041,14 +1047,14 @@ SI Units&\si{kg\per\metre^3\per vehicle}\\
   \hline
   Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total~cl} \times AADTT ~per~ lane) \times t_2$ \\
   \hline
-  Description& The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of says with snow melting, where
+  Description& The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of says with snow melting.
   
 \begin{itemize}
 
 \item $SD_{total~cl}$ is the mass of chloride ions per unit air volume ($kg/m^3/vehicle$)
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles
-Theta
+
 \item $AADT ~per~ lane$ is the annual average daily traffic per lane
 
 \item $AADTT~ per~ lane$ is the annual average daily truck traffic per lane
@@ -1273,7 +1279,7 @@ SI Units&none\\
 \hline
 Equation & $\delta_{salt} =\frac{M_{app}}{h_{app} \times \rho_{water}}$ \\
 \hline
-Description & This equation computes the ratio of the mass of salt applied per unit area of road to the mass of water per unit area of road, where
+Description & This equation computes the ratio of the mass of salt applied per unit area of road to the mass of water per unit area of road.
 \begin{itemize}
 
 \item $M_{app}$ is the quantity of deicing salts applied per day ($kg/m^2$)
@@ -1289,7 +1295,7 @@ Description & This equation computes the ratio of the mass of salt applied per u
   \hline
   Ref.\ By & \ddref{sdtcl} \\ 
   \hline
-  Use \ & \ddref{dsq}, \ddref{dwft} \\
+  Use \ & \aref{A_NaCl}, \ddref{dsq}, \ddref{dwft} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1311,7 +1317,7 @@ SI Units&\si{kg\per\metre^3\per vehicle} \\
 \hline
 Equation & $SD_{total ~cl} =SD_{total} \times \delta_{salt} \times \theta_{chloride}$ \\
 \hline
-Description & This equation computes the mass of chloride ions per unit air volume, where
+Description & This equation computes the mass of chloride ions per unit air volume kicked up by each truck.
 \begin{itemize}
 
 \item $SD_{total}$ is the mass of water per unit air volume ($kg/m^3/vehicle$)
@@ -1488,7 +1494,7 @@ measured.  This information would be part of the input if one were performing an
 uncertainty quantification exercise. In the Bridge Corrosion project, I would talk about not only the input variables mentioned in instance models, but also include those in other models that the software need to process.\\
 %%%%%TODO: read paper
 The specification parameters in Table~\ref{TblInputVar} are listed in
-Table~\ref{TblSpecParams}.
+Table~\ref{TblConstants}.
 
 \begin{table}[!h]
   \caption{Input Variables} \label{TblInputVar}
@@ -1656,7 +1662,7 @@ be covered in the Verification and Validation document.}
 \subsection{Rationale}
 
 The assumptions made in this document are based on practical considerations to simplify and quantify the data required in the model. In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. In \aref{A_laneWidth}, it simplifies the model by assuming a standardized lane width across all roads. While lane widths can vary depending on road type and location, assuming a uniform lane width streamlines the analysis and allows for consistent calculations. Additionally, a lane width of 3 meters is commonly used in many road design standards and provides a reasonable approximation for modeling purposes. Similarly, NaCl is one of the most widely used deicing salts due to its effectiveness and affordability, so \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions. Lastly, AADT is an important parameter for assessing traffic volume on roads and is typically used to classify roads into different categories based on their traffic intensity, \aref{A_AADT} simplifies the analysis by providing a standardized measure of traffic volume. By incorporating these assumptions, the model can effectively simulate real-world scenarios and provide valuable insights into the factors influencing bridge corrosion.
-The constraints in Table\ref{TblInputVar} are defined considering real-world scenarios. For example,  the speed constraints adhere to established speed limits, ensuring a realistic representation of vehicle speeds. Similarly, the constraints associated with the variable about days are confined within the bounds of the annual calendar, reflecting a practical consideration of time duration within a given year.
+The constraints in Table \ref{TblInputVar} are defined considering real-world scenarios. For example,  the speed constraints adhere to established speed limits, ensuring a realistic representation of vehicle speeds. Similarly, the constraints associated with the variable about days are confined within the bounds of the annual calendar, reflecting a practical consideration of time duration within a given year.
 
 
 \plt{Provide a rationale for the decisions made in the documentation.  Rationale
@@ -1692,7 +1698,7 @@ typical values.}
 The purpose of the traceability matrices is to provide easy references on what
 has to be additionally modified if a certain component is changed.  Every time a
 component is changed, the items in the column of that component that are marked
-with an ``X'' may have to be modified as well.  Table~\ref{Table:trace} shows the
+with an ``X'' may have to be modified as well.  Table~\ref{Table:A_trace} shows the
 dependencies of theoretical models, general definitions, data definitions, and
 instance models with each other. Table~\ref{Table:R_trace} shows the
 dependencies of instance models, requirements, and data constraints on each
@@ -1827,7 +1833,7 @@ instance models, requirements, and data constraints on each other.
 % 	\end{center}
 % \end{figure}
 
-\section{Values of Auxiliary Constants} TODO
+\section{Values of Auxiliary Constants}
 
 \plt{Show the values of the symbolic parameters introduced in the report.}
 
@@ -1837,29 +1843,33 @@ Their values are defined in this section for easy maintenance.}
 \plt{The value of FRACTION, for the Maintainability NFR would be given here.}
 
 \begin{table}[!h]
-  \caption{Input Variables} \label{TblInputVar}
+  \caption{Auxiliary Constant} \label{TblConstants}
   \renewcommand{\arraystretch}{1.2}
 \noindent \begin{longtable*}{l l l l c} 
   \toprule
  \textbf{Symbol} & \textbf{Description} & \textbf{Value} & \textbf{Unit}\\
 
+
   \midrule 
   %%%%%TODO: read paper
-  $V'_{min}$ & $d > 0$ & $d>0$ & 3m  \\
-  $V'_{max}$ & $d > 0$ & $d>0$ & 3m   \\
-  $V_{speed_{min}}$ & $d > 0$ & $d>0$ & 3m   \\
-  $V_{speed_{max}}$ & $d > 0$ & $d>0$ & 3m 
+  $V'_{min}$ & minimum speed of heavy vehicle & $37$ & miles/h  
   \\
-  $b_{min}$ & $d > 0$ & $d>0$ & 3m 
+  $V'_{max}$ & maximum speed of heavy vehicle & $65$ & miles/h   
   \\
-  $b_{max}$ & $d > 0$ & $d>0$ & 3m 
-  \\  
-  $N$ & ratio of number of heavy-duty vehivles:all vehicles & 0.1 & N/A 
+  $V_{speed_{min}}$ & minimum speed of heavy vehicle & $60$ & km/h   
+  \\
+  $V_{speed_{max}}$ & maximum speed of heavy vehicle & $105$ & km/h
+  \\
+  $b_{min}$ & minimum tire width & $0.2$ & m 
+  \\
+  $b_{max}$ & maximum tire width & $0.71$ & m 
   \\
   $W_{lane}$ & lane width & 3 & m
   \\  
   $V_{salt}$ & salt application rate & 0.06 & tonnes/cm/km
   \\
+  $\Theta$ & ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles& 6 & N/A
+  \\  
   
   \bottomrule
 \end{longtable*}
