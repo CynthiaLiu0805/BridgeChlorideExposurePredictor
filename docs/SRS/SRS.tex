@@ -265,7 +265,7 @@ $\theta_{chloride}$ & $N/A$ & molar mass ratio of chloride ions over deicing sal
 
 \subsection{Abbreviations and Acronyms}
 
-\renewcommand{\arraystretch}{1.2}F
+\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{l l} 
   \toprule		
   \textbf{symbol} & \textbf{description}\\
@@ -724,14 +724,14 @@ change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_deicingSalts}:] All the deicing salts are applied on days with snowfall(RefBy: \ddref{dsq})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_deicingSalts}:] All the deicing salts are applied on days with snowfall(RefBy: \ddref{DD_DSQ})
 
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_laneWidth}:] The lane width for all the roads are 3 meters(RefBy: \ddref{dsq})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_laneWidth}:] The lane width for all the roads are 3 meters(RefBy: \ddref{DD_DSQ})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_NaCl}:] The main component of deicing salt is NaCl(RefBy: \ddref{rcl})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_NaCl}:] The main component of deicing salt is NaCl(RefBy: \ddref{DD_RCL})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AADT}:] Same class of the road over which the bridge spans has the same AADT(RefBy: \dref{csas})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AADT}:] Same class of the road over which the bridge spans has the same AADT(RefBy: \dref{D_CSAS})
 
   \plt{Short description of each assumption.  Each assumption
     should have a meaningful label.  Use cross-references to identify the
@@ -757,14 +757,13 @@ on.  \plt{Modify the examples below for your problem, and add additional models
 \noindent
 
 %TM1
-
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& TM\refstepcounter{theorynum}\thetheorynum \label{wft}\\
+Number& TM\refstepcounter{theorynum}\thetheorynum \label{T_WFT}\\
 \hline
 Label &\bf Water film thickness\\
 \hline
@@ -793,11 +792,9 @@ The above equation compute the water film thickness based on the rainfall intens
 
 \\
 \hline
-  Source & Citation here \\
+  Source & [\reref{ref5}] \\
   \hline
-  Ref.\ By & \tref{mfrg} \\
-  \hline
-  Use\ &none \\
+  Ref.\ By & \tref{T_MFRG} \\
   \hline
 \end{tabular}
 
@@ -811,7 +808,7 @@ The above equation compute the water film thickness based on the rainfall intens
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& TM\refstepcounter{theorynum}\thetheorynum \label{mfrg}\\
+Number& TM\refstepcounter{theorynum}\thetheorynum \label{T_MFRG}\\
 \hline
 Label &\bf Max flow rate general \\
 \hline
@@ -839,11 +836,11 @@ The above equation is the general equation for mass flow rate, which is the maxi
 
 \\
 \hline
-  Source & Citation here \\
+  Source & [\reref{ref5}] \\
   \hline
-  Ref.\ By & \dref{mfr}\\ 
+  Ref.\ By & \dref{D_MFR}\\ 
   \hline
-  Use\ & none\\
+  Use\ & \tref{T_WFT}\\
   \hline
 \end{tabular}
 
@@ -856,7 +853,7 @@ The above equation is the general equation for mass flow rate, which is the maxi
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& TM\refstepcounter{theorynum}\thetheorynum \label{csasg}\\
+  Number& TM\refstepcounter{theorynum}\thetheorynum \label{T_CSASG}\\
   \hline
   Label& \bf Chloride sprayed and splashed \\
 \hline
@@ -890,11 +887,11 @@ Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times \frac{
 Notes & The first part in the parentheses calculate the chloride exposure by light-duty vehicle, and the second part is for heavy-duty vehicles. The calculation focues on the road lane that is closest to the bridge component, so $N_{lane}$ is included in the denominator.
 \\
 \hline
-  Source & Citation here \\
+  Source & [\reref{ref4}] \\
   \hline
-  Ref.\ By & \dref{csas} \\ 
+  Ref.\ By & \dref{D_CSAS} \\ 
   \hline
-  Use \ &  \\
+  Use \ & \ddref{DD_SDTCL}  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -933,7 +930,7 @@ instance models.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{mfr}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_MFR}\\
 \hline
 Label &\bf Mass flow rate\\
 \hline
@@ -970,16 +967,14 @@ Description & The above equations compute the contribution to the amount of wate
 
 \end{itemize}
 
-\\
-\hline
 The tread pickup will be activated only if there is water remaining after the capillarity adhesion, and the bow and side waves will be activated only if there is water remaining after the capillary adhesion and tread pickup
 \\
 \hline
-  Source & Citation here \\
+  Source & [\reref{ref4}] \\
   \hline
-  Ref.\ By & \dref{sd} \\ % \ddref{dsq}, \ddref{dwft}\\
+  Ref.\ By & \dref{D_SD} \\ % \ddref{dsq}, \ddref{dwft}\\
   \hline
-  Use\ & \ddref{dwft}\\
+  Use\ & \ddref{DD_DWFT}\\
   \hline
 \end{tabular}
 
@@ -992,7 +987,7 @@ The tread pickup will be activated only if there is water remaining after the ca
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{sd}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_SD}\\
 \hline
 Label &\bf Spray density \\
 \hline
@@ -1021,11 +1016,11 @@ Description & Spray density is derived by conducting regression analysis to deve
 
 \\
 \hline
-  Source & Citation here \\
+  Source & [\reref{ref4}] \\
   \hline
-  Ref.\ By & TODO \\ %\ddref{FluxCoil}, \ddref{FluxPCM}\\
+  Ref.\ By & \ddref{DD_TSD} \\
   \hline
-  Use \ & \dref{mfr} \\
+  Use \ & \dref{D_MFR} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1037,7 +1032,7 @@ Description & Spray density is derived by conducting regression analysis to deve
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& GD\refstepcounter{defnum}\thedefnum \label{csas}\\
+  Number& GD\refstepcounter{defnum}\thedefnum \label{D_CSAS}\\
   \hline
   Label& \bf Chloride sprayed and splashed \\
 \hline
@@ -1045,7 +1040,7 @@ Description & Spray density is derived by conducting regression analysis to deve
 % \hline
 SI Units&\si{kg\per\metre^3\per vehicle}\\
   \hline
-  Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total~cl} \times AADTT ~per~ lane) \times t_2$ \\
+  Equation & $C_{s_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total~cl} \times AADTT ~per~ lane) \times t_2$ \\
   \hline
   Description& The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of says with snow melting.
   
@@ -1064,11 +1059,11 @@ SI Units&\si{kg\per\metre^3\per vehicle}\\
 
   \\
   \hline
-  Sources& Denby, B. R., Sundvor, I., Johansson, C., Pirjola, L., Ketzel, M., Norman, M., ... and Omstedt, G. 2013. “A coupled road dust and surface moisture model to predict non-exhaust road traffic induced particle emissions (NORTRIP). Part 2: Surface moisture and salt impact modelling.” Atmospheric Environment, 81: 485-503, Wang, H., Ranade, R., and Okumus, P. 2022. “Estimating chloride exposure of reinforced concrete bridges using vehicle spray and splash mechanisms.”Structure and Infrastructure Engineering, 1-11.TODO\\
+  Sources & [\reref{ref7}, \reref{ref8}] \\
   \hline
-  Ref.\ By & \\
+  Ref.\ By & \iref{I_COTS} \\
   \hline
-  Use \ & \ddref{sdtcl}, \tref{csasg} \\
+  Use \ & \ddref{DD_SDTCL}, \tref{T_CSASG} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1107,7 +1102,7 @@ models. The dimension of each quantity is also given.  \plt{Modify the examples
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{dsq}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_DSQ}\\
 \hline
 Label& \bf Deicing salts quantity\\
 \hline
@@ -1140,9 +1135,9 @@ Symbol &$M_{app}$\\
 
   \\
   \hline
-  Sources& Citation here \\
+  Sources& [\reref{ref4}, \reref{ref7}] \\
   \hline
-  Ref.\ By & \ddref{rsw}   \\
+  Ref.\ By & \ddref{DD_RSW}   \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1154,7 +1149,7 @@ Symbol &$M_{app}$\\
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{dwft}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_DWFT}\\
 \hline
 Label& \bf Daily water film thickness\\
 \hline
@@ -1178,9 +1173,9 @@ Symbol &$h_{app}$\\
 
   \\
   \hline
-  Sources& Citation here \\
+  Sources& [\reref{ref4}, \reref{ref9}] \\
   \hline
-  Ref.\ By & \dref{mfr} TODO\\
+  Ref.\ By & \dref{D_MFR}, \ddref{DD_RSW} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1192,7 +1187,7 @@ Symbol &$h_{app}$\\
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{rcl}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_RCL}\\
 \hline
 Label &\bf Ratio of chloride in deicing salts \\
 \hline
@@ -1210,12 +1205,9 @@ Description & This equation computes the molar mass ratio of chloride to deicing
 
 \\
 \hline
-%(https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/04%3A_Atomic_Structure/4.05%3A_Mass_Ratio_Calculation)
-  Source & todo\\
+  Source & \href{https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/04\%3A_Atomic_Structure/4.05\%3A_Mass_Ratio_Calculation}{Mass Ratio Calculation} \\
   \hline
-  Ref.\ By & \ddref{sdtcl} \\ 
-  \hline
-  Use \ & none \\
+  Ref.\ By & \ddref{DD_SDTCL} \\ 
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1228,7 +1220,7 @@ Description & This equation computes the molar mass ratio of chloride to deicing
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{tsd}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_TSD}\\
 \hline
 Label &\bf Total spray density\\
 \hline
@@ -1251,11 +1243,11 @@ Description & The spray density (i.e. mass of water per unit air volume kicked u
 
 \\
 \hline
-  Source & Citation here \\
+  Source &  [\reref{ref4}] \\
   \hline
-  Ref.\ By & \ddref{sdtcl} \\ % \ddref{dsq}, \ddref{dwft}\\
+  Ref.\ By & \ddref{DD_SDTCL} \\ 
   \hline
-  Use\ & \dref{sd}\\
+  Use\ & \dref{D_SD}\\
   \hline
 \end{tabular}
 
@@ -1269,7 +1261,7 @@ Description & The spray density (i.e. mass of water per unit air volume kicked u
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{rsw}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_RSW}\\
 \hline
 Label &\bf Ratio of salt over water \\
 \hline
@@ -1291,11 +1283,11 @@ Description & This equation computes the ratio of the mass of salt applied per u
 
 \\
 \hline
-  Source & Citation here \\
+  Source &  [\reref{ref4}]\\
   \hline
-  Ref.\ By & \ddref{sdtcl} \\ 
+  Ref.\ By & \ddref{DD_SDTCL} \\ 
   \hline
-  Use \ & \aref{A_NaCl}, \ddref{dsq}, \ddref{dwft} \\
+  Use \ & \aref{A_NaCl}, \ddref{DD_DSQ}, \ddref{DD_DWFT} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1307,7 +1299,7 @@ Description & This equation computes the ratio of the mass of salt applied per u
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{sdtcl}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_SDTCL}\\
 \hline
 Label &\bf Mass of chloride ions \\
 \hline
@@ -1330,11 +1322,11 @@ Description & This equation computes the mass of chloride ions per unit air volu
 
 \\
 \hline
-  Source & Citation here \\
+  Source &  [\reref{ref4}, \reref{ref7}]  \\
   \hline
-  Ref.\ By & \tref{csasg} \\ 
+  Ref.\ By & \tref{T_CSASG}, \dref{D_CSAS} \\ 
   \hline
-  Use \ & \ddref{tsd}, \ddref{rsw}, \ddref{rcl} \\
+  Use \ & \ddref{DD_TSD}, \ddref{DD_RSW}, \ddref{DD_RCL} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1406,7 +1398,7 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{cots}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{I_COTS}\\
   \hline
   Label& \bf Chloride on the surface \\
   \hline
@@ -1416,7 +1408,7 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
   \hline
   Equation& $C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \times  e^{-0.5d}$\\ 
   \hline
-  Description& The above equation computes the chloride ions deposition on bridge substructure, taking into account the distance between the edge of the road near the bridge substructure and the bridge substructure, where
+  Description& The above equation computes the chloride ions deposition on bridge substructure, taking into account the distance between the edge of the road near the bridge substructure and the bridge substructure.
 \begin{itemize}
 
 \item $C_{s_{air}}$ is the cumulative mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier($kg/m^3$)
@@ -1426,14 +1418,16 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 \item $e$ is the base of natural logarithm.
 
 \end{itemize}
-
-TODO: talk about 0.015 etc
-
   \\
   \hline
-  Sources& \reref{ref3} \\
+  Notes & The first part of the equation calculate the chloride ions sprayed by vehicles, and the second part is those splashed by vehicles. The proportions of chloride ions sprayed (0.015) and splashed (0.985) were adapted from the studies by \reref{ref11}, which measured the deposition of deicing salts along a highway in Sweden to define the relation between the mass of deicing salts per unit area (collected from the sites) and distance from roadside, and used nonlinear fitting techniques to determine the proportions of sprayed and splashed chloride ions. 
+  \\
   \hline
-  Ref.\ By & \\
+  Sources& [\reref{ref7}, \reref{ref10}, \reref{ref11}] \\
+  \hline
+  Ref.\ By & \iref{I_DFSB}, \lcref{LC_SASC}  \\
+  \hline
+  Use \ & \dref{D_CSAS} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1445,7 +1439,7 @@ TODO: talk about 0.015 etc
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ldfsb}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{I_DFSB}\\
   \hline
   Label& \bf Search data for specific coordiinate \\
   \hline
@@ -1453,7 +1447,7 @@ TODO: talk about 0.015 etc
   \hline
   Output& \{$C_{s_1}, C_{s_2}..., C_{s_n}$\} \\
   \hline
-  Description & This instance model get the longitude and latitude as input, and return a series of the amount of chloride exposure as output. This is the model that the end user of this software will encounter, where
+  Description & This instance model get the longitude and latitude as input, and return a series of the amount of chloride exposure as output. This is the model that the end user of this software will encounter.
   \begin{itemize}
 
 \item \{$C_{s_1}, C_{s_2}..., C_{s_n}$\} is a list of chloride exposure data (\{$kg/m^3$\})
@@ -1464,9 +1458,9 @@ TODO: talk about 0.015 etc
 \end{itemize}
   \\
   \hline
-  Sources& Citation here \\
+  Sources& N/A \\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Ref.\ By &  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1492,7 +1486,6 @@ is intended to provide a feel for a common scenario.  The uncertainty column
 provides an estimate of the confidence with which the physical quantities can be
 measured.  This information would be part of the input if one were performing an
 uncertainty quantification exercise. In the Bridge Corrosion project, I would talk about not only the input variables mentioned in instance models, but also include those in other models that the software need to process.\\
-%%%%%TODO: read paper
 The specification parameters in Table~\ref{TblInputVar} are listed in
 Table~\ref{TblConstants}.
 
@@ -1504,7 +1497,6 @@ Table~\ref{TblConstants}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  %%%%%TODO: read paper
   $d$ & $d > 0$ & $d>0$ & 3m & 10\%
   \\
   $t_{snow}$ & $0 \leq t_{snow} \leq 365$ & $0 \leq t_{snow} \leq 365$ & 65days & 10\%
@@ -1548,7 +1540,7 @@ A correct solution must exhibit the chloride exposure values that does not excee
   \toprule
   \textbf{Var} & \textbf{Physical Constraints} \\
   \midrule 
-  $C_s$ & $C_s < 357 kg/m^3$ (by~%\reref{}TODO)
+  $C_s$ & $C_s < 357 kg/m^3$ (by~\%\reref{}https://www2.gov.bc.ca/assets/gov/environment/air-land-water/water/waterquality/water-quality-guidelines/approved-wqgs/chloride-or.pdf)
   \\
   
    \bottomrule
@@ -1675,6 +1667,7 @@ typical values.}
 
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_laneWidth}:] The lane width in some area might not be 3 meters, and the lane width standards might change in the future, so \aref{A_laneWidth} is likely to be changed. 
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_AADT}:] \aref{A_AADT} might be changed with the population density, urbanization, or transportation preferences in different area, which all may influence traffic volume and distribution.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_SASC}:] The proportions(0.015 and 0.985) in \iref{I_COTS} might change with the site characteristics of a bridge, such as the roadside environment (forested or urban), traffic characteristics (direction and volume), wind direction, and road surface condition. 
 
 \plt{Give
     the likely changes, with a reference to the related assumption (aref), as appropriate.}
@@ -1721,32 +1714,34 @@ the assumptions.
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
+	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_AADT} \\
 \hline
-\tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
-\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
-\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
-\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
-\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
-\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
-\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
-\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
-\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
-\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
-\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
+\tref{T_WFT}        & & & &  \\ \hline
+\tref{T_MFRG}        & & & &  \\ \hline
+\tref{T_CSASG}        & & & & \\ \hline
+\dref{D_MFR}           & & & & \\ \hline
+\dref{D_SD}         & & & & \\ \hline
+\dref{D_CSAS}         & & & & \\ \hline
+\ddref{DD_DSQ}    & & & & \\ \hline
+\ddref{DD_DWFT}    & & & & \\ \hline
+\ddref{DD_RCL}    & & & & \\ \hline
+\ddref{DD_TSD}    & & & & \\ \hline
+\ddref{DD_RSW}    & & & & \\ \hline
+\ddref{DD_SDTCL}    & & & & \\ \hline
+\iref{I_COTS}         & & & & \\ \hline
+\iref{I_DFSB}         & & & & \\ \hline
+\lcref{LC_laneWidth}     & & & & \\ \hline
+\lcref{LC_AADT}    & & & & \\ \hline
+\lcref{LC_SASC}    & & & & \\ \hline
+\ulcref{ULC_saltSame}   & & & & \\ \hline
+\ulcref{ULC_NaCl}   & & & & \\ \hline
+
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
 \label{Table:A_trace}
 \end{table}
+
 \end{landscape}
 }
 
@@ -1812,27 +1807,6 @@ general definitions, data definitions, instance models, likely changes, and
 assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
 instance models, requirements, and data constraints on each other.
 
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=\textwidth]{ATrace.png}
-% 		}
-% 		\caption{\label{Fig_ATrace} Traceability Matrix Showing the Connections Between Items of Different Sections}
-% 	\end{center}
-% \end{figure}
-
-
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=0.7\textwidth]{RTrace.png}
-% 		}
-% 		\caption{\label{Fig_RTrace} Traceability Matrix Showing the Connections Between Requirements, Instance Models, and Data Constraints}
-% 	\end{center}
-% \end{figure}
-
 \section{Values of Auxiliary Constants}
 
 \plt{Show the values of the symbolic parameters introduced in the report.}
@@ -1851,7 +1825,6 @@ Their values are defined in this section for easy maintenance.}
 
 
   \midrule 
-  %%%%%TODO: read paper
   $V'_{min}$ & minimum speed of heavy vehicle & $37$ & miles/h  
   \\
   $V'_{max}$ & maximum speed of heavy vehicle & $65$ & miles/h   
@@ -1868,7 +1841,8 @@ Their values are defined in this section for easy maintenance.}
   \\  
   $V_{salt}$ & salt application rate & 0.06 & tonnes/cm/km
   \\
-  $\Theta$ & ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles& 6 & N/A
+  $\Theta$ & ratio of chloride ions sprayed and  \\
+  & splashed by trucks over light-duty vehicles& 6 & N/A
   \\  
   
   \bottomrule
@@ -1881,10 +1855,40 @@ Their values are defined in this section for easy maintenance.}
 \begin{enumerate}[label={[\arabic*]}]
 \item \refstepcounter{refnum} \label{ref1}
 Smith, W. Spencer and Koothoor, Nirmitha. "A Document-Driven Method for Certifying Scientific Computing Software for Use in Nuclear Safety Analysis." Nuclear Engineering and Technology, vol. 48, no. 2, April, 2016. http://www.sciencedirect.com/-\\science/article/pii/S1738573315002582. pp. 404–418.
+
 \item \refstepcounter{refnum} \label{ref2}
-Smith, W. Spencer and Lai, Lei. "A new requirements template for scientific computing." Proceedings of the First International Workshop on Situational Requirements Engineering Processes - Methods, Techniques and Tools to Support Situation-Specific Requirements Engineering Processes, SREP'05. Edited by PJ Agerfalk, N. Kraiem, and J. Ralyte, Paris, France: 2005. pp. 107–121. In conjunction with 13th IEEE International Requirements Engineering Conference,
+Smith, W. Spencer and Lai, Lei. "A new requirements template for scientific computing." Proceedings of the First International Workshop on Situational Requirements Engineering Processes - Methods, Techniques and Tools to Support Situation-Specific Requirements Engineering Processes, SREP'05. Edited by PJ Agerfalk, N. Kraiem, and J. Ralyte, Paris, France: 2005. pp. 107–121. In conjunction with 13th IEEE International Requirements Engineering Conference
+
 \item \refstepcounter{refnum} \label{ref3}
 Smith, W. Spencer, Lai, Lei, and Khedri, Ridha. "Requirements Analysis for Engineering Computation: A Systematic Approach for Improving Software Reliability." Reliable Computing, Special Issue on Reliable Engineering Computation, vol. 13, no. 1, February, 2007. https://doi.org/10.1007/s11155-006-9020-7. pp. 83–107.
+
+\item \refstepcounter{refnum} \label{ref4}
+Hanmin Wang, Ravi Ranade \& Pinar Okumus (2023) Estimating chloride exposure of reinforced concrete bridges using vehicle spray and splash mechanisms, Structure and Infrastructure Engineering, 19:11, 1676-1686, DOI: 10.1080/15732479.2022.2052910
+
+\item \refstepcounter{refnum} \label{ref5}
+Flintsch, G. W., Tang, L., Katicha, S. W., de Leon Izeppi, E., Viner, H., Dunford, A., ... Gibbons, R. B. (2014). Splash and spray assessment tool development program. Washington, D.C.: Federal Highway Administration.
+
+\item \refstepcounter{refnum} \label{ref6}
+Du, Y. G., Clark, L. A., and Chan, A. H. C. 2005. “Effect of corrosion on ductility of reinforcing bars.” Magazine of Concrete Research, 57(7): 407-419.
+
+\item \refstepcounter{refnum} \label{ref7}
+Mingsai Xu, Yuxin Zheng, Cancan Yang (2024). Assessing Highway Bridge Chloride Exposure at a Provincial Scale: Mapping and Projecting Impacts of Climate Change.  [Manuscript in preparation].
+
+\item \refstepcounter{refnum} \label{ref8}
+Denby, B. R., Sundvor, I., Johansson, C., Pirjola, L., Ketzel, M., Norman, M., ... and Omstedt, G. 2013. “A coupled road dust and surface moisture model to predict non-exhaust road traffic induced particle emissions (NORTRIP). Part 2: Surface moisture and salt impact modelling.” Atmospheric Environment, 81: 485-503, Wang, H., Ranade, R., and Okumus, P. 2022. “Estimating chloride exposure of reinforced concrete bridges using vehicle spray and splash mechanisms.”Structure and Infrastructure Engineering, 1-11. 
+
+\item \refstepcounter{refnum} \label{ref9}
+Lysbakken, K. R. (2013). Salting of winter roads: the quantity of salt on road surfaces after application (PhD dissertation). Norwegian University of Science and Technology, Norway.
+
+\item \refstepcounter{refnum} \label{ref10}
+Lindvall, A. 2003. Environmental actions on concrete exposed in marine and road environments and its response–Consequences for the initiation of chloride induced reinforcement corrosion (PhD dissertation). Chalmers University of Technology, Gothenburg, Sweden.
+
+\item \refstepcounter{refnum} \label{ref11}
+Lundmark, A., and Olofsson, B. 2007. “Chloride deposition and distribution in soils along a deiced highway–assessment using different methods of measurement.” Water, Air, and Soil Pollution, 182: 173-185.
+
+\item \refstepcounter{refnum} \label{ref12}
+Blomqvist, G. 2001. De-icing salt and the roadside environment: Air-borne exposure, damage to Norway spruce and system monitoring (PhD dissertation). Institutionen för anläggning och miljö.
+
 \end{enumerate}
 
 
