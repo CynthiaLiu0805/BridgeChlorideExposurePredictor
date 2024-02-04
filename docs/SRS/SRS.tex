@@ -281,6 +281,7 @@ $\theta_{chloride}$ & $N/A$ & molar mass ratio of chloride ions over deicing sal
   SRS & Software Requirements Specification\\
   BS & Bridge Corrosion\\
   TM & Theoretical Model\\
+  NaCl & Sodium Chloride, the main component of deicing salts \\
   CA & Capillary Adhesion \\
   TP & Tread Pickup\\
   BW & Bow Waves\\
@@ -289,11 +290,33 @@ $\theta_{chloride}$ & $N/A$ & molar mass ratio of chloride ions over deicing sal
   ADT & Average Daily Traffic\\
   AADT & Annual Average Daily Traffic\\
   AADTT & Annual Average Daily Truck Traffic \\
-
   \bottomrule
 \end{tabular}\\
 
 \plt{Add any other abbreviations or acronyms that you add}
+
+\subsection{Mathematical Notation}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  $\mathbb{R}$ & Real number \\
+  \{$\mathbb{R}$\} & a set of real number\\
+  \bottomrule
+\end{tabular}\\
+
+\plt{This section is optional, but should be included for projects that make use
+  of notation to convey mathematical information.  For instance, if typographic
+  conventions (like bold face font) are used to distinguish matrices, this
+  should be stated here.  If symbols are used to show mathematical operations,
+  these should be summarized here.  In some cases the easiest way to summarize
+  the notation is to point to a text or other source that explains the
+  notation.}
+
+\plt{This section was added to the template because some students use very
+  domain specific notation.  This notation will not be readily understandable to
+  people outside of your domain.  It should be explained.}
 
 \newpage
 
@@ -556,7 +579,6 @@ sections and their meaning, with the purpose of reducing ambiguity and making it
 easier to correctly understand the requirements:
 
 \begin{itemize}
-
 \item Mass flow rate: The amount of water displaced by a single tire 
 \item Spray density: The water concentration(mass of water per unit air volume) in the environment
 TODO
@@ -696,6 +718,17 @@ models can be verified.
 \plt{This section is optional. Defining types can make the document easier to
 understand.}
 
+Input:
+\begin{itemize}
+\item longitude = $\mathbb{R}$
+\item latitude = $\mathbb{R}$
+
+\end{itemize}
+Output:
+\begin{itemize}
+\item predictedChlorideExposure = \{$\mathbb{R}$\}
+\end{itemize}
+
 \subsection{Scope Decisions}
 
 \plt{This section is optional.}
@@ -724,14 +757,14 @@ change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_deicingSalts}:] All the deicing salts are applied on days with snowfall(RefBy: \ddref{DD_DSQ})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_deicingSalts}:] All the deicing salts are applied on days with snowfall. (RefBy: \tref{T_CSASG}, \dref{D_CSAS}, \ddref{DD_DSQ}, \ddref{DD_DWFT})
 
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_laneWidth}:] The lane width for all the roads are 3 meters(RefBy: \ddref{DD_DSQ})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_laneWidth}:] The lane width for all the roads are the same. (RefBy: \ddref{DD_DSQ}, \lcref{LC_laneWidth})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_NaCl}:] The main component of deicing salt is NaCl(RefBy: \ddref{DD_RCL})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_NaCl}:] The main component of deicing salt is NaCl. (RefBy: \ddref{DD_RCL}, \ddref{DD_SDTCL})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AADT}:] Same class of the road over which the bridge spans has the same AADT(RefBy: \dref{D_CSAS})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AADT}:] Same class of the road over which the bridge spans has the same AADT. (RefBy: \dref{D_CSAS}, \lcref{LC_AADT})
 
   \plt{Short description of each assumption.  Each assumption
     should have a meaningful label.  Use cross-references to identify the
@@ -891,7 +924,7 @@ Notes & The first part in the parentheses calculate the chloride exposure by lig
   \hline
   Ref.\ By & \dref{D_CSAS} \\ 
   \hline
-  Use \ & \ddref{DD_SDTCL}  \\
+  Use \ & \aref{A_deicingSalts}, \ddref{DD_SDTCL}  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1063,7 +1096,7 @@ SI Units&\si{kg\per\metre^3\per vehicle}\\
   \hline
   Ref.\ By & \iref{I_COTS} \\
   \hline
-  Use \ & \ddref{DD_SDTCL}, \tref{T_CSASG} \\
+  Use \ & \aref{A_deicingSalts}, \aref{A_AADT}, \ddref{DD_SDTCL}, \tref{T_CSASG} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1139,6 +1172,8 @@ Symbol &$M_{app}$\\
   \hline
   Ref.\ By & \ddref{DD_RSW}   \\
   \hline
+  Use & \aref{A_deicingSalts}, \aref{A_laneWidth} \\
+  \hline
 \end{tabular}
 \end{minipage}\\
 
@@ -1175,7 +1210,9 @@ Symbol &$h_{app}$\\
   \hline
   Sources& [\reref{ref4}, \reref{ref9}] \\
   \hline
-  Ref.\ By & \dref{D_MFR}, \ddref{DD_RSW} \\
+  Ref.\ By & \dref{D_MFR}, \ddref{DD_RSW} \\ 
+  \hline
+  Use & \aref{A_deicingSalts} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1209,9 +1246,10 @@ Description & This equation computes the molar mass ratio of chloride to deicing
   \hline
   Ref.\ By & \ddref{DD_SDTCL} \\ 
   \hline
+  Use & \aref{A_NaCl} \\
+  \hline
 \end{tabular}
 \end{minipage}\\
-
 
 %DD4, total spray density
 \noindent
@@ -1287,7 +1325,7 @@ Description & This equation computes the ratio of the mass of salt applied per u
   \hline
   Ref.\ By & \ddref{DD_SDTCL} \\ 
   \hline
-  Use \ & \aref{A_NaCl}, \ddref{DD_DSQ}, \ddref{DD_DWFT} \\
+  Use \ &   \ddref{DD_DSQ}, \ddref{DD_DWFT} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1326,7 +1364,7 @@ Description & This equation computes the mass of chloride ions per unit air volu
   \hline
   Ref.\ By & \tref{T_CSASG}, \dref{D_CSAS} \\ 
   \hline
-  Use \ & \ddref{DD_TSD}, \ddref{DD_RSW}, \ddref{DD_RCL} \\
+  Use \ & \aref{A_NaCl}, \ddref{DD_RCL}, \ddref{DD_TSD}, \ddref{DD_RSW} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1420,7 +1458,7 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 \end{itemize}
   \\
   \hline
-  Notes & The first part of the equation calculate the chloride ions sprayed by vehicles, and the second part is those splashed by vehicles. The proportions of chloride ions sprayed (0.015) and splashed (0.985) were adapted from the studies by \reref{ref11}, which measured the deposition of deicing salts along a highway in Sweden to define the relation between the mass of deicing salts per unit area (collected from the sites) and distance from roadside, and used nonlinear fitting techniques to determine the proportions of sprayed and splashed chloride ions. 
+  Notes & The first part of the equation calculate the chloride ions sprayed by vehicles, and the second part is those splashed by vehicles. The proportions of chloride ions sprayed (0.015) and splashed (0.985) were adapted from the studies by [\reref{ref11}], which measured the deposition of deicing salts along a highway in Sweden to define the relation between the mass of deicing salts per unit area (collected from the sites) and distance from roadside, and used nonlinear fitting techniques to determine the proportions of sprayed and splashed chloride ions. 
   \\
   \hline
   Sources& [\reref{ref7}, \reref{ref10}, \reref{ref11}] \\
@@ -1457,8 +1495,6 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 
 \end{itemize}
   \\
-  \hline
-  Sources& N/A \\
   \hline
   Ref.\ By &  \\
   \hline
@@ -1540,8 +1576,7 @@ A correct solution must exhibit the chloride exposure values that does not excee
   \toprule
   \textbf{Var} & \textbf{Physical Constraints} \\
   \midrule 
-  $C_s$ & $C_s < 357 kg/m^3$ (by~\%\reref{}https://www2.gov.bc.ca/assets/gov/environment/air-land-water/water/waterquality/water-quality-guidelines/approved-wqgs/chloride-or.pdf)
-  \\
+  $C_s$ & $C_s < 357 kg/m^3$ (by~\href{https://www2.gov.bc.ca/assets/gov/environment/air-land-water/water/waterquality/water-quality-guidelines/approved-wqgs/chloride-or.pdf}{Water Quality Guidelines} \\
   
    \bottomrule
 \end{longtable*}
@@ -1686,18 +1721,17 @@ typical values.}
 
 \end{itemize}
 
+\newpage
+
 \section{Traceability Matrices and Graphs}
 
 The purpose of the traceability matrices is to provide easy references on what
 has to be additionally modified if a certain component is changed.  Every time a
 component is changed, the items in the column of that component that are marked
-with an ``X'' may have to be modified as well.  Table~\ref{Table:A_trace} shows the
-dependencies of theoretical models, general definitions, data definitions, and
-instance models with each other. Table~\ref{Table:R_trace} shows the
+with an ``X'' may have to be modified as well. Table~\ref{Table:A_others} shows the dependencies of theoretical models, general definitions, data definitions, instance models, and likely changes on the assumptions. Table~\ref{Table:A_trace} shows the dependencies of theoretical models, general definitions, data definitions, and instance models with each other. Table~\ref{Table:R_trace} shows the
 dependencies of instance models, requirements, and data constraints on each
-other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, and likely changes on
-the assumptions.
+other. 
+
 
 \plt{You will have to modify these tables for your problem.}
 
@@ -1707,31 +1741,29 @@ the assumptions.
 
 \plt{The traceability matrix is challenging to maintain manually.  Please do
   your best.  In the future tools (like Drasil) will make this much easier.}
-
-\afterpage{
-\begin{landscape}
-\begin{table}[h!]
+\noindent
+\begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
 	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_AADT} \\
 \hline
 \tref{T_WFT}        & & & &  \\ \hline
 \tref{T_MFRG}        & & & &  \\ \hline
-\tref{T_CSASG}        & & & & \\ \hline
+\tref{T_CSASG}        & X & & & \\ \hline
 \dref{D_MFR}           & & & & \\ \hline
 \dref{D_SD}         & & & & \\ \hline
-\dref{D_CSAS}         & & & & \\ \hline
-\ddref{DD_DSQ}    & & & & \\ \hline
-\ddref{DD_DWFT}    & & & & \\ \hline
-\ddref{DD_RCL}    & & & & \\ \hline
+\dref{D_CSAS}         & X & & & X \\ \hline
+\ddref{DD_DSQ}    & X & X & & \\ \hline
+\ddref{DD_DWFT}    & X & & & \\ \hline
+\ddref{DD_RCL}    & & & X & \\ \hline
 \ddref{DD_TSD}    & & & & \\ \hline
 \ddref{DD_RSW}    & & & & \\ \hline
-\ddref{DD_SDTCL}    & & & & \\ \hline
+\ddref{DD_SDTCL}    & & & X & \\ \hline
 \iref{I_COTS}         & & & & \\ \hline
 \iref{I_DFSB}         & & & & \\ \hline
-\lcref{LC_laneWidth}     & & & & \\ \hline
-\lcref{LC_AADT}    & & & & \\ \hline
+\lcref{LC_laneWidth}     & & X & & \\ \hline
+\lcref{LC_AADT}    & & & & X \\ \hline
 \lcref{LC_SASC}    & & & & \\ \hline
 \ulcref{ULC_saltSame}   & & & & \\ \hline
 \ulcref{ULC_NaCl}   & & & & \\ \hline
@@ -1739,74 +1771,66 @@ the assumptions.
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
-\label{Table:A_trace}
+\label{Table:A_others}
 \end{table}
 
-\end{landscape}
-}
 
-\begin{table}[h!]
+\newpage
+\begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|p{8mm}|}
 \hline        
-	& \tref{T_COE}& \tref{T_SHE}& \tref{T_LHE}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
+	& \tref{T_WFT} & \tref{T_MFRG} & \tref{T_CSASG} & \dref{D_MFR} & \dref{D_SD}  & \dref{D_CSAS} &\ddref{DD_DSQ} & \ddref{DD_DWFT} & \ddref{DD_RCL} &  \ddref{DD_TSD} & \ddref{DD_RSW} &\ddref{DD_SDTCL} & \iref{I_COTS} & \iref{I_DFSB}\\ 
 \hline
-\tref{T_COE}     & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}     & & & X& & & & & & & & & & \\ \hline
-\tref{T_LHE}     & & & & & & & & & & & & & \\ \hline
-\dref{NL}        & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
-\ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
-\iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
-\iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
-\iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
-\iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
+
+\tref{T_WFT}          & & X & & & & & & & & & & & & \\ \hline
+\tref{T_MFRG}        & & & & X & & & & & & & & & & \\ \hline
+\tref{T_CSASG}       & & & & & & X & & & & & & & & \\ \hline
+\dref{D_MFR}         & & & & & X & & & & & & & & & \\ \hline
+\dref{D_SD}           & & & & & & & & & & X & & & &\\ \hline
+\dref{D_CSAS}       & & & & & & & & & & & & & X &\\ \hline
+\ddref{DD_DSQ}    & & & & & & & & & & & X & & &\\ \hline
+\ddref{DD_DWFT}  & & & & X & & & & & & & X & & &\\ \hline
+\ddref{DD_RCL}    & & & & & & & & & & & & X & &\\ \hline
+\ddref{DD_TSD}    & & & & & & & & & & & & X & &\\ \hline
+\ddref{DD_RSW}    & & & & & & & & & & & & X & & \\ \hline
+\ddref{DD_SDTCL}  & & & X & & & X & & & & & & & &\\ \hline
+\iref{I_COTS}         & & & & & & & & & & & & & & X \\ \hline
+\iref{I_DFSB}         & & & & & & & & & & & & & &\\ 
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
-\label{Table:trace}
+\label{Table:A_trace}
 \end{table}
 
-\begin{table}[h!]
+\newpage
+\begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
+	& \iref{I_COTS} & \iref{I_DFSB} & \rref{R_Inputs} & \rref{R_OutputInputs} & \rref{R_Calculate} & \rref{R_VerifyOutput} & \rref{R_Output} & \nfrref{NFR_Reliability} & \nfrref{NFR_Usability} & \nfrref{NFR_Maintainability} & \nfrref{NFR_Portability} & \nfrref{NFR_Scalability} \\
+
 \hline
-\iref{ewat}            & & X& & & & X& X \\ \hline
-\iref{epcm}            & X& & & X& & X& X \\ \hline
-\iref{I_HWAT}          & & & & & & X& X \\ \hline
-\iref{I_HPCM}          & & X& & & & X& X \\ \hline
-\rref{R_RawInputs}     & & & & & & & \\ \hline
-\rref{R_MassInputs}    & & & & & & X& \\ \hline
-\rref{R_CheckInputs}   & & & & & X& & \\ \hline
-\rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
-\rref{R_TempWater}     & X& & & & & & \\ \hline 
-\rref{R_TempPCM}       & & X& & & & & \\ \hline
-\rref{R_EnergyWater}   & & & X& & & & \\ \hline
-\rref{R_EnergyPCM}     & & & & X& & & \\ \hline
-\rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
-\rref{R_timeMeltBegin} & & X& & & & & \\ \hline
-\rref{R_timeMeltEnd}   & & X& & & & & \\ 
+\iref{I_COTS}         & & & & & & & & & & & & \\ \hline
+\iref{I_DFSB}         & & & & & & & & & & & &\\  \hline
+\rref{R_Inputs}     & & & & & & & & & & & & \\ \hline
+\rref{R_OutputInputs} & & & & & & & & & & & & \\ \hline
+\rref{R_Calculate}     & & & & & & & & & & & & \\ \hline
+\rref{R_VerifyOutput}  & & & & & & & & & & & & \\ \hline
+\rref{R_Output} & & & & & & & & & & & & \\ \hline
+\nfrref{NFR_Reliability}   & & & & & & & & & & & & \\ \hline
+\nfrref{NFR_Usability}   & & & & & & & & & & & & \\ \hline
+\nfrref{NFR_Maintainability}   & & & & & & & & & & & & \\ \hline
+\nfrref{NFR_Portability}   & & & & & & & & & & & & \\ \hline
+\nfrref{NFR_Scalability}   & & & & & & & & & & & & \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
 \label{Table:R_trace}
 \end{table}
 
-The purpose of the traceability graphs is also to provide easy references on
-what has to be additionally modified if a certain component is changed.  The
-arrows in the graphs represent dependencies. The component at the tail of an
-arrow is depended on by the component at the head of that arrow. Therefore, if a
-component is changed, the components that it points to should also be
-changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, likely changes, and
-assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
-instance models, requirements, and data constraints on each other.
 
+\newpage
 \section{Values of Auxiliary Constants}
 
 \plt{Show the values of the symbolic parameters introduced in the report.}
