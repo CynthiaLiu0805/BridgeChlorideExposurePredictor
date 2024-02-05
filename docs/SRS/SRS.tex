@@ -410,10 +410,9 @@ responsibilities of the user and software are laid out and the requirements that
   etc.}
 
 \subsection{Scope of Requirements} 
-The entire document is written as the chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms.
+The entire document is written as the chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. Another scope of the document is the factors that affect bridge corrosion is limit to chloride levels, climatic conditions, and traffic patterns.
 
-\plt{Modelling the real world requires simplification.  The full complexity of
-  the actual physics, chemistry, biology is too much for existing models, and
+\plt{Modelling the real world requires simplification.  The full complexity of  the actual physics, chemistry, biology is too much for existing models, and
   for existing computational solution techniques.  Rather than say what is in
   the scope, it is usually easier to say what is not.  You can think of it as
   the scope is initially everything, and then it is constrained to create the
@@ -430,7 +429,7 @@ The entire document is written as the chloride is the main source of corrosion d
 \plt{The scope section is relevant for later determining typical values of inputs. The scope should make it clear what inputs are reasonable to expect. This is a distinction between scope and context (context is a later section).  Scope affects the inputs while context affects how the software will be used.}
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
-Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, as well as the ability to comprehend basic results generated through computational fluid dynamics. The users of Bridge Corrosion may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
+Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, and the ability to comprehend basic results generated through computational fluid dynamics. The users of Bridge Corrosion may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
 
 \plt{This section summarizes the skills and knowledge of the readers of the
   SRS.  It does NOT have the same purpose as the ``User Characteristics''
@@ -634,6 +633,7 @@ The key physical system of Bridge Corrosion, as shown in Figure \ref{4mechanism}
 % \end{center}
 % \end{figure}
 
+\newpage
 \subsubsection{Goal Statements}
 
 \plt{The goal statements refine the ``Problem Description''
@@ -929,6 +929,53 @@ Notes & The first part in the parentheses calculate the chloride exposure by lig
 \end{tabular}
 \end{minipage}\\
 
+%TM4
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& TM\refstepcounter{theorynum}\thetheorynum \label{T_TAD}\\
+  \hline
+  Label& \bf  Total airborne deposition at a certain distance \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per\metre^3} \\
+\hline
+Equation & $D(x) = a_{spray} \times e^{b_{spray}~x} + a_{splash} \times e^{b_{splash}~x} $\\ 
+  \hline
+  Description& The above equation describes the total airborne
+deposition at a certain distance from the road.
+
+\begin{itemize}
+
+\item $a_{spray}$ is the maximum deposition rates that occur from spray. 
+
+\item $a_{splash}$ is the maximum deposition rates that occur from splash.
+
+\item $b_{spray}$ is the spray emission rate coefficient.
+
+\item  $b_{splash}$ is the splash emission rate coefficient.
+
+\item $x$ is the distance between the road edge and nearby bridge structure. ($m$)
+
+\item $e$ is the base of natural logarithm.
+
+\end{itemize}
+
+
+\\
+\hline
+  Source & [\reref{ref12}] \\
+  \hline
+  Ref.\ By & \iref{I_COTS} \\ 
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+
 \plt{``Ref.\ By'' is used repeatedly with the different types of information.
   This stands for Referenced By.  It means that the models, definitions and
   assumptions listed reference the current model, definition or assumption.
@@ -1013,6 +1060,40 @@ The tread pickup will be activated only if there is water remaining after the ca
 
 \end{minipage}\\
 
+
+\subsubsection*{Detailed derivation of mass flow rate}
+
+The maximum mass flow rate associated with capillary adhesion ($MR_{CA}$) is estimated as the number of tire rotations per second multiplied by the volume of water dispersed on each tire rotation multiplied by the density of water, or
+ \[ 
+MR_{CA} = \left[\frac{V_{speed}}{2\pi R}\right] \cdot \left[ 2\pi R \times b \times K \times h_{film} \right] \times \rho_{water} = \left[V_{speed} \times b \times K \times h_{film} \right] \times  \rho_{water} 
+\]
+\\
+After capillary action, the tire is able to displace a volume of water within its tread. The maximum flow rate for this mechanism ($MR_{TP}$) will occur when all the water contained in the tread volume is flung out of the tread during each tire rotation. Thus, it can be computed as the number of tire rotations per second multiplied by the capacity of tire’s tread on each rotation multiplied by the density of water:
+ \[ 
+MR_{TP} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} 
+\]
+\\
+Any remaining water for which there is no capacity either underneath the tire contact area or within the tire tread must be displaced to the front of the tire or to the side, causing the bow wave and side wave, respectively. So, the total mass flow rate that can be attributed to bow and side wave mechanisms can be written as:
+ \[ 
+MR_{BW} + MR_{SW} =  \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
+\\
+So, $MR_{BW}$ and $MR_{SW}$ can be estimated separately as:
+ \[ 
+MR_{BW} =  \alpha \times \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
+ \[
+MR_{SW} = \beta \times \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
+\\
+where $\alpha$ and $\beta$ are calibration factors that satisfy $\alpha + \beta = 1$. Until other evidence is available, it will be assumed that $\alpha = \beta = 0.5$.
+
+
+\plt{This may be necessary when the necessary information does not fit in the
+  description field.}
+\plt{Derivations are important for justifying a given GD.  You want it to be
+  clear where the equation came from.}
+
+
+
+
 %GD2
 \noindent
 \begin{minipage}{\textwidth}
@@ -1039,7 +1120,7 @@ Equation&
   \end{equation}
 \\
 \hline
-Description & Spray density is derived by conducting regression analysis to develop relationship between spray density, mass flow rate and vehicle speed, to compute the concentration of water kicked up to the environment.  
+Description & Spray density is derived by conducting regression analysis to develop relationship between spray density, mass flow rate and vehicle speed, to compute the concentration of water kicked up to the environment. The detailed process could be found in section 6.6.1 in [\reref{ref4}] .
 \begin{itemize}
 
 \item $V'$ is the heavy vehicle speed ($miles/h$)
@@ -1089,8 +1170,9 @@ SI Units&\si{kg\per\metre^3\per vehicle}\\
 
 \item $t_2$ is the number of days with snow melting
 \end{itemize}
-
-  \\
+\\
+  \hline
+  Notes \ & This equation simplified \tref{T_CSASG} by using AADT and AADTT that are generated from existing database for calculation for light traffic and heavy-duty traffic. \\  
   \hline
   Sources & [\reref{ref7}, \reref{ref8}] \\
   \hline
@@ -1100,14 +1182,6 @@ SI Units&\si{kg\per\metre^3\per vehicle}\\
   \hline
 \end{tabular}
 \end{minipage}\\
-
-
-\subsubsection*{Detailed derivation of simplified rate of change of temperature}
-
-\plt{This may be necessary when the necessary information does not fit in the
-  description field.}
-\plt{Derivations are important for justifying a given GD.  You want it to be
-  clear where the equation came from.}
 
 \subsubsection{Data Definitions}\label{sec_datadef}
 
@@ -1234,7 +1308,7 @@ SI Units&none\\
 \hline
 Equation & $\theta_{chloride}=\frac{\text{mass of }Cl^{-}}{\text{mass of } NaCl}$ \\
 \hline
-Description & This equation computes the molar mass ratio of chloride to deicing salts, where
+Description & This equation computes the molar mass ratio of chloride to deicing salts, where we assume the main component of deicing salts is NaCl.
 \begin{itemize}
 \item $Cl^-$ is the chloride ions whose exposure we want to investigate
 \item $NaCl$ is the most commonly used salt
@@ -1422,7 +1496,11 @@ one which is expressed in mathematical terms. It uses concrete symbols defined
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goals \plt{reference your goals} are solved by \plt{reference your instance
+The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}.
+The goal \gsref{G_ExtractData} is solved by \iref{I_DFSB}.
+
+
+\plt{reference your instance
   models}.  \plt{other details, with cross-references where appropriate.}
 \plt{Modify the examples below for your problem, and add additional models as
   appropriate.}
@@ -1458,18 +1536,36 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 \end{itemize}
   \\
   \hline
-  Notes & The first part of the equation calculate the chloride ions sprayed by vehicles, and the second part is those splashed by vehicles. The proportions of chloride ions sprayed (0.015) and splashed (0.985) were adapted from the studies by [\reref{ref11}], which measured the deposition of deicing salts along a highway in Sweden to define the relation between the mass of deicing salts per unit area (collected from the sites) and distance from roadside, and used nonlinear fitting techniques to determine the proportions of sprayed and splashed chloride ions. 
+  Notes & The first part of the equation calculate the chloride ions sprayed by vehicles, and the second part is those splashed by vehicles. The proportions of chloride ions sprayed (0.015) and splashed (0.985) were adapted from the studies by [\reref{ref11}, \reref{ref12}], which measured the deposition of deicing salts along a highway in Sweden to define the relation between the mass of deicing salts per unit area (collected from the sites) and distance from roadside, and used nonlinear fitting techniques to determine the proportions of sprayed and splashed chloride ions. 
   \\
   \hline
-  Sources& [\reref{ref7}, \reref{ref10}, \reref{ref11}] \\
+  Sources& [\reref{ref7}, \reref{ref10}, \reref{ref11}, \reref{ref12}] \\
   \hline
   Ref.\ By & \iref{I_DFSB}, \lcref{LC_SASC}  \\
   \hline
-  Use \ & \dref{D_CSAS} \\
+  Use \ & \tref{T_TAD}, \dref{D_CSAS} \\
   \hline
 \end{tabular}
 \end{minipage}\\
 
+\subsubsection*{Detailed derivation of chloride on the surface}
+According to [\reref{ref12}], the spray emission rate coefficient and splash emission rate coefficient could be taken as -0.05 and -0.5, and the distance between road edge and nearby bridge structure is $d$, so we have
+\[
+C_s = a_{spray} \times e^{-0.05d} + a_{splash} \times e^{-0.5d}\\ 
+\]
+\\
+According to [\reref{ref11}, \reref{ref12}] which measured the deposition of deicing salts along a highway in Sweden to define the relation between the mass of deicing salts per unit area and distance from roadside, and used nonlinear fitting techniques to determine the proportions of sprayed and splashed chloride ions:
+\[
+a_{spray} = a_{air} \times 0.015
+\]
+\[
+a_{splash} = a_{air} \times 0.985
+\]
+\\
+Combining the above equation in the scenario of chloride, we have:
+\[
+C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \times  e^{-0.5d}
+\]
 %IM2 input coordinate and output the data
 \noindent
 \begin{minipage}{\textwidth}
@@ -1495,8 +1591,6 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 
 \end{itemize}
   \\
-  \hline
-  Ref.\ By &  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1576,7 +1670,7 @@ A correct solution must exhibit the chloride exposure values that does not excee
   \toprule
   \textbf{Var} & \textbf{Physical Constraints} \\
   \midrule 
-  $C_s$ & $C_s < 357 kg/m^3$ (by~\href{https://www2.gov.bc.ca/assets/gov/environment/air-land-water/water/waterquality/water-quality-guidelines/approved-wqgs/chloride-or.pdf}{Water Quality Guidelines} \\
+  $C_s$ & $C_s < 357 kg/m^3$ (by~\href{https://www2.gov.bc.ca/assets/gov/environment/air-land-water/water/waterquality/water-quality-guidelines/approved-wqgs/chloride-or.pdf}{Water Quality Guidelines}) \\
   
    \bottomrule
 \end{longtable*}
@@ -1600,14 +1694,12 @@ qualities that the software is expected to exhibit.
 
 \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The user input need to be a coordinate within Ontario.
-
-
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The user input need to be a coordinate within Ontario (By \iref{I_DFSB}).
 \plt{Requirements
     for the inputs that are supplied by the user.  This information has to be
     explicit.}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a series of data showing the trend of chloride exposure over time at the input location.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a series of data showing the trend of chloride exposure over time at the input location (By \iref{I_DFSB}).
 \plt{It isn't
     always required, but often echoing the inputs as part of the output is a
     good idea.}
@@ -1619,7 +1711,7 @@ qualities that the software is expected to exhibit.
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] The output from the previous year should be verifiable against real-world data.
   \plt{Verification related requirements.}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The output should be in two decimal points, showing the mass of chloride ions per unit air volume.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The output should be in two decimal points, showing the mass of chloride ions per unit air volume (By \iref{I_COTS}).
 \plt{Output related
     requirements.}
 
@@ -1700,7 +1792,7 @@ typical values.}
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_laneWidth}:] The lane width in some area might not be 3 meters, and the lane width standards might change in the future, so \aref{A_laneWidth} is likely to be changed. 
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_laneWidth}:] The lane width in some area might not be fixed, and the lane width standards might change in the future, so \aref{A_laneWidth} is likely to be changed. 
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_AADT}:] \aref{A_AADT} might be changed with the population density, urbanization, or transportation preferences in different area, which all may influence traffic volume and distribution.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_SASC}:] The proportions(0.015 and 0.985) in \iref{I_COTS} might change with the site characteristics of a bridge, such as the roadside environment (forested or urban), traffic characteristics (direction and volume), wind direction, and road surface condition. 
 
@@ -1765,8 +1857,8 @@ other.
 \lcref{LC_laneWidth}     & & X & & \\ \hline
 \lcref{LC_AADT}    & & & & X \\ \hline
 \lcref{LC_SASC}    & & & & \\ \hline
-\ulcref{ULC_saltSame}   & & & & \\ \hline
-\ulcref{ULC_NaCl}   & & & & \\ \hline
+\ulcref{ULC_saltSame}   & X & & & \\ \hline
+\ulcref{ULC_NaCl}   & & & X & \\ \hline
 
 \hline
 \end{tabular}
@@ -1811,18 +1903,18 @@ other.
 	& \iref{I_COTS} & \iref{I_DFSB} & \rref{R_Inputs} & \rref{R_OutputInputs} & \rref{R_Calculate} & \rref{R_VerifyOutput} & \rref{R_Output} & \nfrref{NFR_Reliability} & \nfrref{NFR_Usability} & \nfrref{NFR_Maintainability} & \nfrref{NFR_Portability} & \nfrref{NFR_Scalability} \\
 
 \hline
-\iref{I_COTS}         & & & & & & & & & & & & \\ \hline
-\iref{I_DFSB}         & & & & & & & & & & & &\\  \hline
-\rref{R_Inputs}     & & & & & & & & & & & & \\ \hline
-\rref{R_OutputInputs} & & & & & & & & & & & & \\ \hline
-\rref{R_Calculate}     & & & & & & & & & & & & \\ \hline
-\rref{R_VerifyOutput}  & & & & & & & & & & & & \\ \hline
-\rref{R_Output} & & & & & & & & & & & & \\ \hline
-\nfrref{NFR_Reliability}   & & & & & & & & & & & & \\ \hline
-\nfrref{NFR_Usability}   & & & & & & & & & & & & \\ \hline
-\nfrref{NFR_Maintainability}   & & & & & & & & & & & & \\ \hline
+\iref{I_COTS}         & & & & & & & X & & & & & \\ \hline
+\iref{I_DFSB}         & & & X & X & & & & & X & & X &\\  \hline
+\rref{R_Inputs}     & & X & & & X & & & & & X & & \\ \hline
+\rref{R_OutputInputs} & & & & & & X & X & X & & & & \\ \hline
+\rref{R_Calculate}     & & & X & & & & & & & & & X \\ \hline
+\rref{R_VerifyOutput}  & & & & X & & & & X & & & & \\ \hline
+\rref{R_Output} & & & & X & & & & & & & & \\ \hline
+\nfrref{NFR_Reliability}   & & X & & & & X & & & & & & \\ \hline
+\nfrref{NFR_Usability}   & & X & & X & & & & & & & & \\ \hline
+\nfrref{NFR_Maintainability}   & & & & & & & & & & & & X \\ \hline
 \nfrref{NFR_Portability}   & & & & & & & & & & & & \\ \hline
-\nfrref{NFR_Scalability}   & & & & & & & & & & & & \\
+\nfrref{NFR_Scalability}   & & & & & & & & & & X & & \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
@@ -1860,6 +1952,10 @@ Their values are defined in this section for easy maintenance.}
   $b_{min}$ & minimum tire width & $0.2$ & m 
   \\
   $b_{max}$ & maximum tire width & $0.71$ & m 
+  \\ 
+  $b_{spray}$ & spray emission rate coefficient & -0.05 & N/A
+  \\
+  $b_{splash}$ & splash emission rate coefficient & -0.5 & N/A
   \\
   $W_{lane}$ & lane width & 3 & m
   \\  
