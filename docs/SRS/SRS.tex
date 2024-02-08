@@ -440,7 +440,10 @@ Output:
 
 
 \subsection{Scope Decisions}
-The surface chloride exposure data is in a 25-km grid resolution. This is because the climate data extracted from the CanRCM4 model ([\reref{ref13}]) is at a resolution of 25 $\times$ 25 km.
+\begin{itemize}
+\item The surface chloride exposure data is in a 25-km grid resolution. This is because the climate data extracted from the CanRCM4 model ([\reref{ref13}]) is at a resolution of 25 $\times$ 25 km.
+\item If the input coordinate does not have a bridge on it, it would return the value of the nearest bridge. 
+\end{itemize}
 
 % \plt{This section is optional.}
 \subsection{Modelling Decisions}
