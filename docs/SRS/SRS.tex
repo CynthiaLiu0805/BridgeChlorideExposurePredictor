@@ -438,6 +438,13 @@ Output:
 \item predictedChlorideExposure = \{$\mathbb{R}$\}
 \end{itemize}
 
+
+\subsection{Scope Decisions}
+The surface chloride exposure data is in a 25-km grid resolution. This is because the climate data extracted from the CanRCM4 model (Scinocca et al. 2016) at a resolution of 25 × 25 km.
+
+% \plt{This section is optional.}
+\subsection{Modelling Decisions}
+
 \subsubsection{Assumptions} \label{sec_assumpt}
 
 This section simplifies the original problem and helps in developing the
@@ -1288,6 +1295,7 @@ qualities that the software is expected to exhibit.
 \subsection{Rationale}
 
 The assumptions made in this document are based on practical considerations to simplify and quantify the data required in the model. In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. In \aref{A_laneWidth}, it simplifies the model by assuming a standardized lane width across all roads. While lane widths can vary depending on road type and location, assuming a uniform lane width streamlines the analysis and allows for consistent calculations. Additionally, a lane width of 3 meters is commonly used in many road design standards and provides a reasonable approximation for modeling purposes. Similarly, NaCl is one of the most widely used deicing salts due to its effectiveness and affordability, so \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions. Lastly, AADT is an important parameter for assessing traffic volume on roads and is typically used to classify roads into different categories based on their traffic intensity, \aref{A_AADT} simplifies the analysis by providing a standardized measure of traffic volume. By incorporating these assumptions, the model can effectively simulate real-world scenarios and provide valuable insights into the factors influencing bridge corrosion.
+The \
 The constraints in Table \ref{TblInputVar} are defined considering real-world scenarios. For example,  the speed constraints adhere to established speed limits, ensuring a realistic representation of vehicle speeds. Similarly, the constraints associated with the variable about days are confined within the bounds of the annual calendar, reflecting a practical consideration of time duration within a given year.
 
 
@@ -1494,6 +1502,9 @@ Lundmark, A., and Olofsson, B. 2007. “Chloride deposition and distribution in 
 
 \item \refstepcounter{refnum} \label{ref12}
 Blomqvist, G. 2001. De-icing salt and the roadside environment: Air-borne exposure, damage to Norway spruce and system monitoring (PhD dissertation). Institutionen för anläggning och miljö.
+
+\item \refstepcounter{refnum} \label{ref13}
+Scinocca, J. F., Kharin, V. V., Jiao, Y., Qian, M. W., Lazare, M., Solheim, L., Flato, G. M., Biner,  S., Desgagne, M., and Dugas, B. 2016. “Coordinated Global and Regional Climate Modeling.” Journal of Climate, 29(1): 17-35.
 
 \end{enumerate}
 
