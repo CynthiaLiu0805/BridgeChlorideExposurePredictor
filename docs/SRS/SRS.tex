@@ -209,7 +209,7 @@ $\delta_{salt}$ & $N/A$ & ratio of salt over water per unit area of road\\
 $d$ & $m$ & distance between road edge and nearby bridge structure\\
 $h_{app}$ & $m$ & daily water film thickness on the road\\
 $h_{film}$ & $m$ & depth of the water film picked up in each rotation\\
-$h_{total}$ & $m$ & water equivalent of snowfall\\
+$h_{total}$ & $m$ & the total snowfall during a winter season\\
 $I$ & $m/h$ & rainfall intensity\\
 $K$ & $N/A$ & ratio of the tire width that is not a groove to the tire width\\
 $L$ & $m$ & drainage length\\
@@ -429,8 +429,34 @@ models can be verified.
 
 Input:
 \begin{itemize}
+\item User input: 
+
+\begin{itemize}
 \item longitude = $\mathbb{R}$
 \item latitude = $\mathbb{R}$
+\end{itemize}
+
+\item Dataset input: 
+\begin{itemize}
+\item climate model
+
+\begin{itemize}
+\item annual snowfall $h_{total} = \mathbb R^{+}$ 
+\item annual number of days with snowfall $t_1 = \mathbb R^{+}$
+\item annual number of days with snow melting$t_2 = \mathbb R^{+}$
+\end{itemize}
+
+\item traffic model 
+\begin{itemize}
+\item AADT per lane $AADT = \mathbb R^{+}$
+\item AADTT per lane $AADTT = \mathbb R^{+}$ 
+\item lane width $W_{lane} = \mathbb R^{+}$
+\item the distance between roadway edge and bridge substructures $d = \mathbb R^{+}$
+\end{itemize}
+
+\item salt application rate $M_{total} = \mathbb R^{+}$
+
+\end{itemize}
 
 \end{itemize}
 Output:
@@ -877,6 +903,7 @@ Symbol &$M_{app}$\\
 \item $t_{1}$ is the number of days with snowfall.
 
 \item $V_{salt}$ is the normalized salt application rate. ($tonnes/cm/km$)
+\item $h_{total}$ is the total snowfall during a winter season. ($m$)
 
 \item $W_{lane}$ is the lane width according to \aref{A_laneWidth}. ($m$).
 \end{itemize}
@@ -914,7 +941,7 @@ Symbol &$h_{app}$\\
   Description & The equaition above calculates the thickness of melted water per day with snow melting.
 \begin{itemize}
 
-\item $h_{total}$ is the total water equivalent of the total snowfall during a winter season. ($m$)
+\item $h_{total}$ is the the total snowfall during a winter season. ($m$)
 
 \item $t_{snow}$ is the number of days with snow melting.
 
