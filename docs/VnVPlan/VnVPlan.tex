@@ -1,4 +1,8 @@
 \documentclass[12pt, titlepage]{article}
+\usepackage{amsmath, mathtools}
+\usepackage{siunitx}
+\usepackage{colortbl}
+\usepackage{graphicx}
 
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -68,7 +72,16 @@ in.}
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
+  BC & Bridge Corrosion\\
+  FR & Functional Requirement\\
+  MG & Module Guide\\
+  MIS & Module Interface Specification\\
+  NFR & Non-functional Requirement\\
+  R & Requirement\\
+  SRS & Software Requirements Specification\\
   T & Test\\
+  VnV & Verification and Validation\\
+  
   \bottomrule
 \end{tabular}\\
 
@@ -80,9 +93,8 @@ in.}
 \newpage
 
 \pagenumbering{arabic}
+This document provides the road-map of the verification and validation plan for Bridge Corrosion (BC), and ensure the requirements and goals of the program mentioned in SRS. The organization of this document starts with the general information and verification plans, followed by the system test description for functional and non-functional requirements. Then, it includes the unit test which would not be filled in until after the MIS.
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
 
 \section{General Information}
 
@@ -90,8 +102,11 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 
 \wss{Say what software is being tested.  Give its name and a brief overview of
   its general functions.}
+The software BC, provides predictive trends for chloride exposure based on user-input coordinates within the province of Ontario. The software utilizes climate and traffic models to build a chloride exposure database, and search for the trend when user input location data.
 
 \subsection{Objectives}
+The objective of this document is to build confidence in the software's correctness and increase its realiability. All functional requirements and non-functional requirements mentioned in SRS are tested. We will try to cover a usability test if we have time and resource. We also assume the climate and traffic models we generate online have been verified by their implementation team so their accuracy is ensured.
+
 
 \wss{State what is intended to be accomplished.  The objective will be around
   the qualities that are most important for your project.  You might have
@@ -111,46 +126,73 @@ external library, you can explicitly state that you will assume that external li
 has already been verified by its implementation team.}
 
 \subsection{Relevant Documentation}
+The relevant documentation includes \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem Statement} which is the proposed idea, \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specifications} which outlines the requirement of the software. It would also be related to \href{}{VnV Report} which is a conclusion for validation and verification after the software is developed.
 
+ 
 \wss{Reference relevant documentation.  This will definitely include your SRS
   and your other project documents (design documents, like MG, MIS, etc).  You
   can include these even before they are written, since by the time the project
   is done, they will be written.}
 
-\citet{SRS}
 
 \wss{Don't just list the other documents.  You should explain why they are relevant and 
 how they relate to your VnV efforts.}
 
 \section{Plan}
+The VnV plan begins by introducing the verification and validation team (section \ref{VnVT}), followed by the verification plans for the SRS (section \ref{SRSVP}) and design (section \ref{DVP}). Subsequently, the verification plans for the VnV Plan (section \ref{VnVP}) and implementation (section \ref{IVP}) are presented. In the end, there are sections on automated testing and verification tools (Section \ref{ATVT}) and the software validation plan (section \ref{SVP}).
 
 \wss{Introduce this section.   You can provide a roadmap of the sections to
   come.}
 
-\subsection{Verification and Validation Team}
+\subsection{Verification and Validation Team}\label{VnVT}
 
 \wss{Your teammates.  Maybe your supervisor.
   You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+  for the project's verification.   A table is a good way to summarize this information.}
 
-\subsection{SRS Verification Plan}
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{ %
+    \begin{tabular}{ |l|l|p{2cm}|p{5cm}| } 
+\hline        
 
+	 Name & Document & Role & Description \\
+\hline
+      Dr. Spencer Smith & All & Instructor/ Reviewer & Review all the documents.  \\ \hline
+      Mingsai Xu & - & Domain Expert & Provide theory support for the software.   \\ \hline     	  
+	 Cynthia Liu & All & Author & Create all the documents, implement the software, and verify the implementation according to the VnV plan. \\ \hline
+      Phil Du & All & Domain Expert Reviewer & Review all the documents. \\ \hline
+      Hunter Ceranic & SRS & Secondary Reviewer & Review the SRS document. \\ \hline
+      Fasil Cheema & VnV plan & Secondary Reviewer & Review the VnV plan.\\ \hline
+      Fatemeh Norouziani & MG + MIS & Secondary Reviewer & Review the MG and MIS document. \\ \hline
+\hline
+\end{tabular} %
+}
+\caption{Verification and Validation Team}
+\label{Table:VnVT}
+\end{table}
+
+
+\subsection{SRS Verification Plan}\label{SRSVP}
+The SRS verification is done by peer review with classmates (Phil Du and Hunter Ceranic), giving suggestions by creating issues in Github. The author (Cynthia Liu) is responsible for reviewing and addressing the issues.\\
+The SRS verification is also reviewed by Dr. Spencer Smith to offer any suggestions and feedbacks.\\
+There is a \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/Checklists/SRS-Checklist.pdf}{SRS checklist} designed by Dr. Spencer Smith available to use if desired.
 \wss{List any approaches you intend to use for SRS verification.  This may include
   ad hoc feedback from reviewers, like your classmates, or you may plan for 
   something more rigorous/systematic.}
 
 \wss{Maybe create an SRS checklist?}
 
-\subsection{Design Verification Plan}
-
+\subsection{Design Verification Plan}\label{DVP}
+The design verification, including the module guide (MG) and module interface specification (MIS), will be verfied by Phil Du and Fatemeh Norouziani. Dr. Spencer Smith will also review both documents. Reviewers will give feedbacks through Github issues and the author need to address them. The \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/Checklists/MG-Checklist.pdf}{MG checklist} and \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/Checklists/MIS-Checklist.pdf}{MIS checklist} designed by Dr. Spencer Smith could act as a help for reviewers.
 \wss{Plans for design verification}
 
 \wss{The review will include reviews by your classmates}
 
 \wss{Create a checklists?}
 
-\subsection{Verification and Validation Plan Verification Plan}
-
+\subsection{Verification and Validation Plan Verification Plan}\label{VnVP}
+The VnV plan is first created and verfied by the author, then turns to the team members to give any suggests by Github issues. The reviewers will access the \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/Checklists/VnV-Checklist.pdf}{VnV checklist} designed by Dr. Spencer Smith for reference.
 \wss{The verification and validation plan is an artifact that should also be
 verified.  Techniques for this include review and mutation testing.}
 
@@ -158,8 +200,8 @@ verified.  Techniques for this include review and mutation testing.}
 
 \wss{Create a checklists?}
 
-\subsection{Implementation Verification Plan}
-
+\subsection{Implementation Verification Plan}\label{IVP}
+The implementation would be verified by testing the functional requirements and non-functional requirements in section \ref{STD}. The unit tests will also be conducted as detailed in section \ref{UTD}. If possible, a code walkthrough could happen.
 \wss{You should at least point to the tests listed in this document and the unit
   testing plan.}
 
@@ -167,8 +209,8 @@ verified.  Techniques for this include review and mutation testing.}
   verification of the implementation.  Potential techniques include code
   walkthroughs, code inspection, static analyzers, etc.}
 
-\subsection{Automated Testing and Verification Tools}
-
+\subsection{Automated Testing and Verification Tools}\label{ATVT}
+The first part of the software, generating the database through climate and traffic model, will be done in MATLAB. The second part of finding the data for the input location, will be done in R. The automated testing will be done in MATLAB and R correspondingly. During the coding, the \href{https://www.mathworks.com/help/matlab/ref/mlint.html}{mlint} and \href{https://lintr.r-lib.org/}{lintr} will be used as a static code analysis. 
 \wss{What tools are you using for automated testing.  Likely a unit testing
   framework and maybe a profiling tool, like ValGrind.  Other possible tools
   include a static analyzer, make, continuous integration tools, test coverage
@@ -184,8 +226,8 @@ that document.}
 \wss{The details of this section will likely evolve as you get closer to the
   implementation.}
 
-\subsection{Software Validation Plan}
-
+\subsection{Software Validation Plan}\label{SVP}
+Software validation plan is beyond the scope for BC as it involves extensive testing and validation against real-world data, which may require additional time, expertise, and resources that are not available within the scope of the project. 
 \wss{If there is any external data that can be used for validation, you should
   point to it here.  If there are no plans for validation, you should state that
   here.}
@@ -204,9 +246,19 @@ as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
 
-\section{System Test Description}
-	
+\section{System Test Description}\label{STD}
 \subsection{Tests for Functional Requirements}
+Functional requirements for BC are given in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/Checklists/SRS-Checklist.pdf}{SRS checklist} section 5.1. There are five functional requirements for BC, R1 is related
+to the input, R3 is related to the midway calculation, and the other requirements are corresponding to outputs. Section 5.1.1 describes the input tests related to R1, section 5.1.2 describes the intermediate test related to R3, and section 5.1.3 describes the output test related to other requirements.
+R1: The user input need to be a coordinate within Ontario (By IM2).
+R2: The output need to be a series of data showing the trend of chloride exposure in the
+past and future at the input location (By IM2).
+R3: During the calculation, the software should be capable of handling situations where
+units do not match.
+R4: The output from the previous year should be verifiable against real-world data.
+R5: The output should be in two decimal points, showing the mass of chloride ions per unit
+air volume (By IM1)
+
 
 \wss{Subsets of the tests may be in related, so this section is divided into
   different areas.  If there are no identifiable subsets for the tests, this
@@ -215,45 +267,60 @@ as a Rev 0 demo for the supervisor.}
 \wss{Include a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Input Test - test\_invalid\_input}
+This section covers R1 of the SRS which includes the input coordinates check for the software. 
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.  If a section
   covers tests for input constraints, you should reference the data constraints
   table in the SRS.}
 		
-\paragraph{Title for Test}
+\paragraph{Functional tests - Input tests - coordinate}
+
+\begin{center}
+\begin{table}[h]
+\resizebox{\textwidth}{!}
+{ %
+    \begin{tabular}{ lccccc }
+    \hline
+      \multicolumn{2}{c|}{Input (\si[per-mode=symbol] {\degree}) }                            & \multicolumn{2}{c}{Output} \\ 
+    
+    \hline
+
+        $longitude$   &   $latitude$     &   valid?   &   Error Message \\ \hline
+    
+       0.039  & 0.046&  Y  & NONE                         \\
+       0.039  & 0.046&  Y  & NONE                         \\
+       0.039  & 0.046&  Y  & NONE                         \\
+       0.039  & 0.046&  Y  &  Error Message                         \\
+       0.039  & 0.046&  Y  &  Error Message                         \\
+       0.039  & 0.046&  Y  &  Error Messagevsdgdfsgfas                         \\
+    
+    \hline
+    
+    
+    \end{tabular} %
+}
+\caption{Coordinate input tests}
+\label{Table:coordinate_test}
+\end{table}
+\end{center}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{test-input-coordinate\\}
 
-Control: Manual versus Automatic
+Control: Automatic
 					
-Initial State: 
+Initial State: Uninitialized
 					
-Input: 
+Input: The input column in Table \ref{Table:coordinate_test}.
 					
-Output: \wss{The expected result for the given inputs}
+Output: Either gives an error message or process to next step as in Table \ref{Table:coordinate_test}. \wss{The expected result for the given inputs}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: The software produces error message for the invalid inputs, for the valid inputs, it will proceed to next step. \wss{Justify the expected value given in the Output field}
 					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-
+How test will be performed: The automatic test will be perfirmed by R.
 \end{enumerate}
 
 \subsubsection{Area of Testing2}
@@ -261,7 +328,17 @@ How test will be performed:
 ...
 
 \subsection{Tests for Nonfunctional Requirements}
-
+NFR1: Reliability: The predictions generated by the software should be accurate and reliable,
+reflecting real-world conditions and factors influencing chloride exposure.
+NFR2: Usability: The software interface should be intuitive and user-friendly, allowing users
+in the section 3.2 to easily input coordinates and look at the predicted chloride exposure
+in the past and future.
+NFR3: Maintainability: The code for this software should be designed and structured in a
+way that it could be easily comprehended and modified by other potential developers.
+NFR4: Portability: This software should be able to run on recent versions of Google Chrome,
+Firefox, MS Edge and Safari. The operating system include Windows 7+ and Mac OS
+X 10.7+.
+NFR5: Scalability: The software should be scalable to accommodate potential
 \wss{The nonfunctional requirements for accuracy will likely just reference the
   appropriate functional tests from above.  The test cases should mention
   reporting the relative error for these tests.  Not all projects will
@@ -314,7 +391,7 @@ How test will be performed:
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
 
-\section{Unit Test Description}
+\section{Unit Test Description}\label{UTD}
 
 \wss{This section should not be filled in until after the MIS (detailed design
   document) has been completed.}
