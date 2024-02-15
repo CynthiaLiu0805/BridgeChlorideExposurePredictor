@@ -248,16 +248,13 @@ as a Rev 0 demo for the supervisor.}
 
 \section{System Test Description}\label{STD}
 \subsection{Tests for Functional Requirements}
-Functional requirements for BC are given in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/Checklists/SRS-Checklist.pdf}{SRS checklist} section 5.1. There are five functional requirements for BC, R1 is related
-to the input, R3 is related to the midway calculation, and the other requirements are corresponding to outputs. Section 5.1.1 describes the input tests related to R1, section 5.1.2 describes the intermediate test related to R3, and section 5.1.3 describes the output test related to other requirements.
-R1: The user input need to be a coordinate within Ontario (By IM2).
-R2: The output need to be a series of data showing the trend of chloride exposure in the
-past and future at the input location (By IM2).
-R3: During the calculation, the software should be capable of handling situations where
-units do not match.
-R4: The output from the previous year should be verifiable against real-world data.
-R5: The output should be in two decimal points, showing the mass of chloride ions per unit
-air volume (By IM1)
+Functional requirements for BC are given in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS} section 5.1. There are five functional requirements for BC, R1 is related to the input, R3 is related to the midway calculation, and the other requirements are corresponding to outputs. Section 5.1.1 describes the input tests related to R1, and section 5.1.2 describes the output test related to other requirements. The test for R3 will be covered in section \ref{UTD}.
+\\
+\\
+R2: The output need to be a series of data showing the trend of chloride exposure in the past and future at the input location (By IM2).\\
+R3: During the calculation, the software should be capable of handling situations where units do not match.\\
+R4: The output from the previous year should be verifiable against real-world data.\\
+R5: The output should be in two decimal points, showing the mass of chloride ions per unit air volume (By IM1)\\
 
 
 \wss{Subsets of the tests may be in related, so this section is divided into
@@ -268,14 +265,14 @@ air volume (By IM1)
   cover the requirements.  References to the SRS would be good here.}
 
 \subsubsection{Input Test - test\_invalid\_input}
-This section covers R1 of the SRS which includes the input coordinates check for the software. 
+This section covers R1 of the SRS which includes the input coordinates check for the software. This section also cover the dataset inputs that developers input from models to the software. 
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.  If a section
   covers tests for input constraints, you should reference the data constraints
   table in the SRS.}
 		
-\paragraph{Functional tests - Input tests - coordinate}
+\paragraph{Functional tests - Input tests - Coordinate}
 
 \begin{center}
 \begin{table}[h]
@@ -286,15 +283,15 @@ This section covers R1 of the SRS which includes the input coordinates check for
       \multicolumn{2}{c|}{Input (\si[per-mode=symbol] {\degree}) }                            & \multicolumn{2}{c}{Output} \\ 
     
     \hline
-
+    %TODO: find 
         $longitude$   &   $latitude$     &   valid?   &   Error Message \\ \hline
     
-       0.039  & 0.046&  Y  & NONE                         \\
-       0.039  & 0.046&  Y  & NONE                         \\
-       0.039  & 0.046&  Y  & NONE                         \\
-       0.039  & 0.046&  Y  &  Error Message                         \\
-       0.039  & 0.046&  Y  &  Error Message                         \\
-       0.039  & 0.046&  Y  &  Error Messagevsdgdfsgfas                         \\
+       0.039  & 0.046 &  Y  & NONE                         \\
+       0.039  & 0.046 &  Y  & NONE                         \\
+       0.039  & 0.046 &  Y  & NONE                         \\
+       0.039  & 0.046 &  Y  &  Error Message                         \\
+       0.039  & 0.046 &  Y  &  Error Message                         \\
+       0.039  & 0.046 &  Y  &  Error Messagevsdgdfsgfas                         \\
     
     \hline
     
@@ -309,32 +306,162 @@ This section covers R1 of the SRS which includes the input coordinates check for
 \begin{enumerate}
 
 \item{test-input-coordinate\\}
-
 Control: Automatic
 					
 Initial State: Uninitialized
 					
 Input: The input column in Table \ref{Table:coordinate_test}.
 					
-Output: Either gives an error message or process to next step as in Table \ref{Table:coordinate_test}. \wss{The expected result for the given inputs}
+Output: The output column in Table \ref{Table:coordinate_test}. \wss{The expected result for the given inputs}
 
-Test Case Derivation: The software produces error message for the invalid inputs, for the valid inputs, it will proceed to next step. \wss{Justify the expected value given in the Output field}
+Test Case Derivation: The input coordinate need to be a location inside Ontario. The software produces error message for the invalid inputs, for the valid inputs, it will proceed to next step. \wss{Justify the expected value given in the Output field}
 					
-How test will be performed: The automatic test will be perfirmed by R.
+How test will be performed: The author will create test cases and run automatic test by R.
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\paragraph{Functional tests - Input tests - Models}
 
-...
+\begin{center}
+\begin{table}[h]
+\resizebox{\textwidth}{!}
+{ %
+    \begin{tabular}{ lccccc }
+    \hline
+      \multicolumn{3}{c|}{Input (\si[per-mode=symbol] {\degree}) }                            & \multicolumn{2}{c}{Output} \\ 
+    
+    \hline
+    %TODO: find model data
+
+        $h_{total}$   &   $t_1$   & $t_2$  &   valid?   &   Error Message \\ \hline
+    
+       0.039  & 0.046 & 93 &  Y  & fnjsdfnksas                        \\      \\
+    
+    \hline
+    
+    
+    \end{tabular} %
+}
+\caption{Climate model input tests}
+\label{Table:climate_test}
+\end{table}
+\end{center}
+
+\begin{enumerate}
+
+\item{test-input-climate\\}
+
+Control: Automatic
+					
+Initial State: Uninitialized
+					
+Input: The input column in Table \ref{Table:climate_test}.
+					
+Output: The output column in Table \ref{Table:climate_test}. \wss{The expected result for the given inputs}
+
+Test Case Derivation: This test case is used when inputing the climate models, the software will try to find the data needed for the software. If there is no such data it will produce error message. It will also produce error message if there is such data but it is invalid. 
+\wss{Justify the expected value given in the Output field}
+					
+How test will be performed: The author will pick the sample test case from the model (as in Table \ref{Table:climate_test}) and create automatic test by R.
+
+
+
+\begin{center}
+\begin{table}[h]
+\resizebox{\textwidth}{!}
+{ %
+    \begin{tabular}{ lccccc }
+    \hline
+      \multicolumn{3}{c|}{Input (\si[per-mode=symbol] {\degree}) }                            & \multicolumn{2}{c}{Output} \\ 
+    
+    \hline
+    %TODO: find model data
+
+        $AADT$   &   $AADTT$   & $d$  &   valid?   &   Error Message \\ \hline
+    
+       0.039  & 0.046 & 93 &  Y  & fnjsdfnksas                        \\      \\
+    
+    \hline
+    
+    
+    \end{tabular} %
+}
+\caption{Traffic model input tests}
+\label{Table:traffic_test}
+\end{table}
+\end{center}
+
+\item{test-input-traffic\\}
+
+Control: Automatic
+					
+Initial State: Uninitialized
+
+Input: The input column in Table \ref{Table:traffic_test}.
+					
+Output: The output column in Table \ref{Table:traffic_test}. \wss{The expected result for the given inputs}
+
+Test Case Derivation: This test case is used when inputing the climate models, the software will try to find the data needed for the software. If there is no such data it will produce error message. It will also produce error message if there is such data but it is invalid. 
+\wss{Justify the expected value given in the Output field}
+					
+How test will be performed: The author will pick the sample test case from the model (as in Table \ref{Table:traffic_test}) and create automatic test by R.
+\end{enumerate}
+
+
+\subsubsection{Output Tests - test\_output\_exposure}
+This section covers R2, R4, R5 of the SRS which includes the check for the middle calculation of the software. 
+
+\wss{It would be nice to have a blurb here to explain why the subsections below
+  cover the requirements.  References to the SRS would be good here.  If a section
+  covers tests for input constraints, you should reference the data constraints
+  table in the SRS.}
+		
+\paragraph{Functional tests - Output tests - Chloride exposure}
+
+\begin{enumerate}
+
+\item{test-output-exposure\\}
+
+Control: Automatic
+					
+Initial State: Uninitialized
+					
+Input: Coordinate
+					
+Output: If the input coordinate is within Ontario, it will return a series (length of at lease ten) of two decimal points data showing the chloride exposure at that location.
+
+Test Case Derivation: This test case cover the R2 and R5 of the SRS. The test will be done by checking the length of the output and the precision after decimal points. The expected value should be within the data constraints in the 4.4.7 section of \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
+ \wss{Justify the expected value given in the Output field}
+					
+How test will be performed: The automatic test will be perfirmed by R.
+
+
+\item{test-output-verification\\}
+
+Control: Manual
+					
+Initial State: Uninitialized
+					
+Input: Chloride exposure data
+					
+Output: True or False.
+
+Test Case Derivation: This test case cover the R4 of the requirement. It compared the chloride exposure data that the software generates with the real world data for verification. The test result will be true if the derivation is within 5\%.
+
+ \wss{Justify the expected value given in the Output field}
+					
+How test will be performed: Manually compare it with the real world data from previous year. 
+%TODO: find the real world data
+\end{enumerate}
+
 
 \subsection{Tests for Nonfunctional Requirements}
-NFR1: Reliability: The predictions generated by the software should be accurate and reliable,
-reflecting real-world conditions and factors influencing chloride exposure.
-NFR2: Usability: The software interface should be intuitive and user-friendly, allowing users
-in the section 3.2 to easily input coordinates and look at the predicted chloride exposure
-in the past and future.
-NFR3: Maintainability: The code for this software should be designed and structured in a
-way that it could be easily comprehended and modified by other potential developers.
+
+Non-functional requirements for BC are given in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS} section 5.2. There are five non-functional requirements for BC, which are described in the following sections correspondingly.
+\\
+\\
+NFR1: Reliability: The predictions generated by the software should be accurate and reliable, reflecting real-world conditions and factors influencing chloride exposure.
+NFR2: Usability: The software interface should be intuitive and user-friendly, allowing users in the section 3.2 to easily input coordinates and look at the predicted chloride exposure in the past and future.
+NFR3: Maintainability: The code for this software should be designed and structured in a way that it could be easily comprehended and modified by other potential developers.
 NFR4: Portability: This software should be able to run on recent versions of Google Chrome,
 Firefox, MS Edge and Safari. The operating system include Windows 7+ and Mac OS
 X 10.7+.
@@ -350,41 +477,90 @@ NFR5: Scalability: The software should be scalable to accommodate potential
 \wss{Static tests, review, inspections, and walkthroughs, will not follow the
 format for the tests given below.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{NFR: Reliability}
 		
-\paragraph{Title for Test}
+\paragraph{Reliability}
+
+The reliability of the software is tested through the test for functional requirements in section 4.1.2 and the unit testing in section \ref{UTD}.					
+\subsubsection{NFR: Usability}
+		
+\paragraph{Usability}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{test-usability}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Manual with potential users
 					
-Initial State: 
+Initial State: The software is set up and ready for testing.
 					
-Input/Condition: 
+Input/Condition: None
 					
-Output/Result: 
+Output/Result: Survey result about the user experience with the software.
 					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
+How test will be performed: Observe real users as they perform tasks with the software. Ask them to fill out a survey on their experience, including ease of use, intuitiveness, and any challenges encountered. The survey could be find in \ref{USQ}
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+		
+\subsubsection{NFR: Maintainability}
+		
+\paragraph{Maintainability}
 
-...
+\begin{enumerate}
+
+\item{test-maintainability}
+
+Type: Code walkthrough with potential developers
+					
+Initial State: None
+					
+Input/Condition: None
+					
+Output/Result: Feedback from fellow classmates or team members in Table \ref{Table:VnVT}.				
+	
+How test will be performed: Show the code and the other documents to fellow classmates/potential developers, ask them to explain the code to the author and see how much they could understand. Gather any feedback or questions they have.
+\end{enumerate}
+
+		
+\subsubsection{NFR: Portability}
+		
+\paragraph{Portability}
+
+\begin{enumerate}
+
+\item{test-portability}
+
+Type: Manual
+					
+Initial State: None
+					
+Input/Condition: None
+					
+Output/Result: Result of compilation.
+					
+How test will be performed: Manually run the system on multiple versions of browser and operating system to see if it is successful.
+
+\end{enumerate}
+		
+\subsubsection{NFR: Scalability}
+		
+\paragraph{Scalability}
+
+\begin{enumerate}
+
+\item{test-scalability}
+
+Type: Automatic
+					
+Initial State: The software is set up and ready for testing.
+					
+Input/Condition: Increase the workload by adding more data.
+					
+Output/Result: Different response time on how the software handles the increased workload.
+					
+How test will be performed: Record the response time for the software when given increasing amount of dataset, evaluate the different response time.
+
+\end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
@@ -531,7 +707,14 @@ This is where you can place additional information.
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions?}\label{USQ}
+\begin{itemize}
+\item How would you rate your overall experience using the software?
+\item Were the instructions clear and easy to understand. If no, please explain why.
+\item Did the software include all the features you expected? If no, what additional features would you like to see?
+\item How would you rate the speed and responsiveness of the software?
+\end{itemize}
+
 
 \wss{This is a section that would be appropriate for some projects.}
 
