@@ -210,7 +210,7 @@ The implementation would be verified by testing the functional requirements and 
   walkthroughs, code inspection, static analyzers, etc.}
 
 \subsection{Automated Testing and Verification Tools}\label{ATVT}
-The first part of the software, generating the database through climate and traffic model, will be done in MATLAB. The second part of finding the data for the input location, will be done in R. The automated testing will be done in MATLAB and R correspondingly. During the coding, the \href{https://www.mathworks.com/help/matlab/ref/mlint.html}{mlint} and \href{https://lintr.r-lib.org/}{lintr} will be used as a static code analysis. 
+The first part of the software, generating the database through climate and traffic model, will be done in MATLAB. The second part of finding the data for the input location, will be done in R. The automated testing will be done in MATLAB and R correspondingly. During the coding, \href{https://www.mathworks.com/help/matlab/ref/mlint.html}{mlint} and \href{https://lintr.r-lib.org/}{lintr} will be used as a static code analysis. 
 \wss{What tools are you using for automated testing.  Likely a unit testing
   framework and maybe a profiling tool, like ValGrind.  Other possible tools
   include a static analyzer, make, continuous integration tools, test coverage
@@ -227,7 +227,7 @@ that document.}
   implementation.}
 
 \subsection{Software Validation Plan}\label{SVP}
-Software validation plan is beyond the scope for BC as it involves extensive testing and validation against real-world data, which may require additional time, expertise, and resources that are not available within the scope of the project. 
+Software validation plan is beyond the scope for BC as it may require additional time, expertise, and resources that are not available within the scope of the project. 
 \wss{If there is any external data that can be used for validation, you should
   point to it here.  If there are no plans for validation, you should state that
   here.}
@@ -371,14 +371,14 @@ How test will be performed: The author will pick the sample test case from the m
 { %
     \begin{tabular}{ lccccc }
     \hline
-      \multicolumn{3}{c|}{Input (\si[per-mode=symbol] {\degree}) }                            & \multicolumn{2}{c}{Output} \\ 
+      \multicolumn{2}{c|}{Input (\si[per-mode=symbol] {\degree}) }                            & \multicolumn{2}{c}{Output} \\ 
     
     \hline
     %TODO: find model data
 
-        $AADT$   &   $AADTT$   & $d$  &   valid?   &   Error Message \\ \hline
+        $AADT$   &   $AADTT$   &   valid?   &   Error Message \\ \hline
     
-       0.039  & 0.046 & 93 &  Y  & fnjsdfnksas                        \\      \\
+       0.039  & 0.046 &   Y  & fnjsdfnksas                        \\      \\
     
     \hline
     
@@ -400,15 +400,67 @@ Input: The input column in Table \ref{Table:traffic_test}.
 					
 Output: The output column in Table \ref{Table:traffic_test}. \wss{The expected result for the given inputs}
 
-Test Case Derivation: This test case is used when inputing the climate models, the software will try to find the data needed for the software. If there is no such data it will produce error message. It will also produce error message if there is such data but it is invalid. 
+Test Case Derivation: This test case is applicable when entering climate models into the software. The software will attempt to locate the necessary data. If the required data is not found, it will generate an error message. Similarly, if the data exists but is invalid, the software will also generate an error message.
 \wss{Justify the expected value given in the Output field}
 					
 How test will be performed: The author will pick the sample test case from the model (as in Table \ref{Table:traffic_test}) and create automatic test by R.
 \end{enumerate}
 
 
-\subsubsection{Output Tests - test\_output\_exposure}
-This section covers R2, R4, R5 of the SRS which includes the check for the middle calculation of the software. 
+
+\subsubsection{Intermediate Tests - test\_model\_calculation}
+This section covers R3 of the SRS which includes the check for the middle calculation of the software to generate the database of the software. 
+
+\wss{It would be nice to have a blurb here to explain why the subsections below
+  cover the requirements.  References to the SRS would be good here.  If a section
+  covers tests for input constraints, you should reference the data constraints
+  table in the SRS.}
+		
+\paragraph{Functional tests - Intermediate tests - Model Calculations}
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{ %
+    \begin{tabular}{|p{5cm}|p{4cm}|p{4cm}|} 
+\hline        
+       Test case & Input & Output  \\ \hline
+    test-deicing-salts-quantity & $M_{total}=$, $t_1=$ d-by-one-truck &  $M_{app}$        \\ \hline
+    test-melted-water-thickness & &          \\ \hline
+    test-water-sprayed-and-splashed & &          \\ \hline
+    test-chloride-ions-sprayed-and-splashed-by-one-truck & &          \\ \hline
+    test-chloride-ions-sprayed-and-splashed-by-all-vehicles& &          \\ \hline
+    test-deicing-salts-deposition-on-the-surface-of-the-bridge-substructure& &          \\ \hline
+\end{tabular} %
+}
+\caption{Test Case for Model Calculation}
+\label{Table:calculation}
+\end{table}
+
+
+\begin{enumerate}
+
+\item{test-calculation\\}
+					
+Control: Automatic 
+					
+Initial State: None 
+					
+Input: The input columns in Table \ref{Table:calculation} 
+					
+Output: The output columns in Table \ref{Table:calculation} 
+
+Test Case Derivation: The expected value in the output column is determined using the equation provided by (TODO: add reference)\ref{}. At each step, the test case verifies if the calculation for the corresponding step is accurate. If it is, the test proceeds to the next step. The input will be the random values selected from the models.
+					
+How test will be performed: The automatic test will be performed by R.
+
+\end{enumerate}
+
+
+
+
+
+\subsubsection{Output Tests - test\_output}
+This section covers R2, R4, R5 of the SRS which includes the check for the final outputs.
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.  If a section
@@ -430,9 +482,10 @@ Input: Coordinate
 Output: If the input coordinate is within Ontario, it will return a series (length of at lease ten) of two decimal points data showing the chloride exposure at that location.
 
 Test Case Derivation: This test case cover the R2 and R5 of the SRS. The test will be done by checking the length of the output and the precision after decimal points. The expected value should be within the data constraints in the 4.4.7 section of \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
+
  \wss{Justify the expected value given in the Output field}
 					
-How test will be performed: The automatic test will be perfirmed by R.
+How test will be performed: The automatic test will be performed by R.
 
 
 \item{test-output-verification\\}
@@ -457,15 +510,6 @@ How test will be performed: Manually compare it with the real world data from pr
 \subsection{Tests for Nonfunctional Requirements}
 
 Non-functional requirements for BC are given in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS} section 5.2. There are five non-functional requirements for BC, which are described in the following sections correspondingly.
-\\
-\\
-NFR1: Reliability: The predictions generated by the software should be accurate and reliable, reflecting real-world conditions and factors influencing chloride exposure.
-NFR2: Usability: The software interface should be intuitive and user-friendly, allowing users in the section 3.2 to easily input coordinates and look at the predicted chloride exposure in the past and future.
-NFR3: Maintainability: The code for this software should be designed and structured in a way that it could be easily comprehended and modified by other potential developers.
-NFR4: Portability: This software should be able to run on recent versions of Google Chrome,
-Firefox, MS Edge and Safari. The operating system include Windows 7+ and Mac OS
-X 10.7+.
-NFR5: Scalability: The software should be scalable to accommodate potential
 \wss{The nonfunctional requirements for accuracy will likely just reference the
   appropriate functional tests from above.  The test cases should mention
   reporting the relative error for these tests.  Not all projects will
