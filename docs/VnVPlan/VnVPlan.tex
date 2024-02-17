@@ -25,7 +25,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for Bridge Corrosion: A Chloride Exposure Prediction Model} 
+\title{System Verification and Validation Plan for Bridge Corrosion: A Chloride Exposure Prediction Model} 
 \author{Cynthia Liu}
 \date{\today}
 	
@@ -102,7 +102,8 @@ $t_2$ & days & number of days with snow melting\\
   AADT & Annual Average Daily Traffic\\
   AADTT & Annual Average Daily Truck Traffic \\
   BC & Bridge Corrosion\\
-  fR & Functional Requirement\\
+  CI & Continuous Integration\\
+  FR & Functional Requirement\\
   MG & Module Guide\\
   MIS & Module Interface Specification\\
   NFR & Non-functional Requirement\\
@@ -239,7 +240,7 @@ The implementation would be verified by testing the functional requirements and 
   walkthroughs, code inspection, static analyzers, etc.}
 
 \subsection{Automated Testing and Verification Tools}\label{ATVT}
-The first part of the software, generating the database through climate and traffic model, will be done in MATLAB. The second part of finding the data for the input location, will be done in R. The automated testing will be done in MATLAB and R correspondingly. During the coding, \href{https://www.mathworks.com/help/matlab/ref/mlint.html}{mlint} and \href{https://lintr.r-lib.org/}{lintr} will be used as a static code analysis. 
+The first part of the software, generating the database through climate and traffic model, will be done in MATLAB. The second part of finding the data for the input location, will be done in R. The automated testing will be done in MATLAB and R correspondingly. During the coding, \href{https://www.mathworks.com/help/matlab/ref/mlint.html}{mlint} and \href{https://lintr.r-lib.org/}{lintr} will be used as a static code analysis. The Github Actions is used for continuous integration, that the CI work flow will run when new code is pushed to the repository. It will also run the CI tests and provide the results of each test in the pull request, so we can see whether the change in the branch introduces an error.
 \wss{What tools are you using for automated testing.  Likely a unit testing
   framework and maybe a profiling tool, like ValGrind.  Other possible tools
   include a static analyzer, make, continuous integration tools, test coverage
@@ -288,7 +289,7 @@ Functional requirements for BC are given in \href{https://github.com/CynthiaLiu0
   cover the requirements.  References to the SRS would be good here.}
 
 \subsubsection{Input Test - test\_invalid\_input}\label{t_input}
-This section covers R1 of the SRS which includes the input coordinates check for the software. This section also cover the dataset inputs that developers input from models to the software. In most of the cases, the dataset in the models are assumed to be valid, minimizing the occurrence of errors, but the test cases here still include the scenarios where data may be missing or invalid.
+This section covers R1 of the SRS which includes the input coordinates check for the software. This section also cover the dataset inputs that developers input from models to the software. In most of the cases, the dataset in the models are valid as they have been verified by their developers, but the test cases here still include the scenarios where data may be missing or invalid.
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.  If a section
@@ -479,7 +480,7 @@ Output: The output columns in Table \ref{Table:calculation}. The test case is co
 
 Test Case Derivation: The table shows one sample calculation for the chloride exposure. The expected value in the output column is determined using the equation provided by Mingsai et al ([\reref{ref1}]). At each step, the test case verifies if the calculation for the corresponding step is accurate. If it is, the test proceeds to the next step. 
 					
-How test will be performed: The automatic test will be performed by R.
+How test will be performed: The automatic test will be performed by R. There will be assert function for each step, and there will be more test cases rather than the one in the table.
 
 \end{enumerate}
 
