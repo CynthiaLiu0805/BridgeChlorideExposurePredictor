@@ -150,7 +150,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Jan 27, 2024 & 1.0 & Initial release\\
-Feb 9, 2024 & 2.0 & Add more details according to feedback from Phil Du\\
+Feb 23, 2024 & 2.0 & Add more details according to feedback from peer review\\
 \bottomrule
 \end{tabularx}
 
@@ -1297,7 +1297,7 @@ qualities that the software is expected to exhibit.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a series of data showing the trend of chloride exposure in the past and future at the input location (By \iref{I_DFSB}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] During the calculation, the software should be capable of handling situations where units do not match.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] During the calculation, the software should be capable of handling situations where units do not match in between steps as the developers or users are not able to interrupt/modify the data manually during the calculation.
 
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] The output from the previous year should be verifiable against real-world data.
