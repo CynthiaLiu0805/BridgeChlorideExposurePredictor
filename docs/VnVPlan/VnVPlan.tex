@@ -381,7 +381,7 @@ Input: The input column in Table \ref{Table:climate_test}.
 Output: The output column in Table \ref{Table:climate_test}. 
 % \wss{The expected result for the given inputs}
 
-Test Case Derivation: This test case is used when inputing the climate models, the software will try to find the data needed for the software. If there is no such data it will produce error message. It will also produce error message if there is such data but it is invalid. 
+Test Case Derivation: This test case is used when inputing the climate models. There are three parameters that would be used from the model and this test is trying to detect if any of them is missing. If so, it will produce error message. It will also produce error message if there is such data but it is invalid. 
 % \wss{Justify the expected value given in the Output field}
 					
 How test will be performed: The author will pick the sample test case from the model (as in Table \ref{Table:climate_test}) and create automatic test by R.
@@ -423,7 +423,7 @@ Input: The input column in Table \ref{Table:traffic_test}.
 Output: The output column in Table \ref{Table:traffic_test}. 
 % \wss{The expected result for the given inputs}
 
-Test Case Derivation: This test case is applicable when entering climate models into the software. The software will attempt to locate the necessary data. If the required data is not found, it will generate an error message. Similarly, if the data exists but is invalid, the software will also generate an error message.
+Test Case Derivation: This test case is applicable when entering traffic models into the software. There are two parameters that would be used from the model and this test is trying to detect if any of them is missing. If so, it will produce error message. Similarly, if the data exists but is invalid, the software will also generate an error message.
 % \wss{Justify the expected value given in the Output field}
 					
 How test will be performed: The author will pick the sample test case from the model (as in Table \ref{Table:traffic_test}) and create automatic test by R.
@@ -432,7 +432,7 @@ How test will be performed: The author will pick the sample test case from the m
 
 
 \subsubsection{Intermediate Tests - test\_model\_calculation}\label{t_calculation}
-This section might be more suitable for the unit test as section 4 is for system level? Will come back to this after MG and MIS.\\
+\an{This section might be more suitable for the unit test as section 4 is for system level? Will come back to this after MG and MIS.}\\
 This section covers R3 of the SRS which includes the check for the middle calculation of the software to generate the database of the software. There are six steps over the calculation process following section 4.4 in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS} as the following.
 \begin{itemize}
 \item Step 1: Calcualte the quantity of deicing salts applied per day with snowfall.
