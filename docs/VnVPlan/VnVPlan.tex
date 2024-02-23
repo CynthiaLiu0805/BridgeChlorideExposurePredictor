@@ -309,11 +309,11 @@ This section covers R1 of the SRS which includes the input coordinates check for
     \hline
         $longitude$   &   $latitude$     &   valid?   &   Error Message \\ \hline
     
-       278.9699  & 44.46539 &  Y  & NONE                         \\  \hline
+       278.9699  & 44.46539 &  Y  & No error message, continue to calcualte output                         \\  \hline
        278.9699  & 41.197 &  N  & Input position not inside Ontario                         \\  \hline
        -84.34  & 44.46539 &  N  & Input position not inside Ontario                         \\  \hline
-       -81.0301  & 44.46539 &  Y  & NONE                          \\  \hline
-       -74.3  & 45.2 &  Y  &  NONE                        \\   \hline
+       -81.0301  & 44.46539 &  Y  & No error message, continue to calcualte output                          \\  \hline
+       -74.3  & 45.2 &  Y  &  No error message, continue to calcualte output                       \\   \hline
        278.9699  &  &  N  & Missing latitude                         \\   \hline
       &  44.46539 &  N  & Missing longitude                       \\
 
@@ -355,7 +355,7 @@ How test will be performed: The author will create test cases and run automatic 
       \multicolumn{3}{c|}{Input (\si[per-mode=symbol] {\degree}) }                            & \multicolumn{2}{c}{Output} \\ \hline
         $h_{total}$   &   $t_1$   & $t_2$  &   valid?   &   Error Message \\ \hline
     
-       183.9371  & 109 & 76 &  Y  & None   \\    \hline
+       183.9371  & 109 & 76 &  Y  & No error message, continue to import model data  \\    \hline
        194.6057  & 367 & 255 &  N  &  $t_1$ and $t_2$ must be less than 365  \\    \hline
        119.62  & 53 & -30 &  N  & $t_1$ and $t_2$ need to be positive                 \\    \hline  
          & 109 & 76 &  N  & Data missing for $h_{total}$                \\    \hline  
@@ -400,7 +400,7 @@ How test will be performed: The author will pick the sample test case from the m
 
         $AADT$   &   $AADTT$   &   valid?   &   Error Message \\ \hline
     
-       20176  & 433 &   Y  & NONE                        \\      \hline
+       20176  & 433 &   Y  &  No error message, continue to import model data          \\      \hline
        152  & 8095 &   N  & $AADTT$ should be less than $AADT$                        \\      \hline
          & 152 &   N  & Data missing for $AADT$                        \\      \hline
        8095 & &   N  & Data missing for $AADTT$                        \\      \hline
@@ -432,6 +432,7 @@ How test will be performed: The author will pick the sample test case from the m
 
 
 \subsubsection{Intermediate Tests - test\_model\_calculation}\label{t_calculation}
+This section might be more suitable for the unit test as section 4 is for system level? Will come back to this after MG and MIS.\\
 This section covers R3 of the SRS which includes the check for the middle calculation of the software to generate the database of the software. There are six steps over the calculation process following section 4.4 in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS} as the following.
 \begin{itemize}
 \item Step 1: Calcualte the quantity of deicing salts applied per day with snowfall.
