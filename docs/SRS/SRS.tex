@@ -178,7 +178,6 @@ description of the unit and the SI name.
     \si{\metre} & length & metre \\
     \si{mile} & distance & mile \\
     \si{\kilogram} & mass & kilogram \\
-    \si{t} & mass & tonne \\
     \si{\second} & time & second \\
     \si{h} & time & hour \\
 
@@ -190,9 +189,7 @@ description of the unit and the SI name.
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
-their units.  The choice of symbols was made to be consistent with the heat
-transfer literature and with existing documentation for solar water heating
-systems.  The symbols are listed in alphabetical order.
+their units. The symbols are listed in alphabetical order.
 
 \break
 \break
@@ -202,50 +199,51 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$a_{splash}$ & $kg/m^3$ & maximum deposition rate occur from splash\\
-$a_{spray}$ & $kg/m^3$ & maximum deposition rate occur from spray\\
-$a_{air}$ & $kg/m^3$ & maximum deposition rate\\
+$a_{splash}$ & \si{kg/m^3} & maximum deposition rate occur from splash\\
+$a_{spray}$ & \si{kg/m^3} & maximum deposition rate occur from spray\\
+$a_{air}$ & \si{kg/m^3} & maximum deposition rate\\
+$b$ & \si{m} & tire width\\
 $b_{splash}$ & N/A & splash emission rate coefficient\\
 $b_{spray}$ & N/A & spray emission rate coefficient\\
-$C_s$ & $kg/m^3/vehicle$ & chloride on the bridge substructure\\
-$C_{s_{air}}$ & $kg/m^3/vehicle$ & chloride sprayed and splashed per unit air volume per vehicle\\
-$\delta_{salt}$ & $N/A$ & ratio of salt over water per unit area of road\\
-$d$ & $m$ & distance between road edge and nearby bridge structure\\
-$h_{app}$ & $m$ & daily water film thickness on the road\\
-$h_{film}$ & $m$ & depth of the water film picked up in each rotation\\
-$h_{total}$ & $m$ & the total snowfall during a winter season\\
-$I$ & $m/h$ & rainfall intensity\\
-$K$ & $N/A$ & ratio of the tire width that is not a groove to the tire width\\
-$L$ & $m$ & drainage length\\
-$M_{app}$ & $kg/m^2$ & deicing salts quantity applied per day\\
-$M_{total}$ & $kg/m^2$ & total amount of deicing salts quantity over winter\\
-$MR_{BW}$ & $kg/s$ & MFR displaced by a single tire due to bow\\
-$MR_{CA}$ & $kg/s$ & MFR displaced by a single tire due to capillary adhesion\\
-$MR_{SW}$ & $kg/s$ & MFR displaced by a single tire due to side waves\\
-$MR_{TP}$ & $kg/s$ & MFR displaced by a single tire due to tread pickup\\
-$MR_{W}$ & $kg/s$ & general MFR displaced by a single tire due to capillary adhesion\\
+$C_s$ & \si{kg/m^3/vehicle} & chloride on the bridge substructure\\
+$C_{s_{air}}$ & \si{kg/m^3/vehicle} & chloride sprayed and splashed per unit air volume per vehicle\\
+$\delta_{salt}$ & N/A & ratio of salt over water per unit area of road\\
+$d$ & \si{m} & distance between road edge and nearby bridge structure\\
+$h_{app}$ & \si{m} & daily water film thickness on the road\\
+$h_{film}$ & \si{m} & depth of the water film picked up in each rotation\\
+$h_{total}$ & \si{m} & the total snowfall during a winter season\\
+$I$ & \si{m/h} & rainfall intensity\\
+$K$ & N/A & ratio of the tire width that is not a groove to the tire width\\
+$L$ & \si{m} & drainage length\\
+$M_{app}$ & \si{kg/m^2} & deicing salts quantity applied per day\\
+$M_{total}$ & \si{kg/m^2} & total amount of deicing salts quantity over winter\\
+$\mathit{MR_{BW}}$ & \si{kg/s} & MFR displaced by a single tire due to bow\\
+$\mathit{MR_{CA}}$ & \si{kg/s} & MFR displaced by a single tire due to capillary adhesion\\
+$\mathit{MR_{SW}}$ & \si{kg/s} & MFR displaced by a single tire due to side waves\\
+$\mathit{MR_{TP}}$ & \si{kg/s} & MFR displaced by a single tire due to tread pickup\\
+$\mathit{MR_{W}}$ & \si{kg/s} & general MFR displaced by a single tire due to capillary adhesion\\
 $N_{lane}$ & lane & number of lanes\\
-$\rho_{water}$ & $kg/m^{3}$ & density of water\\
-$SD_{BW}$ & $kg/m^{3}/vehicle$ & spray density by a single tire due to bow\\
-$SD_{CA}$ & $kg/m^{3}/vehicle$ & spray density by a single tire due to capillary adhesion\\
-$SD_{SW}$ & $kg/m^{3}/vehicle$ & spray density by a single tire due to side waves\\
-$SD_{TP}$ & $kg/m^{3}/vehicle$ & spray density by a single tire due to tread pickup\\
-$SD_{total}$ & $kg/m^{3}/vehicle$ & spray density kicked up by each passing truck\\
-$SD_{total~cl}$ & $kg/m^3/vehicle$ & mass of chloride ions per unit air volume\\
-$S$ & $N/A$ & slope as a ratio\\
-$T$ & $mm$ & profile depth\\
+$\rho_{water}$ & \si{kg/m^{3}} & density of water\\
+$\mathit{SD_{BW}}$ & \si{kg/m^{3}/vehicle} & spray density by a single tire due to bow\\
+$\mathit{SD_{CA}}$ & \si{kg/m^{3}/vehicle} & spray density by a single tire due to capillary adhesion\\
+$\mathit{SD_{SW}}$ & \si{kg/m^{3}/vehicle} & spray density by a single tire due to side waves\\
+$\mathit{SD_{TP}}$ & \si{kg/m^{3}/vehicle} & spray density by a single tire due to tread pickup\\
+$\mathit{SD_{total}}$ & \si{kg/m^{3}/vehicle} & spray density kicked up by each passing truck\\
+$\mathit{SD_{total~cl}}$ & \si{kg/m^3/vehicle} & mass of chloride ions per unit air volume\\
+$S$ & \si{m/m} & slope as a ratio\\
+$T$ & \si{mm} & profile depth\\
 $t_1$ & days & number of days with snowfall\\
 $t_2$ & days & number of days with snow melting\\
 $t_{snow}$ & days & number of days with snow\\
-$V$ & $m/s$ & truck speed\\
-$V_{salt}$ & $t/cm/km$ & normalized salt application rate\\
-$V_{speed}$ & $km/h$ & heavy vehicle speed\\
-$V'$ & $miles/h$ & heavy vehicle speed\\
-$W_{lane}$ & $m$ & lane width\\
-$WD$ & $m$ & water depth/thickness\\
-$x$ & $m$ & distance between road and object surface\\
-$\Theta$ & $N/A$ & ratio of chloride ions sprayed and splashed by trucks over those by light duty vehicles\\
-$\theta_{chloride}$ & $N/A$ & molar mass ratio of chloride ions over deicing salts\\
+$V$ & \si{m/s} & truck speed\\
+$V_{salt}$ & \si{t/cm/km} & normalized salt application rate\\
+$V_{speed}$ & \si{km/h} & heavy vehicle speed\\
+$V'$ & \si{miles/h} & heavy vehicle speed\\
+$W_{lane}$ & \si{m} & lane width\\
+$\mathit{WD}$ & \si{m} & water depth/thickness\\
+$x$ & \si{m} & distance between road and object surface\\
+$\Theta$ & N/A & ratio of chloride ions sprayed and splashed by trucks over those by light duty vehicles\\
+$\theta_{chloride}$ & N/A & molar mass ratio of chloride ions over deicing salts\\
 \bottomrule
 \end{longtable*}
 \subsection{Abbreviations and Acronyms}
@@ -285,7 +283,7 @@ $\theta_{chloride}$ & $N/A$ & molar mass ratio of chloride ions over deicing sal
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   $\mathbb{R}$ & Real number \\
-  \{$\mathbb{R}$\} & a set of real number\\
+  \{$\mathbb{R}$\} & a list of real number\\
   \bottomrule
 \end{tabular}\\
 
@@ -294,15 +292,16 @@ $\theta_{chloride}$ & $N/A$ & molar mass ratio of chloride ions over deicing sal
 \pagenumbering{arabic}
 
 \section{Introduction}
-In Ontario, most of the bridges in highway are made of reinforced concrete (RC) decks. However, the bridges may face the chloride-induced corrosion which damage its surface. There are many elements influencing this situation, one of the most important one is the deicing salts. The primary used is sodium chloride (rock salt),when they melt the snow and in contact with water, they could have a chemical reaction and release the chloride ions. Those chloride could penetrate the concrete and induce corrosion in the reinforcing steel, then damage the bridges’ structure and capacity. \\
-There is a tight connection between chloride exposure, weather conditions and traffic flow. Specifically, the amount of deicing salts applied on the road surface greatly depends on the amount of snowfall, and the amount of water and dissolved chloride ions that end up on nearby objects depends on the traffic patterns. This section outlines the document's purpose, delineates its scope of requirements, describes the intended audience's characteristics, and provides an overview of the document's organization.
+In Ontario, most of the bridges in highway are made of Reinforced Concrete decks. However, the bridges may face the chloride-induced corrosion which damage its surface. There are many elements influencing this situation, one of the most important one is deicing salts. The primary used is sodium chloride (rock salt),when they melt the snow and in contact with water, they could have a chemical reaction and release the chloride ions. Those chloride could penetrate the concrete and induce corrosion in the reinforcing steel, then damage the bridges’ structure and capacity. \\
+There is a tight connection between chloride exposure, weather conditions and traffic flow. Specifically, the amount of deicing salts applied on the road surface greatly depends on the amount of snowfall, and the amount of water and dissolved chloride ions that end up on nearby objects depends on the traffic patterns.\\
+This section outlines the document's purpose, delineates its scope of requirements, describes the intended audience's characteristics, and provides an overview of the document's organization.
 
 \subsection{Purpose of Document}
 This document details the requirements of the software Bridge Corrosion. The
 responsibilities of the user and software are laid out and the requirements that the software must satisfy are explicitly detailed. This document provides the software requirements specification (SRS) for a project to investigate how the climate and traffic could have impact on the corrosion-induced damage for the reinforced concrete, or to be more specific, how they influence the chloride exposure. 
 
 \subsection{Scope of Requirements} 
-The entire document is written as the chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. Another scope of the document is the factors that affect bridge corrosion is limit to chloride levels, climatic conditions, and traffic patterns.
+The entire document is written assuming chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. Another scope of the document is the factors that affect bridge corrosion is limit to chloride levels, climatic conditions, and traffic patterns.
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, and the ability to comprehend basic results generated through computational fluid dynamics. The users of Bridge Corrosion may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
@@ -362,17 +361,18 @@ sections and their meaning, with the purpose of reducing ambiguity and making it
 easier to correctly understand the requirements:
 
 \begin{itemize}
-\item Mass flow rate: The amount of water displaced by a single tire.
+\item Mass Flow Rate: The amount of water displaced by a single tire.
 \item Spray density: Spray density is the measure of how closely packed the droplets or particles are within the spray plume. It quantifies the amount of material dispersed per unit area. In this document, it is referred to the density of water in the air (mass of water per unit air volume) in the environment.
 \item Airborne deposition: The process of particles moving from the atmosphere to the earth's surface.
 \item Deposition rate: The rate at which a substance is deposited onto a surface over a specific period of time.
+\item Drainage: The removal of a surface's water from an area with excess water.
 
 \end{itemize}
 
 \subsubsection{Physical System Description} \label{sec_phySystDescrip}
 
 
-The key physical system of Bridge Corrosion, as shown in Figure \ref{4mechanism}, simulate the situation that a vehicle spray and splash the water, it includes the following elements:
+The key physical system of Bridge Corrosion, as shown in Figure \ref{4mechanism} provided by [\reref{ref4}], simulate the situation that a vehicle spray and splash the water, it includes the following elements:
 
 \begin{itemize}
 
@@ -408,7 +408,7 @@ The key physical system of Bridge Corrosion, as shown in Figure \ref{4mechanism}
 \newpage
 \subsubsection{Goal Statements}
 
-\noindent Given the salt application data, climate data and traffic data across different regions and time period , the goal statements are:
+\noindent Given the salt application data, climate data and traffic data across different regions and time period, the goal statements are:
 
 \begin{itemize}
 
@@ -519,21 +519,21 @@ Label &\bf Water film thickness\\
 % \hline
 SI Units&\si{m}\\
 \hline
-Equation& $WD = 6 \times 10^{-4} \cdot T^{0.09} (L \cdot I)^{0.6} \cdot S^{-0.33} $\\
+Equation& $\mathit{WD} = 6 \times 10^{-4} \cdot T^{0.09} (L \cdot I)^{0.6} \cdot S^{-0.33} $\\
 \hline
 Description & 
 The above equation compute the water film thickness based on the rainfall intensity and pavement surface properties.
 \begin{itemize}
 
-\item $WD$ is the water depth. ($m$)
+\item $\mathit{WD}$ is the water depth. ($m$)
 
-\item $T$ is the texture. ($mm$)
+\item $T$ is the pavement texture. ($mm$)
 
-\item $L$ is the drainage length. ($m$)
+\item $L$ is the pavement drainage length. ($m$)
 
 \item $I$ is the rainfall intensity. ($m/h$)
 
-\item $S$ is the slope. (ratio)
+\item $S$ is the slope. ($m/m$)
 
 
 \end{itemize}
@@ -564,7 +564,7 @@ Label &\bf Max flow rate general \\
 % \hline
 SI Units&\si{kg\per s}\\
 \hline
-Equation& $MR_W = V \cdot b \cdot WD \cdot \rho_{water} $\\
+Equation& $\mathit{MR_W} = V \cdot b \cdot \mathit{WD} \cdot \rho_{water} $\\
 
 \hline
 Description & 
@@ -575,7 +575,7 @@ The above equation is the general equation for mass flow rate, which is the maxi
 
 \item $b$ is the tire width. ($m$)
 
-\item $WD$ is the water depth/thickness. ($m$)
+\item $\mathit{WD}$ is the water depth/thickness. ($m$)
 
 \item $\rho_{water}$ is the density of water. ($kg/m^{3}$)
 
@@ -609,13 +609,13 @@ The above equation is the general equation for mass flow rate, which is the maxi
 % \hline
 SI Units&\si{kg\per\metre^3\per vehicle} \\
 \hline
-Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times \frac{ADT-N}{N_{lane}}+ SD_{total~cl} \times \frac{N}{N_{lane}}) \times t_{snow}$ \\
+Equation & $C_{{s}_{air}} = (\mathit{SD_{totalcl}} \times \frac{1}{\Theta} \times \frac{ADT-N}{N_{lane}}+ \mathit{SD_{total~cl}} \times \frac{N}{N_{lane}}) \times t_{snow}$ \\
   \hline
   Description& The above equation computes the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier every winter, accounting for all the days with snow in a typical winter season.
   
 \begin{itemize}
 
-\item $SD_{total~cl}$ is the mass of chloride ions per unit air volume. ($kg/m^3/vehicle$)
+\item $\mathit{SD_{total~cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3/vehicle$)
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles. (ratio)
 
@@ -632,7 +632,7 @@ Equation & $C_{{s}_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times \frac{
 
 \\
 \hline
-Notes & The first part in the parentheses calculate the chloride exposure by light-duty vehicle, and the second part is for heavy-duty vehicles. The calculation focues on the road lane that is closest to the bridge component, so $N_{lane}$ is included in the denominator.
+Notes & The first part in the parentheses calculate the chloride exposure by light-duty vehicle, and the second part is for heavy-duty vehicles. The calculation focus on the road lane that is closest to the bridge component, so $N_{lane}$ is included in the denominator.
 \\
 \hline
   Source & [\reref{ref4}] \\
@@ -712,15 +712,15 @@ SI Units&\si{kg\per s}\\
 Equation& 
 \begin{equation}
      \begin{cases}
-     MR_{CA} = V_{speed} \times b \times K \times h_{film} \times \rho_{water} & \text{for} ~ CA \\
-      MR_{TP} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} & \text{for} ~ TP\\
-      MR_{BW} = MR_{SW} = 0.5 \times V_{speed} \times b \times (h_{app} \\ - K \times h_{film} - (1-K) \times h_{app}) \times \rho_{water} & \text{for} ~ BW ~ and~ SW \\
+     \mathit{MR_{CA}} = V_{speed} \times b \times K \times h_{film} \times \rho_{water} & \text{for} ~ CA \\
+      \mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} & \text{for} ~ TP\\
+      \mathit{MR_{BW}} = MR_{SW} = 0.5 \times V_{speed} \times b \times (h_{app} \\ - K \times h_{film} - (1-K) \times h_{app}) \times \rho_{water} & \text{for} ~ BW ~ and~ SW \\
       \end{cases}\nonumber
   \end{equation}
   
   \\
 \hline
-Description & The above equations compute the contribution to the amount of water displaced by a single tire(also called mass flow rate) of each splash and spray mechanism, using the following equations in the order presented until the total amount of available water is exhausted. $MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}$ stands for capillary adhesion, tread pickup, bow waves and side waves correspondingly.
+Description & The above equations compute the contribution to the amount of water displaced by a single tire (also called MFR) of each splash and spray mechanism, using the following equations in the order presented until the total amount of available water is exhausted. $\mathit{MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}}$ stands for capillary adhesion, tread pickup, bow waves and side waves correspondingly.
 
 \begin{itemize}
 
@@ -754,25 +754,26 @@ The tread pickup will be activated only if there is water remaining after the ca
 
 \subsubsection*{Detailed derivation of mass flow rate}
 
-The maximum mass flow rate associated with capillary adhesion ($MR_{CA}$) is estimated as the number of tire rotations per second multiplied by the volume of water dispersed on each tire rotation multiplied by the density of water, or
+The following derivation is based on the theories purposed in [\reref{ref4}].\\
+The maximum mass flow rate associated with capillary adhesion ($\mathit{MR_{CA}}$) is estimated as the number of tire rotations per second multiplied by the volume of water dispersed on each tire rotation multiplied by the density of water, or
  \[ 
-MR_{CA} = \left[\frac{V_{speed}}{2\pi R}\right] \cdot \left[ 2\pi R \times b \times K \times h_{film} \right] \times \rho_{water} = \left[V_{speed} \times b \times K \times h_{film} \right] \times  \rho_{water} 
+\mathit{MR_{CA}} = \left[\frac{V_{speed}}{2\pi R}\right] \cdot \left[ 2\pi R \times b \times K \times h_{film} \right] \times \rho_{water} = \left[V_{speed} \times b \times K \times h_{film} \right] \times  \rho_{water} 
 \]
 \\
 After capillary action, the tire is able to displace a volume of water within its tread. The maximum flow rate for this mechanism ($MR_{TP}$) will occur when all the water contained in the tread volume is flung out of the tread during each tire rotation. Thus, it can be computed as the number of tire rotations per second multiplied by the capacity of tire’s tread on each rotation multiplied by the density of water:
  \[ 
-MR_{TP} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} 
+\mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} 
 \]
 \\
 Any remaining water for which there is no capacity either underneath the tire contact area or within the tire tread must be displaced to the front of the tire or to the side, causing the bow wave and side wave, respectively. So, the total mass flow rate that can be attributed to bow and side wave mechanisms can be written as:
  \[ 
-MR_{BW} + MR_{SW} =  \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
+\mathit{MR_{BW} + MR_{SW}} =  \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
 \\
-So, $MR_{BW}$ and $MR_{SW}$ can be estimated separately as:
+So, $\mathit{MR_{BW}}$ and $\mathit{MR_{SW}}$ can be estimated separately as:
  \[ 
-MR_{BW} =  \alpha \times \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
+\mathit{MR_{BW}} =  \alpha \times \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
  \[
-MR_{SW} = \beta \times \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
+\mathit{MR_{SW}} = \beta \times \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
 \\
 where $\alpha$ and $\beta$ are calibration factors that satisfy $\alpha + \beta = 1$. Until other evidence is available, it will be assumed that $\alpha = \beta = 0.5$.
 
@@ -797,10 +798,10 @@ SI Units&\si{kg\per\metre^3\per vehicle}\\
 Equation&
 \begin{equation}
      \begin{cases}
-     SD_{CA} = (-2.69 \times 10^{-5} \times V' + 2.43 \times 10^{-3}) \times MR_{CA}& \text{for} ~ CA \\
-      SD_{TP} = (1.16 \times 10^{-5} \times V' - 5.25 \times 10^{-5}) \times MR_{TP} & \text{for} ~ TP\\      
-      SD_{BW} = (2.67 \times 10^{-5} \times V' - 4.71 \times 10^{-4}) \times MR_{BW} & \text{for} ~ BW\\
-       SD_{SW} = (1.65 \times 10^{-5} \times V' - 3.99 \times 10^{-4}) \times MR_{SW} & \text{for} ~ SW\\      
+     \mathit{SD_{CA}} = (-2.69 \times 10^{-5} \times V' + 2.43 \times 10^{-3}) \times \mathit{MR_{CA}} & \text{for} ~ CA \\
+      \mathit{SD_{TP}} = (1.16 \times 10^{-5} \times V' - 5.25 \times 10^{-5}) \times \mathit{MR_{TP}} & \text{for} ~ TP\\      
+      \mathit{SD_{BW}} = (2.67 \times 10^{-5} \times V' - 4.71 \times 10^{-4}) \times \mathit{MR_{BW}} & \text{for} ~ BW\\
+       \mathit{SD_{SW}} = (1.65 \times 10^{-5} \times V' - 3.99 \times 10^{-4}) \times \mathit{MR_{SW}} & \text{for} ~ SW\\      
       \end{cases}\nonumber
   \end{equation}
 \\
@@ -810,7 +811,7 @@ Description & Spray density is derived by conducting regression analysis to deve
 
 \item $V'$ is the heavy vehicle speed. ($miles/h$)
 
-\item $MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}$ is the mass flow rate for capillary adhesion, tread pickup, bow waves and side waves correspondingly. ($kg/s$)
+\item $\mathit{MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}}$ is the mass flow rate for capillary adhesion, tread pickup, bow waves and side waves correspondingly. ($kg/s$)
 \end{itemize}
 
 \\
@@ -839,13 +840,13 @@ Description & Spray density is derived by conducting regression analysis to deve
 % \hline
 SI Units&\si{kg\per\metre^3\per vehicle}\\
   \hline
-  Equation & $C_{s_{air}} = (SD_{total~cl} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total~cl} \times AADTT ~per~ lane) \times t_2$ \\
+  Equation & $C_{s_{air}} = (\mathit{SD_{totalcl}} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total~cl} \times AADTT ~per~ lane) \times t_2$ \\
   \hline
   Description& The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of says with snow melting.
   
 \begin{itemize}
 
-\item $SD_{total~cl}$ is the mass of chloride ions per unit air volume. ($kg/m^3/vehicle$)
+\item $\mathit{SD_{total~cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3/vehicle$)
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles.
 
@@ -945,7 +946,7 @@ Symbol &$h_{app}$\\
   Description & The equaition above calculates the thickness of melted water per day with snow melting.
 \begin{itemize}
 
-\item $h_{total}$ is the the total snowfall during a winter season. ($m$)
+\item $h_{total}$ is the the total snowfall during a winter season, given by the climate model. ($m$)
 
 \item $t_{snow}$ is the number of days with snow melting.
 
@@ -1012,16 +1013,16 @@ Label &\bf Total spray density\\
 % \hline
 SI Units&\si{kg\per m^3 \per vehicle}\\
 \hline
-Equation& $SD_{total} = SD_{CA} + SD_{TP} + SD_{BW} + SD_{SW}$\\
+Equation& $\mathit{SD_{total} = SD_{CA} + SD_{TP} + SD_{BW} + SD_{SW}}$\\
 \hline
 Description & The spray density (i.e. mass of water per unit air volume kicked up by each passing truck), is the sum of the four mechanism.
 
 \begin{itemize}
 
-\item $SD_{CA}$ is the spray density due to capillary adhesion.
-\item $SD_{TP}$ is the spray density due to tread pickup.
-\item $SD_{BW}$ is the spray density due to bow waves.
-\item $SD_{SW}$ is the spray density due to side waves.
+\item $\mathit{SD_{CA}}$ is the spray density due to capillary adhesion.
+\item $\mathit{SD_{TP}}$ is the spray density due to tread pickup.
+\item $\mathit{SD_{BW}}$ is the spray density due to bow waves.
+\item $\mathit{SD_{SW}}$ is the spray density due to side waves.
 
 \end{itemize}
 
@@ -1091,7 +1092,7 @@ Label &\bf Mass of chloride ions \\
 % \hline
 SI Units&\si{kg\per\metre^3\per vehicle} \\
 \hline
-Equation & $SD_{total ~cl} =SD_{total} \times \delta_{salt} \times \theta_{chloride}$ \\
+Equation & $\mathit{SD_{totalcl} =SD_{total} \times \delta_{salt} \times \theta_{chloride}}$ \\
 \hline
 Description & This equation computes the mass of chloride ions per unit air volume kicked up by each truck.
 \begin{itemize}
@@ -1194,7 +1195,7 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
   \rowcolor[gray]{0.9}
   Number& IM\refstepcounter{instnum}\theinstnum \label{I_DFSB}\\
   \hline
-  Label& \bf Search data for specific coordiinate \\
+  Label& \bf Search data for specific coordinate \\
   \hline
   Input& $(longitude, latitude)$\\
   \hline
@@ -1227,7 +1228,7 @@ flexibility to experiment with unusual situations.  The column of typical values
 is intended to provide a feel for a common scenario.  The uncertainty column
 provides an estimate of the confidence with which the physical quantities can be
 measured.  This information would be part of the input if one were performing an
-uncertainty quantification exercise. In the Bridge Corrosion project, I would talk about not only the input variables mentioned in instance models, but also include those in other models that the software need to process.\\
+uncertainty quantification exercise. In the Bridge Corrosion project, I would talk about not only the input variables mentioned in instance models, but also include those in other models that the software need to process. The physical constraints are purposed by [\reref{ref4}].\\
 The specification parameters in Table~\ref{TblInputVar} are listed in
 Table~\ref{TblConstants}.
 
@@ -1239,21 +1240,21 @@ Table~\ref{TblConstants}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $b$ & $0.2 \leq b \leq 0.71$ & $b_{min} \leq b \leq b_{max}$ & 0.56m & 10\%
+  $b$ & $0.2 \leq b \leq 0.71$ & $b_{min} \leq b \leq b_{max}$ & 0.56 m & 10\%
   \\
-  $d$ & $d > 0$ & $d>0$ & 3m & 10\%
+  $d$ & $d > 0$ & $d>0$ & 3 m & 10\%
   \\
-  $h_{film}$ & $h_{film} > 0$ & $h_{film} > 0$ & 0.0001m & 10\% 
+  $h_{film}$ & $h_{film} > 0$ & $h_{film} > 0$ & 0.0001 m & 10\% 
   \\
   $K$ & $0 \leq K \leq 1$ & $b_{min} \leq K \leq b_{max}$ & 0.75 & 10\%
   \\
-  $t_2$ & $0 \leq t_2 \leq 365$ & $t_{snow} \leq t_2 \leq 365$ & 70days & 10\%
+  $t_2$ & $0 \leq t_2 \leq 365$ & $t_{snow} \leq t_2 \leq 365$ &  70 days & 10\%
   \\
-  $t_{snow}$ & $0 \leq t_{snow} \leq 365$ & $0 \leq t_{snow} \leq 365$ & 65days & 10\%
+  $t_{snow}$ & $0 \leq t_{snow} \leq 365$ & $0 \leq t_{snow} \leq 365$ & 65 days & 10\%
   \\
-  $V'$ & $37 \leq V' \leq 65$ & $V'_{min}\leq V' \leq V'_{max}$ & 65miles/h & 10\%
+  $V'$ & $37 \leq V' \leq 65$ & $V'_{min}\leq V' \leq V'_{max}$ & 65 miles/h & 10\%
   \\
-  $V_{speed}$ & $60 \leq V_{speed} \leq 105$ & $V_{speed_{min}} \leq V_{speed} \leq V_{speed_{max}}$ & 105km/h & 10\%
+  $V_{speed}$ & $60 \leq V_{speed} \leq 105$ & $V_{speed_{min}} \leq V_{speed} \leq V_{speed_{max}}$ & 105 km/h & 10\%
   \\
   $\Theta$ & $0 \leq \theta < 1$ & $0 \leq \theta < 1$ & 0.61 & 10\%
   \\
@@ -1321,7 +1322,6 @@ qualities that the software is expected to exhibit.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]  \textbf{Portability}: This software should be able to run on recent versions of Google Chrome, Firefox, MS Edge and Safari. The operating system include Windows 7+ and Mac OS X 10.7+.
 
-
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Scalability}:]   \textbf{Scalability}: The software should be scalable to accommodate potential future expansions or updates, ensuring its continued usefulness as new data or techniques become available.
 
 \end{itemize}
@@ -1329,7 +1329,6 @@ qualities that the software is expected to exhibit.
 \subsection{Rationale}
 
 The assumptions made in this document are based on practical considerations to simplify and quantify the data required in the model. In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. In \aref{A_laneWidth}, it simplifies the model by assuming a standardized lane width across all roads. While lane widths can vary depending on road type and location, assuming a uniform lane width streamlines the analysis and allows for consistent calculations. Additionally, a lane width of 3 meters is commonly used in many road design standards and provides a reasonable approximation for modeling purposes. Similarly, NaCl is one of the most widely used deicing salts due to its effectiveness and affordability, so \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions. Lastly, AADT is an important parameter for assessing traffic volume on roads and is typically used to classify roads into different categories based on their traffic intensity, \aref{A_AADT} simplifies the analysis by providing a standardized measure of traffic volume. By incorporating these assumptions, the model can effectively simulate real-world scenarios and provide valuable insights into the factors influencing bridge corrosion.
-The \
 The constraints in Table \ref{TblInputVar} are defined considering real-world scenarios. For example,  the speed constraints adhere to established speed limits, ensuring a realistic representation of vehicle speeds. Similarly, the constraints associated with the variable about days are confined within the bounds of the annual calendar, reflecting a practical consideration of time duration within a given year.
 
 
@@ -1542,28 +1541,5 @@ Scinocca, J. F., Kharin, V. V., Jiao, Y., Qian, M. W., Lazare, M., Solheim, L., 
 
 \end{enumerate}
 
-
-\newpage
-
-\section*{Appendix --- Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
-
-\begin{enumerate}
-  \item Which of the courses you have taken, or are currently taking, will help
-  your team to be successful with your capstone project.
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete this capstone project?  Examples of possible knowledge
-  to acquire include domain specific knowledge from the domain of your
-  application, or software engineering knowledge, mechatronics knowledge or
-  computer science knowledge.  Skills may be related to technology, or writing,
-  or presentation, or team management, etc.  You should look to identify at
-  least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
-\end{enumerate}
 
 \end{document}
