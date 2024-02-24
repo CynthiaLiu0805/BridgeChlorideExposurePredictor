@@ -339,11 +339,11 @@ Figure 1 shows the system context of the software. The user should input a coord
 \end{itemize}
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
-The end user of Bridge Corrosion should have the basic understanding of geographic coordinates. Additionally, users may benefit from some knowledge of bridge construction or civil engineering principles to better understand the context and implications of the predicted chloride exposure.
+The end user of Bridge Corrosion should have the high school understanding of geographic coordinates. Additionally, users may benefit from university level of knowledge of bridge construction or civil engineering principles to better understand the context and implications of the predicted chloride exposure.
 
 
 \subsection{System Constraints}
- The software must be able to provide output for coordinates inside Ontario. 
+There is no system constraints for this software.
   
 \section{Specific System Description}
 
@@ -408,13 +408,11 @@ The key physical system of Bridge Corrosion, as shown in Figure \ref{4mechanism}
 \newpage
 \subsubsection{Goal Statements}
 
-\noindent Given the salt application data, climate data and traffic data across different regions and time period, the goal statements are:
+\noindent Given the salt application data, climate data, traffic data and coordinate across different regions and time period, the goal statements are:
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_ChlorideExposurePrediction}:] Predict the chloride exposure for bridges in Ontario in the past and future.
-
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_ExtractData}:] Allow user to input coordinate and return the prediction for that location.
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_ChlorideExposurePrediction}:] Predict the chloride exposure for bridges in Ontario in the past and future, allow user to input coordinate and return the prediction for that location.
 
 \end{itemize}
 
@@ -1124,8 +1122,7 @@ one which is expressed in mathematical terms. It uses concrete symbols defined
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}.
-The goal \gsref{G_ExtractData} is solved by \iref{I_DFSB}.
+The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}, \iref{I_DFSB}.
 
 
 ~\newline
@@ -1228,7 +1225,7 @@ flexibility to experiment with unusual situations.  The column of typical values
 is intended to provide a feel for a common scenario.  The uncertainty column
 provides an estimate of the confidence with which the physical quantities can be
 measured.  This information would be part of the input if one were performing an
-uncertainty quantification exercise. In the Bridge Corrosion project, I would talk about not only the input variables mentioned in instance models, but also include those in other models that the software need to process. The physical constraints are purposed by [\reref{ref4}].\\
+uncertainty quantification exercise. In the Bridge Corrosion project, I would talk about not only the input variables mentioned in instance models, but also include those in other models that the software need to process. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside Ontario. This will be done by input checking algorithm later. \\
 The specification parameters in Table~\ref{TblInputVar} are listed in
 Table~\ref{TblConstants}.
 
