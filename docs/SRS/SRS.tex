@@ -151,6 +151,7 @@
 \midrule
 Jan 27, 2024 & 1.0 & Initial release\\
 Feb 23, 2024 & 2.0 & Add more details according to feedback from peer review\\
+Mar 7, 2024 & 3.0 & Modified according to feedback from Dr. Spence Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -1291,15 +1292,11 @@ qualities that the software is expected to exhibit.
 
 \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The user input need to be a coordinate within Ontario (By \iref{I_DFSB}).
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept input that is inside Ontario (By \iref{I_DFSB}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a series of data showing the trend of chloride exposure in the past and future at the input location (By \iref{I_DFSB}).
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a list of data showing the trend of chloride exposure in the past and future at the input location (By \iref{I_DFSB}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] During the calculation, the software should be capable of handling situations where units do not match in between steps as the developers or users are not able to interrupt/modify the data manually during the calculation.
-
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] The output from the previous year should be verifiable against real-world data.
-
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] During the automatic calculation steps, the software should handle situations where units do not match.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The output should be in two decimal points, showing the mass of chloride ions per unit air volume (By \iref{I_COTS}).
 
@@ -1428,23 +1425,22 @@ other.
 \newpage
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \iref{I_COTS} & \iref{I_DFSB} & \rref{R_Inputs} & \rref{R_OutputInputs} & \rref{R_Calculate} & \rref{R_VerifyOutput} & \rref{R_Output} & \nfrref{NFR_Reliability} & \nfrref{NFR_Usability} & \nfrref{NFR_Maintainability} & \nfrref{NFR_Portability} & \nfrref{NFR_Scalability} \\
+	& \iref{I_COTS} & \iref{I_DFSB} & \rref{R_Inputs} & \rref{R_OutputInputs} & \rref{R_Calculate}  & \rref{R_Output} & \nfrref{NFR_Reliability} & \nfrref{NFR_Usability} & \nfrref{NFR_Maintainability} & \nfrref{NFR_Portability} & \nfrref{NFR_Scalability} \\
 
 \hline
-\iref{I_COTS}         & & & & & & & X & & & & & \\ \hline
-\iref{I_DFSB}         & & & X & X & & & & & X & & X &\\  \hline
-\rref{R_Inputs}     & & X & & & X & & & & & X & & \\ \hline
-\rref{R_OutputInputs} & & & & & & X & X & X & & & & \\ \hline
-\rref{R_Calculate}     & & & X & & & & & & & & & X \\ \hline
-\rref{R_VerifyOutput}  & & & & X & & & & X & & & & \\ \hline
-\rref{R_Output} & & & & X & & & & & & & & \\ \hline
-\nfrref{NFR_Reliability}   & & X & & & & X & & & & & & \\ \hline
-\nfrref{NFR_Usability}   & & X & & X & & & & & & & & \\ \hline
-\nfrref{NFR_Maintainability}   & & & & & & & & & & & & X \\ \hline
-\nfrref{NFR_Portability}   & & & & & & & & & & & & \\ \hline
-\nfrref{NFR_Scalability}   & & & & & & & & & & X & & \\
+\iref{I_COTS}         & & & & & & X & & & & & \\ \hline
+\iref{I_DFSB}         & & & X & X & & & & X & & X &\\  \hline
+\rref{R_Inputs}     & & X & & & & & & & X & & \\ \hline
+\rref{R_OutputInputs} & & & & & X & X & X & & & & \\ \hline
+\rref{R_Calculate}     & & & X & & & & & & & & X \\ \hline
+\rref{R_Output} & & & & X & & & & & & & \\ \hline
+\nfrref{NFR_Reliability}   & & X & & & X & & & & & & \\ \hline
+\nfrref{NFR_Usability}   & & X & & X & & & & & & & \\ \hline
+\nfrref{NFR_Maintainability}   & & & & & & & & & & & X \\ \hline
+\nfrref{NFR_Portability}   & & & & & & & & & & & \\ \hline
+\nfrref{NFR_Scalability}   & & & & & & & & & X & & \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
