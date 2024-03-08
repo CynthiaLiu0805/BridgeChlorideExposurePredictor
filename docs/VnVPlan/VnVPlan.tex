@@ -35,10 +35,11 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\begin{tabularx}{\textwidth}{p{2.5cm}p{1.5cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Feb 9, 2024 & 1.0 & Initial release\\
+Mar 7, 2024 & 2.0 & Modify according to feedback from peer review\\
 \bottomrule
 \end{tabularx}
 
@@ -492,7 +493,7 @@ How test will be performed: The automatic test will be performed by R. There wil
 
 
 \subsubsection{Output Tests - test\_output}\label{t_output}
-This section covers R2, R4, R5 of the SRS which includes the check for the final outputs.
+This section covers R2, R4of the SRS which includes the check for the final outputs.
 
 % \wss{It would be nice to have a blurb here to explain why the subsections below
 %   cover the requirements.  References to the SRS would be good here.  If a section
@@ -513,7 +514,7 @@ Input: Coordinate
 					
 Output: If the input coordinate is within Ontario, it will return a series (length of at lease ten) of two decimal points data showing the chloride exposure at that location.
 
-Test Case Derivation: This test case cover the R2 and R5 of the SRS. The test will be done by checking the length of the output and the precision after decimal points. The expected value should be within the data constraints in the 4.4.7 section of \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
+Test Case Derivation: This test case cover the R2 and R4 of the SRS. The test will be done by checking the length of the output and the precision after decimal points. The expected value should be within the data constraints in the 4.4.7 section of \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
 
 %  \wss{Justify the expected value given in the Output field}
 					
@@ -530,7 +531,7 @@ Input: Chloride exposure data
 					
 Output: True or False.
 
-Test Case Derivation: This test case cover the R4 of the requirement. It compared the chloride exposure data that the software generates with the real world data for verification. The test result will be true if the derivation is within a threshold. The detail value of the threshold will be determined during development.
+Test Case Derivation: This test case compares the chloride exposure data that the software generates with the real world data for verification. The test result will be true if the derivation is within a threshold. The detail value of the threshold will be determined during development.
 
 %  \wss{Justify the expected value given in the Output field}
 					
@@ -644,16 +645,16 @@ How test will be performed: Record the response time for the software when given
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& R1 & R2 & R3 & R4 & R5 & NFR1 & NFR2 & NFR3 & NFR4 & NFR5 \\
+	& R1 & R2 & R3  & R4 & NFR1 & NFR2 & NFR3 & NFR4 & NFR5 \\
 \hline
-Test \ref{t_input}        & X & & & & & & & & & \\ \hline
-Test \ref{t_calculation}        & & & X & & & & & & & \\ \hline
-Test \ref{t_output}        & & X & & X & X & & & & & \\ \hline
-Test \ref{t_reliability}        & & & & & & X & & & & \\ \hline
-Test \ref{t_usability}        & & & & & & & X & & & \\ \hline
-Test \ref{t_maintainability}        & & & & & & & & X & & \\ \hline
-Test \ref{t_portability}        & & & & & & & & & X & \\ \hline
-Test \ref{t_scalability}        & & & & & & & & & & X \\ \hline
+Test \ref{t_input}        & X & & & & & & & & \\ \hline
+Test \ref{t_calculation}        & & & X & & & & & & \\ \hline
+Test \ref{t_output}        & & X & & X & & & & & \\ \hline
+Test \ref{t_reliability}        & & & & & X & & & & \\ \hline
+Test \ref{t_usability}        & & & & & & X & & & \\ \hline
+Test \ref{t_maintainability}        & & & & & & & X & & \\ \hline
+Test \ref{t_portability}        & & & & & & & & X & \\ \hline
+Test \ref{t_scalability}        & & & & & & & & & X \\ \hline
 \end{tabular}
 \caption{Traceability Between Test Cases and Requirements}
 \label{Table:test_requirements}
