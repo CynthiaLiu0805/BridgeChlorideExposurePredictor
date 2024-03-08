@@ -33,8 +33,8 @@
 
 \begin{document}
 
-\title{Module Guide for \progname{}} 
-\author{\authname}
+\title{Module Guide for Bridge Corrosion} 
+\author{Cynthia Liu}
 \date{\today}
 
 \maketitle
@@ -46,8 +46,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+March 6, 2024 & 1.0 & Initial release\\
 \bottomrule
 \end{tabularx}
 
@@ -65,14 +64,15 @@ This section records information for easy reference.
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   AC & Anticipated Change\\
+  BC & Bridge Corrosion\\
   DAG & Directed Acyclic Graph \\
+  GUI & Graphical User Interface \\
   M & Module \\
   MG & Module Guide \\
   OS & Operating System \\
   R & Requirement\\
   SC & Scientific Computing \\
   SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
   UC & Unlikely Change \\
   \wss{etc.} & \wss{...}\\
   \bottomrule
@@ -94,14 +94,14 @@ This section records information for easy reference.
 
 Decomposing a system into modules is a commonly accepted approach to developing
 software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
+team.  We advocate a decomposition
+based on the principle of information hiding.  This
 principle supports design for change, because the ``secrets'' that each module
 hides represent likely future changes.  Design for change is valuable in SC,
 where modifications are frequent, especially during initial development as the
 solution space is explored.  
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+Our design follows the rules layed out by, as follows:
 \begin{itemize}
 \item System details that are likely to change independently should be the
   secrets of separate modules.
@@ -111,7 +111,7 @@ Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \end{itemize}
 
 After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
+Specification (SRS), the Module Guide (MG) is developed. The MG
 specifies the modular structure of the system and is intended to allow both
 designers and maintainers to easily identify the parts of the software.  The
 potential readers of this document are as follows:
@@ -153,15 +153,13 @@ unlikely changes are listed in Section \ref{SecUchange}.
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+adapted here is called design for change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acMoreCoordinate}:] Coordinate outside Ontario might be considered if the project becomes a larger scale. This is relevant to R1 in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The dataset input from climate and traffic model need to be updated manually every year.
+\item[\refstepcounter{acnum} \actheacnum \label{acAlgorithm}:] The algorithm for calculating chloride exposure might change if the theory proceeds.
+
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -174,9 +172,10 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucDevInput}:] The traffic data model and climate data model are inputted from developer and will be hidden to user.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucUserInput}:] The user input is only the coordinate.
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The output is a list of chloride exposure data displayed in grid, visualized in histogram or line graph.
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucDatabase}:] The database storing chloride exposure data will always be external.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -187,8 +186,13 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mHardware}:] Hardware Hiding Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Parameter Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSearch}:] Data Searching Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation}:] Chloride Exposure Calculation Model
+\item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Visualization Module
+
 \end{description}
 
 
@@ -202,19 +206,14 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{3}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameter Module\\
+& Control Module\\
+& Output Visualization Module\\
+
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & Data Searching Module\\
+& Chloride Exposure Calculation Model \\
 \bottomrule
 
 \end{tabular}
@@ -226,7 +225,7 @@ actually be implemented.
 
 The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table~\ref{TblRT}.
+between requirements and modules is listed in Table~\ref{TblRT}. 
 
 \wss{The intention of this section is to document decisions that are made
   ``between'' the requirements and the design.  To satisfy some requirements,
@@ -237,8 +236,7 @@ between requirements and modules is listed in Table~\ref{TblRT}.
 
 \section{Module Decomposition} \label{SecMD}
 
-Modules are decomposed according to the principle of ``information hiding''
-proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
+Modules are decomposed according to the principle of ``information hiding''. The \emph{Secrets} field in a module
 decomposition is a brief statement of the design decision hidden by the
 module. The \emph{Services} field specifies \emph{what} the module will do
 without documenting \emph{how} to do it. For each module, a suggestion for the
@@ -251,7 +249,7 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
 to be implemented.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware Hiding Modules (\mref{mHardware})}
 
 \begin{description}
 \item[Secrets:]The data structure and algorithm used to implement the virtual
@@ -274,19 +272,30 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Input Parameter Module (\mref{mInput})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] The format and structure of the input data. The kind of input data that is invalid.
+\item[Services:] Get input from the user, verify if the input is within the physic and software constraint, throw warning message if it is not. Converts the input data into the data structure used by the Data Searching module.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Control Module (\mref{mControl})}
+\begin{description}
+\item[Secrets:] The algorithm for running the program.
+\item[Services:] Provide the main program and the GUI.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
 
+\subsubsection{Output Visualization Module (\mref{mOutput})}
+\begin{description}
+\item[Secrets:] None, the main purpose of this module is for usability that the result could be shown to user straightforwardly. 
+\item[Services:] Provide the visualization of the resulting chloride exposure trend, using line graph or histogram. Allow user interaction with the visualization.
+\item[Implemented By:] BC
+\item[Type of Module:] Function
+\end{description}
 
 \subsection{Software Decision Module}
 
@@ -301,7 +310,20 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Data Searching Module (\mref{mSearch})}
+\begin{description}
+\item[Secrets:] Hide the irrelevant values in database.
+\item[Services:] Find the data needed in the database by searching algorithm, stored it in the data structure that the Output Visualization module needs.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Chloride Exposure Calculation Module (\mref{mCalculation})}
+\begin{description}
+\item[Secrets:] Detail caculation formula for chloride exposure trend.
+\item[Services:] Get the climate and traffic data model from developer, use them to generate the chloride exposure database that is needed in the Data Searching Module.
+\item[Implemented By:] MATLAB
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -316,17 +338,10 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+R1 & \mref{mInput}, \mref{mControl}\\
+R2 & \mref{mSearch}, \mref{mCalculation}, \mref{mControl}, \mref{mOutput}\\
+R3 & \mref{mCalculation}\\
+R4 & \mref{mCalculation}, \mref{mOutput}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -339,28 +354,23 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acMoreCoordinate} & \mref{mInput}\\
+\acref{acInput} & \mref{mCalculation}\\
+\acref{acAlgorithm} & \mref{mCalculation}\\
+\uref{ucDevInput} & \mref{mCalculation}\\
+\uref{ucUserInput} & \mref{mInput}\\
+\uref{ucOutput} & \mref{mOutput}\\
+\uref{ucDatabase} & \mref{mSearch}\\
 \bottomrule
 \end{tabular}
-\caption{Trace Between Anticipated Changes and Modules}
-\label{TblACT}
+\caption{Trace Between Anticipated Changes, Unlikely Changes and Modules}
+\label{TblACUCT}
 \end{table}
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
 In this section, the uses hierarchy between modules is
-provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
+provided. A {\em uses} B if
 correct execution of B may be necessary for A to complete the task described in
 its specification. That is, A {\em uses} B if there exist situations in which
 the correct functioning of A depends upon the availability of a correct
@@ -372,7 +382,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
@@ -384,15 +394,8 @@ because they use modules from the lower levels.
 \wss{Design of user interface for software and hardware.  Attach an appendix if
 needed. Drawings, Sketches, Figma}
 
-\section{Design of Communication Protocols}
-
-\wss{If appropriate}
-
 \section{Timeline}
-
-\wss{Schedule of tasks and who is responsible}
-
-\wss{You can point to GitHub if this information is included there}
+All the tasks will be completed by author(Cynthia Liu) individually.
 
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
