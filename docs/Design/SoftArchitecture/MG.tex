@@ -74,7 +74,6 @@ This section records information for easy reference.
   SC & Scientific Computing \\
   SRS & Software Requirements Specification\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
   \bottomrule
 \end{tabular}\\
 
@@ -159,6 +158,7 @@ adapted here is called design for change.
 \item[\refstepcounter{acnum} \actheacnum \label{acMoreCoordinate}:] Coordinate outside Ontario might be considered if the project becomes a larger scale. This is relevant to R1 in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The dataset input from climate and traffic model need to be updated manually every year.
 \item[\refstepcounter{acnum} \actheacnum \label{acAlgorithm}:] The algorithm for calculating chloride exposure might change if the theory proceeds.
+\item[\refstepcounter{acnum} \actheacnum \label{acInputMethod}:] Allow user to click a point on the map as another way of inputing coordinate.
 
 \end{description}
 
@@ -172,7 +172,7 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucDevInput}:] The traffic data model and climate data model are inputted from developer and will be hidden to user.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucDevInput}:] The traffic data model and climate data model are inputed from developer and will be hidden to user.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucUserInput}:] The user input is only the coordinate.
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The output is a list of chloride exposure data displayed in grid, visualized in histogram or line graph.
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucDatabase}:] The database storing chloride exposure data will always be external.
@@ -188,11 +188,13 @@ actually be implemented.
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHardware}:] Hardware Hiding Module
 \item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Parameter Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSearch}:] Data Searching Module
-\item [\refstepcounter{mnum} \mthemnum \label{mCalculation}:] Chloride Exposure Calculation Model
+\item [\refstepcounter{mnum} \mthemnum \label{mInputVerification}:] Input Verification Module
 \item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSearch}:] Data Searching Module
 \item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Visualization Module
-
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation}:] Chloride Exposure Calculation Model
+\item [\refstepcounter{mnum} \mthemnum \label{mSeqData}:] Sequence Data Structure Module
+\item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plotting Module
 \end{description}
 
 
@@ -206,14 +208,17 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameter Module\\
+\multirow{5}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameter Module\\
+& Input Verification Module\\
 & Control Module\\
+& Data Searching Module\\
 & Output Visualization Module\\
 
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & Data Searching Module\\
-& Chloride Exposure Calculation Model \\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & Chloride Exposure Calculation Model \\
+& Sequence Data Structure Module \\
+& Plotting Module \\
 \bottomrule
 
 \end{tabular}
@@ -227,12 +232,12 @@ The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table~\ref{TblRT}. 
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
+%\wss{The intention of this section is to document decisions that are made
+ % ``between'' the requirements and the design.  To satisfy some requirements,
+ % design decisions need to be made.  Rather than make these decisions implicit,
+  %they are explicitly recorded here.  For instance, if a program has security
+  %requirements, a specific design decision may be made to satisfy those
+ % requirements with a password.}
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -275,11 +280,22 @@ to be implemented.
 \subsubsection{Input Parameter Module (\mref{mInput})}
 
 \begin{description}
-\item[Secrets:] The format and structure of the input data. The kind of input data that is invalid.
-\item[Services:] Get input from the user, verify if the input is within the physic and software constraint, throw warning message if it is not. Converts the input data into the data structure used by the Data Searching module.
+\item[Secrets:] The format and structure of the input data. 
+\item[Services:] Get input from the user. Converts the input data into the data structure used by the Input Verification module.
 \item[Implemented By:] BC
 \item[Type of Module:] Abstract Data Type
 \end{description}
+
+
+\subsubsection{Input Verification Module (\mref{mInputVerification})}
+
+\begin{description}
+\item[Secrets:] The kind of valid and invalid data. The software and physical constraint
+\item[Services:] Verify if the input is within the physical and software constraint, throw warning message if it is not. Pass the valid input to the Data Searching module.
+\item[Implemented By:] BC
+\item[Type of Module:] Function
+\end{description}
+
 
 \subsubsection{Control Module (\mref{mControl})}
 \begin{description}
@@ -289,10 +305,18 @@ to be implemented.
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
+\subsubsection{Data Searching Module (\mref{mSearch})}
+\begin{description}
+\item[Secrets:] Hide the irrelevant values in database.
+\item[Services:] Find the data needed in the database by searching algorithm, stored it in the data structure that the Output Visualization module needs.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
 \subsubsection{Output Visualization Module (\mref{mOutput})}
 \begin{description}
 \item[Secrets:] None, the main purpose of this module is for usability that the result could be shown to user straightforwardly. 
-\item[Services:] Provide the visualization of the resulting chloride exposure trend, using line graph or histogram. Allow user interaction with the visualization.
+\item[Services:] Provide the visualization of the resulting chloride exposure trend, using line graph or histogram. 
 \item[Implemented By:] BC
 \item[Type of Module:] Function
 \end{description}
@@ -310,19 +334,28 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Data Searching Module (\mref{mSearch})}
-\begin{description}
-\item[Secrets:] Hide the irrelevant values in database.
-\item[Services:] Find the data needed in the database by searching algorithm, stored it in the data structure that the Output Visualization module needs.
-\item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
-\end{description}
-
 \subsubsection{Chloride Exposure Calculation Module (\mref{mCalculation})}
 \begin{description}
 \item[Secrets:] Detail caculation formula for chloride exposure trend.
 \item[Services:] Get the climate and traffic data model from developer, use them to generate the chloride exposure database that is needed in the Data Searching Module.
 \item[Implemented By:] MATLAB
+\end{description}
+
+
+\subsubsection{Sequence Data Structure Module (\mref{mSeqData})}
+\begin{description}
+\item[Secrets:] The data structure for sequence data type. 
+\item[Services:] Provides different list operations including looping, adding and removing elements. 
+\item[Implemented By:] Python
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Plotting Result Module (\mref{mPlot})}
+\begin{description}
+\item[Secrets:] The data structure and algorithms for plotting data graphically. 
+\item[Services:] Provides plot function that can plot the results from Data Searching Module, used by Output Visualization module. 
+\item[Implemented By:] Python
+\item[Type of Module:] Library
 \end{description}
 
 \section{Traceability Matrix} \label{SecTM}
@@ -338,7 +371,7 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mInput}, \mref{mControl}\\
+R1 & \mref{mInput}, \mref{mInputVerification}, \mref{mControl}\\
 R2 & \mref{mSearch}, \mref{mCalculation}, \mref{mControl}, \mref{mOutput}\\
 R3 & \mref{mCalculation}\\
 R4 & \mref{mCalculation}, \mref{mOutput}\\
@@ -354,9 +387,10 @@ R4 & \mref{mCalculation}, \mref{mOutput}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acMoreCoordinate} & \mref{mInput}\\
+\acref{acMoreCoordinate} & \mref{mInputVerification}\\
 \acref{acInput} & \mref{mCalculation}\\
 \acref{acAlgorithm} & \mref{mCalculation}\\
+\acref{acInputMethod} & \mref{mInput}\\
 \uref{ucDevInput} & \mref{mCalculation}\\
 \uref{ucUserInput} & \mref{mInput}\\
 \uref{ucOutput} & \mref{mOutput}\\
@@ -391,9 +425,19 @@ because they use modules from the lower levels.
 
 \section{User Interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{GUI1.png}
+\caption{GUI illustration before inputing coordinate}
+\label{FigGUI1}
+\end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{GUI2.png}
+\caption{GUI illustration after inputing coordinate}
+\label{FigGUI1}
+\end{figure}
 \section{Timeline}
 All the tasks will be completed by author(Cynthia Liu) individually.
 

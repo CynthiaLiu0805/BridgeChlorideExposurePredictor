@@ -38,9 +38,9 @@ urlcolor=cyan          % color of external links
 
 \begin{document}
 
-\title{Module Interface Specification for \progname{}}
+\title{Module Interface Specification for Bridge Corrosion}
 
-\author{\authname}
+\author{Cynthia Liu}
 
 \date{\today}
 
@@ -53,8 +53,7 @@ urlcolor=cyan          % color of external links
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Mar. 8, 2024 & 1.0 & Initial Release\\
 \bottomrule
 \end{tabularx}
 
@@ -62,7 +61,7 @@ Date 2 & 1.1 & Notes\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
+See SRS Documentation at \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
 
 \wss{Also add any additional symbols, abbreviations or acronyms}
 
@@ -76,27 +75,28 @@ See SRS Documentation at \wss{give url}
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
+The following document details the Module Interface Specifications for Bridge Corrosion which investigate how climate, traffic might impact corrosion-induced
+damage for reinforced concrete bridges by influencing the chloride exposure.
 \wss{Fill in your project name and description}
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+found at \href{https://github.com/CynthiaLiu0805/BridgeCorrosion}{here}.
 
 \section{Notation}
 
 \wss{You should describe your notation.  You can use what is below as
   a starting point.}
 
-The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+The structure of the MIS for modules comes from [HoffmanAndStrooper1995],
 with the addition that template modules have been adapted from
-\cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
-\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+[GhezziEtAl2003].  The mathematical notation comes from Chapter 3 of
+[HoffmanAndStrooper1995].  For instance, the symbol := is used for a
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
-The following table summarizes the primitive data types used by \progname. 
-
+The following table summarizes the primitive data types used by BC. 
+%TODO
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
 \noindent 
@@ -113,10 +113,10 @@ real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 \end{center}
 
 \noindent
-The specification of \progname \ uses some derived data types: sequences, strings, and
+The specification of BC uses some derived data types: sequences, strings, and
 tuples. Sequences are lists filled with elements of the same data type. Strings
 are sequences of characters. Tuples contain a list of values, potentially of
-different types. In addition, \progname \ uses functions, which
+different types. In addition, BC uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
 
@@ -131,21 +131,20 @@ The following table is taken directly from the Module Guide document for this pr
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding} & ~ \\
+{Hardware Hiding} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
+\multirow{5}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameter Module\\
+& Input Verification Module\\
 & Control Module\\
-& Specification Parameters Module\\
+& Data Searching Module\\
+& Output Visualization Module\\
+
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & Chloride Exposure Calculation Model \\
+& Sequence Data Structure Module \\
+& Plotting Module \\
 \bottomrule
 
 \end{tabular}
@@ -156,7 +155,7 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
+\section{MIS of Control Model} \label{controlModule} \wss{Use labels for
   cross-referencing}
 
 \wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
@@ -165,10 +164,256 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsection{Module}
 
-\wss{Short name for the module}
+main
 
 \subsection{Uses}
+\begin{itemize}
+\item Hardware Hiding Module
+\item Input Parameter Module
+\item Input Verification Module
+\item Data Searching Module
+\item Output Visualization Module
+\item Chloride Exposure Calculation Model 
+\item Sequence Data Structure Module 
+\item Plotting Module 
+\end{itemize}
 
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{5cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+main & - & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+long, lat: a pair of input of  [long: $\mathbb{R}$, lat: $\mathbb{R}$] \#input coordinate get from Input Parameter Module.
+\wss{Not all modules will have state variables.  State variables give the module
+  a memory.}
+
+\subsubsection{Environment Variables}
+
+None
+
+\wss{This section is not necessary for all modules.  Its purpose is to capture
+  when the module has external interaction with the environment, such as for a
+  device driver, screen interface, keyboard, file, etc.}
+
+\subsubsection{Assumptions}
+
+None
+\wss{Try to minimize assumptions and anticipate programmer errors via
+  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent main():
+\begin{itemize}
+\item transition: Control and execute the other modules as follow:
+\begin{itemize}
+\item Get input from user by Input Parameter Module. (M2, Section \ref{inputParameterModule}) 
+\item Pass the input to Input Verification Module. (M3, Section \ref{inputVerificationModule})
+\item Search the corresponding data in Data Searching Module if the input is valid. (M5, Section \ref{dataSearchingModule})
+\item Visualize the resulting data by using Output Visualization Module. (M6, Section \ref{outputVisualizationModule})
+
+\end{itemize}
+\item output: None
+\item exception: Exception is handled in Section \ref{inputVerificationModule}
+\end{itemize}
+
+\wss{A module without environment variables or state variables is unlikely to
+  have a state transition.  In this case a state transition can only occur if
+  the module is changing the state of another module.}
+
+\wss{Modules rarely have both a transition and an output.  In most cases you
+  will have one or the other.}
+
+\subsubsection{Local Functions}
+None
+\wss{As appropriate} \wss{These functions are for the purpose of specification.
+  They are not necessarily something that is going to be implemented
+  explicitly.  Even if they are implemented, they are not exported; they only
+  have local scope.}
+  
+~\newpage
+
+\section{MIS of Input Parameter Model} \label{inputParameterModule} \wss{Use labels for
+  cross-referencing}
+
+\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+
+\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+
+\subsection{Module}
+param
+\subsection{Uses}
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{5cm} p{2cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+param & pair of [long: $\mathbb{R}$, lat: $\mathbb{R}$] & - & InputMissingError, InputTypeMismatchError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+long, lat := a pair of  [long: $\mathbb{R}$, lat: $\mathbb{R}$] \#input coordinate
+\wss{Not all modules will have state variables.  State variables give the module
+  a memory.}
+
+\subsubsection{Environment Variables}
+Keyboard: this module takes input from the keyboard by typing.
+
+\wss{This section is not necessary for all modules.  Its purpose is to capture
+  when the module has external interaction with the environment, such as for a
+  device driver, screen interface, keyboard, file, etc.}
+
+\subsubsection{Assumptions}
+None
+\wss{Try to minimize assumptions and anticipate programmer errors via
+  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+
+\subsubsection{Access Routine Semantics}
+This module load the input data and save it to the data type needed by the Input Verification Module.\\
+\noindent read\_input():
+\begin{itemize}
+\item transition: Get input from the user, pass the input to the Input Verification Module.
+\item output: None
+\item exception: None
+\end{itemize}
+
+\wss{A module without environment variables or state variables is unlikely to
+  have a state transition.  In this case a state transition can only occur if
+  the module is changing the state of another module.}
+
+\wss{Modules rarely have both a transition and an output.  In most cases you
+  will have one or the other.}
+
+\subsubsection{Local Functions}
+
+\wss{As appropriate} \wss{These functions are for the purpose of specification.
+  They are not necessarily something that is going to be implemented
+  explicitly.  Even if they are implemented, they are not exported; they only
+  have local scope.}
+  
+  
+~\newpage
+
+\section{MIS of Input Verification Model} \label{inputVerificationModule} \wss{Use labels for cross-referencing}
+
+\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+
+\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+
+\subsection{Module}
+
+verify\_param
+
+\subsection{Uses}
+Input Parameter Module
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{2cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+verify\_param & [long: $\mathbb{R}$, lat: $\mathbb{R}$] & Boolean & InputOutofOntarioError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+\item long, lat: a pair of [long: $\mathbb{R}$, lat: $\mathbb{R}$] \# input coordinate
+\item isValid: Boolean \# if this input is valid
+\item geojson: TODO
+\end{itemize}
+\wss{Not all modules will have state variables.  State variables give the module
+  a memory.}
+
+\subsubsection{Environment Variables}
+
+\wss{This section is not necessary for all modules.  Its purpose is to capture
+  when the module has external interaction with the environment, such as for a
+  device driver, screen interface, keyboard, file, etc.}
+
+\subsubsection{Assumptions}
+This module use the open source geojson file TODO and the vertex coordinate there is assumed to be true.
+\wss{Try to minimize assumptions and anticipate programmer errors via
+  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent verify\_param(long, lat):
+\begin{itemize}
+\item output: Boolean
+\item exception: InputOutofOntarioError
+\end{itemize}
+
+\wss{A module without environment variables or state variables is unlikely to
+  have a state transition.  In this case a state transition can only occur if
+  the module is changing the state of another module.}
+
+\wss{Modules rarely have both a transition and an output.  In most cases you
+  will have one or the other.}
+
+\subsubsection{Local Functions}
+
+\wss{As appropriate} \wss{These functions are for the purpose of specification.
+  They are not necessarily something that is going to be implemented
+  explicitly.  Even if they are implemented, they are not exported; they only
+  have local scope.}
+  
+  
+~\newpage
+
+\section{MIS of Data Searching Model} \label{dataSearchingModule} \wss{Use labels for
+  cross-referencing}
+
+\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+
+\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+
+\subsection{Module}
+
+search
+
+\subsection{Uses}
+ Input Parameter Module, Chloride Exposure Calculation Module
 
 \subsection{Syntax}
 
@@ -177,11 +422,12 @@ The following table is taken directly from the Module Guide document for this pr
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+read\_file & filename: String & data: sequence of $\mathbb{R}$ & FileNotFoundError \\
+search & [long: $\mathbb{R}$, lat: $\mathbb{R}$]  & result: [cl: $\mathbb{R}$] & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -189,6 +435,100 @@ The following table is taken directly from the Module Guide document for this pr
 \subsection{Semantics}
 
 \subsubsection{State Variables}
+\begin{itemize}
+\item long, lat: a pair of  [long: $\mathbb{R}$, lat: $\mathbb{R}$] \# input coordinate
+\item filename: String \# the database generated by Calculation Module 
+\item data: sequence of  [$\mathbb{R}$] \# the sequence of data read from database
+\item cl: $\mathbb{R}$ \# predicted chloride exposure data at one time, one location
+\item result: [cl: $\mathbb{R}$] \# the list of predicted chloride exposure data
+
+\end{itemize}
+\wss{Not all modules will have state variables.  State variables give the module
+  a memory.}
+
+\subsubsection{Environment Variables}
+
+\wss{This section is not necessary for all modules.  Its purpose is to capture
+  when the module has external interaction with the environment, such as for a
+  device driver, screen interface, keyboard, file, etc.}
+
+\subsubsection{Assumptions}
+All locations within Ontario must contain valid data. If a user inputs a location outside of Ontario, it will be handled by the Input Verification Module.
+\wss{Try to minimize assumptions and anticipate programmer errors via
+  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+
+\subsubsection{Access Routine Semantics}
+\noindent read\_file(filename):
+\begin{itemize}
+\item transition: read the data in the database file
+\item output: data := sequence of [cl: $\mathbb{R}$]
+\item exception: FileNotFoundError := Could not find such file
+\end{itemize}
+\noindent search(long, lat, data):
+\begin{itemize}
+\item transition: if the input coordinate do not have a corresponding value in the data, (long, lat) := find\_grid\_belonged(long, lat, data). Use the new (long, lat) to do the searching.
+\item output: [cl: $\mathbb{R}$]
+\item exception: none
+\end{itemize}
+
+\wss{A module without environment variables or state variables is unlikely to
+  have a state transition.  In this case a state transition can only occur if
+  the module is changing the state of another module.}
+
+\wss{Modules rarely have both a transition and an output.  In most cases you
+  will have one or the other.}
+
+\subsubsection{Local Functions}
+\noindent \textbf{find\_grid\_belonged(long, lat, data)}: If the input coordinate is not the exact one in data, find the grid that it belongs to and return the center coordinate.
+\begin{itemize}
+\item output: (long, lat) := $\mathbb{R}$
+
+\end{itemize}
+
+\wss{As appropriate} \wss{These functions are for the purpose of specification.
+  They are not necessarily something that is going to be implemented
+  explicitly.  Even if they are implemented, they are not exported; they only
+  have local scope.}
+
+~\newpage
+
+\section{MIS of Output Visualization Model} \label{outputVisualizationModule} \wss{Use labels for
+  cross-referencing}
+
+\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+
+\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+
+\subsection{Module}
+
+draw
+
+\subsection{Uses}
+
+Data Searching Module
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{2cm} p{7cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+draw &  [cl: $\mathbb{R}$] & graphs drew by the built in library& - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+long, lat: a pair of input of  [long: $\mathbb{R}$, lat: $\mathbb{R}$] \# input coordinate\\
+cl: $\mathbb{R}$ \# predicted chloride exposure data at one time, one location\\
+result: [cl: $\mathbb{R}$] \# the list of predicted chloride exposure data
 
 \wss{Not all modules will have state variables.  State variables give the module
   a memory.}
@@ -206,10 +546,10 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent draw(result):
 \begin{itemize}
 \item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
+\item output: graphs drew by the built in library
 \item exception: \wss{if appropriate} 
 \end{itemize}
 
@@ -226,31 +566,130 @@ The following table is taken directly from the Module Guide document for this pr
   They are not necessarily something that is going to be implemented
   explicitly.  Even if they are implemented, they are not exported; they only
   have local scope.}
-
 \newpage
+
+
+\section{MIS of Chloride Exposure Calculation Model} \label{calculationModule} \wss{Use labels for
+  cross-referencing}
+
+\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+
+\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+
+\subsection{Module}
+
+calculate
+
+\subsection{Uses}
+
+none
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{N}$, $h_{total}$: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{N}$ & file: an output file & DataMissingError, DataInvalidError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Constants} 
+
+\subsubsection{State Variables}
+
+
+\wss{Not all modules will have state variables.  State variables give the module
+  a memory.}
+
+\subsubsection{Environment Variables}
+The result of calculation will be stored in an output csv file.
+\wss{This section is not necessary for all modules.  Its purpose is to capture
+  when the module has external interaction with the environment, such as for a
+  device driver, screen interface, keyboard, file, etc.}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item The AADT and AADTT are assumed to have 2\% increase rate every year.
+\item The map of Ontario is divided into multiple 25km * 25km grid (as mentioned in SRS) and the coordinates are the center of those grids. The locations inside each grid are consider to have same chloride exposure rate.
+\end{itemize}
+\wss{Try to minimize assumptions and anticipate programmer errors via
+  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent calculate(AADT, AADTT, t1, $h_{total}$, t2):
+\begin{itemize}
+\item transition: result:= Cl\_mass(spray\_density\_Cl(salt\_per\_day($h_{total}$, t1), water\_thickness($h_{total}$, t2)), adjust(AADT, AADTT), t2). See Local Functions for step by step calculation.
+\item output: The result is saved to a csv file storing calculation result, which is the prediction of chloride exposure rate. The file has row lable as coordinate and column lable as year. 
+\item exception: exc:= \\ \\ 
+ \begin{tabular}{p{10cm} p{3.5cm} }
+ \hline
+ \textbf{Expression} & \textbf{Exception}  \\
+ \hline
+     $\exists e \in [AADT, AADTT, h_{total}, t1, t2], e =\varnothing$ & DataMissingError  \\ \\
+
+  \hline
+     $(\exists i \in [0..|AADT|-1], AADTT[i] > AADT[i]) \lor (\neg (t1, t2 \in (0,365)))$   & DataInvalidError \\ \\
+
+  \hline
+ \end{tabular}
+
+\end{itemize}
+
+\wss{A module without environment variables or state variables is unlikely to
+  have a state transition.  In this case a state transition can only occur if
+  the module is changing the state of another module.}
+
+\wss{Modules rarely have both a transition and an output.  In most cases you
+  will have one or the other.}
+
+\subsubsection{Local Functions}
+\noindent \textbf{adjust(AADT, AADTT)}: A function that convert AADT and AADTT from sequence to 2-D array, based on the assumption of annually 2\% increase.
+\begin{itemize}
+\item out := AADT, AADTT
+\end{itemize}
+
+\noindent \textbf{salt\_per\_day(h\_total, t1)}: calcualte the quantity of deicing salts applied on a roadway per day during the winter season.
+\begin{itemize}
+\item out := M\_app
+\end{itemize}
+
+\noindent \textbf{water\_thickness(h\_total, t2)}|: calculate the thickness of melted water per day with snow melting
+\begin{itemize}
+\item out := h\_app
+\end{itemize}
+
+\noindent \textbf{spray\_density\_Cl(M\_app, h\_app)}: calculate the mass of chloride ions by one truck
+\begin{itemize}
+\item out := SD\_totalCl
+\end{itemize}
+
+\noindent \textbf{Cl\_mass(SD\_totalCl, AADT, AADTT, t2)}: calculate the final chloride exposure
+\begin{itemize}
+\item out := Cl\_result
+\end{itemize}
+
+
+\wss{As appropriate} \wss{These functions are for the purpose of specification.
+  They are not necessarily something that is going to be implemented
+  explicitly.  Even if they are implemented, they are not exported; they only
+  have local scope.}
 
 \bibliographystyle {plainnat}
 \bibliography {../../../refs/References}
 
 \newpage
 
-\section{Appendix} \label{Appendix}
-
-\wss{Extra information if required}
-
-\section{Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Problem Analysis and Design.  Please answer the following questions:
-
-\begin{enumerate}
-  \item What are the limitations of your solution?  Put another way, given
-  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
-  \item Give a brief overview of other design solutions you considered.  What
-  are the benefits and tradeoffs of those other designs compared with the chosen
-  design?  From all the potential options, why did you select the documented design?
-  (LO\_Explores)
-\end{enumerate}
 
 
 \end{document}
