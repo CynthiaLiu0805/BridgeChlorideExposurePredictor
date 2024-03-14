@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        #map {
+            height: 400px;
+            width: 800px;
+            margin-right: 2%;
+            
+        }
+        input[type=text] {
+            width: 200px;
+            height: 30px;
+            font-size: 16px;
+        }
+        /* #search-result {
+            width: 400px;
+            margin-top: 20px;
+        } */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: auto;
+            display: block;
+            height: 300px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .search-result {
+            display: flex;
+        }
+        .table {
+            flex: 20%;
+        }
+        .plot {
+            flex: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Map Search</h1>
+    <div class="container">
+        <form id="search-form" action="/" method="post">
+            Latitude: <input type="text" id="latitude" name="latitude"><br>
+            Longitude: <input type="text" id="longitude" name="longitude"><br>
+            <input type="submit" value="Search">
+        </form>
+
+        <div id="map"></div>
+    </div> 
+    {% if warning %}
+            {{ warning }};
+    {% endif %}
+    {% if result %}
+    <div class="search-result">
+        <div class="table">
+        <h2>Results</h2>
+        <p>Latitude: {{ result['LAT'] }}</p>
+        <p>Longitude: {{ result['LON'] }}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in result.items() %}
+                    {% if key != 'LAT' and key != 'LON' %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        <div class = "plot">
+        <!-- Embed the Bokeh plot -->
+            {{ div_string|safe }}
+        </div>
+
+    </div>
+{% endif %}   
+
+    <script>
+        var map = L.map('map').setView([43.95, -79.7], 7);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY3ludGhpYWwiLCJhIjoiY2x0b3FjNXUyMGh6eTJqcGF4MWllYjh0eCJ9.OHUn3IOjS99GIMLYMmyh4w', {
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1
+        }).addTo(map);
+
+        function onMapClick(e) {
+            document.getElementById('latitude').value = e.latlng.lat;
+            document.getElementById('longitude').value = e.latlng.lng;
+        }
+        
+
+        map.on('click', onMapClick);
+        
+        // var keys = result.keys();
+        // var values = result.values();
+        // print(keys);
+        // print(values);
+        // var trace1 = {x: keys, // Add a value for the 'x' property
+        //     y: values,
+        //     mode: 'lines',
+        //     name: 'Line Graph'
+        // };
+
+
+    
+
+        // Plotly.newPlot('chart', data, layout);
+
+        // document.getElementById('search-result').innerHTML = data;
+            
+    </script>
+</body>
+</html>
