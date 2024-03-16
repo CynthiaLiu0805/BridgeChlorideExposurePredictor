@@ -158,7 +158,8 @@ adapted here is called design for change.
 \item[\refstepcounter{acnum} \actheacnum \label{acMoreCoordinate}:] Coordinate outside Ontario might be considered if the project becomes a larger scale. This is relevant to R1 in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The dataset input from climate and traffic model need to be updated manually every year.
 \item[\refstepcounter{acnum} \actheacnum \label{acAlgorithm}:] The algorithm for calculating chloride exposure might change if the theory proceeds.
-\item[\refstepcounter{acnum} \actheacnum \label{acInputMethod}:] Allow user to click a point on the map as another way of inputing coordinate.
+\item[\refstepcounter{acnum} \actheacnum \label{acInputMethod}:] The input method could include clicking a point on the map as another way of inputing coordinate.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutputFile}:] The output could have another format which is saving the search result to file.
 
 \end{description}
 
@@ -283,7 +284,7 @@ to be implemented.
 \item[Secrets:] The format and structure of the input data. 
 \item[Services:] Get input from the user. Converts the input data into the data structure used by the Input Verification module.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Function
 \end{description}
 
 
@@ -338,7 +339,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] Detail caculation formula for chloride exposure trend.
 \item[Services:] Get the climate and traffic data model from developer, use them to generate the chloride exposure database that is needed in the Data Searching Module.
-\item[Implemented By:] MATLAB
+\item[Implemented By:] BC
 \end{description}
 
 
@@ -391,6 +392,7 @@ R4 & \mref{mCalculation}, \mref{mOutput}\\
 \acref{acInput} & \mref{mCalculation}\\
 \acref{acAlgorithm} & \mref{mCalculation}\\
 \acref{acInputMethod} & \mref{mInput}\\
+\acref{acOutputFile} & \mref{mControl} \\
 \uref{ucDevInput} & \mref{mCalculation}\\
 \uref{ucUserInput} & \mref{mInput}\\
 \uref{ucOutput} & \mref{mOutput}\\

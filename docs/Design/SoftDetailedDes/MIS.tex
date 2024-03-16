@@ -77,7 +77,7 @@ See SRS Documentation at \href{https://github.com/CynthiaLiu0805/BridgeCorrosion
 
 The following document details the Module Interface Specifications for Bridge Corrosion which investigate how climate, traffic might impact corrosion-induced
 damage for reinforced concrete bridges by influencing the chloride exposure.
-\wss{Fill in your project name and description}
+%\wss{Fill in your project name and description}
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
@@ -107,6 +107,7 @@ character & char & a single symbol or digit\\
 integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+empty & $\varnothing$ & empty input, null \\
 \bottomrule
 \end{tabular} 
 \end{center}
@@ -273,11 +274,11 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{5cm} p{2cm} p{5cm}}
+\begin{tabular}{p{2cm} p{4.5cm} p{3cm} p{4cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-param & long: $\mathbb{R}$, lat: $\mathbb{R}$ & - & InputMissingError, InputTypeMismatchError \\
+param & long: String, lat: String & long: $\mathbb{R}$, lat: $\mathbb{R}$ & InputMissingError, InputTypeMismatchError \\
 \hline
 \end{tabular}
 \end{center}
@@ -307,7 +308,18 @@ This module load the input data and save it to the data type needed by the Input
 \begin{itemize}
 \item transition: Get input from the user, pass the input to the Input Verification Module.
 \item output: None
-\item exception: None
+\item exception: exc:= \\ \\ 
+ \begin{tabular}{p{10cm} p{3.5cm} }
+ \hline
+ \textbf{Expression} & \textbf{Exception}  \\
+ \hline
+     long = $\varnothing$ $\lor$ lat = $\varnothing$ & InputMissingError  \\ \\
+
+  \hline
+     type(long) != String $\lor$ type(lat) != String   & InputTypeMismatchError \\ \\
+
+  \hline
+ \end{tabular}
 \end{itemize}
 
 \wss{A module without environment variables or state variables is unlikely to
@@ -318,7 +330,10 @@ This module load the input data and save it to the data type needed by the Input
   will have one or the other.}
 
 \subsubsection{Local Functions}
-
+\noindent type(e):
+\begin{itemize}
+\item output = type of $e$
+\end{itemize}
 \wss{As appropriate} \wss{These functions are for the purpose of specification.
   They are not necessarily something that is going to be implemented
   explicitly.  Even if they are implemented, they are not exported; they only
@@ -388,12 +403,12 @@ This module use the open source geojson file that contain the Ontario boundary, 
 \noindent read\_geoinfo(filename):
 \begin{itemize}
 \item transition: access the data from geojson file
-\item exception: FileNotFoundError: Could not find such file
+\item exception: FileNotFoundError: $filename == \varnothing$
 \end{itemize}
 \noindent verify\_param(long, lat):
 \begin{itemize}
 \item output: Boolean
-\item exception: InputOutofOntarioError: The input is not inside Ontario
+\item exception: InputOutofOntarioError: $\lnot ((long, lat) \in Ontario)$
 \end{itemize}
 
 \wss{A module without environment variables or state variables is unlikely to
@@ -449,7 +464,6 @@ search & long: $\mathbb{R}$, lat: $\mathbb{R}$  & result: sequence of  $\mathbb{
 \subsubsection{State Variables}
 \begin{itemize}
 \item data: sequence of $\mathbb{R}$ \# the sequence of data read from database
-\item cl: $\mathbb{R}$ \# predicted chloride exposure data at one time, one location
 \item result: sequence of $\mathbb{R}$ \# the sequence of predicted chloride exposure data
 
 \end{itemize}
@@ -471,13 +485,13 @@ All locations within Ontario must contain valid data. If a user inputs a locatio
 \noindent read\_file(filename):
 \begin{itemize}
 \item transition: read the data in the database file
-\item output: data := sequence of $\mathbb{R}$
-\item exception: FileNotFoundError := Could not find such file
+\item output: data = sequence of $\mathbb{R}$
+\item exception: FileNotFoundError = $filename == \varnothing$
 \end{itemize}
 \noindent search(long, lat, data):
 \begin{itemize}
 \item transition: if the input coordinate do not have a corresponding value in the data, (long, lat) := find\_grid\_belonged(long, lat, data). Use the new (long, lat) to do the searching.
-\item output: result := sequence of $\mathbb{R}$
+\item output: result = sequence of $\mathbb{R}$
 \item exception: none
 \end{itemize}
 
@@ -536,14 +550,6 @@ draw & result: sequence of $\mathbb{R}$ & graphs & - \\
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-\begin{itemize}
-\item long, lat := long: $\mathbb{R}$, lat: $\mathbb{R}$ \# input coordinate
-\item cl: $\mathbb{R}$ \# predicted chloride exposure data at one time, one location
-\item result: sequence of $\mathbb{R}$ \# the list of predicted chloride exposure data
-\item graphs: graphs \# the visualization using graphs
-
-\end{itemize}
-
 \wss{Not all modules will have state variables.  State variables give the module
   a memory.}
 
@@ -642,7 +648,7 @@ File: The result of calculation will be stored in an output csv file.
 
 \noindent calculate(AADT, AADTT, t1, $h_{total}$, t2):
 \begin{itemize}
-\item transition: result:= Cl\_mass(spray\_density\_Cl(salt\_per\_day($h_{total}$, t1), water\_thickness($h_{total}$, t2)), adjust(AADT, AADTT), t2). See Local Functions for step by step calculation.
+\item transition: result= Cl\_mass(spray\_density\_Cl(salt\_per\_day($h_{total}$, t1), water\_thickness($h_{total}$, t2)), adjust(AADT, AADTT), t2). See Local Functions for step by step calculation.
 \item output: The result is saved to a csv file storing calculation result, which is the prediction of chloride exposure rate. The file has row lable as coordinate and column lable as year. 
 \item exception: exc:= \\ \\ 
  \begin{tabular}{p{10cm} p{3.5cm} }
@@ -674,22 +680,22 @@ File: The result of calculation will be stored in an output csv file.
 
 \noindent \textbf{salt\_per\_day(h\_total, t1)}: calcualte the quantity of deicing salts applied on a roadway per day during the winter season.
 \begin{itemize}
-\item out := M\_app
+\item out = M\_app
 \end{itemize}
 
 \noindent \textbf{water\_thickness(h\_total, t2)}: calculate the thickness of melted water per day with snow melting
 \begin{itemize}
-\item out := h\_app
+\item out = h\_app
 \end{itemize}
 
 \noindent \textbf{spray\_density\_Cl(M\_app, h\_app)}: calculate the mass of chloride ions by one truck
 \begin{itemize}
-\item out := SD\_totalCl
+\item out = SD\_totalCl
 \end{itemize}
 
 \noindent \textbf{Cl\_mass(SD\_totalCl, AADT, AADTT, t2)}: calculate the final chloride exposure
 \begin{itemize}
-\item out := Cl\_result
+\item out = Cl\_result
 \end{itemize}
 
 
