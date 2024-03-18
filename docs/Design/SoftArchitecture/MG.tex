@@ -209,16 +209,15 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{5}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameter Module\\
+\multirow{6}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameter Module\\
 & Input Verification Module\\
 & Control Module\\
 & Data Searching Module\\
 & Output Visualization Module\\
-
+& Chloride Exposure Calculation Model \\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & Chloride Exposure Calculation Model \\
-& Sequence Data Structure Module \\
+\multirow{2}{0.3\textwidth}{Software Decision Module} & Sequence Data Structure Module \\
 & Plotting Module \\
 \bottomrule
 
@@ -291,10 +290,10 @@ to be implemented.
 \subsubsection{Input Verification Module (\mref{mInputVerification})}
 
 \begin{description}
-\item[Secrets:] The kind of valid and invalid data. The software and physical constraint
+\item[Secrets:] The kind of valid and invalid data. 
 \item[Services:] Verify if the input is within the physical and software constraint, throw warning message if it is not. Pass the valid input to the Data Searching module.
 \item[Implemented By:] BC
-\item[Type of Module:] Function
+\item[Type of Module:] Abstract Object
 \end{description}
 
 
@@ -308,7 +307,7 @@ to be implemented.
 
 \subsubsection{Data Searching Module (\mref{mSearch})}
 \begin{description}
-\item[Secrets:] Hide the irrelevant values in database.
+\item[Secrets:] The irrelevant values in database.
 \item[Services:] Find the data needed in the database by searching algorithm, stored it in the data structure that the Output Visualization module needs.
 \item[Implemented By:] BC
 \item[Type of Module:] Abstract Data Type
@@ -316,10 +315,18 @@ to be implemented.
 
 \subsubsection{Output Visualization Module (\mref{mOutput})}
 \begin{description}
-\item[Secrets:] None, the main purpose of this module is for usability that the result could be shown to user straightforwardly. 
+\item[Secrets:] The format and structure of the output data.
 \item[Services:] Provide the visualization of the resulting chloride exposure trend, using line graph or histogram. 
 \item[Implemented By:] BC
 \item[Type of Module:] Function
+\end{description}
+
+\subsubsection{Chloride Exposure Calculation Module (\mref{mCalculation})}
+\begin{description}
+\item[Secrets:] Detail caculation formulas for chloride exposure trend.
+\item[Services:] Get the climate and traffic data model from developer, use them to generate the chloride exposure database that is needed in the Data Searching Module.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
 \subsection{Software Decision Module}
@@ -335,12 +342,7 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Chloride Exposure Calculation Module (\mref{mCalculation})}
-\begin{description}
-\item[Secrets:] Detail caculation formula for chloride exposure trend.
-\item[Services:] Get the climate and traffic data model from developer, use them to generate the chloride exposure database that is needed in the Data Searching Module.
-\item[Implemented By:] BC
-\end{description}
+
 
 
 \subsubsection{Sequence Data Structure Module (\mref{mSeqData})}
@@ -372,10 +374,10 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mInput}, \mref{mInputVerification}, \mref{mControl}\\
-R2 & \mref{mSearch}, \mref{mCalculation}, \mref{mControl}, \mref{mOutput}\\
-R3 & \mref{mCalculation}\\
-R4 & \mref{mCalculation}, \mref{mOutput}\\
+R1 & \mref{mHardware}, \mref{mInput}, \mref{mInputVerification}, \mref{mControl}\\
+R2 & \mref{mControl}, \mref{mSearch}, \mref{mOutput}, \mref{mCalculation},  \mref{mPlot}\\
+R3 & \mref{mCalculation}, \mref{mSeqData}\\
+R4 & \mref{mOutput}, \mref{mCalculation}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
