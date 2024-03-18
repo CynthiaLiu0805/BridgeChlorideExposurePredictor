@@ -19,6 +19,7 @@
 \usepackage[section]{placeins}
 \usepackage{caption}
 \usepackage{fullpage}
+\usepackage{fixltx2e}
 
 \hypersetup{
 bookmarks=true,     % show bookmarks bar?
@@ -195,7 +196,7 @@ main & long: $\mathbb{R}$, lat: $\mathbb{R}$  & - & - \\
 
 \subsubsection{State Variables}
 \begin{itemize}
-\item long, lat := long: $\mathbb{R}$, lat: $\mathbb{R}$ \#input coordinate get from Input Parameter Module.
+\item long, lat := long: $\mathbb{R}$, lat: $\mathbb{R}$ \# input coordinate get from Input Parameter Module.
 \item result = sequence of $\mathbb{R}$ \# the predicted chloride exposure trend
 
 \end{itemize}
@@ -257,7 +258,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-param & long: String, lat: String & long: $\mathbb{R}$, lat: $\mathbb{R}$ & InputMissingError, InputTypeMismatchError \\
+param & long: String, lat: String & long: $\mathbb{R}$, lat: $\mathbb{R}$ & InputTypeMismatchError \\
 \hline
 \end{tabular}
 \end{center}
@@ -284,11 +285,9 @@ This module load the input data and save it to the data type needed by the Input
  \begin{tabular}{p{10cm} p{3.5cm} }
  \hline
  \textbf{Expression} & \textbf{Exception}  \\
- \hline
-     long = $\varnothing$ $\lor$ lat = $\varnothing$ & InputMissingError  \\ \\
 
   \hline
-     type(long) != String $\lor$ type(lat) != String   & InputTypeMismatchError \\ \\
+     isNumeric(long) != float $\lor$ isNumeric(lat) != float   & InputTypeMismatchError \\ \\
 
   \hline
  \end{tabular}
@@ -296,9 +295,9 @@ This module load the input data and save it to the data type needed by the Input
 
 
 \subsubsection{Local Functions}
-\noindent type($e$):
+\noindent isNumeric($e$):
 \begin{itemize}
-\item output: out := type of $e$
+\item output: out := Boolean \# check if the input $e$ is a string of float 
 \end{itemize}
   
   
@@ -343,7 +342,7 @@ verify\_param & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Boolean & InputOutofOnta
 \subsubsection{Environment Variables}
 \begin{itemize}
 
-\item File: String \#The geojson file that contain the shape of Ontario.
+\item File: String \# the geojson file that contain the shape of Ontario.
 
 \end{itemize}
 
@@ -413,7 +412,7 @@ All locations within Ontario must contain valid data. If a user inputs a locatio
 \subsubsection{Access Routine Semantics}
 \noindent \textbf{read\_file($filename$)}:
 \begin{itemize}
-\item output: out := data \#sequence of $\mathbb{R}$ read from the file
+\item output: out := data \# sequence of $\mathbb{R}$ read from the file
 \item exception: exc := FileNotFoundError = $filename == \varnothing$
 \end{itemize}
 \noindent \textbf{search($long, lat, data$)}:
@@ -505,7 +504,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{N}$, $h_{total}$: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{N}$ & file: String & DataMissingError, DataInvalidError \\
+calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{N}$, h\textsubscript{total}: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{N}$ & file: String & DataMissingError, DataInvalidError \\
 \hline
 \end{tabular}
 \end{center}
@@ -517,7 +516,7 @@ calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1:
 None
 \subsubsection{Environment Variables}
 
-File: Sequence of String \#The result of calculation will be stored in an output csv file.
+File: Sequence of String \# the result of calculation will be stored in an output csv file.
 \subsubsection{Assumptions}
 
 \begin{itemize}
@@ -529,7 +528,7 @@ File: Sequence of String \#The result of calculation will be stored in an output
 
 \noindent \textbf{calculate($AADT, AADTT, t1, h_{total}, t2$)}:
 \begin{itemize}
-\item output: out :=  file = Cl\_mass($spray\_density\_Cl(salt\_per\_day(h_{total}, t1), water\_thickness(h_{total}, t2)), adjust(AADT, AADTT), t2$) \#The result is saved to a csv file storing calculation result, which is the prediction of chloride exposure rate. The file has row lable as coordinate and column lable as year. 
+\item output: out :=  file = Cl\_mass($spray\_density\_Cl(salt\_per\_day(h_{total}, t1), \\ water\_thickness(h_{total}, t2)),\adjust(AADT, AADTT), t2$) \# the result is saved to a csv file storing calculation result, which is the prediction of chloride exposure rate. The file has row lable as coordinate and column lable as year. 
 \item exception: exc:= \\ \\ 
  \begin{tabular}{p{10cm} p{3.5cm} }
  \hline

@@ -1,12 +1,18 @@
 import geopandas as gpd
 from numpy import shape
 from shapely.geometry import Point
-
+from flask import Flask, render_template, request
 # Load the GeoJSON file of Canada provinces from a URL
-import requests
 def is_within_ontario(latitude, longitude):
     # Load the GeoJSON file containing the boundary of Ontario
     try:
+        float(latitude)
+        float(longitude)
+    
+        # if not latitude or not longitude:
+        #     raise ValueError('empty string')
+
+        
         # Generate from
         # https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/canada.geojson
         boundary = gpd.read_file('ontario_boundary.geojson')
@@ -23,11 +29,14 @@ def is_within_ontario(latitude, longitude):
             # print(polygon)
             if polygon.contains(point):
                 return True
+        return False 
+    except ValueError as e:
+        raise ValueError(f"InputTypeMismatchError: {e}")
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"FileNotFoundError: {e}")
+        # return render_template('index.html', warning= str(e))
+    # finally:
         
-    except Exception as e:
-    
-        print(f"Error: {e}")
-        
-    # If the point is not within any polygon, return False
-        return False
+
       
+        

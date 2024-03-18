@@ -7,8 +7,11 @@ import visualization
 # fig = go.Figure()
 def load_data():
     # Load CSV data
-    data = pd.read_csv('data.csv')
-    return data
+    try:
+        data = pd.read_csv('data.csv')
+        return data
+    except FileNotFoundError:
+        raise FileNotFoundError("The data.csv file is not found. Please make sure the file is in the same directory as the app.py file.")
 
 def find_closest(lat, lon, data):
     # Calculate the Euclidean distance for each row

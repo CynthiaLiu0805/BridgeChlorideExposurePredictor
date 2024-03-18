@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Map</title>
+    <title>BC</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
@@ -49,18 +49,17 @@
     </style>
 </head>
 <body>
-    <h1>Map Search</h1>
+    <h1>Bridge Corrosion Prediction</h1>
     <div class="container">
         <form id="search-form" action="/" method="post">
             Latitude: <input type="text" id="latitude" name="latitude"><br>
             Longitude: <input type="text" id="longitude" name="longitude"><br>
             <input type="submit" value="Search">
         </form>
-
         <div id="map"></div>
     </div> 
     {% if warning %}
-            {{ warning }};
+            {{ warning }}
     {% endif %}
     {% if result %}
     <div class="search-result">
