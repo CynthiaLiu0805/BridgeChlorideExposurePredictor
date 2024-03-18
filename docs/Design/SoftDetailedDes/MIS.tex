@@ -186,7 +186,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-main & - & - & - \\
+main & long: $\mathbb{R}$, lat: $\mathbb{R}$  & - & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -343,7 +343,7 @@ verify\_param & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Boolean & InputOutofOnta
 \subsubsection{Environment Variables}
 \begin{itemize}
 
-\item File: The geojson file that contain the shape of Ontario.
+\item File: String \#The geojson file that contain the shape of Ontario.
 
 \end{itemize}
 
@@ -505,7 +505,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{N}$, $h_{total}$: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{N}$ & file: an output file & DataMissingError, DataInvalidError \\
+calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{N}$, $h_{total}$: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{N}$ & file: String & DataMissingError, DataInvalidError \\
 \hline
 \end{tabular}
 \end{center}
@@ -517,7 +517,7 @@ calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1:
 None
 \subsubsection{Environment Variables}
 
-File: The result of calculation will be stored in an output csv file.
+File: Sequence of String \#The result of calculation will be stored in an output csv file.
 \subsubsection{Assumptions}
 
 \begin{itemize}
