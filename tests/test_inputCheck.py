@@ -8,7 +8,7 @@ class TestInputCheck(unittest.TestCase):
         self.assertIsNotNone(result)
 
     def test_load_file2(self):
-        s = 'boundary.geojson'
+        s = 'bound'
         with self.assertRaises(FileNotFoundError):
             inputCheck.load_file(s)
 
@@ -21,13 +21,13 @@ class TestInputCheck(unittest.TestCase):
         latitude = "abc"
         # longitude = -123.3656
         with self.assertRaises(ValueError):
-            inputCheck.inputCheck(latitude)
+            inputCheck.is_float(latitude)
             
     def test_value_error_empty(self):
         latitude = ""
         # longitude = -123.3656
         with self.assertRaises(ValueError):
-            inputCheck.inputCheck(latitude)
+            inputCheck.is_float(latitude)
     
     def test_point_in_boundary1(self):
         latitude = 44.550356

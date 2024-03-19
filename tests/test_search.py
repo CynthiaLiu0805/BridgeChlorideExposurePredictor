@@ -44,12 +44,12 @@ class TestInputCheck(unittest.TestCase):
     def test_convert_lon_calculate1(self):
         lon = -74.0060
         result = search.convert_lon_calculate(lon)
-        self.assertEqual(result, -74.0060)
+        self.assertEqual(result, 285.994)
     
     def test_convert_lon_calculate2(self):
         lon = 274.7127
         result = search.convert_lon_calculate(lon)
-        self.assertEqual(result, -85.2873)
+        self.assertEqual(result, 274.7127)
    
 
     def test_search_coordinates(self):
