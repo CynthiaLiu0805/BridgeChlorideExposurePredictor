@@ -37,3 +37,5 @@ def is_within_ontario(latitude, longitude):
         return False 
     except ValueError as e:
         raise ValueError(f"InputTypeMismatchError: {e}")
+    
+print(is_within_ontario(44.550356, -80.84538))
