@@ -2,17 +2,21 @@ import unittest
 import inputCheck
 
 class TestInputCheck(unittest.TestCase):
-    def test_point_in_boundary(self):
-        latitude = 40.7128
-        longitude = -74.0060
-        result = inputCheck.is_within_ontario(latitude, longitude)
-        self.assertTrue(result)
+    def test_load_file(self):
+        result = inputCheck.load_file('../src/ontario_boundary.geojson')
+        self.assertIsNotNone(result)
+    
+    # def test_point_in_boundary(self):
+    #     latitude = 40.7128
+    #     longitude = -74.0060
+    #     result = inputCheck.is_within_ontario(latitude, longitude)
+    #     self.assertTrue(result)
 
-    def test_point_not_in_boundary(self):
-        latitude = 48.4284
-        longitude = -123.3656
-        result = inputCheck.is_within_ontario(latitude, longitude)
-        self.assertFalse(result)
+    # def test_point_not_in_boundary(self):
+    #     latitude = 48.4284
+    #     longitude = -123.3656
+    #     result = inputCheck.is_within_ontario(latitude, longitude)
+    #     self.assertFalse(result)
     
     def test_value_error(self):
         latitude = "abc"

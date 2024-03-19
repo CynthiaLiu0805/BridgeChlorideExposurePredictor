@@ -3,6 +3,14 @@ from numpy import shape
 from shapely.geometry import Point
 from flask import Flask, render_template, request
 # Load the GeoJSON file of Canada provinces from a URL
+
+def load_file(s):
+    try:
+        boundary = gpd.read_file(s)
+        return boundary
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"FileNotFoundError: {e}")
+    
 def is_within_ontario(latitude, longitude):
     # Load the GeoJSON file containing the boundary of Ontario
     try:
@@ -11,8 +19,9 @@ def is_within_ontario(latitude, longitude):
         
         # Generate from
         # https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/canada.geojson
-        boundary = gpd.read_file('ontario_boundary.geojson')
+        boundary = load_file('ontario_boundary.geojson')
         # boundary = gpd.read_file('https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/ontario_boundary.geojson')
+        
         # If the longitude is positive, convert it to negative
         if (float(longitude) > 0):
             longitude = float(longitude)-360
@@ -28,5 +37,3 @@ def is_within_ontario(latitude, longitude):
         return False 
     except ValueError as e:
         raise ValueError(f"InputTypeMismatchError: {e}")
-    except FileNotFoundError as e:
-        raise FileNotFoundError(f"FileNotFoundError: {e}")
