@@ -33,13 +33,13 @@ class TestInputCheck(unittest.TestCase):
         np.testing.assert_almost_equal(result['LON'], -74.0060)
 
     def test_find_closest2(self):
-        lat = 49.4578
-        lon = -85.2865
+        lat = 49.4578094482
+        lon = 274.712677002
         data = search.load_data('data.csv')
         result = search.find_closest(lat, lon, data)
         
-        np.testing.assert_almost_equal(result['LAT'], 49.45781)
-        np.testing.assert_almost_equal(result['LON'], 274.7127)
+        np.testing.assert_almost_equal(result['LAT'], 49.4578094)
+        np.testing.assert_almost_equal(result['LON'], 274.712677)
 
     def test_convert_lon_calculate1(self):
         lon = -74.0060
