@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib
 import visualization
 
+# class search:
 # fig = go.Figure()
 def load_data(s):
     # Load CSV data
@@ -26,8 +27,16 @@ def find_closest(lat, lon, data):
     return data.loc[closest_index]
 
 
+def convert_lon_calculate(lon):
+    lon_calculate =lon
+    if (lon < 0):
+        lon_calculate = lon+360
+    return lon_calculate
+
 def search_coordinates():
     result = None
+    # lat = handleData.lat
+    # lon = handleData.lon
     # Get coordinates from form or map click
     lat = float(request.form['latitude'])
     lon = float(request.form['longitude'])
@@ -35,9 +44,10 @@ def search_coordinates():
     # if (type(lat) == str):
     #     lon_calculate = float(lon)
 
-    lon_calculate =lon
-    if (lon < 0):
-            lon_calculate = lon+360
+    # lon_calculate =lon
+    # if (lon < 0):
+    #     lon_calculate = lon+360
+    lon_calculate = convert_lon_calculate(lon)
 
 
     # Load CSV data

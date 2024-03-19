@@ -4,6 +4,7 @@ import search, inputCheck
 app = Flask(__name__)
 from exception import InputOutofOntarioError
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
