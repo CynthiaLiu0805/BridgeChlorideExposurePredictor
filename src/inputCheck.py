@@ -11,8 +11,8 @@ def is_within_ontario(latitude, longitude):
         
         # Generate from
         # https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/canada.geojson
-        boundary = gpd.read_file('/Users/liuyingxue/Documents/work/graduate/741/project/BridgeCorrosion/src/ontario_boundary.geojson')
-        
+        boundary = gpd.read_file('ontario_boundary.geojson')
+        # boundary = gpd.read_file('https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/ontario_boundary.geojson')
         # If the longitude is positive, convert it to negative
         if (float(longitude) > 0):
             longitude = float(longitude)-360
