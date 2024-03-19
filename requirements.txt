@@ -2,4 +2,4 @@ flask
 pytest
 geopandas
 numpy
-shapely.geometry
+# shapely.geometry
