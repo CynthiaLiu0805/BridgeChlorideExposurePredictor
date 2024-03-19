@@ -8,10 +8,6 @@ def is_within_ontario(latitude, longitude):
     try:
         float(latitude)
         float(longitude)
-    
-        # if not latitude or not longitude:
-        #     raise ValueError('empty string')
-
         
         # Generate from
         # https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/canada.geojson
@@ -34,9 +30,3 @@ def is_within_ontario(latitude, longitude):
         raise ValueError(f"InputTypeMismatchError: {e}")
     except FileNotFoundError as e:
         raise FileNotFoundError(f"FileNotFoundError: {e}")
-        # return render_template('index.html', warning= str(e))
-    # finally:
-        
-
-      
-        
