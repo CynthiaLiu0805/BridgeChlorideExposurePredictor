@@ -33,8 +33,8 @@ class TestInputCheck(unittest.TestCase):
         np.testing.assert_almost_equal(result['LON'], -74.0060)
 
     def test_find_closest2(self):
-        lat = 49.4578094482
-        lon = 274.712677002
+        lat = 49.45
+        lon = 274.71
         data = search.load_data('data.csv')
         result = search.find_closest(lat, lon, data)
         
