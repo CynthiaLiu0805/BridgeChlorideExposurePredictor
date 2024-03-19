@@ -40,10 +40,10 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pip install pytest 
-        pip install flask
-        pip install geopandas
-        pip install numpy
-        pip install shapely
+        # pip install pytest 
+        # pip install flask
+        # pip install geopandas
+        # pip install numpy
+        # pip install shapely
         export PYTHONPATH=src
         pytest 
