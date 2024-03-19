@@ -5,13 +5,13 @@ import matplotlib
 import visualization
 
 # fig = go.Figure()
-def load_data():
+def load_data(s):
     # Load CSV data
     try:
-        data = pd.read_csv('data.csv')
+        data = pd.read_csv(s)
         return data
     except FileNotFoundError:
-        raise FileNotFoundError("The data.csv file is not found. Please make sure the file is in the same directory as the app.py file.")
+        raise FileNotFoundError("The file is not found. Please make sure the file is in the same directory as the app.py file.")
 
 def find_closest(lat, lon, data):
     # Calculate the Euclidean distance for each row
@@ -29,17 +29,19 @@ def find_closest(lat, lon, data):
 def search_coordinates():
     result = None
     # Get coordinates from form or map click
-    lat = request.form['latitude']
-    lon = request.form['longitude']
+    lat = float(request.form['latitude'])
+    lon = float(request.form['longitude'])
     # print(lat, lon)
-    if (type(lat) == str):
-        lon_calculate = float(lon)
-    if (lon_calculate < 0):
-            lon_calculate = lon_calculate+360
+    # if (type(lat) == str):
+    #     lon_calculate = float(lon)
+
+    lon_calculate =lon
+    if (lon < 0):
+            lon_calculate = lon+360
 
 
     # Load CSV data
-    data = load_data()
+    data = load_data('data.csv')
 
     # Find the closest row
     result = find_closest(lat, lon_calculate, data)
