@@ -3,7 +3,7 @@ import inputCheck
 
 class TestInputCheck(unittest.TestCase):
     def test_load_file(self):
-        result = inputCheck.load_file('../src/ontario_boundary.geojson')
+        result = inputCheck.load_file('../../src/ontario_boundary.geojson')
         self.assertIsNotNone(result)
     
     # def test_point_in_boundary(self):
