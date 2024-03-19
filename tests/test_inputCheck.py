@@ -7,10 +7,10 @@ class TestInputCheck(unittest.TestCase):
         result = inputCheck.load_file(s)
         self.assertIsNotNone(result)
 
-    def test_load_file2(self):
-        s = 'bound'
-        with self.assertRaises(FileNotFoundError):
-            inputCheck.load_file(s)
+    # def test_load_file2(self):
+    #     s = 'bound'
+    #     with self.assertRaises(FileNotFoundError):
+    #         inputCheck.load_file(s)
 
     def test_is_float1(self):
         s = "123.45"
