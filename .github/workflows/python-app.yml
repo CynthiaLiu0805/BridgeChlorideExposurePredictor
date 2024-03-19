@@ -42,5 +42,8 @@ jobs:
       run: |
         pip install pytest 
         pip install flask
+        pip install geopandas
+        pip install numpy
+        pip install shapely.geometry
         export PYTHONPATH=src
         pytest 
