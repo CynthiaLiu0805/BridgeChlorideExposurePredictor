@@ -1,7 +1,6 @@
 import numpy as np
 from flask import Flask, render_template, request
 import pandas as pd
-import matplotlib
 import visualization
 
 # class search:
