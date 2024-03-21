@@ -187,7 +187,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-main & long: $\mathbb{R}$, lat: $\mathbb{R}$  & - & - \\
+main & -  & - & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -196,8 +196,8 @@ main & long: $\mathbb{R}$, lat: $\mathbb{R}$  & - & - \\
 
 \subsubsection{State Variables}
 \begin{itemize}
-\item long, lat := long: $\mathbb{R}$, lat: $\mathbb{R}$ \# input coordinate get from Input Parameter Module.
-\item result = sequence of $\mathbb{R}$ \# the predicted chloride exposure trend
+\item long, lat := long: $\mathbb{R}$, lat: $\mathbb{R}$ \# coordinate get from Input Parameter Module.
+\item result = sequence of $\mathbb{R}$ \# the predicted chloride exposure trend.
 
 \end{itemize}
 %\wss{Not all modules will have state variables.  State variables give the module a memory.}
@@ -528,7 +528,7 @@ File: Sequence of String \# the result of calculation will be stored in an outpu
 
 \noindent \textbf{calculate($AADT, AADTT, t1, h_{total}, t2$)}:
 \begin{itemize}
-\item output: out :=  file = Cl\_mass($spray\_density\_Cl(salt\_per\_day(h_{total}, t1), \\ water\_thickness(h_{total}, t2)),\adjust(AADT, AADTT), t2$) \# the result is saved to a csv file storing calculation result, which is the prediction of chloride exposure rate. The file has row lable as coordinate and column lable as year. 
+\item output: out :=  file = Cl\_mass($spray\_density\_Cl(salt\_per\_day(h_{total}, t1),$ \\ $water\_thickness(h_{total}, t2)), adjust(AADT, AADTT), t2$) \# the result is saved to a csv file storing calculation result, which is the prediction of chloride exposure rate. The file has row lable as coordinate and column lable as year. 
 \item exception: exc:= \\ \\ 
  \begin{tabular}{p{10cm} p{3.5cm} }
  \hline
