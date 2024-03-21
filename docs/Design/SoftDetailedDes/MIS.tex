@@ -334,7 +334,7 @@ verify\_param & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Boolean & InputOutofOnta
 
 \subsubsection{State Variables}
 \begin{itemize}
-
+\item geodata: sequence of string \# the data read from geojson file
 \item isValid: Boolean \# if this input is valid
 
 \end{itemize}
@@ -353,7 +353,7 @@ This module use the open source geojson file that contain the Ontario boundary, 
 \noindent \textbf{read\_geoinfo($filename$)}:
 \begin{itemize}
 \item transition: access the data from geojson file
-\item exception: exc := FileNotFoundError: $filename == \varnothing$
+\item exception: exc := FileNotFoundError: $\nexists ~ filename$
 \end{itemize}
 \noindent \textbf{verify\_param($long, lat$)}:
 \begin{itemize}
@@ -413,7 +413,7 @@ All locations within Ontario must contain valid data. If a user inputs a locatio
 \noindent \textbf{read\_file($filename$)}:
 \begin{itemize}
 \item output: out := data \# sequence of $\mathbb{R}$ read from the file
-\item exception: exc := FileNotFoundError = $filename == \varnothing$
+\item exception: exc := FileNotFoundError = $\nexists ~ filename$
 \end{itemize}
 \noindent \textbf{search($long, lat, data$)}:
 \begin{itemize}
