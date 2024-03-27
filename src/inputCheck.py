@@ -2,8 +2,8 @@ import geopandas as gpd
 from numpy import shape
 from shapely.geometry import Point
 from flask import Flask, render_template, request
-# Load the GeoJSON file of Canada provinces from a URL
 
+# Load the GeoJSON file of Canada provinces from a URL
 file_name = 'ontario_boundary.geojson'
 def load_file(s):
     try:
@@ -27,19 +27,11 @@ def convert_latitude(latitude):
     return float(latitude)
     
 def is_within_ontario(latitude, longitude):
-    # Load the GeoJSON file containing the boundary of Ontario
     try:
-        # float(latitude)
-        # float(longitude)
-        
         # Generate from
         # https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/canada.geojson
         boundary = load_file(file_name)
         
-        # If the longitude is positive, convert it to negative
-        # if (float(longitude) > 0):
-        #     longitude = float(longitude)-360
-
         longitude = convert_longitude(longitude)
         latitude = convert_latitude(latitude)
 

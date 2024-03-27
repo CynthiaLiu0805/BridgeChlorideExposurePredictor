@@ -3,6 +3,8 @@ from flask import Flask, render_template, request
 import pandas as pd
 import visualization
 
+data_name ='results.csv'
+
 # class search:
 # fig = go.Figure()
 def load_data(s):
@@ -50,7 +52,7 @@ def search_coordinates():
 
 
     # Load CSV data
-    data = load_data('data.csv')
+    data = load_data(data_name)
 
     # Find the closest row
     result = find_closest(lat, lon_calculate, data)

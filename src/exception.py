@@ -1,4 +1,2 @@
 class InputOutofOntarioError(Exception):
     pass
-
-
