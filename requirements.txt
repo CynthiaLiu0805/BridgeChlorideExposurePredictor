@@ -2,6 +2,7 @@ flask
 pytest
 geopandas
 numpy
+pandas
 # matplotlib
 plotly
 

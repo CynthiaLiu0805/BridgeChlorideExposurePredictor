@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 import pandas as pd
-import search, inputCheck
+import search
+from search import Search
+from inputCheck import InputCheck
 app = Flask(__name__)
 from exception import InputOutofOntarioError
 
@@ -9,8 +11,12 @@ from exception import InputOutofOntarioError
 def index():
     if request.method == 'POST':
         try:
-            if inputCheck.is_within_ontario(request.form['latitude'], request.form['longitude']):
-                return search.search_coordinates()
+            verification = InputCheck(request.form['longitude'], request.form['latitude'])
+            if (verification.is_within_ontario()):
+                result = Search(request.form['longitude'], request.form['latitude'])
+
+            # if inputCheck.is_within_ontario(request.form['latitude'], request.form['longitude']):
+                return result.search_coordinates()
             else:
                 raise InputOutofOntarioError
         except InputOutofOntarioError as e:
