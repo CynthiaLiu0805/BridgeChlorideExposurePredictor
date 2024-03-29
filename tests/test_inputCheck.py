@@ -15,8 +15,8 @@ class TestInputCheck(unittest.TestCase):
         
     def test_load_file(self):
         # s = 'ontario_boundary.geojson'
-        result = self.test1.load_file()
-        self.assertIsNotNone(result)
+        self.test1.load_file()
+        self.assertIsNotNone(self.test1.boundary)
 
     def test_value_error(self):
         # latitude = "abc"
