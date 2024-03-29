@@ -13,8 +13,8 @@ class TestInputCheck(unittest.TestCase):
         self.test5 = InputCheck('277.4771', '42.63238')
         self.test6 = InputCheck('-123.3656', '48.4284')
         
-    def test_load_file1(self):
-        s = 'ontario_boundary.geojson'
+    def test_load_file(self):
+        # s = 'ontario_boundary.geojson'
         result = self.test1.load_file()
         self.assertIsNotNone(result)
 
