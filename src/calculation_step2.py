@@ -17,8 +17,8 @@ class Calculation_step2:
 
         self.h_app = self.h_total / 12 /self.t2 /100
 
-last = Calculation_load()
-# constant = constant()
-calculation_step1 = Calculation_step2(last.h_total, last.t2)
-calculation_step1.calculate()
-# print(calculation_step1.h_app)
+# last = Calculation_load()
+# # constant = constant()
+# calculation_step1 = Calculation_step2(last.h_total, last.t2)
+# calculation_step1.calculate()
+# # print(calculation_step1.h_app)

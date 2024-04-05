@@ -35,7 +35,7 @@ class Calculation:
         df.to_csv('results.csv', index=False)
         # np.savetxt('result.csv', self.results, delimiter=',')
 
-load = Calculation_load()
+load = Calculation_load('1.xlsx')
 calculation_step1 = Calculation_step1(load.h_total, load.t1)
 calculation_step1.calculate()
 calculation_step2 = Calculation_step2(load.h_total, load.t2)
