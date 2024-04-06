@@ -54,7 +54,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-March 6, 2024 & 1.0 & Initial release\\
+March 6, 2024 & 0.0 & Initial release\\
+April 5, 2024 & 0.1 & Edit according to feedback from peer review and Dr. Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -79,6 +80,7 @@ This section records information for easy reference.
   MG & Module Guide \\
   OS & Operating System \\
   R & Requirement\\
+  SAS & Sprayed and Splashed \\
   SC & Scientific Computing \\
   SRS & Software Requirements Specification\\
   UC & Unlikely Change \\
@@ -165,7 +167,6 @@ adapted here is called design for change.
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acMoreCoordinate}:] Coordinate outside Ontario might be considered if the project becomes a larger scale. This is relevant to R1 in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
 \item[\refstepcounter{acnum} \actheacnum \label{acAlgorithm}:] The algorithm for calculating chloride exposure might change if the theory proceeds.
-\item[\refstepcounter{acnum} \actheacnum \label{acInputMethod}:] The input method could include clicking a point on the map as another way of inputing coordinate.
 \item[\refstepcounter{acnum} \actheacnum \label{acOutputFile}:] The output could have another format which is saving the search result to file.
 
 \end{description}
@@ -182,7 +183,7 @@ decisions will be changed.
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucDevInput}:] The traffic data model and climate data model are inputed from developer and will be hidden to user.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucUserInput}:] The user input is only the coordinate.
-\item [\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The output is a list of chloride exposure data displayed in grid, visualized in histogram or line graph.
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] There will be visualization for the output.
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucDatabase}:] The database storing chloride exposure data will always be external.
 \end{description}
 
@@ -191,17 +192,25 @@ decisions will be changed.
 This section provides an overview of the module design. Modules are summarized
 in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
-actually be implemented.
+actually be implemented.\\
+The whole project could be divided into two parts. \mref{mHardware} to \mref{mOutput} are the software that user will actually interact with, and \mref{mDataModel} to \mref{mCalculation_result} are the modules that generate the chloride exposure database that the software depends on. The purpose for divding the process of generating the database is because each module hides a secret of the calculation formula, so if one of the formula changes only the corresponding module need to be changed. \mref{mFileIO} and \mref{mPlot} are the built in modules by Python that is used during the implementation.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHardware}:] Hardware Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Parameter Module
-\item [\refstepcounter{mnum} \mthemnum \label{mInputVerification}:] Input Verification Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Module
 \item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control Module
 \item [\refstepcounter{mnum} \mthemnum \label{mSearch}:] Data Searching Module
 \item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Visualization Module
-\item [\refstepcounter{mnum} \mthemnum \label{mCalculation}:] Chloride Exposure Calculation Model
-\item [\refstepcounter{mnum} \mthemnum \label{mSeqData}:] Sequence Data Structure Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDataModel}:] Data Model Reading Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mConstant}:] Constant Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step1}:] Deicing Salts Calculation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step2}:] Melted Water Thickness Calculation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step3}:] Single Water SAS Calculation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step4}:] Single Chloride Ions SAS Calculation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step5}:] All Chloride Ions SAS Calculation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step6}:] Deicing Salts Deposition Calculation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_result}:] Chloride Exposure Database Generation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mFileIO}:] File I/O Module
 \item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plotting Module
 \end{description}
 
@@ -216,15 +225,22 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{6}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameter Module\\
-& Input Verification Module\\
+\multirow{14}{0.3\textwidth}{Behaviour-Hiding Module} & Input Module\\
 & Control Module\\
 & Data Searching Module\\
 & Output Visualization Module\\
-& Chloride Exposure Calculation Model \\
+& Data Model Reading Module \\
+& Constant Module \\
+& Deicing Salts Calculation Module \\
+& Melted Water Thickness Calculation Module \\
+& Single Water SAS Calculation Module \\
+& Single Chloride Ions SAS Calculation Module \\
+& All Chloride Ions SAS Calculation Module \\
+& Deicing Salts Deposition Calculation Module \\
+& Chloride Exposure Database Generation Module\\
 \midrule
 
-\multirow{2}{0.3\textwidth}{Software Decision Module} & Sequence Data Structure Module \\
+\multirow{2}{0.3\textwidth}{Software Decision Module} &  File I/O Module \\
 & Plotting Module \\
 \bottomrule
 
@@ -284,21 +300,11 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Parameter Module (\mref{mInput})}
+\subsubsection{Input Module (\mref{mInput})}
 
 \begin{description}
-\item[Secrets:] The format and structure of the input data. 
-\item[Services:] Get input from the user. Converts the input data into the data structure used by the Input Verification module.
-\item[Implemented By:] BC
-\item[Type of Module:] Function
-\end{description}
-
-
-\subsubsection{Input Verification Module (\mref{mInputVerification})}
-
-\begin{description}
-\item[Secrets:] The kind of valid and invalid data. 
-\item[Services:] Verify if the input is within the physical and software constraint, throw warning message if it is not. Pass the valid input to the Data Searching module.
+\item[Secrets:] The kind of valid and invalid input coordinate data. 
+\item[Services:] Get input from the user and verify if the input is within the physical and software constraint, throw warning message if it is not. 
 \item[Implemented By:] BC
 \item[Type of Module:] Abstract Data Type
 \end{description}
@@ -309,32 +315,99 @@ to be implemented.
 \item[Secrets:] The algorithm for running the program.
 \item[Services:] Provide the main program and the GUI.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Library
 \end{description}
 
 \subsubsection{Data Searching Module (\mref{mSearch})}
 \begin{description}
 \item[Secrets:] The irrelevant values in database.
-\item[Services:] Find the data needed in the database by searching algorithm, stored it in the data structure that the Output Visualization module needs.
+\item[Services:] Find the data needed in the database by searching algorithm.
 \item[Implemented By:] BC
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
 \subsubsection{Output Visualization Module (\mref{mOutput})}
 \begin{description}
-\item[Secrets:] The format and structure of the output data.
+\item[Secrets:] The format and structure of the output chloride exposure data.
 \item[Services:] Provide the visualization of the resulting chloride exposure trend, using line graph or histogram. 
 \item[Implemented By:] BC
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
-\subsubsection{Chloride Exposure Calculation Module (\mref{mCalculation})}
+
+\subsubsection{Data Model Reading Module (\mref{mDataModel})}
 \begin{description}
-\item[Secrets:] Detail calculation formulas for chloride exposure trend.
-\item[Services:] Get the climate and traffic data model from developer, use them to generate the chloride exposure database that is needed in the Data Searching Module.
+\item[Secrets:] The origin climate model and traffic model that the calculation is based on.
+\item[Services:]  Read data from the climate model and traffic model and store them in the data structure needed for further calculation.
 \item[Implemented By:] BC
 \item[Type of Module:] Abstract Data Type
 \end{description}
+
+
+\subsubsection{Constant Module (\mref{mConstant})}
+\begin{description}
+\item[Secrets:] The constant used during calculation.
+\item[Services:] Store the constant for mantainability purpose.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Deicing Salts Calculation Module (\mref{mCalculation_step1})}
+\begin{description}
+\item[Secrets:] The formula to determine the quantity of deicing salts applied per day with snowfall.
+\item[Services:] Calculate and store the quantity of deicing salts applied per day with snowfall.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Melted Water Thickness Calculation Module (\mref{mCalculation_step2})}
+\begin{description}
+\item[Secrets:] The formula to determine the thickness of melted water per day with snow melting.
+\item[Services:] Calculate and store the thickness of melted water per day with snow melting.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Single Water SAS Calculation Module (\mref{mCalculation_step3})}
+\begin{description}
+\item[Secrets:] The formula to determine water sprayed and splashed by one truck using a Computational Fluid Dynamics (CFD)-based analytical model.
+\item[Services:] Calculate and store the water sprayed and splashed by one truck.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Single Chloride Ions SAS Calculation Module (\mref{mCalculation_step4})}
+\begin{description}
+\item[Secrets:] The formula to determine chloride ions sprayed and splashed by one truck.
+\item[Services:] Calculate and store the chloride ions sprayed and splashed by one truck.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{All Chloride Ions SAS Calculation Module (\mref{mCalculation_step5})}
+\begin{description}
+\item[Secrets:] The formula to determine chloride ions sprayed and splashed by all vehicles in one winter season.
+\item[Services:] Calculate and store the chloride ions sprayed and splashed by all vehicles in one winter season.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Deicing Salts Deposition Calculation Module (\mref{mCalculation_step6})}
+\begin{description}
+\item[Secrets:] The formula to determine the deposition of deicing salts on the surface of the bridge substructure.
+\item[Services:] Calculate and store the deposition of deicing salts on the surface of the bridge substructure.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Chloride Exposure Database Generation Module (\mref{mCalculation_result})}
+\begin{description}
+\item[Secrets:] The detail formula for calculating the chloride exposure database.
+\item[Services:] Save the chloride exposure data to the database to be used by the user end.
+\item[Implemented By:] BC
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
 
 \subsection{Software Decision Module}
 
@@ -349,11 +422,11 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Sequence Data Structure Module (\mref{mSeqData})}
+\subsubsection{File I/O (\mref{mFileIO})}
 \begin{description}
-\item[Secrets:] The data structure for sequence data type. 
-\item[Services:] Provides different list operations including looping, adding and removing elements. 
-\item[Implemented By:] Python
+\item[Secrets:] The data structure and algorithms for File I/O 
+\item[Services:] Provides functions that could read from file and write to new file. 
+\item[Implemented By:] Pandas
 \item[Type of Module:] Library
 \end{description}
 
@@ -378,15 +451,14 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-\rref{R_Inputs} & \mref{mHardware}, \mref{mInput}, \mref{mInputVerification}, \mref{mControl}\\
-\rref{R_OutputInputs} & \mref{mControl}, \mref{mSearch}, \mref{mOutput}, \mref{mCalculation},  \mref{mPlot}\\
-\rref{R_Calculate} & \mref{mCalculation}, \mref{mSeqData}\\
-\rref{R_Output} & \mref{mOutput}, \mref{mCalculation}\\
-\nfrref{NFR_Reliability} & \mref{mSearch}, \mref{mCalculation}\\
-\nfrref{NFR_Usability} & \mref{mControl},  \mref{mSearch}, \mref{mPlot}\\
-\nfrref{NFR_Maintainability} & all modules\\
-\nfrref{NFR_Portability} & \mref{mControl}\\
-\nfrref{NFR_Scalability}  & all modules\\
+R1 & \mref{mHardware}, \mref{mInput}, \mref{mControl}\\
+R2 & \mref{mControl}, \mref{mSearch}, \mref{mOutput}, \mref{mPlot}\\
+R3 & \mref{mOutput}, \mref{mCalculation_result}\\
+NFR1 & \mref{mSearch}, \mref{mCalculation_result}\\
+NFR2 & \mref{mControl},  \mref{mSearch}, \mref{mPlot}\\
+NFR3 & all modules\\
+NFR4 & \mref{mControl}\\
+NFR5 & all modules\\
 
 \bottomrule
 \end{tabular}
@@ -400,17 +472,12 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acMoreCoordinate} & \mref{mInputVerification}\\
-\acref{acAlgorithm} & \mref{mCalculation}\\
-\acref{acInputMethod} & \mref{mInput}\\
+\acref{acMoreCoordinate} & \mref{mInput}\\
+\acref{acAlgorithm} & one of \mref{mCalculation_step1}, \mref{mCalculation_step2}, \mref{mCalculation_step3}, \mref{mCalculation_step4}, \mref{mCalculation_step5}, \mref{mCalculation_step6}\\
 \acref{acOutputFile} & \mref{mControl} \\
-\uref{ucDevInput} & \mref{mCalculation}\\
-\uref{ucUserInput} & \mref{mInput}\\
-\uref{ucOutput} & \mref{mOutput}\\
-\uref{ucDatabase} & \mref{mSearch}\\
 \bottomrule
 \end{tabular}
-\caption{Trace Between Anticipated Changes, Unlikely Changes and Modules}
+\caption{Trace Between Anticipated Changes and Modules}
 \label{TblACUCT}
 \end{table}
 
@@ -429,7 +496,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.9\textwidth]{UsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
@@ -460,12 +527,11 @@ The specific timeline is shown in below table:
 \toprule
  \textbf{Modules} & \textbf{Finish by} & \textbf{Responsible} \\
 \midrule
-Chloride Exposure Calculation Module & February 25, 2024& Cynthia Liu\\
-Input Verification Module & March 5, 2024 & Cynthia Liu\\
-Input Parameter Module & March 8, 2024 & Cynthia Liu\\
-Data Searching Module & March 20, 2024 & Cynthia Liu\\
-Output Visualization Module  & March 27, 2024 & Cynthia Liu\\
-Control Module & April 5, 2024 & Cynthia Liu\\
+\mref{mCalculation_step1}, \mref{mCalculation_step2}, \mref{mCalculation_step3}, \mref{mCalculation_step4}, \mref{mCalculation_step5}, \mref{mCalculation_step6} & March 6, 2024& Cynthia Liu\\
+\mref{mInput} & March 13, 2024 & Cynthia Liu\\
+\mref{mSearch} & March 20, 2024 & Cynthia Liu\\
+\mref{mOutput}  & March 27, 2024 & Cynthia Liu\\
+\mref{mControl} & March 30, 2024 & Cynthia Liu\\
 
 \bottomrule
 \end{tabular}
@@ -474,39 +540,7 @@ Control Module & April 5, 2024 & Cynthia Liu\\
 
 
 \section{Appendix}
-This section shows the requirements in SRS for quick look up.
-
-\subsection{Functional Requirements}
-
-\begin{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept input that is inside Ontario.
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a list of data showing the trend of chloride exposure in the past and future at the input location.
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] During the automatic calculation steps, the software should handle situations where units do not match.
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The output should be in two decimal points, showing the mass of chloride ions per unit air volume.
-
-
-\end{itemize}
-
-
-\subsection{Nonfunctional Requirements}
-
-\noindent \begin{itemize}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Reliability}:]   \textbf{Reliability}: The predictions generated by the software should be accurate and reliable, reflecting real-world conditions and factors influencing chloride exposure.
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}: The software interface should be intuitive and user-friendly, allowing users to easily input coordinates and look at the predicted chloride exposure in the past and future.
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:] \textbf{Maintainability}: The code for this software should be designed and structured in a way that it could be easily comprehended and modified by other potential developers.
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]  \textbf{Portability}: This software should be able to run on recent versions of Google Chrome, Firefox, MS Edge and Safari. The operating system include Windows 7+ and Mac OS X 10.7+.
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Scalability}:]   \textbf{Scalability}: The software should be scalable to accommodate potential future expansions or updates, ensuring its continued usefulness as new data or techniques become available.
-
-\end{itemize}
+This section includes a link to \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS} for requirements.
 
 
 \bibliographystyle {plainnat}
