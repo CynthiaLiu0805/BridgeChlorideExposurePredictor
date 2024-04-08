@@ -54,7 +54,8 @@ urlcolor=cyan          % color of external links
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Mar. 8, 2024 & 1.0 & Initial Release\\
+Mar. 8, 2024 & 0 & Initial Release\\
+April. 5, 2024 & 0.1 & Edit according to feedback from peer review and Dr. Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -108,6 +109,7 @@ integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, 
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 empty & $\varnothing$ & when the input is empty or the variable does not exist \\
+GeoDataFrame & GeoDataFrame & todo \\
 \bottomrule
 \end{tabular} 
 \end{center}
@@ -123,7 +125,6 @@ described by giving their type signature followed by their specification.
 \section{Module Decomposition}
 
 The following table is taken directly from the Module Guide document for this project.
-
 \begin{table}[h!]
 \centering
 \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
@@ -131,19 +132,25 @@ The following table is taken directly from the Module Guide document for this pr
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware Hiding} & ~ \\
+{Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{5}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameter Module\\
-& Input Verification Module\\
+\multirow{14}{0.3\textwidth}{Behaviour-Hiding Module} & Input Module\\
 & Control Module\\
 & Data Searching Module\\
 & Output Visualization Module\\
-
+& Data Model Reading Module \\
+& Constant Module \\
+& Deicing Salts Calculation Module \\
+& Melted Water Thickness Calculation Module \\
+& Single Water SAS Calculation Module \\
+& Single Chloride Ions SAS Calculation Module \\
+& All Chloride Ions SAS Calculation Module \\
+& Deicing Salts Deposition Calculation Module \\
+& Chloride Exposure Database Generation Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & Chloride Exposure Calculation Module \\
-& Sequence Data Structure Module \\
+\multirow{2}{0.3\textwidth}{Software Decision Module} &  File I/O Module \\
 & Plotting Module \\
 \bottomrule
 
@@ -151,7 +158,6 @@ The following table is taken directly from the Module Guide document for this pr
 \caption{Module Hierarchy}
 \label{TblMH}
 \end{table}
-
 \newpage
 ~\newpage
 
@@ -167,8 +173,7 @@ main
 
 \subsection{Uses}
 \begin{itemize}
-\item Input Parameter Module (Section \ref{inputParameterModule})
-\item Input Verification Module (Section \ref{inputVerificationModule})
+\item Input Module (Section \ref{inputModule})
 \item Data Searching Module (Section \ref{dataSearchingModule})
 \item Output Visualization Module (Section \ref{outputVisualizationModule})
 \end{itemize}
@@ -195,11 +200,7 @@ main & -  & - & - \\
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-\begin{itemize}
-\item long, lat := long: $\mathbb{R}$, lat: $\mathbb{R}$ \# coordinate get from Input Parameter Module.
-\item result = sequence of $\mathbb{R}$ \# the predicted chloride exposure trend.
-
-\end{itemize}
+None
 %\wss{Not all modules will have state variables.  State variables give the module a memory.}
 
 \subsubsection{Environment Variables}
@@ -219,14 +220,13 @@ None
 \begin{itemize}
 \item transition: Control and execute the other modules as follow:
 \begin{itemize}
-\item Get input from user by Input Parameter Module. (M2, Section \ref{inputParameterModule}) 
-\item Pass the input to Input Verification Module. (M3, Section \ref{inputVerificationModule})
-\item Search the corresponding data in Data Searching Module if the input is valid. (M5, Section \ref{dataSearchingModule})
-\item Visualize the resulting data by using Output Visualization Module. (M6, Section \ref{outputVisualizationModule})
+\item Get and verify the input from user. (Section \ref{inputModule}) 
+\item Search the corresponding data in Data Searching Module if the input is valid. (Section \ref{dataSearchingModule})
+\item Visualize the resulting data by using Output Visualization Module. (Section \ref{outputVisualizationModule})
 
 \end{itemize}
 \item output: out := None
-\item exception: exc := Exceptions are handled in other submodules.
+\item exception: exc := None
 \end{itemize}
 
 %\wss{A module without environment variables or state variables is unlikely to have a state transition.  In this case a state transition can only occur if the module is changing the state of another module.}
@@ -239,10 +239,10 @@ None
   
 ~\newpage
 
-\section{MIS of Input Parameter Module} \label{inputParameterModule} 
-This module hides the format and structure of the input data, it is related to R1 in SRS.
+\section{MIS of Input Module} \label{inputModule} 
+This module get the input from user and verify if it is within the physical and software constraints, it is related to R1 in SRS.
 \subsection{Module}
-param
+input\_check
 \subsection{Uses}
 None
 
@@ -254,11 +254,15 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4.5cm} p{3cm} p{4cm}}
+\begin{tabular}{p{4cm} p{3.5cm} p{1.5cm} p{4.5cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-param & long: String, lat: String & long: $\mathbb{R}$, lat: $\mathbb{R}$ & InputTypeMismatchError \\
+read\_geoinfo & filename: String & - & FileNotFoundError\\
+convert\_longitude & long: String & long: $\mathbb{R}$ & ValueError \\
+convert\_latitude & lat: String & lat: $\mathbb{R}$ & ValueError \\
+is\_within\_ontario & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Boolean & InputOutofOntarioError \\
+
 \hline
 \end{tabular}
 \end{center}
@@ -266,33 +270,47 @@ param & long: String, lat: String & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Inpu
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-None
-
-\subsubsection{Environment Variables}
-Keyboard: this module takes input from the keyboard by typing.
-
-
-\subsubsection{Assumptions}
-None
-
-\subsubsection{Access Routine Semantics}
-This module load the input data and save it to the data type needed by the Input Verification Module.\\
-\noindent \textbf{read\_input()}:
 \begin{itemize}
-\item transition: Get input from the user, pass the input to the Input Verification Module.
-\item output: out := None
-\item exception: exc:= \\ \\ 
- \begin{tabular}{p{10cm} p{3.5cm} }
- \hline
- \textbf{Expression} & \textbf{Exception}  \\
+\item lon: $\mathbb{R}$ \# longitude get from user.
+\item lat: $\mathbb{R}$ \# latitude get from user.
+\item boundary: GeoDataFrame \# the data read from geojson file
+\end{itemize}
+\subsubsection{Environment Variables}
 
-  \hline
-     isNumeric(long) != float $\lor$ isNumeric(lat) != float   & InputTypeMismatchError \\ \\
-
-  \hline
- \end{tabular}
+\begin{itemize}
+\item Keyboard: takes input from the keyboard by typing.
+\item File: the geojson file that contain the shape of Ontario.
 \end{itemize}
 
+\subsubsection{Assumptions}
+This module use the open source geojson file that contain the Ontario boundary, by drawing polygons with the vertex coordinate. The coordinates for those vertexes are assumed to be reliable.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \textbf{read\_geoinfo($filename$)}:
+\begin{itemize}
+\item transition: access the data from geojson file
+\item exception: exc := FileNotFoundError: $\nexists ~ filename$
+\end{itemize}
+
+\noindent \textbf{convert\_longitude($long$)}:
+\begin{itemize}
+\item output: out := long: $\mathbb{R}$
+\item exception: exc := ValueError: $\lnot ~ isNumeric(long)$
+\end{itemize}
+
+\noindent \textbf{convert\_latitude($long$)}:
+\begin{itemize}
+\item output: out := lat: $\mathbb{R}$
+\item exception: exc := ValueError: $\lnot ~ isNumeric(lat)$
+\end{itemize}
+
+
+\noindent \textbf{is\_within\_ontario($long, lat$)}:
+\begin{itemize}
+\item output: out := Boolean
+\item exception: exc := InputOutofOntarioError: $\lnot ((long, lat) \in Ontario)$
+\end{itemize}
 
 \subsubsection{Local Functions}
 \noindent isNumeric($e$):
@@ -300,69 +318,10 @@ This module load the input data and save it to the data type needed by the Input
 \item output: out := Boolean \# check if the input $e$ is a string of float 
 \end{itemize}
   
-  
-~\newpage
-
-\section{MIS of Input Verification Module} \label{inputVerificationModule} 
-This module verifies if the input is within the physical and software constraints, it is related to R1 in SRS.
-\subsection{Module}
-
-verify\_param
-
-\subsection{Uses}
-Input Parameter Module (Section \ref{inputParameterModule})
-
-\subsection{Syntax}
-
-\subsubsection{Exported Constants}
-None
-
-\subsubsection{Exported Access Programs}
-
-\begin{center}
-\begin{tabular}{p{3cm} p{4cm} p{2cm} p{5cm}}
-\hline
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-\hline
-read\_geoinfo & filename: String & - & FileNotFoundError\\
-verify\_param & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Boolean & InputOutofOntarioError \\
-\hline
-\end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
+\noindent InputOutofOntarioError:
 \begin{itemize}
-\item geodata: sequence of string \# the data read from geojson file
-\item isValid: Boolean \# if this input is valid
-
+\item output: out := Exception \# raise this exception if the input is out of Ontario 
 \end{itemize}
-
-\subsubsection{Environment Variables}
-\begin{itemize}
-
-\item File: String \# the geojson file that contain the shape of Ontario.
-
-\end{itemize}
-
-\subsubsection{Assumptions}
-This module use the open source geojson file that contain the Ontario boundary, by drawing polygons with the vertex coordinate. The coordinates for those vertexes are assumed to be reliable.
-
-\subsubsection{Access Routine Semantics}
-\noindent \textbf{read\_geoinfo($filename$)}:
-\begin{itemize}
-\item transition: access the data from geojson file
-\item exception: exc := FileNotFoundError: $\nexists ~ filename$
-\end{itemize}
-\noindent \textbf{verify\_param($long, lat$)}:
-\begin{itemize}
-\item output: out := isValid
-\item exception: exc := InputOutofOntarioError: $\lnot ((long, lat) \in Ontario)$
-\end{itemize}
-
-\subsubsection{Local Functions}
-None
   
 ~\newpage
 
@@ -373,8 +332,8 @@ This module finds the data needed in the database, it is related to R2 in SRS.
 search
 
 \subsection{Uses}
- Input Parameter Module (Section \ref{inputParameterModule})
-, Chloride Exposure Calculation Module (Section \ref{calculationModule})
+ Input Module (Section \ref{inputModule}), Chloride Exposure Database Generation Module (Section \ref{calculationResultModule})
+
 
 
 \subsection{Syntax}
@@ -388,7 +347,8 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-read\_file & file: String & data: sequence of $\mathbb{R}$ & FileNotFoundError \\
+read\_file & filename: String & data: sequence of $\mathbb{R}$ & FileNotFoundError \\
+find\_closest & long: $\mathbb{R}$, lat: $\mathbb{R}$ & index: $\mathbb{N}$   & - \\
 search & long: $\mathbb{R}$, lat: $\mathbb{R}$  & result: sequence of  $\mathbb{R}$ & - \\
 \hline
 \end{tabular}
@@ -398,16 +358,18 @@ search & long: $\mathbb{R}$, lat: $\mathbb{R}$  & result: sequence of  $\mathbb{
 
 \subsubsection{State Variables}
 \begin{itemize}
-\item data: sequence of $\mathbb{R}$ \# the sequence of data read from database
-\item result: sequence of $\mathbb{R}$ \# the sequence of predicted chloride exposure data
+\item data: sequence of $\mathbb{R}$ \# the sequence of all data read from chloride exposure database
+\item result: sequence of $\mathbb{R}$ \# the sequence of predicted chloride exposure data that the user want
 
 \end{itemize}
 
 \subsubsection{Environment Variables}
-None
+\begin{itemize}
+\item File: the database file that contain the yearly chloride exposure data within Ontario.
+\end{itemize}
 
 \subsubsection{Assumptions}
-All locations within Ontario must contain valid data. If a user inputs a location outside of Ontario, it will be handled by the Input Verification Module.
+All locations within Ontario, if it is not on water, must contain valid data. 
 
 \subsubsection{Access Routine Semantics}
 \noindent \textbf{read\_file($filename$)}:
@@ -415,28 +377,27 @@ All locations within Ontario must contain valid data. If a user inputs a locatio
 \item output: out := data \# sequence of $\mathbb{R}$ read from the file
 \item exception: exc := FileNotFoundError = $\nexists ~ filename$
 \end{itemize}
-\noindent \textbf{search($long, lat, data$)}:
+\noindent \textbf{find\_closest($long, lat$)}: If the input coordinate is not the exact one in database, find the grid that it belongs to and return the index of center coordinate.
 \begin{itemize}
-\item output: out := result = search(find\_grid\_belonged($long, lat, data$))
+\item output: out := index: $\mathbb{N}$
+\end{itemize}
+\noindent \textbf{search($long, lat$)}:
+\begin{itemize}
+\item output: out := result = search(find\_closest($long, lat$)) \# sequence of $\mathbb{R}$, the chloride exposure result
 \item exception: exc := None
 \end{itemize}
 
 \subsubsection{Local Functions}
-\noindent \textbf{find\_grid\_belonged($long, lat, data$)}: If the input coordinate is not the exact one in data, find the grid that it belongs to and return the center coordinate.
-\begin{itemize}
-\item output: out := long, lat
-
-\end{itemize}
-
+None
 
 ~\newpage
 
 \section{MIS of Output Visualization Module} \label{outputVisualizationModule}
-This module provides the cisualization of the resulting chloride exposure trend, it is related to R2 and R4 in SRS.
+This module provides the visualization of the resulting chloride exposure trend, it is related to R2 and R3 in SRS.
 
 \subsection{Module}
 
-draw
+visualization
 
 \subsection{Uses}
 
@@ -454,7 +415,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-draw & result: sequence of $\mathbb{R}$ & graphs & - \\
+draw & result: sequence of $\mathbb{R}$ & - & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -471,7 +432,7 @@ Screen: The graphs are displayed on the screen.
 None
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{draw($long, lat, result$)}:
+\noindent \textbf{draw($result$)}:
 \begin{itemize}
 \item transition: display the graphs using the result from Data Searching Module.
 \item output: out := None
@@ -482,16 +443,17 @@ None
 None
 \newpage
 
-\section{MIS of Chloride Exposure Calculation Module} \label{calculationModule}
-This module performs the calculation process to generate the database, it is related to the R2, R3, R4 in SRS.
+
+\section{MIS of Data Model Reading Module} \label{dataModelReadingModule}
+This module loads the climate and traffic data from the external file and store it in the data format that could be used for calculation.
 
 \subsection{Module}
-
-calculate
+calculation\_loadT
 
 \subsection{Uses}
 
 None
+
 
 \subsection{Syntax}
 
@@ -500,11 +462,467 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+\begin{tabular}{p{4cm} p{3cm} p{4cm} p{4cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{N}$, h\textsubscript{total}: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{N}$ & file: String & DataMissingError, DataInvalidError \\
+new calculation\_load & filename: String & calculation\_loadT & FileNotFoundError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+A data structure designed to store the data from climate and traffic model.
+\subsubsection{State Variables}
+\begin{itemize}
+
+\item long: sequence of $\mathbb{R}$ \# longitude get from climate and traffic model
+\item lat: sequence of $\mathbb{R}$ \# latitude get from climate and traffic model
+\item AADT: sequence of $\mathbb{R}$ \# annual average daily traffic per lane
+\item AADTT: sequence of $\mathbb{R}$ \# annual average daily truck traffic per lane
+\item t1: sequence of $\mathbb{R}$  \# number of days with snowfall
+\item h\_total: sequence of $\mathbb{R}$ \# the total snowfall during a winter season
+\item t2: sequence of $\mathbb{R}$  \# number of days with snow melting
+\end{itemize}
+
+\subsubsection{Environment Variables}
+File: the file with all climate model data and traffic model data
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Routine Semantics}
+
+\noindent \textbf{calculation\_load}:
+\begin{itemize}
+\item transition: Read and store the data from the climate model and traffic model file
+\item output: out := self
+\item exception: exc := FileNotFoundError = $\nexists ~ filename$
+\end{itemize}
+
+\subsubsection{Local Functions}
+None
+\newpage
+
+
+\section{MIS of Constant Module} \label{constantModule}
+This module stores the constants used for calculation. 
+
+\subsection{Module}
+constantT
+
+\subsection{Uses}
+
+None
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{1.5cm} p{11cm}}
+\hline
+\textbf{Name} & \textbf{Value} & \textbf{Note} \\
+\hline
+salt\_application\_rate & 0.07 & salt application rate\\
+W\_lane & 3.75 & lane width\\
+V\_speed & 100 & heavy vehicle speed\\
+b & 0.56 & tire width\\
+K & 0.75 & ratio of the tire width that is not a groove to the tire width\\
+h\_film & 0.0001 & depth of the water film picked up in each rotation\\
+water\_density & 997 & density of water\\
+V & 62.1371 & truck speed\\
+chloride\_ratio & 0.61 & molar mass ratio of chloride ions over deicing salts\\
+d & 3.5 & distance between road edge and nearby bridge structure\\
+ldv\_ratio & 6 & ratio of chloride ions sprayed and splashed by trucks over light-duty vehicles\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs}
+None
+
+\subsection{Semantics}
+\subsubsection{State Variables}
+None
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Routine Semantics}
+None
+
+\subsubsection{Local Functions}
+None
+\newpage
+
+\section{MIS of Deicing Salts Calculation Module} \label{deicingSaltsCalculationModule}
+This module provides the calculation for the quantity of deicing salts applied per day with snowfall
+
+\subsection{Module}
+calculation\_step1
+
+\subsection{Uses}
+
+Constant Module (Section \ref{constantModule}), Data Model Reading Module (Section \ref{dataModelReadingModule})
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+calculate\_step1 & h\_total: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{R}$ & M\_app: sequence of $\mathbb{R}$ & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Routine Semantics}
+\noindent \textbf{calculate\_step1($h\_total, t1$)}:
+\begin{itemize}
+\item transition: None
+\item output: out :=  $\frac{salt\_application\_rate*h\_total}{ (W\_lane*t1)}$, where salt\_application\_rate and W\_lane are constant value get from Constant Module, h\_total and t1 are read from Data Model Reading Module
+\item exception: exc := None
+\end{itemize}
+\subsubsection{Local Functions}
+None
+\newpage
+
+
+\section{MIS of Melted Water Thickness Module} \label{meltedWaterThicknessModule}
+This module provides the calculation for the daily water film thickness on the road
+
+\subsection{Module}
+calculation\_step2
+
+\subsection{Uses}
+Data Model Reading Module (Section \ref{dataModelReadingModule})
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+calculate\_step2 & h\_total: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{R}$ & h\_app: sequence of $\mathbb{R}$ & - \\
+
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Routine Semantics}
+
+\noindent \textbf{calculate\_step2($h\_total, t2$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := $\frac{h\_total}{t2}$, where h\_total and t1 are read from Data Model Reading Module
+\item exception: exc := None
+\end{itemize}
+\subsubsection{Local Functions}
+None
+\newpage
+
+\section{MIS of Single Water SAS Calculation Module} \label{singleWaterSASCalculationModule}
+This module determine water sprayed and splashed by one truck using a  (CFD)-based analytical model, taking into account of the four primary mechanisms of vehicle spray and splash: capillary adhesion, tread pickup, bow wave, and side wave.
+
+\subsection{Module}
+calculation\_step3
+
+\subsection{Uses}
+
+Constant Module (Section \ref{constantModule}), Melted Water Thickness Module (Section \ref{meltedWaterThicknessModule})
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+calculate\_step3 & h\_app: sequence of $\mathbb{R}$ & SD\_total: sequence of $\mathbb{R}$ & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Routine Semantics}
+
+\noindent \textbf{calculate\_step3($h\_app$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := $\mathit{SD_{CA}}$ + $\mathit{SD_{TP}}$ + $\mathit{SD_{BW}}$ + $\mathit{SD_{SW}}$ \# the mass of water per unit air volume kicked up by each passing truck is the sum of the four mechanisms, calculated by the local functions below.
+\item exception: exc := None
+\end{itemize}
+\subsubsection{Local Functions}
+$V_{speed}, b, K, h_{film}, \rho_{water}, V'$ are constants read from Constant Module.\\
+\noindent \textbf{mass\_flow\_rate($h\_app$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := \begin{equation}
+     \begin{cases}
+     \mathit{MR_{CA}} = V_{speed} \times b \times K \times h_{film} \times \rho_{water} & \text{for} ~ CA \\
+      \mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} & \text{for} ~ TP\\
+      \mathit{MR_{BW}} = \mathit{MR_{SW}} = 0.5 \times V_{speed} \times b \times \\ (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \times \rho_{water} & \text{for} ~ BW ~ and~ SW \\
+      \end{cases}\nonumber
+  \end{equation}
+  
+\item exception: exc := None
+\end{itemize}
+\noindent \textbf{spray\_density($\mathit{MR_{CA}}, \mathit{MR_{TP}}, \mathit{MR_{BW}}, \mathit{MR_{SW}}$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := 
+\begin{equation}
+     \begin{cases}
+     \mathit{SD_{CA}} = (-2.69 \times 10^{-5} \times V' + 2.43 \times 10^{-3}) \times \mathit{MR_{CA}} & \text{for} ~ CA \\
+      \mathit{SD_{TP}} = (1.16 \times 10^{-5} \times V' - 5.25 \times 10^{-5}) \times \mathit{MR_{TP}} & \text{for} ~ TP\\      
+      \mathit{SD_{BW}} = (2.67 \times 10^{-5} \times V' - 4.71 \times 10^{-4}) \times \mathit{MR_{BW}} & \text{for} ~ BW\\
+       \mathit{SD_{SW}} = (1.65 \times 10^{-5} \times V' - 3.99 \times 10^{-4}) \times \mathit{MR_{SW}} & \text{for} ~ SW\\      
+      \end{cases}\nonumber
+  \end{equation}
+\item exception: exc := None
+\end{itemize}
+\subsubsection{Local Functions}
+None
+\newpage
+
+
+\section{MIS of Single Chloride Ions SAS Calculation Module} \label{singleChlorideIonsSASCalculation Module}
+This module determines the chloride ions sprayed and splashed by one truck.
+
+\subsection{Module}
+calculation\_step4
+
+\subsection{Uses}
+
+Deicing Salts Calculation Module (Section \ref{deicingSaltsCalculationModule}), Single Water SAS Calculation Module (Section \ref{singleWaterSASCalculationModule})
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4.5cm} p{5cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+calculate\_step4 & M\_app: sequence of $\mathbb{R}$, h\_app: sequence of $\mathbb{R}$, SD\_total: sequence of $\mathbb{R}$ & SD\_totalCl: sequence of $\mathbb{R}$ & - \\
+
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Routine Semantics}
+
+\noindent \textbf{calculate\_step4($M\_app, h\_app, SD\_total$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := $SD\_total * salt\_water\_ratio($M\_app, h\_app$) * chloride\_ratio$, where chloride\_ratio is a constant read from Constant Module.
+\item exception: exc := None
+\end{itemize}
+
+\subsubsection{Local Functions}
+\noindent \textbf{salt\_water\_ratio($M\_app, h\_app$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := $\frac{M\_app}{h\_app*water\_density}$ where water\_density is a constant read from Constant Module.
+\item exception: exc := None
+\end{itemize}
+
+\newpage
+
+\section{MIS of All Chloride Ions SAS Calculation Module} \label{allChlorideIonsSASCalculationModule}
+This module determines chloride ions sprayed and splashed by all vehicles in one winter season
+
+\subsection{Module}
+calculation\_step5
+
+\subsection{Uses}
+Constant Module (Section \ref{constantModule}), Data Model Reading Module (Section \ref{dataModelReadingModule}), Single Water SAS Calculation Module (Section \ref{singleWaterSASCalculationModule})
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4.5cm} p{5cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+calculate\_step5 & SD\_totalCl: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{R}$, AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$ & C\_s\_air: sequence of $\mathbb{R}$ & - \\
+updateAADT & AADT: sequence of $\mathbb{R}$ & AADT: sequence of $\mathbb{R}$ & - \\
+updateAADTT & AADTT: sequence of $\mathbb{R}$ & AADTT: sequence of $\mathbb{R}$ & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+The AADT and AADTT are assumed to have 2\% increase rate every year
+\subsubsection{Access Routine Semantics}
+
+\noindent \textbf{calculate\_step5($M\_app, h\_app, SD\_total, t2, AADT, AADTT$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := $(\frac{SD\_totalCl}{ldv\_ratio}*(updateAADT($AADT$)-updateAADTT($AADTT$))+ SD\_totalCl* AADTT) * t2$, where ldv\_ratio is a constant read from Constant Module.
+\item exception: exc := None
+\end{itemize}
+\noindent \textbf{updateAADT($AADT$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := AADT \# calculate the AADT for future year, assuming a 2\% annual increase rate 
+\item exception: exc := None
+\end{itemize}
+\noindent \textbf{updateAADTT($AADTT$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := AADTT \# calculate the AADTT for future year, assuming a 2\% annual increase rate 
+\item exception: exc := None
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+None
+
+\newpage
+
+
+\section{MIS of Deicing Salts Deposition Calculation Module} \label{deicingSaltsDepositionCalculation Module}
+This module determine the deposition of chloride ions on the surface of the bridge substructure
+\subsection{Module}
+calculation\_step6
+
+\subsection{Uses}
+
+Constant Module (Section \ref{constantModule}), All Chloride Ions SAS Calculation Module (Section \ref{allChlorideIonsSASCalculationModule})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4.5cm} p{5cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+calculate\_step6 & C\_s\_air: sequence of $\mathbb{R}$ & results: sequence of $\mathbb{R}$ & - \\
+
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Routine Semantics}
+
+\noindent \textbf{calculate\_step6($C\_s\_air$)}:
+\begin{itemize}
+\item transition: None
+\item output: out := $C\_s\_air * 0.015 * e^{-0.05*d}  + C\_s\_air*0.985 * e^{-0.5*d}$, where d is a constant read from Constant Module, 0.015 and 0.985 being the coefficient of the formula.
+\item exception: exc := None
+\end{itemize}
+
+\subsubsection{Local Functions}
+None
+\newpage
+
+\section{MIS of Chloride Exposure Database Generation Module} \label{calculationResultModule}
+This module performs the calculation process(calculation\_load to calculation\_step6) to generate the database, it is related to the R2, R3 in SRS.
+
+
+\subsection{Module}
+
+calculate
+
+\subsection{Uses}
+
+Data Model Reading Module (Section \ref{dataModelReadingModule}), 
+Constant Module (Section \ref{constantModule}), Deicing Salts Calculation Module (Section \ref{deicingSaltsCalculationModule}), Melted Water Thickness Module (Section \ref{meltedWaterThicknessModule}), Single Water SAS Calculation Module (Section \ref{singleWaterSASCalculationModule}), Single Chloride Ions SAS Calculation Module (Section \ref{singleChlorideIonsSASCalculation Module}), All Chloride Ions SAS Calculation Module (Section \ref{allChlorideIonsSASCalculationModule}), Deicing Salts Deposition Calculation Module (Section \ref{deicingSaltsDepositionCalculation Module})
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4.5cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{R}$, h\textsubscript{total}: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{R}$ & result: sequence of $\mathbb{R}$ & DataMissingError, DataInvalidError \\
+
+savefile & long: sequence of $\mathbb{R}$, lat: sequence of $\mathbb{R}$, results: sequence of $\mathbb{R}$ & file: String & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -515,20 +933,16 @@ calculate & AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$, t1:
 \subsubsection{State Variables}
 None
 \subsubsection{Environment Variables}
-
-File: Sequence of String \# the result of calculation will be stored in an output csv file.
+File: the result of calculation will be stored in an output csv file.
 \subsubsection{Assumptions}
-
-\begin{itemize}
-\item The AADT and AADTT are assumed to have 2\% increase rate every year.
-\item The map of Ontario is divided into multiple 25km * 25km grid (as mentioned in SRS) and the coordinates are the center of those grids. The locations inside each grid are consider to have same chloride exposure rate.
-\end{itemize}
+The map of Ontario is divided into multiple 25km * 25km grid (as mentioned in SRS) and the coordinates are the center of those grids. The locations inside each grid are consider to have same chloride exposure rate.
 
 \subsubsection{Access Routine Semantics}
 
 \noindent \textbf{calculate($AADT, AADTT, t1, h_{total}, t2$)}:
 \begin{itemize}
-\item output: out :=  file = Cl\_mass($spray\_density\_Cl(salt\_per\_day(h_{total}, t1),$ \\ $water\_thickness(h_{total}, t2)), adjust(AADT, AADTT), t2$) \#  the result is saved to a csv file storing the calculation result, which is the prediction of chloride exposure rate. The file has a row label as coordinate and a column label as year. 
+\item transition: use all the formulas from calculate\_step1 to calculate\_step6, conclude the final result
+\item output: out := result \# Sequence of $\mathbb{R}$
 \item exception: exc:= \\ \\ 
  \begin{tabular}{p{10cm} p{3.5cm} }
  \hline
@@ -544,34 +958,18 @@ File: Sequence of String \# the result of calculation will be stored in an outpu
 
 \end{itemize}
 
+
+\noindent \textbf{savefile($long, lat, results$)}:
+\begin{itemize}
+\item transition: Save the longitude, latitude and the corresponding results for each grid to a csv file, which is the prediction of chloride exposure rate. The file has a row label as coordinate and a column label as year. 
+\item output: out := file
+\item exception: exc := None
+\end{itemize}
+
+
+
 \subsubsection{Local Functions}
-\noindent \textbf{adjust($AADT, AADTT$)}: A function that convert AADT and AADTT from sequence to 2-D array, based on the assumption of annually 2\% increase.
-\begin{itemize}
-\item out := AADT, AADTT
-\end{itemize}
-
-\noindent \textbf{salt\_per\_day($h\_total, t1$)}: calcualte the quantity of deicing salts applied on a roadway per day during the winter season.
-\begin{itemize}
-\item out := M\_app
-\end{itemize}
-
-\noindent \textbf{water\_thickness($h\_total, t2$)}: calculate the thickness of melted water per day with snow melting
-\begin{itemize}
-\item out := h\_app
-\end{itemize}
-
-\noindent \textbf{spray\_density\_Cl($M\_app, h\_app$)}: calculate the mass of chloride ions by one truck
-\begin{itemize}
-\item out := SD\_totalCl
-\end{itemize}
-
-\noindent \textbf{Cl\_mass($SD\_totalCl, AADT, AADTT, t2$)}: calculate the final chloride exposure
-\begin{itemize}
-\item out := Cl\_result
-\end{itemize}
-
-
-
+None
 \bibliographystyle {plainnat}
 \bibliography {../../../refs/References}
 

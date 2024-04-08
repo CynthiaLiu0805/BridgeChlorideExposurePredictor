@@ -357,7 +357,7 @@ to be implemented.
 \item[Secrets:] The formula to determine the quantity of deicing salts applied per day with snowfall.
 \item[Services:] Calculate and store the quantity of deicing salts applied per day with snowfall.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Abstract Object
 \end{description}
 
 \subsubsection{Melted Water Thickness Calculation Module (\mref{mCalculation_step2})}
@@ -365,7 +365,7 @@ to be implemented.
 \item[Secrets:] The formula to determine the thickness of melted water per day with snow melting.
 \item[Services:] Calculate and store the thickness of melted water per day with snow melting.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Abstract Object
 \end{description}
 
 \subsubsection{Single Water SAS Calculation Module (\mref{mCalculation_step3})}
@@ -373,7 +373,7 @@ to be implemented.
 \item[Secrets:] The formula to determine water sprayed and splashed by one truck using a Computational Fluid Dynamics (CFD)-based analytical model.
 \item[Services:] Calculate and store the water sprayed and splashed by one truck.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Abstract Object
 \end{description}
 
 \subsubsection{Single Chloride Ions SAS Calculation Module (\mref{mCalculation_step4})}
@@ -381,7 +381,7 @@ to be implemented.
 \item[Secrets:] The formula to determine chloride ions sprayed and splashed by one truck.
 \item[Services:] Calculate and store the chloride ions sprayed and splashed by one truck.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Abstract Object
 \end{description}
 
 \subsubsection{All Chloride Ions SAS Calculation Module (\mref{mCalculation_step5})}
@@ -389,7 +389,7 @@ to be implemented.
 \item[Secrets:] The formula to determine chloride ions sprayed and splashed by all vehicles in one winter season.
 \item[Services:] Calculate and store the chloride ions sprayed and splashed by all vehicles in one winter season.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Abstract Object
 \end{description}
 
 \subsubsection{Deicing Salts Deposition Calculation Module (\mref{mCalculation_step6})}
@@ -397,7 +397,7 @@ to be implemented.
 \item[Secrets:] The formula to determine the deposition of deicing salts on the surface of the bridge substructure.
 \item[Services:] Calculate and store the deposition of deicing salts on the surface of the bridge substructure.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Abstract Object
 \end{description}
 
 \subsubsection{Chloride Exposure Database Generation Module (\mref{mCalculation_result})}
@@ -405,7 +405,7 @@ to be implemented.
 \item[Secrets:] The detail formula for calculating the chloride exposure database.
 \item[Services:] Save the chloride exposure data to the database to be used by the user end.
 \item[Implemented By:] BC
-\item[Type of Module:] Abstract Data Type
+\item[Type of Module:] Abstract Object
 \end{description}
 
 
@@ -520,14 +520,16 @@ because they use modules from the lower levels.
 \end{figure}
 
 \section{Timeline}
-The specific timeline is shown in below table:
+The specific timeline for module implementation is shown in below table:
 \begin{table}[H]
 \centering
 \begin{tabular}{p{0.6\textwidth} p{0.2\textwidth}  p{0.2\textwidth}}
 \toprule
  \textbf{Modules} & \textbf{Finish by} & \textbf{Responsible} \\
 \midrule
-\mref{mCalculation_step1}, \mref{mCalculation_step2}, \mref{mCalculation_step3}, \mref{mCalculation_step4}, \mref{mCalculation_step5}, \mref{mCalculation_step6} & March 6, 2024& Cynthia Liu\\
+\mref{mDataModel}, \mref{mConstant} & March 2, 2024& Cynthia Liu\\
+\mref{mCalculation_step1}, \mref{mCalculation_step2}, \mref{mCalculation_step3}, \mref{mCalculation_step4}, \mref{mCalculation_step5}, \mref{mCalculation_step6} & March 9, 2024& Cynthia Liu\\
+\mref{mCalculation_result} & March 11, 2024& Cynthia Liu\\
 \mref{mInput} & March 13, 2024 & Cynthia Liu\\
 \mref{mSearch} & March 20, 2024 & Cynthia Liu\\
 \mref{mOutput}  & March 27, 2024 & Cynthia Liu\\
