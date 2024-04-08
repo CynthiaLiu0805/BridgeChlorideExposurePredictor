@@ -2,10 +2,21 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{subcaption}
+\usepackage{fullpage}
+\usepackage[round]{natbib}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
 
 \title{Reflection Report on \progname}
 
-\author{\authname}
+\author{Cynthia Liu}
 
 \date{}
 
@@ -35,6 +46,14 @@ supervisor's response to your Rev 0 demonstration to them.}
 \subsection{SRS and Hazard Analysis}
 
 \subsection{Design and Design Documentation}
+After getting feedback from peer review and Dr. Smith, I implemented significant changes to the design documentation, primarily focusing on enhancing its level of detail. In the previous version of my design document, I omitted the detail formulas for the calculation because I thought they could be found in SRS, but that is not enough for someone who is only reading the design document. So I include those and make it more detail by separating the calculation process by steps. Also, I rename some modules to make the name end with T to indicate it is an abstract data type.
+
+
+\subsubsection{Unlikely Changes}
+There was some ambiguity for UC3, which is about visualization. I rephrase the sentence so that it simply mean ``there would be visualization'' rather than talking about the type of visualization.
+\subsubsection{Modules}
+In the first version of my software, I put the calculation process within one module, but then I realize that is not detailed enough and it will be hard for information hiding, as each step of the calculation has its own secret, which is the different formula. So I separate the calculation by steps, with one step aiming to solve a single equation. This is also good for maintainability, if the formula for one step changes, only the corresponding module need to be changed. The Use Hierarchy changes correspondingly as well, the comparsion could be found in Section \ref{appendix}.
+
 
 \subsection{VnV Plan and Report}
 
@@ -79,5 +98,19 @@ technology?}
 \subsection{What Would you Do Differently Next Time?}
 
 \plt{What will you do differently for your next project?}
+
+\section{Appendix}\label{appendix}
+
+\begin{figure}
+\begin{minipage}[c]{0.45\linewidth}
+\includegraphics[width=\linewidth]{UsesHierarchy\_before.png}
+\caption{UsesHierarchy before}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.45\linewidth}
+\includegraphics[width=\linewidth]{UsesHierarchy\_after.png}
+\caption{UsesHierarchy after}
+\end{minipage}%
+\end{figure}
 
 \end{document}
