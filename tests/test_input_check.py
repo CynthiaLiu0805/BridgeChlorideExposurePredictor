@@ -1,17 +1,16 @@
 import unittest
-from inputCheck import InputCheck
-import inputCheck
+from input_check import Input_check
 
-class TestInputCheck(unittest.TestCase):
+class TestInput_check(unittest.TestCase):
 
     # set up the test
     def setUp(self):
-        self.test1 = InputCheck('123.45', 'abc')
-        self.test2 = InputCheck('', '-123.3656')
-        self.test3 = InputCheck('-80.84538', '44.550356')
-        self.test4 = InputCheck('280.84538', '44.550356')
-        self.test5 = InputCheck('277.4771', '42.63238')
-        self.test6 = InputCheck('-123.3656', '48.4284')
+        self.test1 = Input_check('123.45', 'abc')
+        self.test2 = Input_check('', '-123.3656')
+        self.test3 = Input_check('-80.84538', '44.550356')
+        self.test4 = Input_check('280.84538', '44.550356')
+        self.test5 = Input_check('277.4771', '42.63238')
+        self.test6 = Input_check('-123.3656', '48.4284')
         
     def test_load_file(self):
         # s = 'ontario_boundary.geojson'
