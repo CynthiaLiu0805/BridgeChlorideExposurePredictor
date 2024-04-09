@@ -13,12 +13,10 @@ class Search:
         self.lat = lat
         self.data = None
 
-    # fig = go.Figure()
     def load_data(self):
         # Load CSV data
         try:
             self.data = pd.read_csv(self.file_name)
-            # return data
         except FileNotFoundError:
             raise FileNotFoundError("The file is not found. Please make sure the file is in the same directory as the app.py file.")
 
@@ -35,38 +33,20 @@ class Search:
         closest_index = distances.idxmin()
         # print("cloest",distances.min(), closest_index)
         # Return the row with the smallest distance
-        return self.data.loc[closest_index]
+        return closest_index
 
 
-    # def convert_lon_calculate(self):
-    #     lon_calculate =float(self.lon)
-    #     if (float(self.lon) < 0):
-    #         lon_calculate = float(self.lon)+360
-    #     return lon_calculate
 
     def search_coordinates(self):
         result = None
-        # lat = handleData.lat
-        # lon = handleData.lon
-        # Get coordinates from form or map click
-        # lat = float(request.form['latitude'])
-        # lon = float(request.form['longitude'])
-        # print(lat, lon)
-        # if (type(lat) == str):
-        #     lon_calculate = float(lon)
-
-        # lon_calculate =lon
-        # if (lon < 0):
-        #     lon_calculate = lon+360
-        # lon_calculate = self.convert_lon_calculate()
-
 
         # Load CSV data
         self.load_data()
-        # print(self.data)
 
         # Find the closest row
-        result = self.find_closest()
+        closest_index = self.find_closest()
+
+        result = self.data.loc[closest_index]
         # print(result)
 
         # Convert the result to a dictionary to be able to pass it to the template

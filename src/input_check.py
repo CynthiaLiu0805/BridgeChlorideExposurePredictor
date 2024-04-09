@@ -3,14 +3,14 @@ from numpy import shape
 from shapely.geometry import Point
 from flask import Flask, render_template, request
 
-class InputCheck:
+class Input_check:
     def __init__(self, lon, lat):
         self.file_name = 'ontario_boundary.geojson'
         self.lon = lon
         self.lat = lat
         self.boundary = None
-# Load the GeoJSON file of Canada provinces from a URL
-# file_name = 'ontario_boundary.geojson'
+
+    # Load the GeoJSON file of Canada provinces from a URL
     def load_file(self):
         try:
             self.boundary = gpd.read_file(self.file_name)
@@ -18,12 +18,6 @@ class InputCheck:
         except FileNotFoundError as e:
             raise FileNotFoundError(f"FileNotFoundError: {e}")
         
-    # def is_float(s):
-    #     try:
-    #         float(s)
-    #         return True
-    #     except ValueError as e:
-    #         raise ValueError(f"InputTypeMismatchError: {e}")
 
     def convert_longitude(self):
         try:
@@ -40,12 +34,6 @@ class InputCheck:
             raise ValueError(f"InputTypeMismatchError: {e}")
 
     
-    # def convert_longitude(self, longitude):
-    #     if (float(longitude) > 0):
-    #         return float(longitude)-360
-    #     return float(longitude)
-    # def convert_latitude(self, latitude):
-    #     return float(latitude)
         
     def is_within_ontario(self):
         try:

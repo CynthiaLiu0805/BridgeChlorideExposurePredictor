@@ -49,14 +49,14 @@
     </style>
 </head>
 <body>
-    <h1>Bridge Corrosion Prediction</h1>
-    <div class="container">
-        <form id="search-form" action="/" method="post">
+    <h1 align="center">Bridge Corrosion Prediction</h1>
+    <div class="container" >
+        <form id="search-form" action="/" method="post" align="right">
             Latitude: <input type="text" id="latitude" name="latitude"><br>
             Longitude: <input type="text" id="longitude" name="longitude"><br>
             <input type="submit" value="Search">
         </form>
-        <div id="map"></div>
+        <div id="map" align="center"></div>
     </div> 
     {% if warning %}
             {{ warning }}
@@ -86,7 +86,7 @@
             </tbody>
         </table>
         </div>
-        <div class = "plot">
+        <div class = "plot" align="center">
         <!-- Embed the Bokeh plot -->
             {{ div_string|safe }}
         </div>
