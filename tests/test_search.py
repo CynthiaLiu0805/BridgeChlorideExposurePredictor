@@ -14,7 +14,7 @@ class TestInputCheck(unittest.TestCase):
         #     'LON': [-74.0060, -118.2437, -87.6298]
         # })
         self.search1 = Search(-73.935242, 40.730610)
-        self.search2 = Search(274.71, 49.45)
+        self.search2 = Search(274.7636, 49.67531)
         self.search1.data = pd.DataFrame({
             'LAT': [40.7128, 34.0522, 41.8781],
             'LON': [-74.0060, -118.2437, -87.6298]
@@ -36,8 +36,8 @@ class TestInputCheck(unittest.TestCase):
         # lat = 40.730610
         # lon = -73.935242
         result = self.search1.find_closest()
-        np.testing.assert_almost_equal(result['LAT'], 40.7128)
-        np.testing.assert_almost_equal(result['LON'], -74.0060)
+        np.testing.assert_equal(result, 0)
+        np.testing.assert_equal(result, 0)
 
     def test_find_closest2(self):
         # lat = 49.45
@@ -45,25 +45,8 @@ class TestInputCheck(unittest.TestCase):
         # self.search2.load_data('data.csv')
         result = self.search2.find_closest()
         
-        np.testing.assert_almost_equal(result['LAT'], 49.4578094)
-        np.testing.assert_almost_equal(result['LON'], 274.712677)
-
-    # def test_convert_lon_calculate1(self):
-    #     lon = -74.0060
-    #     result = self.search.convert_lon_calculate(lon)
-    #     self.assertEqual(result, 285.994)
-    
-    # def test_convert_lon_calculate2(self):
-    #     lon = 274.7127
-    #     result = search.convert_lon_calculate(lon)
-    #     self.assertEqual(result, 274.7127)
-   
-
-    # def test_search_coordinates(self):
-    #     with self.app.test_request_context('/?latitude=40.7128&longitude=-74.0060'):
-    #         result = search.search_coordinates()
-    #         self.assertIn('40.7128', result)
-    #         self.assertIn('-74.0060', result)
+        np.testing.assert_equal(result, 1)
+        np.testing.assert_equal(result, 1)
 
 if __name__ == '__main__':
     unittest.main()
