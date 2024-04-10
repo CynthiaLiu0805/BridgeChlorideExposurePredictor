@@ -55,7 +55,8 @@ urlcolor=cyan          % color of external links
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Mar. 8, 2024 & 0 & Initial Release\\
-April. 5, 2024 & 0.1 & Edit according to feedback from peer review and Dr. Smith\\
+March 18, 2024 & 0.1 & Edit according to feedback from peer review \\
+April 5, 2024 & 1 & Edit according to feedback from Dr. Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -109,7 +110,7 @@ integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, 
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 empty & $\varnothing$ & when the input is empty or the variable does not exist \\
-GeoDataFrame & GeoDataFrame & todo \\
+GeoDataFrame & GeoDataFrame &  pandas dataFrame object with geometry column\\
 \bottomrule
 \end{tabular} 
 \end{center}
@@ -559,7 +560,7 @@ None
 This module provides the calculation for the quantity of deicing salts applied per day with snowfall
 
 \subsection{Module}
-calculation\_step1
+deicing\_salts\_cal
 
 \subsection{Uses}
 
@@ -573,11 +574,11 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm} p{2cm}}
+\begin{tabular}{p{3.5cm} p{4.5cm} p{4.5cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate\_step1 & h\_total: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{R}$ & M\_app: sequence of $\mathbb{R}$ & - \\
+deicing\_salts\_cal & h\_total: sequence of $\mathbb{R}$, t1: sequence of $\mathbb{R}$ & M\_app: sequence of $\mathbb{R}$ & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -591,7 +592,7 @@ None
 \subsubsection{Assumptions}
 None
 \subsubsection{Access Routine Semantics}
-\noindent \textbf{calculate\_step1($h\_total, t1$)}:
+\noindent \textbf{deicing\_salts\_cal($h\_total, t1$)}:
 \begin{itemize}
 \item transition: None
 \item output: out :=  $\frac{salt\_application\_rate*h\_total}{ (W\_lane*t1)}$, where salt\_application\_rate and W\_lane are constant value get from Constant Module, h\_total and t1 are read from Data Model Reading Module
@@ -606,7 +607,7 @@ None
 This module provides the calculation for the daily water film thickness on the road
 
 \subsection{Module}
-calculation\_step2
+melted\_water\_thickness
 
 \subsection{Uses}
 Data Model Reading Module (Section \ref{dataModelReadingModule})
@@ -619,11 +620,11 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm} p{2cm}}
+\begin{tabular}{p{4cm} p{4.5cm} p{4.5cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate\_step2 & h\_total: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{R}$ & h\_app: sequence of $\mathbb{R}$ & - \\
+melted\_water\_thickness & h\_total: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{R}$ & h\_app: sequence of $\mathbb{R}$ & - \\
 
 \hline
 \end{tabular}
@@ -639,7 +640,7 @@ None
 None
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{calculate\_step2($h\_total, t2$)}:
+\noindent \textbf{melted\_water\_thickness($h\_total, t2$)}:
 \begin{itemize}
 \item transition: None
 \item output: out := $\frac{h\_total}{t2}$, where h\_total and t1 are read from Data Model Reading Module
@@ -653,7 +654,7 @@ None
 This module determine water sprayed and splashed by one truck using a  (CFD)-based analytical model, taking into account of the four primary mechanisms of vehicle spray and splash: capillary adhesion, tread pickup, bow wave, and side wave.
 
 \subsection{Module}
-calculation\_step3
+single\_water\_SAS\_cal
 
 \subsection{Uses}
 
@@ -667,11 +668,12 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm} p{2cm}}
+\begin{tabular}{p{4cm} p{4.5cm} p{4.5cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate\_step3 & h\_app: sequence of $\mathbb{R}$ & SD\_total: sequence of $\mathbb{R}$ & - \\
+
+single\_water\_SAS\_cal & h\_app: sequence of $\mathbb{R}$ & SD\_total: sequence of $\mathbb{R}$ & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -686,7 +688,7 @@ None
 None
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{calculate\_step3($h\_app$)}:
+\noindent \textbf{single\_water\_SAS\_cal($h\_app$)}:
 \begin{itemize}
 \item transition: None
 \item output: out := $\mathit{SD_{CA}}$ + $\mathit{SD_{TP}}$ + $\mathit{SD_{BW}}$ + $\mathit{SD_{SW}}$ \# the mass of water per unit air volume kicked up by each passing truck is the sum of the four mechanisms, calculated by the local functions below.
@@ -730,7 +732,7 @@ None
 This module determines the chloride ions sprayed and splashed by one truck.
 
 \subsection{Module}
-calculation\_step4
+single\_Cl\_SAS\_cal
 
 \subsection{Uses}
 
@@ -744,11 +746,11 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2.5cm} p{4.5cm} p{5cm} p{2cm}}
+\begin{tabular}{p{3cm} p{4.5cm} p{5cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate\_step4 & M\_app: sequence of $\mathbb{R}$, h\_app: sequence of $\mathbb{R}$, SD\_total: sequence of $\mathbb{R}$ & SD\_totalCl: sequence of $\mathbb{R}$ & - \\
+single\_Cl\_SAS\_cal & M\_app: sequence of $\mathbb{R}$, h\_app: sequence of $\mathbb{R}$, SD\_total: sequence of $\mathbb{R}$ & SD\_totalCl: sequence of $\mathbb{R}$ & - \\
 
 \hline
 \end{tabular}
@@ -765,7 +767,7 @@ None
 None
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{calculate\_step4($M\_app, h\_app, SD\_total$)}:
+\noindent \textbf{single\_Cl\_SAS\_cal($M\_app, h\_app, SD\_total$)}:
 \begin{itemize}
 \item transition: None
 \item output: out := $SD\_total * salt\_water\_ratio($M\_app, h\_app$) * chloride\_ratio$, where chloride\_ratio is a constant read from Constant Module.
@@ -786,7 +788,7 @@ None
 This module determines chloride ions sprayed and splashed by all vehicles in one winter season
 
 \subsection{Module}
-calculation\_step5
+all\_Cl\_SAS\_cal
 
 \subsection{Uses}
 Constant Module (Section \ref{constantModule}), Data Model Reading Module (Section \ref{dataModelReadingModule}), Single Water SAS Calculation Module (Section \ref{singleWaterSASCalculationModule})
@@ -803,7 +805,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate\_step5 & SD\_totalCl: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{R}$, AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$ & C\_s\_air: sequence of $\mathbb{R}$ & - \\
+all\_Cl\_SAS\_cal & SD\_totalCl: sequence of $\mathbb{R}$, t2: sequence of $\mathbb{R}$, AADT: sequence of $\mathbb{R}$, AADTT: sequence of $\mathbb{R}$ & C\_s\_air: sequence of $\mathbb{R}$ & - \\
 updateAADT & AADT: sequence of $\mathbb{R}$ & AADT: sequence of $\mathbb{R}$ & - \\
 updateAADTT & AADTT: sequence of $\mathbb{R}$ & AADTT: sequence of $\mathbb{R}$ & - \\
 \hline
@@ -821,7 +823,7 @@ None
 The AADT and AADTT are assumed to have 2\% increase rate every year
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{calculate\_step5($M\_app, h\_app, SD\_total, t2, AADT, AADTT$)}:
+\noindent \textbf{all\_Cl\_SAS\_cal($M\_app, h\_app, SD\_total, t2, AADT, AADTT$)}:
 \begin{itemize}
 \item transition: None
 \item output: out := $(\frac{SD\_totalCl}{ldv\_ratio}*(updateAADT($AADT$)-updateAADTT($AADTT$))+ SD\_totalCl* AADTT) * t2$, where ldv\_ratio is a constant read from Constant Module.
@@ -850,7 +852,7 @@ None
 \section{MIS of Deicing Salts Deposition Calculation Module} \label{deicingSaltsDepositionCalculation Module}
 This module determine the deposition of chloride ions on the surface of the bridge substructure
 \subsection{Module}
-calculation\_step6
+salts\_decomposition\_cal
 
 \subsection{Uses}
 
@@ -863,11 +865,11 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2.5cm} p{4.5cm} p{5cm} p{2cm}}
+\begin{tabular}{p{4cm} p{4.5cm} p{4cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-calculate\_step6 & C\_s\_air: sequence of $\mathbb{R}$ & results: sequence of $\mathbb{R}$ & - \\
+salts\_decomposition\_cal & C\_s\_air: sequence of $\mathbb{R}$ & results: sequence of $\mathbb{R}$ & - \\
 
 \hline
 \end{tabular}
@@ -884,7 +886,7 @@ None
 None
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{calculate\_step6($C\_s\_air$)}:
+\noindent \textbf{salts\_decomposition\_cal($C\_s\_air$)}:
 \begin{itemize}
 \item transition: None
 \item output: out := $C\_s\_air * 0.015 * e^{-0.05*d}  + C\_s\_air*0.985 * e^{-0.5*d}$, where d is a constant read from Constant Module, 0.015 and 0.985 being the coefficient of the formula.
@@ -896,7 +898,7 @@ None
 \newpage
 
 \section{MIS of Chloride Exposure Database Generation Module} \label{calculationResultModule}
-This module performs the calculation process(calculation\_load to calculation\_step6) to generate the database, it is related to the R2, R3 in SRS.
+This module performs the calculation process to generate the database, it is related to the R2, R3 in SRS.
 
 
 \subsection{Module}
