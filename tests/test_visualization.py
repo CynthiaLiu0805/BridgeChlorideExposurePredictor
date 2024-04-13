@@ -24,7 +24,7 @@ class TestVisualization(unittest.TestCase):
         self.assertEqual(result, ['2', '3', '4'])
 
     def test_draw_graph(self):
-        visualization.draw_grpah(self.data)
+        visualization.draw_graph(self.data)
         self.assertIn('<div id=', self.visual1.result)  # Check that the result is a Plotly div
 
 if __name__ == '__main__':
