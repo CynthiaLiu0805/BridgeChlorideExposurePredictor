@@ -13,7 +13,7 @@ class TestInputCheck(unittest.TestCase):
         self.search2 = Search(274.7636, 49.67531)
         self.search1.data = pd.DataFrame({
             'LAT': [40.7128, 40.7128, 41.8781],
-            'LON': [-74.0060, -73.864485, -87.6298]
+            'LON': [-74.0060, -74.00601, -87.6298]
         })
         self.search2.load_data()
 
@@ -23,12 +23,12 @@ class TestInputCheck(unittest.TestCase):
         self.assertIsNotNone(self.search2.data)
     
 
-    def test_find_closest1(self):
+    def test_find_closest_four_decimal(self):
         result = self.search1.find_closest()
         np.testing.assert_equal(result, 0)
         np.testing.assert_equal(result, 0)
 
-    def test_find_closest2(self):
+    def test_find_closest_large_dataset(self):
         result = self.search2.find_closest()
         
         np.testing.assert_equal(result, 1)
