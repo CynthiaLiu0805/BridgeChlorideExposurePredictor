@@ -149,9 +149,10 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Jan 27, 2024 & 1.0 & Initial release\\
-Feb 23, 2024 & 2.0 & Add more details according to feedback from peer review\\
-Mar 7, 2024 & 3.0 & Modified according to feedback from Dr. Spence Smith\\
+Jan 27, 2024 & 0.0 & Initial release\\
+Feb 23, 2024 & 0.1 & Add more details according to feedback from peer review\\
+Mar 7, 2024 & 0.2 & Modified according to feedback from Dr. Spence Smith\\
+Apr 13, 2024 & 1 & Final revision \\
 \bottomrule
 \end{tabularx}
 
@@ -367,6 +368,8 @@ easier to correctly understand the requirements:
 \item Airborne deposition: The process of particles moving from the atmosphere to the earth's surface.
 \item Deposition rate: The rate at which a substance is deposited onto a surface over a specific period of time.
 \item Drainage: The removal of a surface's water from an area with excess water.
+\item AADT:  The average daily traffic volume at a given location over an entire year, measured by number of vehicles.
+\item AADTT:  The average daily truck traffic volume at a given location over an entire year, measured by number of vehicles.
 
 \end{itemize}
 
@@ -471,7 +474,6 @@ Output:
 \subsection{Scope Decisions}
 \begin{itemize}
 \item The surface chloride exposure data is in a 25-km grid resolution. This is because the climate data extracted from the CanRCM4 model ([\reref{ref13}]) is at a resolution of 25 $\times$ 25 km.
-\item If the input coordinate does not have a bridge on it, it would return the value of the nearest bridge. 
 \end{itemize}
 
 % \plt{This section is optional.}
@@ -608,13 +610,13 @@ The above equation is the general equation for mass flow rate, which is the maxi
 % \hline
 SI Units&\si{kg\per\metre^3\per vehicle} \\
 \hline
-Equation & $C_{{s}_{air}} = (\mathit{SD_{totalcl}} \times \frac{1}{\Theta} \times \frac{ADT-N}{N_{lane}}+ \mathit{SD_{total~cl}} \times \frac{N}{N_{lane}}) \times t_{snow}$ \\
+Equation & $C_{{s}_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \times \frac{ADT-N}{N_{lane}}+ \mathit{SD_{total\_cl}} \times \frac{N}{N_{lane}}) \times t_{snow}$ \\
   \hline
   Description& The above equation computes the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier every winter, accounting for all the days with snow in a typical winter season.
   
 \begin{itemize}
 
-\item $\mathit{SD_{total~cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3/vehicle$)
+\item $\mathit{SD_{total\_cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3/vehicle$)
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles. (ratio)
 
@@ -719,7 +721,7 @@ Equation&
   
   \\
 \hline
-Description & The above equations compute the contribution to the amount of water displaced by a single tire (also called MFR) of each splash and spray mechanism, using the following equations in the order presented until the total amount of available water is exhausted. $\mathit{MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}}$ stands for capillary adhesion, tread pickup, bow waves and side waves correspondingly.
+Description & The above equations compute the contribution to the amount of water displaced by a single tire (MFR) of each splash and spray mechanism, using the following equations in the order presented until the total amount of available water is exhausted. $\mathit{MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}}$ stands for capillary adhesion, tread pickup, bow waves and side waves correspondingly.
 
 \begin{itemize}
 
@@ -1199,7 +1201,7 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
   \hline
   Output& \{$C_{s_1}, C_{s_2}..., C_{s_n}$\} \\
   \hline
-  Description & This instance model get the longitude and latitude as input, and return a series of the amount of chloride exposure as output. This is the model that the end user of this software will encounter.
+  Description & This instance model get the longitude and latitude as input, and return a series of the amount of chloride exposure as output. The searching process is conducted using coding logic. This is the model that the end user of this software will encounter.
   \begin{itemize}
 
 \item \{$C_{s_1}, C_{s_2}..., C_{s_n}$\} is a list of chloride exposure data. (\{$kg/m^3$\})
@@ -1295,8 +1297,6 @@ qualities that the software is expected to exhibit.
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept input that is inside Ontario (By \iref{I_DFSB}).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a list of data showing the trend of chloride exposure in the past and future at the input location (By \iref{I_DFSB}).
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] During the automatic calculation steps, the software should handle situations where units do not match.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The output should be in two decimal points, showing the mass of chloride ions per unit air volume (By \iref{I_COTS}).
 
@@ -1427,20 +1427,19 @@ other.
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \iref{I_COTS} & \iref{I_DFSB} & \rref{R_Inputs} & \rref{R_OutputInputs} & \rref{R_Calculate}  & \rref{R_Output} & \nfrref{NFR_Reliability} & \nfrref{NFR_Usability} & \nfrref{NFR_Maintainability} & \nfrref{NFR_Portability} & \nfrref{NFR_Scalability} \\
+	& \iref{I_COTS} & \iref{I_DFSB} & \rref{R_Inputs} & \rref{R_OutputInputs}  & \rref{R_Output} & \nfrref{NFR_Reliability} & \nfrref{NFR_Usability} & \nfrref{NFR_Maintainability} & \nfrref{NFR_Portability} & \nfrref{NFR_Scalability} \\
 
 \hline
-\iref{I_COTS}         & & & & & & X & & & & & \\ \hline
-\iref{I_DFSB}         & & & X & X & & & & X & & X &\\  \hline
-\rref{R_Inputs}     & & X & & & & & & & X & & \\ \hline
-\rref{R_OutputInputs} & & & & & X & X & X & & & & \\ \hline
-\rref{R_Calculate}     & & & X & & & & & & & & X \\ \hline
-\rref{R_Output} & & & & X & & & & & & & \\ \hline
-\nfrref{NFR_Reliability}   & & X & & & X & & & & & & \\ \hline
-\nfrref{NFR_Usability}   & & X & & X & & & & & & & \\ \hline
-\nfrref{NFR_Maintainability}   & & & & & & & & & & & X \\ \hline
-\nfrref{NFR_Portability}   & & & & & & & & & & & \\ \hline
-\nfrref{NFR_Scalability}   & & & & & & & & & X & & \\
+\iref{I_COTS}         & & & & & X & & & & & \\ \hline
+\iref{I_DFSB}         & & & X & X & & & X & & X &\\  \hline
+\rref{R_Inputs}     & & X & & & & & & X & & \\ \hline
+\rref{R_OutputInputs} & & & & & X & X & & & & \\ \hline
+\rref{R_Output} & & & & X & & & & & & \\ \hline
+\nfrref{NFR_Reliability}   & & X & & & & & & & & \\ \hline
+\nfrref{NFR_Usability}   & & X & & X & & & & & & \\ \hline
+\nfrref{NFR_Maintainability}   & & & & & & & & & & X \\ \hline
+\nfrref{NFR_Portability}   & & & & & & & & & & \\ \hline
+\nfrref{NFR_Scalability}   & & & & & & & & X & & \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
