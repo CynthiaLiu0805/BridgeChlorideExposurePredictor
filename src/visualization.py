@@ -13,8 +13,8 @@ def generate_sub_valuelist(dict, index):
 def draw_graph(dict):
     long = dict['LON']
     lat = dict['LAT']
-    keys = generate_sub_keylist(2)
-    values = generate_sub_valuelist(2)
+    keys = generate_sub_keylist(dict,2)
+    values = generate_sub_valuelist(dict, 2)
     # print(keys, values)
     
     fig = go.Figure(data=go.Scatter(x=keys, y=values))
