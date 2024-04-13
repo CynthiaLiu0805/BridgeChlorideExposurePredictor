@@ -34,7 +34,6 @@ class Input_check:
             raise ValueError(f"InputTypeMismatchError: {e}")
 
     
-        
     def is_within_ontario(self):
         try:
             # Generate from

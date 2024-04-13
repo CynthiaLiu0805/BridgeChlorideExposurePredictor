@@ -13,7 +13,7 @@ class Calculation_load:
 
         self.AADT = df1.iloc[:, 2].values
         self.AADTT = df1.iloc[:, 3].values
-        self.t1 = pd.read_excel(file_name, sheet_name='t1', usecols='B:CR', skiprows=0, nrows=1645).values
-        self.h_total = pd.read_excel(file_name, sheet_name='htotal', usecols='B:CR', skiprows=0, nrows=1645).values
-        self.t2 = pd.read_excel(file_name, sheet_name='t2', usecols='B:CR', skiprows=0, nrows=1645).values
+        self.t1 = pd.read_excel(file_name, sheet_name='t1', usecols='B:BD', skiprows=0, nrows=1645).values
+        self.h_total = pd.read_excel(file_name, sheet_name='htotal', usecols='B:BD', skiprows=0, nrows=1645).values
+        self.t2 = pd.read_excel(file_name, sheet_name='t2', usecols='B:BD', skiprows=0, nrows=1645).values
 

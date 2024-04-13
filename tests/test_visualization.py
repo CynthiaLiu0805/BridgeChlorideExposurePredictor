@@ -1,6 +1,4 @@
-import visualization
-import plotly.graph_objects as go
-from plotly.offline import plot
+
 import unittest
 from visualization import Visualization
 
