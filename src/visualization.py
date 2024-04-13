@@ -10,11 +10,12 @@ def generate_sub_keylist(dict, index):
 def generate_sub_valuelist(dict, index):
     return list(dict.values())[index:]
 
-def draw_graph(dict):
-    long = dict['LON']
-    lat = dict['LAT']
-    keys = generate_sub_keylist(dict,2)
-    values = generate_sub_valuelist(dict, 2)
+def draw_graph(dic):
+    print("fras")
+    long = dic.get('LON')
+    lat = dic.get('LAT')
+    keys = generate_sub_keylist(dic,2)
+    values = generate_sub_valuelist(dic, 2)
     # print(keys, values)
     
     fig = go.Figure(data=go.Scatter(x=keys, y=values))
