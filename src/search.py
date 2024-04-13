@@ -1,7 +1,7 @@
 import numpy as np
 from flask import Flask, render_template, request
 import pandas as pd
-from visualization import Visualization
+import visualization #import Visualization
 
 data_name ='results.csv'
 
@@ -55,8 +55,10 @@ class Search:
         result_dict['LAT'] = str(self.lat)
         result_dict['LON'] = str(self.lon)
 
-        visual = Visualization(result_dict)
-        visual.draw_grpah()
+        result = visualization.draw_graph(result_dict)
 
-        return render_template('index.html', result=result_dict, div_string=visual.result)
+        # visual = Visualization(result_dict)
+        # visual.draw_graph()
+
+        return render_template('index.html', result=result_dict, div_string=result)
         
