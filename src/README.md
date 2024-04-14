@@ -3,7 +3,7 @@
 This folder contains the source code for this project. The structure is as follows:
 
 
-* [app](.\app)
+* [app/](.\app)
   * [exception.py](.\app\exception.py)
   * [input_check.py](.\app\input_check.py)
   * [main.py](.\app\main.py)
@@ -15,7 +15,7 @@ This folder contains the source code for this project. The structure is as follo
   * [test_visualization.py](.\app\test_visualization.py)
   * [templates](.\app\templates)
     * [index.html](.\app\templates\index.html)
-* [database](.\database)
+* [database/](.\src\database)
   * [all_Cl_SAS_cal.py](.\database\all_Cl_SAS_cal.py)
   * [calculation.py](.\database\calculation.py)
   * [calculation_load.py](.\database\calculation_load.py)
