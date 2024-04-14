@@ -26,7 +26,7 @@ def savefile(long, lat, results):
     # Write to CSV
     df.to_csv('results.csv', index=False)
 
-load = Calculation_load('1.xlsx')
+load = Calculation_load('datamodel.xlsx')
 AADT = all_Cl_SAS_cal.updateAADT(load.AADT)
 AADTT = all_Cl_SAS_cal.updateAADTT(load.AADTT)
 M_app = deicing_salts_cal.calculate(load.h_total, load.t1)
