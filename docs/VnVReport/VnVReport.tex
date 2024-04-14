@@ -17,8 +17,8 @@
 
 \begin{document}
 
-\title{Verification and Validation Report: \progname} 
-\author{\authname}
+\title{Verification and Validation Report: Bridge Corrosion} 
+\author{Cynthia Liu}
 \date{\today}
 	
 \maketitle
@@ -30,25 +30,17 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Apr. 14 2024 & 1.0 & Initial release\\
 \bottomrule
 \end{tabularx}
 
 ~\newpage
 
 \section{Symbols, Abbreviations and Acronyms}
+See SRS Documentation at \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
 
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
 
-\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
+%\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
 
 \newpage
 
@@ -62,21 +54,25 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
+This document includes the results of \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnVPlan}. To re-generate the result, you can run ``make test'' in the root folder of this repo. 
 
 \section{Functional Requirements Evaluation}
+This section covers the tests of the functional requirements.
+\subsection{Input tests - Coordinate}
+This test classifies the valid and invalid input from user. It is covered by unit testing in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/app/test_input_check.py}{test\_input\_check.py}. All the test cases passed successfully. 
+
+
+\subsection{Input tests - Models}
+This test check if there are any missing values from the input climate and traffic model. It is achieved by unit testing in  \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/database/test_model_check.py}{test\_model\_input.py}. All the test cases passed successfully. 
 
 \section{Nonfunctional Requirements Evaluation}
+This section covers the tests of the non-functional requirements.
 
 \subsection{Usability}
 		
 \subsection{Performance}
 
-\subsection{etc.}
-	
-\section{Comparison to Existing Implementation}	
 
-This section will not be appropriate for every project.
 
 \section{Unit Testing}
 
@@ -91,28 +87,49 @@ should be highlighted.}
 		
 \section{Trace to Requirements}
 		
-\section{Trace to Modules}		
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+	& R1 & R2 & R3  & NFR1 & NFR2 & NFR3 & NFR4  \\
+\hline
+\href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/app/test_input_check.py}{t\_input\_check.py}        & X & & & & & &  \\ \hline
+\href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/database/test_model_check.py}{t\_model\_input.py} & X & & & & & &  \\ \hline
+Test \ref{t_output}        & & X & X & & & &  \\ \hline
+Test \ref{t_reliability}        & & & & X & & &  \\ \hline
+Test \ref{t_usability}        & & & & & X & &  \\ \hline
+Test \ref{t_maintainability}        & & & & & & X &  \\ \hline
+Test \ref{t_portability}        & & & & & & & X  \\ \hline
 
+\end{tabular}
+\caption{Traceability Between Test Cases and Requirements}
+\label{Table:test_requirements}
+\end{table}
+
+
+\section{Trace to Modules}		
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+	& M2 & M3 & M4  & M5 & M6 & M7 & M8 & M9 & M10 & M11 & M12 & M13 & M14 \\
+\hline
+
+\href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/database/test_calculation.py}{t\_calculation}    & &  &  &  & X & X & X & X & X & X & X & X & X \\ \hline
+\href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/database/test_model_check.py}{t\_model\_input} & &  &  &  & X &  & &  &  &  &  &  & \\ \hline
+\href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/app/test_input_check.py}{t\_input\_check} & X & X &  &  &  &  & &  &  &  &  &  & \\ \hline
+\href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/app/test_search.py}{t\_search.py} & & X & X &  &  &  & &  &  &  &  &  & \\ \hline
+\href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/app/test_visualization.py}{t\_visualization} & &  &  & X &  &  & &  &  &  &  &  & \\ \hline
+
+\end{tabular}
+\caption{Traceability Between Test Cases and Modules}
+\label{Table:test_modules}
+\end{table}
 \section{Code Coverage Metrics}
 
 \bibliographystyle{plainnat}
 \bibliography{../../refs/References}
 
 \newpage{}
-\section*{Appendix --- Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Reflection.  Please answer the following question:
-
-\begin{enumerate}
-  \item In what ways was the Verification and Validation (VnV) Plan different
-  from the activities that were actually conducted for VnV?  If there were
-  differences, what changes required the modification in the plan?  Why did
-  these changes occur?  Would you be able to anticipate these changes in future
-  projects?  If there weren't any differences, how was your team able to clearly
-  predict a feasible amount of effort and the right tasks needed to build the
-  evidence that demonstrates the required quality?  (It is expected that most
-  teams will have had to deviate from their original VnV Plan.)
-\end{enumerate}
 
 \end{document}
