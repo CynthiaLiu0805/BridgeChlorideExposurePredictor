@@ -9,24 +9,25 @@ Date of project start: January 19, 2024
 This project is intended to investigate how climate, traffic might impact corrosion-induced damage for reinforced concrete bridges by influencing the chloride exposure.
 
 
-The folders and files for this project are as follows:\
-    .\
-    ├── doc\                    
-    │   ├── SRS\                
-    │   ├── VnVPlan\         
-    |   ├── Design\
-    │   |   ├── SoftArchitecture\
-    │   │   └── SoftDetailedDes\ 
-    │   └── VnVReport\                
-    │── src\          
-    |   ├── app         # code for user side of the software\
-    │   │   └── test\ 
-    │   └── database    # code for generating the database\
-    │        └── test\
-    │── Makefile\            
-    │── requirements.txt    # dependencies\
-    └── datamodel.xlsx      # traffic model and climate model\
-
+The folders and files for this project are as follows:
+```
+.
+├── doc                   
+│   ├── SRS                
+│   ├── VnVPlan         
+|   ├── Design
+│   |   ├── SoftArchitecture
+│   │   └── SoftDetailedDes 
+│   └── VnVReport                
+│── src          
+|   ├── app         # code for user side of the software
+│   │   └── test 
+│   └── database    # code for generating the database
+│        └── test
+│── Makefile            
+│── requirements.txt    # dependencies
+└── datamodel.xlsx      # traffic model and climate model\
+```
 ## Set Up
 
 ### Python
