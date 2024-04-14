@@ -5,5 +5,5 @@ numpy
 pandas
 # matplotlib
 plotly
-Openpyxl
+Openpyxl==3.0.10
 # shapely.geometry

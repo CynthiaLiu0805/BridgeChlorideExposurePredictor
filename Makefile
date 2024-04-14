@@ -1,8 +1,8 @@
 requirements:
-	pip install -r requirements.txt
+	pip install -r requirements.txt --user
 database: 
-	python3 src/calculation.py
+	python src/calculation.py
 app:
-	python3 src/main.py
+	python src/main.py
 clean:
 	rm results.csv
