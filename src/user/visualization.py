@@ -11,7 +11,6 @@ def generate_sub_valuelist(dict, index):
     return list(dict.values())[index:]
 
 def draw_graph(dic):
-    print("fras")
     long = dic.get('LON')
     lat = dic.get('LAT')
     keys = generate_sub_keylist(dic,2)

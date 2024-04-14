@@ -35,24 +35,25 @@ After installation, restart PowerShell or Terminal to make it work.
 
 1. Download and unzip the zip file of this repo.
 2. Open the command line terminal (for mac) or PowerShell (for windows).
-3. Do `make requirements` in the root folder to install the libraries and dependencies.
+3. Do `make requirements` in the root folder of this repo to install the libraries and dependencies.
 4. Do  `make database` to generate the chloride exposure database.
 5. Do  `make app` to run the software. 
 6. You should see the message from terminal saying that the software is running successfully in localhost. Usually it is http://127.0.0.1:5000 but it might differ from machines.
 
 ### Alternative ways to run
-If the above method does not work, you can try the following:
+If the above method does not work, you can try the following in the root folder of this repo:
 ```
-cd src
-python calculation.py
-python main.py
+python src/database/calculation.py
+python src/user/main.py
 ```
 Then the software should be running in localhost.
 
 
 Notes: In some Python versions, you might need to do python3 instead of python to run the app. That is:
 ```
-cd src
-python3 calculation.py
-python3 main.py
+python3 src/database/calculation.py
+python3 src/user/main.py
 ```
+
+## Quit
+Press `Command+ C` in terminal and `Ctrl + C` in PowerShell to quit the software.
