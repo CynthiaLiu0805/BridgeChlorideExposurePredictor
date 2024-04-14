@@ -4,10 +4,10 @@ database:
 	python src/database/calculation.py
 app:
 	python src/user/main.py
-# test: 
-# 	python tests/test_calculation.py
-# 	python tests/test_input_check.py
-# 	python tests/test_search.py
-# 	python tests/test_visualization.py
+test: 
+	python src/database/test_calculation.py
+	python src/user/test_input_check.py
+	python src/user/test_search.py
+	python src/user/test_visualization.py
 clean:
 	rm results.csv
