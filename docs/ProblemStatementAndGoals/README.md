@@ -1,5 +1,3 @@
 # Problem Statement
 
-The folders and files for this folder are as follows:
-
-Describe ...
+The ProblemStatement.pdf contains the problem statement for Bridge Corrosion.

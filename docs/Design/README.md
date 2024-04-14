@@ -1,5 +1,5 @@
 # Design Documentation
 
-The folders and files for this folder are as follows:
+The Module Guide for Bridge Corrosion is in the SoftArchitecture folder.
 
-Describe ...
+The Module Interface Specification for Bridge Corrosion is in the SoftDetailedDes folder.

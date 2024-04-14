@@ -1,5 +1,3 @@
 # Development Plan
 
-The folders and files for this folder are as follows:
-
-Describe ...
+The Reflection.pdf contains the overall reflection for the entire software development cycle.

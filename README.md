@@ -1,6 +1,7 @@
 # Bridge Corrosion
 
 Developer Names: Cynthia Liu
+
 Theory support: Mingsai Xu
 
 Date of project start: January 19, 2024
@@ -9,9 +10,9 @@ This project is intended to investigate how climate, traffic might impact corros
 
 The folders and files for this project are as follows:
 
-docs - Documentation for the project
-refs - Reference material used for the project
-src - Source code
+docs - Documentation for the project\
+refs - Reference material used for the project\
+src - Source code\
 test - Test cases
 
 ## Set Up
@@ -27,11 +28,12 @@ This project use [make](https://www.gnu.org/software/make/manual/make.html#Overv
 
 To install make in windows, you can do 
 `winget install ezwinports.make` in PowerShell. \
-To install make in mac, do `brew install make` if you have [Homebrew](https://brew.sh/) installed. It is also available in other package managers.
+To install make in mac, do `brew install make` if you have [Homebrew](https://brew.sh/) installed. It is also available in other package managers.\ 
+After installation, restart PowerShell or Terminal to make it work.
 
 ## How to Start
 
-1. Download the zip file of this repo.
+1. Download and unzip the zip file of this repo.
 2. Open the command line terminal (for mac) or PowerShell (for windows).
 3. Do `make requirements` in the root folder to install the libraries and dependencies.
 4. Do  `make database` to generate the chloride exposure database.
