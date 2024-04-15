@@ -1456,15 +1456,21 @@ other.
 
 
   \midrule 
-  $V'_{min}$ & minimum speed of heavy vehicle & $37$ & miles/h  
+  $V'_{min}$ & minimum speed of vehicle & $37$ & miles/h  
   \\
-  $V'_{max}$ & maximum speed of heavy vehicle & $65$ & miles/h   
+  $V$ &  speed of vehicle & $62.1371$ & miles/h   
+  \\
+  $V'_{max}$ & maximum speed of vehicle & $65$ & miles/h   
   \\
   $V_{speed_{min}}$ & minimum speed of heavy vehicle & $60$ & km/h   
+  \\
+  $V_{speed}$ & speed of heavy vehicle & $100$ & km/h   
   \\
   $V_{speed_{max}}$ & maximum speed of heavy vehicle & $105$ & km/h
   \\
   $b_{min}$ & minimum tire width & $0.2$ & m 
+  \\
+  $b$ & tire width & $0.56$ & m 
   \\
   $b_{max}$ & maximum tire width & $0.71$ & m 
   \\ 
@@ -1472,12 +1478,22 @@ other.
   \\
   $b_{splash}$ & splash emission rate coefficient & -0.5 & N/A
   \\
-  $W_{lane}$ & lane width & 3 & m
+  $d$ & distance between the road edge and the bridge substructure & 3.5 & m
+  \\
+  $h_{film}$ & depth of the water film picked up in each rotation & 0.0001 & m
+  \\
+  $K$ & ratio of the tire width that is not a groove to the tire width & 0.75& N/A
+  \\
+  $\rho_{water}$ & water density & 997 & \si{kg/m^3}
+  \\  
+  $W_{lane}$ & lane width & 3.75 & m
   \\  
   $V_{salt}$ & salt application rate & 0.06 & t/cm/km
   \\
+  $\theta_{chloride}$ &  molar mass ratio of chloride ions over deicing salts & 0.61 & N/A \\
   $\Theta$ & ratio of chloride ions sprayed and  \\
   & splashed by trucks over light-duty vehicles& 6 & N/A
+
   \\  
   
   \bottomrule

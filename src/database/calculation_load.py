@@ -1,8 +1,15 @@
-import numpy as np
+'''
+This module provides the function that read the climate and traffic model data
+long: longitude
+lat: latitude
+AADT: annual average daily traffic per lane
+AADTT: annual average daily truck traffic per lane
+t1: the number of days with snowfall
+h_total: total snowfall during a winter season
+t2: the number of days with snow melting
+'''
 import pandas as pd
 import pandas as pd
-
-
 class Calculation_load:
 
     def __init__(self, file_name):

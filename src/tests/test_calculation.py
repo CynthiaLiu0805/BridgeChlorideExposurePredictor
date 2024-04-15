@@ -1,16 +1,18 @@
+'''
+This module includes the unit test for the calculation process of generating the database. 
+The values to be tested are set up in the setUp() function. The expected values are from the calculation in Matlab. 
+Because the dataset is too large only a small amount of value are choosen to be compared. 
+The function assert_almost_equal is used to compare for up to nine decimals.
+'''
 import unittest
 import numpy as np
 from calculation_load import Calculation_load
-
 import deicing_salts_cal
 import melted_water_thickness
-
 import single_water_SAS_cal
-
 import single_Cl_SAS_cal
 import all_Cl_SAS_cal
-import salts_decomposiition_cal
-
+import chloride_decomposition_cal
 class TestCalculation(unittest.TestCase):
     def setUp(self):
         self.load = Calculation_load('datamodel.xlsx')
@@ -20,9 +22,8 @@ class TestCalculation(unittest.TestCase):
         self.h_app = melted_water_thickness.calculate(self.load.h_total, self.load.t2)
         self.SD_total = single_water_SAS_cal.calculate(self.h_app)
         self.SD_totalCl = single_Cl_SAS_cal.calculate(self.M_app, self.h_app, self.SD_total)
-
         self.C_s_air = all_Cl_SAS_cal.calculate(self.SD_totalCl, self.load.t2, self.AADT, self.AADTT)
-        self.results = salts_decomposiition_cal.calculate(self.C_s_air)
+        self.results = chloride_decomposition_cal.calculate(self.C_s_air)
 
     def test_deicing_salts_cal(self):
         expected_M_app = [0.0363145073858349, 0.0375421740531611, 0.0299470691769858, 0.0331207666034081, 0.0323051841884699]
@@ -44,7 +45,7 @@ class TestCalculation(unittest.TestCase):
         expected_C_s_air = [4.73051178779328, 3.96981034531171, 3.51064220140197, 2.95976102415515, 3.29189034747470]
         np.testing.assert_almost_equal(self.C_s_air[5:10, 1], expected_C_s_air)
 
-    def test_salts_decomposition_cal(self):
+    def test_chloride_decomposition_cal(self):
         expected_results = [0.796928663149077, 0.660801640766927, 0.552286875781850, 0.616013631554310, 0.628572271378117]
         np.testing.assert_almost_equal(self.results[10:15, 2], expected_results)  
 

@@ -1,8 +1,9 @@
+'''
+This module includes the test for checking the empty values in the climate and traffic data. 
+It is checking if there are any null values in the specific column of the DataFrame
+'''
 import unittest
-import numpy as np
-
 import pandas as pd
-
 class TestCalculation(unittest.TestCase):
     def setUp(self):
         self.df = pd.read_excel("datamodel.xlsx", sheet_name='Sheet1', usecols='A,B,D,E', skiprows=0, nrows=1645)

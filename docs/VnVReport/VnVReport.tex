@@ -49,7 +49,7 @@ The symbols, abbreviations and acronyms used in \href{https://github.com/Cynthia
 
 \listoftables %if appropriate
 
-\listoffigures %if appropriate
+%\listoffigures %if appropriate
 
 \newpage
 
@@ -85,7 +85,13 @@ The author did a demonstration during the final presentation and shared it with 
 Due to time constraints, these comments were not addressed immediately. However, plans are in place to address them in the future to enhance the usability and clarity of the demonstration.
 
 \subsection{Maintainability}
-The author did a code review with TODO
+The author did a code review with friends from different background in McMaster and the most common comments are as follows:
+\begin{itemize}
+\item The relationship between modules are not clear without looking at module interface specification
+\item Functions lack comments or explanations regarding their purpose, which can make understanding the code more challenging.
+\end{itemize}
+The primary approach I used to enhance maintainability was to add comments and explanations in the code, ensuring easier comprehension for future developers.
+
 
 \subsection{Portability}
 The author used Github Actions to test if the software could be installed in multiple machines and environments. Some manual testing is done by asking fellows to run the project following the \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/README.md}{Readme.md}, most of the process went smoothly, thought there are some problems:
@@ -147,7 +153,8 @@ Test Portability        & & & & & & & X  \\ \hline
 \section{Trace to Modules}		
 \begin{table}[h]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+
+\begin{tabular}{|c|p{4mm}|p{4mm}|p{4mm}|p{4mm}|p{4mm}|p{4mm}|p{4mm}|p{4mm}|p{6mm}|p{6mm}|p{6mm}|p{6mm}|p{6mm}|}
 \hline
 	& M2 & M3 & M4  & M5 & M6 & M7 & M8 & M9 & M10 & M11 & M12 & M13 & M14 \\
 \hline
@@ -162,7 +169,6 @@ Test Portability        & & & & & & & X  \\ \hline
 \caption{Traceability Between Test Cases and Modules}
 \label{Table:test_modules}
 \end{table}
-\section{Code Coverage Metrics}
 
 \bibliographystyle{plainnat}
 \bibliography{../../refs/References}
