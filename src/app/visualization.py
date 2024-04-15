@@ -15,7 +15,7 @@ def draw_graph(dic):
     lat = dic.get('LAT')
     Year = generate_sub_keylist(dic,2)
     Chloride_exposure_values = generate_sub_valuelist(dic, 2)
-    Chloride_exposure_values = [ round(elem, 2) for elem in Chloride_exposure_values ]
+    Chloride_exposure_values = [ round(float(elem), 2) for elem in Chloride_exposure_values ]
     # print(keys, values)
     
     fig = go.Figure(data=go.Scatter(x=Year, y=Chloride_exposure_values))
