@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.5, pytest-8.1.1, pluggy-1.4.0
+rootdir: /Users/liuyingxue/Documents/work/graduate/741/project/BridgeCorrosion
+plugins: dash-2.16.1
+collected 6 items
+
+src/database/test_calculation.py ......                                  [100%]
+
+=============================== warnings summary ===============================
+src/database/test_calculation.py::TestCalculation::test_all_Cl_SAS_cal
+src/database/test_calculation.py::TestCalculation::test_deicing_salts_cal
+src/database/test_calculation.py::TestCalculation::test_melted_water_thickness
+src/database/test_calculation.py::TestCalculation::test_salts_decomposition_cal
+src/database/test_calculation.py::TestCalculation::test_single_Cl_SAS_cal
+src/database/test_calculation.py::TestCalculation::test_single_water_SAS_cal
+  /Users/liuyingxue/Documents/work/graduate/741/project/BridgeCorrosion/src/database/melted_water_thickness.py:10: RuntimeWarning: divide by zero encountered in divide
+    h_app = h_total / 12 /t2 /100
+
+src/database/test_calculation.py::TestCalculation::test_all_Cl_SAS_cal
+src/database/test_calculation.py::TestCalculation::test_deicing_salts_cal
+src/database/test_calculation.py::TestCalculation::test_melted_water_thickness
+src/database/test_calculation.py::TestCalculation::test_salts_decomposition_cal
+src/database/test_calculation.py::TestCalculation::test_single_Cl_SAS_cal
+src/database/test_calculation.py::TestCalculation::test_single_water_SAS_cal
+  /Users/liuyingxue/Documents/work/graduate/741/project/BridgeCorrosion/src/database/single_water_SAS_cal.py:18: RuntimeWarning: invalid value encountered in subtract
+    MR_BW = 0.5 * V_speed * Constant.b *(h_app-(Constant.K*Constant.h_film)-((1-Constant.K) * h_app)) * Constant.water_density
+
+src/database/test_calculation.py::TestCalculation::test_all_Cl_SAS_cal
+src/database/test_calculation.py::TestCalculation::test_deicing_salts_cal
+src/database/test_calculation.py::TestCalculation::test_melted_water_thickness
+src/database/test_calculation.py::TestCalculation::test_salts_decomposition_cal
+src/database/test_calculation.py::TestCalculation::test_single_Cl_SAS_cal
+src/database/test_calculation.py::TestCalculation::test_single_water_SAS_cal
+  /Users/liuyingxue/Documents/work/graduate/741/project/BridgeCorrosion/src/database/single_water_SAS_cal.py:19: RuntimeWarning: invalid value encountered in subtract
+    MR_SW = 0.5 * V_speed * Constant.b *(h_app-(Constant.K*Constant.h_film)-((1-Constant.K) * h_app)) * Constant.water_density
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================== 6 passed, 18 warnings in 64.31s (0:01:04) ===================
