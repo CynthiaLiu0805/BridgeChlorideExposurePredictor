@@ -1,0 +1,33 @@
+import unittest
+import numpy as np
+
+import pandas as pd
+
+class TestCalculation(unittest.TestCase):
+    def setUp(self):
+        self.df = pd.read_excel("datamodel.xlsx", sheet_name='Sheet1', usecols='A,B,D,E', skiprows=0, nrows=1645)
+        self.t1 = pd.read_excel("datamodel.xlsx", sheet_name='t1', usecols='B:BD', skiprows=0, nrows=1645)
+        self.h_total = pd.read_excel("datamodel.xlsx", sheet_name='htotal', usecols='B:BD', skiprows=0, nrows=1645)
+        self.t2 = pd.read_excel("datamodel.xlsx", sheet_name='t2', usecols='B:BD', skiprows=0, nrows=1645)
+
+    def test_longitude(self):
+        self.assertFalse(self.df.iloc[:, 0].isnull().any())
+        
+    def test_latitude(self):
+        self.assertFalse(self.df.iloc[:, 1].isnull().any())
+
+    def test_AADT(self):
+        self.assertFalse(self.df.iloc[:, 2].isnull().any())
+
+    def test_AADTT(self):
+        self.assertFalse(self.df.iloc[:, 3].isnull().any())
+        
+    def test_t1(self):
+        self.assertFalse(self.t1.isnull().any().any())
+    
+    def test_h_total(self):
+        self.assertFalse(self.h_total.isnull().any().any())
+    
+    def test_t2(self):
+        self.assertFalse(self.t2.isnull().any().any())
+   

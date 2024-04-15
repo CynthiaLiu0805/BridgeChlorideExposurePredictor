@@ -13,11 +13,12 @@ def generate_sub_valuelist(dict, index):
 def draw_graph(dic):
     long = dic.get('LON')
     lat = dic.get('LAT')
-    keys = generate_sub_keylist(dic,2)
-    values = generate_sub_valuelist(dic, 2)
+    Year = generate_sub_keylist(dic,2)
+    Chloride_exposure_values = generate_sub_valuelist(dic, 2)
+    Chloride_exposure_values = [ round(elem, 2) for elem in Chloride_exposure_values ]
     # print(keys, values)
     
-    fig = go.Figure(data=go.Scatter(x=keys, y=values))
+    fig = go.Figure(data=go.Scatter(x=Year, y=Chloride_exposure_values))
     fig.update_layout(
     title=dict(
         text="Chloride exposure data on bridge corrosion at (" + lat[:5] + ", " + long[:5] + ")"

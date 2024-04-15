@@ -51,9 +51,14 @@ class Search:
 
         # Convert the result to a dictionary to be able to pass it to the template
         result_dict = result.to_dict()
+
+        # for key in result_dict:
+     
+        #     result_dict[key] = round(result_dict[key], 9)
+ 
         # Update result dict according to the input
-        result_dict['LAT'] = str(self.lat)
-        result_dict['LON'] = str(self.lon)
+        result_dict['LAT'] = str(self.lat[:5])
+        result_dict['LON'] = str(self.lon[:5])
 
         result = visualization.draw_graph(result_dict)
 

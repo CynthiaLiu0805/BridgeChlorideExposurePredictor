@@ -5,9 +5,11 @@ database:
 app:
 	python src/app/main.py
 test: 
-	python src/database/test_calculation.py
-	python src/app/test_input_check.py
-	python src/app/test_search.py
-	python src/app/test_visualization.py
+	pytest src/database/test_calculation.py
+	pytest src/database/test_model_input.py
+
+	pytest src/app/test_input_check.py
+	pytest src/app/test_search.py
+	pytest src/app/test_visualization.py
 clean:
 	rm results.csv

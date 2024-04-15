@@ -451,7 +451,7 @@ Input: Coordinate
 					
 Output: If the input coordinate is within Ontario, it will return a series (length of at lease ten) of two decimal points data showing the chloride exposure at that location.
 
-Test Case Derivation: This test case cover the R2 and R3 of the SRS. The test will be done by checking the length of the output and the precision after decimal points. The expected value should be within the data constraints in the 4.4.7 section of \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/SRS/SRS.pdf}{SRS}.
+Test Case Derivation: This test case cover the R2 and R3 of the SRS. The test will be done by comparing the actual result with the result from Matlab, which is also implemented by the author as a second way to ensure the accuracy.
 
 %  \wss{Justify the expected value given in the Output field}
 					
@@ -588,12 +588,13 @@ The source code for BC has following modules, they are corresponding to M2 to M1
 Unit testing is performed for the following modules:
 \begin{itemize}
 \item calculation.py
+\item calculation\_load.py
 \item input\_check.py
 \item search.py
 \item visualization.py
 \end{itemize}
 
-These modules are high priority modules that can affect the whole system if not work properly. The calculation module is the module that will called and use M8 to M14, so M8 to M14 could be verified if the calculation module is working properly. Other modules like constant and calculation\_load are tested in the system as those
+These modules are high priority modules that can affect the whole system if not work properly. The calculation module is the module that will called and use M8 to M14, so M8 to M14 could be verified if the calculation module is working properly. Other modules such as constant are tested in the system as those
 have low priority static modules.
 The whole system follows [\reref{ref1}] and Mingsai, the author, has validate in the paper that the formulas and models used in the paper is accurate and reliable. 
 
@@ -607,7 +608,7 @@ All tests are automatic and performed by PyTest. The tests are classified by mod
 %\wss{Include a blurb here to explain why the subsections below cover the module. References to the MIS would be good.  You will want tests from a black box perspective and from a white box perspective.  Explain to the reader how the tests were selected.}
 
 \subsubsection{Calculation Module} \label{CM}
-The test cases in this section not only cover the calculation module, but also cover M8 to M14, as those modules are used here. The tests here are checking the value for each step of the calculation module, and their pass indicates the functionality of the encompassed modules as well. The expected output is from another verification from Matlab. Each test case is named to clearly declare its purpose. The code could be found in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/tests/test_calculation.py}{test\_calculation.py}.
+The test cases in this section not only cover the calculation module, but also cover M8 to M14, as those modules are used here. The tests here are checking the value for each step of the calculation module, and their pass indicates the functionality of the encompassed modules as well. The expected output is from another verification from Matlab. Each test case is named to clearly declare its purpose. The code could be found in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/database/test_calculation.py}{test\_calculation.py}.
 \begin{itemize}
 \item test\_deicing\_salts\_cal
 \item test\_melted\_water\_thickness
@@ -617,8 +618,20 @@ The test cases in this section not only cover the calculation module, but also c
 \item test\_salts\_decomposition\_cal
 \end{itemize}
 
+\subsubsection{Calculation\_load Module} \label{CLM}
+The test cases in this section check if the traffic model and climate model used to generate the database has any missing values. Ideally, there would not be empty values as those models have been verified by their developers, this module is doing the double check. The code could be found in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/database/test_model_input.py}{test\_model\_input.py}.
+\begin{itemize}
+\item test\_longitude
+\item test\_latitude
+\item test\_AADT
+\item test\_AADTT
+\item test\_t1
+\item test\_h\_total
+\item test\_t2
+\end{itemize}
+
 \subsubsection{Input\_check Module} \label{ICM}
-This section covers the access programs in input\_check module. It includes some boundary cases for checking if a coordinate is within ontario. The coordinate includes both negative cases and positive cases and the software could handle them both. One worth noticing point here is the Ontario boundary only include the land, not the water. For example, the points on Lake Erie is not considered as within Ontario. The code could be found in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/tests/test_input_check.py}{test\_input\_check.py}.
+This section covers the access programs in input\_check module. It includes some boundary cases for checking if a coordinate is within ontario. The coordinate includes both negative cases and positive cases and the software could handle them both. One worth noticing point here is the Ontario boundary only include the land, not the water. For example, the points on Lake Erie is not considered as within Ontario. The code could be found in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/app/test_input_check.py}{test\_input\_check.py}.
 \begin{itemize}
 \item test\_load\_file
 \item test\_value\_error\_nonnumerical
@@ -630,7 +643,7 @@ This section covers the access programs in input\_check module. It includes some
 \end{itemize}
 
 \subsubsection{Search Module} \label{SM}
-This section cover the access programs in search module. The main purpose for the test case is to demonstrate that the find\_closest method can differentiate between coordinates up to four decimal places. It also shows the method could work fine on large dataset. The code could be find in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/tests/test_search.py}{test\_search.py}
+This section cover the access programs in search module. The main purpose for the test case is to demonstrate that the find\_closest method can differentiate between coordinates up to four decimal places. It also shows the method could work fine on large dataset. The code could be find in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/app/test_search.py}{test\_search.py}
 \begin{itemize}
 \item test\_load\_data
 \item test\_find\_closest\_four\_decimal
@@ -638,7 +651,7 @@ This section cover the access programs in search module. The main purpose for th
 \end{itemize}
 
 \subsubsection{Visualization Module} \label{VM}
-The most essential function of visualization module, plotting, is from the plotly library, so the unit test on plotting is not tested. Instead, we focus on verifying whether this function successfully generates output. Also, the helper function for generating sublist is tested, as to plot the graph we want to exclude the coordinate information in the beginning. The code could be find in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/tests/test_visualization.py}{test\_visualization.py}
+The most essential function of visualization module, plotting, is from the plotly library, so the unit test on plotting is not tested. Instead, we focus on verifying whether this function successfully generates output. Also, the helper function for generating sublist is tested, as to plot the graph we want to exclude the coordinate information in the beginning. The code could be find in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/src/app/test_visualization.py}{test\_visualization.py}
 \begin{itemize}
 \item test\_generate\_sub\_keylist
 \item test\_generate\_sub\_valuelist
@@ -659,6 +672,7 @@ Unit testing the non-functional requirements is beyond the scope. Tests related 
 \hline
 
 Test \ref{CM}    & &  &  &  & X & X & X & X & X & X & X & X & X \\ \hline
+Test \ref{CLM} &  &  &  &  & X  &  & &  &  &  &  &  & \\ \hline
 Test \ref{ICM} & X & X &  &  &  &  & &  &  &  &  &  & \\ \hline
 Test \ref{SM} & & X & X &  &  &  & &  &  &  &  &  & \\ \hline
 Test \ref{VM} & &  &  & X &  &  & &  &  &  &  &  & \\ \hline
