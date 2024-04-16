@@ -147,7 +147,7 @@ The following table is taken directly from the Module Guide document for this pr
 & Single Water SAS Calculation Module \\
 & Single Chloride Ions SAS Calculation Module \\
 & All Chloride Ions SAS Calculation Module \\
-& Deicing Salts Deposition Calculation Module \\
+& Chloride Deposition Calculation Module \\
 & Chloride Exposure Database Generation Module\\
 \midrule
 
@@ -849,10 +849,10 @@ None
 \newpage
 
 
-\section{MIS of Deicing Salts Deposition Calculation Module} \label{deicingSaltsDepositionCalculation Module}
+\section{MIS of Chloride Deposition Calculation Module} \label{chlorideDepositionCalculation Module}
 This module determine the deposition of chloride ions on the surface of the bridge substructure
 \subsection{Module}
-salts\_decomposition\_cal
+chloride\_decomposition\_cal
 
 \subsection{Uses}
 
@@ -869,7 +869,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-salts\_decomposition\_cal & C\_s\_air: sequence of $\mathbb{R}$ & results: sequence of $\mathbb{R}$ & - \\
+chloride\_decomposition\_cal & C\_s\_air: sequence of $\mathbb{R}$ & results: sequence of $\mathbb{R}$ & - \\
 
 \hline
 \end{tabular}
@@ -886,7 +886,7 @@ None
 None
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{salts\_decomposition\_cal($C\_s\_air$)}:
+\noindent \textbf{chloride\_decomposition\_cal($C\_s\_air$)}:
 \begin{itemize}
 \item transition: None
 \item output: out := $C\_s\_air * 0.015 * e^{-0.05*d}  + C\_s\_air*0.985 * e^{-0.5*d}$, where d is a constant read from Constant Module, 0.015 and 0.985 being the coefficient of the formula.
@@ -908,7 +908,7 @@ calculate
 \subsection{Uses}
 
 Data Model Reading Module (Section \ref{dataModelReadingModule}), 
-Constant Module (Section \ref{constantModule}), Deicing Salts Calculation Module (Section \ref{deicingSaltsCalculationModule}), Melted Water Thickness Module (Section \ref{meltedWaterThicknessModule}), Single Water SAS Calculation Module (Section \ref{singleWaterSASCalculationModule}), Single Chloride Ions SAS Calculation Module (Section \ref{singleChlorideIonsSASCalculation Module}), All Chloride Ions SAS Calculation Module (Section \ref{allChlorideIonsSASCalculationModule}), Deicing Salts Deposition Calculation Module (Section \ref{deicingSaltsDepositionCalculation Module})
+Constant Module (Section \ref{constantModule}), Deicing Salts Calculation Module (Section \ref{deicingSaltsCalculationModule}), Melted Water Thickness Module (Section \ref{meltedWaterThicknessModule}), Single Water SAS Calculation Module (Section \ref{singleWaterSASCalculationModule}), Single Chloride Ions SAS Calculation Module (Section \ref{singleChlorideIonsSASCalculation Module}), All Chloride Ions SAS Calculation Module (Section \ref{allChlorideIonsSASCalculationModule}), Chloride Deposition Calculation Module (Section \ref{chlorideDepositionCalculation Module})
 
 
 \subsection{Syntax}
