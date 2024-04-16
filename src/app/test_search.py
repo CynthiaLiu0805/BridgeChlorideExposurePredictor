@@ -1,12 +1,14 @@
+'''
+This module provides the unit test for search module. It is basically testing if the find_closest function could find 
+the accurate index. It provides two cases, one is searching in a smaller dataframe which is faster, the other is 
+searching in the real database in used. The expected output, the index of the resulting data, is by manually looking at the database.
+'''
 from search import Search
 import unittest
 import pandas as pd
 import numpy as np
 from flask import Flask
-
-
 class TestInputCheck(unittest.TestCase):
-
     def setUp(self):
         self.app = Flask(__name__)
         self.search1 = Search(-73.935242, 40.730610)
@@ -17,12 +19,10 @@ class TestInputCheck(unittest.TestCase):
         })
         self.search2.load_data()
 
-
     def test_load_data(self):
         self.search2.load_data()
         self.assertIsNotNone(self.search2.data)
     
-
     def test_find_closest_four_decimal(self):
         result = self.search1.find_closest()
         np.testing.assert_equal(result, 0)
@@ -30,7 +30,6 @@ class TestInputCheck(unittest.TestCase):
 
     def test_find_closest_large_dataset(self):
         result = self.search2.find_closest()
-        
         np.testing.assert_equal(result, 1)
         np.testing.assert_equal(result, 1)
 

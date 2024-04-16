@@ -1,8 +1,10 @@
+"""
+This module provides the unit test for the input check. It includes the cases listed in section 4.1.1 in VnVPlan.
+It includes the boundary cases that are really closed to the boundary of Ontario.
+"""
 import unittest
 from input_check import Input_check
-
 class TestInput_check(unittest.TestCase):
-
     # set up the test
     def setUp(self):
         self.test1 = Input_check('123.45', 'abc')

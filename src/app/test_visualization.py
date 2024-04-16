@@ -1,8 +1,9 @@
-
+'''
+This module provides the unit test for visualization module. A made up dataframe is used for better performance. Due to 
+the nature of plotting, this module only tests if the result of drawing graph is a plotly div.
+'''
 import unittest
-import visualization #import Visualization
-
-
+import visualization
 class TestVisualization(unittest.TestCase):
     def setUp(self):
         self.data = {
@@ -13,8 +14,7 @@ class TestVisualization(unittest.TestCase):
             '2008': '3',
             '2009': '4'
         }
-        # self.visual1 = Visualization(data)
-
+        
     def test_generate_sub_keylist(self):
         result = visualization.generate_sub_keylist(self.data, 2)
         self.assertEqual(result, ['2006', '2007', '2008', '2009'])
