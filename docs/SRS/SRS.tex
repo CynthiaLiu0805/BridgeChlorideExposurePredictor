@@ -493,7 +493,13 @@ change [LC], in which the respective assumption is used.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_NaCl}:] The main component of deicing salt is NaCl. (RefBy: \ddref{DD_RCL}, \ddref{DD_SDTCL})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AADT}:] Same class of the road over which the bridge spans has the same AADT. (RefBy: \dref{D_CSAS}, \lcref{LC_AADT})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AADT}:] Same class of the road over which the bridge spans has the same AADT and AADTT. (RefBy: \dref{D_CSAS}, \lcref{LC_AADT})
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_tireWidth}:] The tire width for all the vehicles are the same. (RefBy: \tref{T_MFRG})
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same. (RefBy: \tref{T_MFRG}, \dref{D_MFR}, \dref{D_SD})
+
+
 
 \end{itemize}
 
@@ -586,7 +592,7 @@ The above equation is the general equation for mass flow rate, which is the maxi
   \hline
   Ref.\ By & \dref{D_MFR}\\ 
   \hline
-  Use\ & \tref{T_WFT}\\
+  Use\ & \aref{A_tireWidth}, \aref{A_Speed}, \tref{T_WFT}\\
   \hline
 \end{tabular}
 
@@ -743,7 +749,7 @@ The tread pickup will be activated only if there is water remaining after the ca
   \hline
   Ref.\ By & \dref{D_SD} \\ % \ddref{dsq}, \ddref{dwft}\\
   \hline
-  Use\ & \tref{T_MFRG}, \ddref{DD_DWFT}\\
+  Use\ & \aref{A_Speed},  \tref{T_MFRG}, \ddref{DD_DWFT}\\
   \hline
 \end{tabular}
 
@@ -818,7 +824,7 @@ Description & Spray density is derived by conducting regression analysis to deve
   \hline
   Ref.\ By & \ddref{DD_TSD} \\
   \hline
-  Use \ & \dref{D_MFR} \\
+  Use \ & \aref{A_Speed}, \dref{D_MFR} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1293,7 +1299,15 @@ qualities that the software is expected to exhibit.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept input that is inside Ontario (By \iref{I_DFSB}).
 
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map that users could click on as approach of input.
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select the different concerned parameter, such as chloride on pier or chloride on deck, and the different salt application rate. 
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The output should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
+
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a list of data showing the trend of chloride exposure in the past and future at the input location (By \iref{I_DFSB}).
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The output should have an visualization of line graph or histogram.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The output should have at lease two decimal points, showing the mass of chloride ions per unit air volume (By \iref{I_COTS}).
 
