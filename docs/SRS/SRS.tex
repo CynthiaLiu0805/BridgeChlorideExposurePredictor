@@ -207,8 +207,8 @@ $a_{air}$ & \si{kg/m^3} & maximum deposition rate\\
 $b$ & \si{m} & tire width\\
 $b_{splash}$ & N/A & splash emission rate coefficient\\
 $b_{spray}$ & N/A & spray emission rate coefficient\\
-$C_s$ & \si{kg/m^3/vehicle} & chloride on the bridge substructure\\
-$C_{s_{air}}$ & \si{kg/m^3/vehicle} & chloride sprayed and splashed per unit air volume per vehicle\\
+$C_s$ & \si{kg/m^3} & chloride on the bridge substructure\\
+$C_{s_{air}}$ & \si{kg/m^3} & chloride sprayed and splashed per unit air volume per vehicle\\
 $\delta_{salt}$ & N/A & ratio of salt over water per unit area of road\\
 $d$ & \si{m} & distance between road edge and nearby bridge structure\\
 $h_{app}$ & \si{m} & daily water film thickness on the road\\
@@ -226,17 +226,16 @@ $\mathit{MR_{TP}}$ & \si{kg/s} & MFR displaced by a single tire due to tread pic
 $\mathit{MR_{W}}$ & \si{kg/s} & general MFR displaced by a single tire due to capillary adhesion\\
 $N_{lane}$ & lane & number of lanes\\
 $\rho_{water}$ & \si{kg/m^{3}} & density of water\\
-$\mathit{SD_{BW}}$ & \si{kg/m^{3}/vehicle} & spray density by a single tire due to bow\\
-$\mathit{SD_{CA}}$ & \si{kg/m^{3}/vehicle} & spray density by a single tire due to capillary adhesion\\
-$\mathit{SD_{SW}}$ & \si{kg/m^{3}/vehicle} & spray density by a single tire due to side waves\\
-$\mathit{SD_{TP}}$ & \si{kg/m^{3}/vehicle} & spray density by a single tire due to tread pickup\\
-$\mathit{SD_{total}}$ & \si{kg/m^{3}/vehicle} & spray density kicked up by each passing truck\\
-$\mathit{SD_{total~cl}}$ & \si{kg/m^3/vehicle} & mass of chloride ions per unit air volume\\
+$\mathit{SD_{BW}}$ & \si{kg/m^{3}} & spray density by a single tire due to bow\\
+$\mathit{SD_{CA}}$ & \si{kg/m^{3}} & spray density by a single tire due to capillary adhesion\\
+$\mathit{SD_{SW}}$ & \si{kg/m^{3}} & spray density by a single tire due to side waves\\
+$\mathit{SD_{TP}}$ & \si{kg/m^{3}} & spray density by a single tire due to tread pickup\\
+$\mathit{SD_{total}}$ & \si{kg/m^{3}} & spray density kicked up by each passing truck\\
+$\mathit{SD_{total~cl}}$ & \si{kg/m^3} & mass of chloride ions per unit air volume\\
 $S$ & \si{m/m} & slope as a ratio\\
 $T$ & \si{mm} & profile depth\\
 $t_1$ & days & number of days with snowfall\\
 $t_2$ & days & number of days with snow melting\\
-$t_{snow}$ & days & number of days with snow\\
 $V$ & \si{m/s} & truck speed\\
 $V_{salt}$ & \si{t/cm/km} & normalized salt application rate\\
 $V_{speed}$ & \si{km/h} & heavy vehicle speed\\
@@ -449,15 +448,13 @@ Input:
 \begin{itemize}
 \item annual snowfall $h_{total} = \mathbb R^{+}$ 
 \item annual number of days with snowfall $t_1 = \mathbb R^{+}$
-\item annual number of days with snow melting$t_2 = \mathbb R^{+}$
+\item annual number of days with snow melting $t_2 = \mathbb R^{+}$
 \end{itemize}
 
 \item traffic model 
 \begin{itemize}
 \item AADT per lane $AADT = \mathbb R^{+}$
 \item AADTT per lane $AADTT = \mathbb R^{+}$ 
-\item lane width $W_{lane} = \mathbb R^{+}$
-\item the distance between roadway edge and bridge substructures $d = \mathbb R^{+}$
 \end{itemize}
 \end{itemize}
 
@@ -486,7 +483,7 @@ change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_deicingSalts}:] All the deicing salts are applied on days with snowfall. (RefBy: \tref{T_CSASG}, \dref{D_CSAS}, \ddref{DD_DSQ}, \ddref{DD_DWFT})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_deicingSalts}:] All the deicing salts are applied on days with snowfall. (RefBy: \ddref{DD_DSQ})
 
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_laneWidth}:] The lane width for all the roads are the same. (RefBy: \ddref{DD_DSQ}, \lcref{LC_laneWidth})
@@ -497,7 +494,7 @@ change [LC], in which the respective assumption is used.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_tireWidth}:] The tire width for all the vehicles are the same. (RefBy: \tref{T_MFRG})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same. (RefBy: \tref{T_MFRG}, \dref{D_MFR}, \dref{D_SD})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MFR}, \dref{D_SD})
 
 
 
@@ -526,7 +523,7 @@ SI Units&\si{m}\\
 Equation& $\mathit{WD} = 6 \times 10^{-4} \cdot T^{0.09} (L \cdot I)^{0.6} \cdot S^{-0.33} $\\
 \hline
 Description & 
-The above equation compute the water film thickness based on the rainfall intensity and pavement surface properties.
+The above equation computes the water film thickness based on the rainfall intensity and pavement surface properties.
 \begin{itemize}
 
 \item $\mathit{WD}$ is the water depth. ($m$)
@@ -611,15 +608,15 @@ The above equation is the general equation for mass flow rate, which is the maxi
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-SI Units&\si{kg\per\metre^3\per vehicle} \\
+SI Units&\si{kg\per\metre^3} \\
 \hline
-Equation & $C_{{s}_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \times \frac{ADT-N}{N_{lane}}+ \mathit{SD_{total\_cl}} \times \frac{N}{N_{lane}}) \times t_{snow}$ \\
+Equation & $C_{{s}_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \times \frac{ADT-N}{N_{lane}}+ \mathit{SD_{total\_cl}} \times \frac{N}{N_{lane}}) \times t_2$ \\
   \hline
   Description& The above equation computes the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier every winter, accounting for all the days with snow in a typical winter season.
   
 \begin{itemize}
 
-\item $\mathit{SD_{total\_cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3/vehicle$)
+\item $\mathit{SD_{total\_cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3$)
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles. (ratio)
 
@@ -629,7 +626,7 @@ Equation & $C_{{s}_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \ti
 
 \item $N_{lane}$ is the number of lanes.
 
-\item $t_{snow}$ is the number of days with snow.
+\item $t_2$ is the number of days with snow melting.
 
 \end{itemize}
 
@@ -643,7 +640,7 @@ Notes & The first part in the parentheses calculate the chloride exposure by lig
   \hline
   Ref.\ By & \dref{D_CSAS} \\ 
   \hline
-  Use \ & \aref{A_deicingSalts}, \ddref{DD_SDTCL}  \\
+  Use \ & \ddref{DD_SDTCL}  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -797,7 +794,7 @@ Label &\bf Spray density \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-SI Units&\si{kg\per\metre^3\per vehicle}\\
+SI Units&\si{kg\per\metre^3}\\
 \hline
 Equation&
 \begin{equation}
@@ -842,15 +839,15 @@ Description & Spray density is derived by conducting regression analysis to deve
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-SI Units&\si{kg\per\metre^3\per vehicle}\\
+SI Units&\si{kg\per\metre^3}\\
   \hline
   Equation & $C_{s_{air}} = (\mathit{SD_{totalcl}} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total~cl} \times AADTT ~per~ lane) \times t_2$ \\
   \hline
-  Description& The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of says with snow melting.
+  Description& The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of days with snow melting.
   
 \begin{itemize}
 
-\item $\mathit{SD_{total~cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3/vehicle$)
+\item $\mathit{SD_{total~cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3$)
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles.
 
@@ -868,7 +865,7 @@ SI Units&\si{kg\per\metre^3\per vehicle}\\
   \hline
   Ref.\ By & \iref{I_COTS} \\
   \hline
-  Use \ & \aref{A_deicingSalts}, \aref{A_AADT}, \ddref{DD_SDTCL}, \tref{T_CSASG} \\
+  Use \ & \aref{A_AADT}, \ddref{DD_SDTCL}, \tref{T_CSASG} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -945,14 +942,14 @@ Symbol &$h_{app}$\\
 % \hline
   SI Units & \si{\meter}\\
   \hline
-  Equation&$h_{app} = h_{total}/t_{snow}$\\
+  Equation&$h_{app} = h_{total}/t_2$\\
   \hline
   Description & The equaition above calculates the thickness of melted water per day with snow melting.
 \begin{itemize}
 
 \item $h_{total}$ is the the total snowfall during a winter season, given by the climate model. ($m$)
 
-\item $t_{snow}$ is the number of days with snow melting.
+\item $t_2$ is the number of days with snow melting.
 
 
 \end{itemize}
@@ -962,8 +959,6 @@ Symbol &$h_{app}$\\
   Sources& [\reref{ref4}, \reref{ref9}] \\
   \hline
   Ref.\ By & \dref{D_MFR}, \ddref{DD_RSW} \\ 
-  \hline
-  Use & \aref{A_deicingSalts} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1015,7 +1010,7 @@ Label &\bf Total spray density\\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-SI Units&\si{kg\per m^3 \per vehicle}\\
+SI Units&\si{kg\per m^3}\\
 \hline
 Equation& $\mathit{SD_{total} = SD_{CA} + SD_{TP} + SD_{BW} + SD_{SW}}$\\
 \hline
@@ -1094,14 +1089,14 @@ Label &\bf Mass of chloride ions \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-SI Units&\si{kg\per\metre^3\per vehicle} \\
+SI Units&\si{kg\per\metre^3} \\
 \hline
 Equation & $\mathit{SD_{totalcl} =SD_{total} \times \delta_{salt} \times \theta_{chloride}}$ \\
 \hline
 Description & This equation computes the mass of chloride ions per unit air volume kicked up by each truck.
 \begin{itemize}
 
-\item $SD_{total}$ is the mass of water per unit air volume. ($kg/m^3/vehicle$)
+\item $SD_{total}$ is the mass of water per unit air volume. ($kg/m^3$)
 
 \item $\delta_{salt}$ is the salt-to-water mass ratio per unit area of road. (ratio)
 
@@ -1243,23 +1238,18 @@ Table~\ref{TblConstants}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $b$ & $0.2 \leq b \leq 0.71$ & $b_{min} \leq b \leq b_{max}$ & 0.56 m & 10\%
+  $AADT$ & $AADT > 0$ & $AADT > 0$ & 559 & 10\%  \\
+  $AADTT$ & $AADTT > 0$ & $AADTT > 0$ & 103  & 10\%
   \\
-  $d$ & $d > 0$ & $d>0$ & 3 m & 10\%
+  $h_{total}$ & $h_{total}>0$ & $h_{total}>0$ &  70  & 10\%
   \\
-  $h_{film}$ & $h_{film} > 0$ & $h_{film} > 0$ & 0.0001 m & 10\% 
+  $lat$ & $-90 \leq lat \leq 90$ & $-90 \leq lat \leq 90$ & 48.0863 & 10\%
   \\
-  $K$ & $0 \leq K \leq 1$ & $b_{min} \leq K \leq b_{max}$ & 0.75 & 10\%
+  $long$ & $0 \leq long \leq 360$ & $0 \leq long \leq 360$ &  275.0678 & 10\%
   \\
-  $t_2$ & $0 \leq t_2 \leq 365$ & $t_{snow} \leq t_2 \leq 365$ &  70 days & 10\%
+  $t_1$ & $0 \leq t_1 \leq 365$ & $0 \leq t_1 \leq 365$ &  90  & 10\%
   \\
-  $t_{snow}$ & $0 \leq t_{snow} \leq 365$ & $0 \leq t_{snow} \leq 365$ & 65 days & 10\%
-  \\
-  $V'$ & $37 \leq V' \leq 65$ & $V'_{min}\leq V' \leq V'_{max}$ & 65 miles/h & 10\%
-  \\
-  $V_{speed}$ & $60 \leq V_{speed} \leq 105$ & $V_{speed_{min}} \leq V_{speed} \leq V_{speed_{max}}$ & 105 km/h & 10\%
-  \\
-  $\Theta$ & $0 \leq \theta < 1$ & $0 \leq \theta < 1$ & 0.61 & 10\%
+  $t_2$ & $0 \leq t_2 \leq 365$ & $0 \leq t_2 \leq 365$ &  70  & 10\%
   \\
   \bottomrule
 \end{longtable*}
@@ -1305,12 +1295,11 @@ qualities that the software is expected to exhibit.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The output should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a list of data showing the trend of chloride exposure in the past and future at the input location (By \iref{I_DFSB}).
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a list of two decimal data showing the trend of chloride exposure in the past and future at the input location (By \iref{I_COTS}, \iref{I_DFSB}).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The output should have an visualization of line graph or histogram.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The output should have at lease two decimal points, showing the mass of chloride ions per unit air volume (By \iref{I_COTS}).
-
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The output should be able to be downloaded by users to their local machine. 
 
 \end{itemize}
 
