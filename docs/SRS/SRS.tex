@@ -132,7 +132,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for Bridge Corrosion: A Chloride Exposure Prediction Model} 
+\title{Software Requirements Specification for Bridge Corrosion Predictor : A Chloride Exposure Prediction Model} 
 \author{Cynthia Liu}
 \date{\today}
 	
@@ -181,6 +181,7 @@ description of the unit and the SI name.
 
     \si{\metre} & length & metre \\
     \si{\kilogram} & mass & kilogram \\
+    \si{t} & mass & tonne\\
     \si{\second} & time & second \\
     \si{day} & duration & day \\
 
@@ -208,15 +209,15 @@ $a_{air}$ & \si{kg/m^3} & total maximum deposition rate that can occur\\
 $b$ & \si{m} & tire width\\
 $b_{splash}$ & N/A & splash emission rate coefficient\\
 $b_{spray}$ & N/A & spray emission rate coefficient\\
-$C_s$ & \si{kg/m^3} & chloride on the bridge substructure\\
-$C_{s_{air}}$ & \si{kg/m^3} & chloride sprayed and splashed per unit air volume per vehicle\\
-$\delta_{salt}$ & N/A & ratio of salt over water per unit area of road\\
+$C_s$ & \si{kg/m^3} & chloride concentration on the bridge substructure\\
+$C_{s_{air}}$ & \si{kg/m^3} & chloride concentration sprayed and splashed by all vehicles per winter\\
+$\delta_{salt}$ & kg/kg & ratio of mass of salt over mass of water for a unit area of road\\
 $d$ & \si{m} & distance between road edge and nearby bridge structure\\
 $h_{app}$ & \si{m} & daily water film thickness on the road\\
 $h_{film}$ & \si{m} & depth of the water film picked up in each rotation\\
 $h_{total}$ & \si{m} & the total snowfall during a winter season\\
 $I$ & \si{m/h} & rainfall intensity\\
-$K$ & N/A & ratio of the tire width that is not a groove to the tire width\\
+$K$ & m/m & ratio of the tire width that is not a groove to the full tire width\\
 $L$ & \si{m} & drainage length\\
 $M_{app}$ & \si{kg/m^2} & deicing salts quantity applied per day\\
 $M_{total}$ & \si{kg/m^2} & total amount of deicing salts quantity over winter\\
@@ -239,8 +240,8 @@ $t_1$ & days & number of days with snowfall\\
 $t_2$ & days & number of days with snow melting\\
 $V$ & \si{m/s} & truck speed\\
 $V_{salt}$ & \si{t/cm/km} & normalized salt application rate\\
-$V_{speed}$ & \si{km/h} & heavy vehicle speed\\
-$V'$ & \si{miles/h} & heavy vehicle speed\\
+$V_{speed}$ & \si{km/h} & heavy vehicle speed for calculating mass flow rate\\
+$V'$ & \si{miles/h} & heavy vehicle speed for calculating spray density\\ %because the formulas are determined using regression fitting so unit doesn't matter
 $W_{lane}$ & \si{m} & lane width\\
 $\mathit{WD}$ & \si{m} & water depth/thickness\\
 $x$ & \si{m} & distance between road and object surface\\
@@ -255,26 +256,27 @@ $\theta_{chloride}$ & N/A & molar mass ratio of chloride ions over deicing salts
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  A & Assumption\\
-  DD & Data Definition\\
-  GD & General Definition\\
-  GS & Goal Statement\\
-  IM & Instance Model\\
-  LC & Likely Change\\
-  PS & Physical System Description\\
-  R & Requirement\\
-  SRS & Software Requirements Specification\\
-  BC & Bridge Corrosion\\
-  TM & Theoretical Model\\
-  NaCl & Sodium Chloride, the main component of deicing salts \\
-  CA & Capillary Adhesion \\
-  TP & Tread Pickup\\
-  BW & Bow Waves\\
-  SW & Side Waves\\
-  MFR & Mass Flow Rate\\
-  ADT & Average Daily Traffic\\
-  AADT & Annual Average Daily Traffic\\
-  AADTT & Annual Average Daily Truck Traffic \\
+A & Assumption\\
+AADT & Annual Average Daily Traffic\\
+AADTT & Annual Average Daily Truck Traffic\\
+ADT & Average Daily Traffic\\
+BCP & Bridge Corrosion Predictor \\
+BW & Bow Waves\\
+CA & Capillary Adhesion\\
+DD & Data Definition\\
+GD & General Definition\\
+GS & Goal Statement\\
+IM & Instance Model\\
+LC & Likely Change\\
+MFR & Mass Flow Rate\\
+NaCl & Sodium Chloride, the main component of deicing salts\\
+PS & Physical System Description\\
+R & Requirement\\
+SRS & Software Requirements Specification\\
+SW & Side Waves\\
+TM & Theoretical Model\\
+TP & Tread Pickup\\
+
   \bottomrule
 \end{tabular}\\
 
@@ -285,7 +287,7 @@ $\theta_{chloride}$ & N/A & molar mass ratio of chloride ions over deicing salts
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   $\mathbb{R}$ & Real number \\
-  \{$\mathbb{R}$\} & a list of real number\\
+  $[\mathbb{R}]$ & a list of real number\\
   \bottomrule
 \end{tabular}\\
 
@@ -294,19 +296,20 @@ $\theta_{chloride}$ & N/A & molar mass ratio of chloride ions over deicing salts
 \pagenumbering{arabic}
 
 \section{Introduction}
-In Ontario, most of the bridges in highway are made of Reinforced Concrete decks. However, the bridges may face the chloride-induced corrosion which damage its surface. There are many elements influencing this situation, one of the most important one is deicing salts. The primary used is sodium chloride (rock salt),when they melt the snow and in contact with water, they could have a chemical reaction and release the chloride ions. Those chloride could penetrate the concrete and induce corrosion in the reinforcing steel, then damage the bridges’ structure and capacity. \\
-There is a tight connection between chloride exposure, weather conditions and traffic flow. Specifically, the amount of deicing salts applied on the road surface greatly depends on the amount of snowfall, and the amount of water and dissolved chloride ions that end up on nearby objects depends on the traffic patterns.\\
-This section outlines the document's purpose, delineates its scope of requirements, describes the intended audience's characteristics, and provides an overview of the document's organization.
+In Ontario, most of the bridges on highways are made with reinforced concrete decks. Unfortunately, the weather conditions and the traffic pattern in Ontario cause bridge surface to be damaged by chloride-induced corrosion. Many elements influence this situation, such as the quality of construction materials, and the maintenance practices employed. One of the most important ones is deicing salts. The primary deiicing salt used is sodium chloride (rock salt). When the salt melts the snow and is in contact with water, it may have a chemical reaction and release chloride ions. The ions could penetrate the concrete and induce corrosion in the reinforcing steel, thus damaging a bridge's structure and its capacity. \\
+There is a tight connection between chloride exposure, weather conditions and traffic flow. Specifically, the amount of deicing salt applied on the road surface greatly depends on the amount of snowfall, and the amount of water and dissolved chloride ions that end up on nearby objects depends on the traffic patterns.\\
+Given these complexities, there is a need for a software that can integrate weather and traffic data to predict potential corrosion for Ontario bridges. This document provides specifications for a software called Bridge Corrosion Predictor (BCP) designed to address this need. \\
+The following section outlines the document's purpose, delineates its scope of requirements, describes the intended audience's characteristics, and provides an overview of the document's organization.
 
 \subsection{Purpose of Document}
-This document details the requirements of the software Bridge Corrosion. The
-responsibilities of the user and software are laid out and the requirements that the software must satisfy are explicitly detailed. This document provides the software requirements specification (SRS) for a project to investigate how the climate and traffic could have impact on the corrosion-induced damage for the reinforced concrete, or to be more specific, how they influence the chloride exposure. 
+This document details the requirements of the software BCP. The
+responsibilities of the user and software are laid out and the requirements that the software must satisfy are explicitly detailed. This document provides the Software Requirements Specification (SRS) for a project to investigate how the climate and traffic could have impact on the corrosion-induced damage for reinforced concrete, or to be more specific, how they influence the chloride exposure. 
 
 \subsection{Scope of Requirements} 
-The entire document is written assuming chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. Another scope of the document is the factors that affect bridge corrosion is limit to chloride levels, climatic conditions, and traffic patterns.
+The entire document is written assuming chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. Another scope of the document is the factors that affect bridge corrosion is limit to chloride levels, climatic conditions, and traffic patterns, and we only consider the province of Ontario.
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
-Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, and the ability to comprehend basic results generated through computational fluid dynamics. The users of Bridge Corrosion may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
+Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, and the ability to comprehend basic results generated through computational fluid dynamics. The users of BCP may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
 
 \subsection{Organization of Document}
 The organization of this document follows the template for an SRS for scientific computing software proposed by Smith et al. [\reref{ref1}, \reref{ref2}, \reref{ref3}]. Starting with the reference material including units, symbols and abbreviations, this document next introduce the system that we are going to build from general to specific, including the problem, goal, assumptions, theoretical model and instance models. It also talks about the functional and nonfunctional requirements for this project, which could be referred to in process of development.
@@ -478,7 +481,7 @@ Output:
 
 \subsection{Scope Decisions}
 \begin{itemize}
-\item The surface chloride exposure data is in a 25-km grid resolution. This is because the climate data extracted from the CanRCM4 model ([\reref{ref13}]) is at a resolution of 25 $\times$ 25 km.
+\item Only the damage due to the chloride from deicing salt is considered; other sources of damage, like car accident and mechanical wear, are not considered.
 \end{itemize}
 
 % \plt{This section is optional.}
@@ -507,6 +510,9 @@ change [LC], in which the respective assumption is used.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MFR}, \dref{D_SD})
 
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Data}:] The climate and traffic is constant over the entire area of each 25-km grid cell. (RefBy: \iref{I_DFSB})
+
+%The surface chloride exposure data is in a 25-km grid resolution. This is because the climate data extracted from the CanRCM4 model ([\reref{ref13}]) is at a resolution of 25 $\times$ 25 km.
 
 
 \end{itemize}
@@ -1219,9 +1225,12 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
 
 
 \end{itemize}
+ \\
+  \hline
+  Use \ &  \aref{A_Data}, \iref{I_COTS}
   \\
   \hline
-\end{tabular}
+ \end{tabular}
 \end{minipage}\\
 
 
@@ -1311,6 +1320,7 @@ qualities that the software is expected to exhibit.
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The output should have an visualization of line graph or histogram.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The output should be able to be downloaded by users to their local machine. 
+
 
 \end{itemize}
 
