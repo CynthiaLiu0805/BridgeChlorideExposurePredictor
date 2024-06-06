@@ -21,6 +21,8 @@
 \usepackage{gensymb}
 \usepackage{enumitem}
 \usepackage[round]{natbib}
+\usepackage{setspace}
+\doublespacing
 
 %\usepackage{refcheck}
 
@@ -178,10 +180,9 @@ description of the unit and the SI name.
     \midrule 
 
     \si{\metre} & length & metre \\
-    \si{mile} & distance & mile \\
     \si{\kilogram} & mass & kilogram \\
     \si{\second} & time & second \\
-    \si{h} & time & hour \\
+    \si{day} & duration & day \\
 
     \bottomrule
   \end{tabular}
@@ -201,9 +202,9 @@ their units. The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$a_{splash}$ & \si{kg/m^3} & maximum deposition rate occur from splash\\
-$a_{spray}$ & \si{kg/m^3} & maximum deposition rate occur from spray\\
-$a_{air}$ & \si{kg/m^3} & maximum deposition rate\\
+$a_{splash}$ & \si{kg/m^3} & maximum deposition rate that can occur from splash\\
+$a_{spray}$ & \si{kg/m^3} & maximum deposition rate that can occur from spray\\
+$a_{air}$ & \si{kg/m^3} & total maximum deposition rate that can occur\\
 $b$ & \si{m} & tire width\\
 $b_{splash}$ & N/A & splash emission rate coefficient\\
 $b_{spray}$ & N/A & spray emission rate coefficient\\
