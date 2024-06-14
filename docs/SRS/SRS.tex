@@ -219,6 +219,9 @@ $h_{total}$ & \si{m} & the total snowfall during a winter season\\
 $I$ & \si{m/h} & rainfall intensity\\
 $K$ & m/m & ratio of the tire width that is not a groove to the full tire width\\
 $L$ & \si{m} & drainage length\\
+$lat$ & \si{\degree} & latitude\\
+$long$ & \si{\degree} & longitude\\
+
 $M_{app}$ & \si{kg/m^2} & deicing salts quantity applied per day\\
 $M_{total}$ & \si{kg/m^2} & total amount of deicing salts quantity over winter\\
 $\mathit{MR_{BW}}$ & \si{kg/s} & MFR displaced by a single tire due to bow\\
@@ -312,7 +315,7 @@ The entire document is written assuming chloride is the main source of corrosion
 Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, and the ability to comprehend basic results generated through computational fluid dynamics. The users of BCP may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
 
 \subsection{Organization of Document}
-The organization of this document follows the template for an SRS for scientific computing software proposed by Smith et al. [\reref{ref1}, \reref{ref2}, \reref{ref3}]. Starting with the reference material including units, symbols and abbreviations, this document next introduce the system that we are going to build from general to specific, including the problem, goal, assumptions, theoretical model and instance models. It also talks about the functional and nonfunctional requirements for this project, which could be referred to in process of development.
+The organization of this document follows the template for an SRS for scientific computing software proposed by Smith et al. [\reref{ref1}, \reref{ref2}, \reref{ref3}]. Starting with the reference material including units, symbols and abbreviations, this document next introduce the system that we are going to build from general to specific, including the problem, goal, assumptions, theoretical model and instance models. It also talks about the functional and nonfunctional requirements for this project.
 
 \section{General System Description}
 
@@ -320,8 +323,6 @@ This section provides general information about the system.  It identifies the
 interfaces between the system and its environment, describes the user
 characteristics and lists the system constraints.  
 \subsection{System Context}
-Figure 1 shows the system context of the software. The user should input a coordinates to the software, and the software will return the predicted chloride exposure in the past and future to the user. The user and the software also assume the following responsibilities.
-
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=0.8\textwidth]{SystemContextFigure}
@@ -330,11 +331,20 @@ Figure 1 shows the system context of the software. The user should input a coord
 \end{center}
 \end{figure}
 
+
+Figure 1 shows the system context of the software. The user should input a coordinates to the software, and the software will return the predicted chloride exposure in the past and future to the user. The user and the software assume the following responsibilities:
+
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
 \item Provide valid coordinates to the software.
 \end{itemize}
+
+\item Developers Responsibilities:
+\begin{itemize}
+\item Provide valid climate model and traffic model to the software.
+\end{itemize}
+
 \item BCP Responsibilities:
 \begin{itemize}
 \item Build a database storing the chloride exposure data for every 25 km in the past and future.
@@ -344,16 +354,16 @@ Figure 1 shows the system context of the software. The user should input a coord
 \end{itemize}
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
-The end user of BCP should have the high school understanding of geographic coordinates. Additionally, users may benefit from university level of knowledge of bridge construction or civil engineering principles to better understand the context and implications of the predicted chloride exposure.
+The end user of BCP should have a high school understanding of geographic coordinates. Additionally, users may benefit from university level of knowledge of bridge construction or civil engineering principles to better understand the context and implications of the predicted chloride exposure.
 
 \subsection{Stakeholders} \label{Stakeholders}
-Stakeholder is a person, group or organization with a vested interest in the project. For BCP, the stakeholders include:
+ A stakeholder is a person, group or organization with a vested interest in the project. For BCP, the stakeholders include:
 
 \begin{itemize}
-\item Government: Government entities want to see the accurate data and use it as a reference to plan the road construction of Ontario. For example, they might want to adjust the thickness of road in certain area based on the data coming from this model.
-\item Researcher: Professionals within the civil engineering field who are concerned with the impacts of climate change on corrosion damage. In particular, this project is conducted in collaboration with Dr. Cancan Yang and Ph.D. candidate Mingsai Xu from the Department of Civil Engineering at McMaster University.
+\item Government: Government entities require the accurate data to use as a reference for planning the road construction of Ontario. For example, they might want to adjust the thickness of the road in certain areas based on the data from this model.
+\item Researcher: Professionals within the civil engineering field who are concerned with the impacts of climate change on corrosion damage. In particular, this project is conducted in collaboration with Dr.\ Cancan Yang and Ph.D. candidate Mingsai Xu from the Department of Civil Engineering at McMaster University.
 \item Developer: Individuals involved in the development, maintenance, and potential future enhancements of the predictive model. This group may include software developers or engineers tasked with inheriting, sustaining, and advancing the model beyond the initial research phase.
-\item Casual user: People that are interested in the chloride exposure rate of their area and want to check that out. 
+\item Casual user: People that are interested in the chloride exposure rate of their area and those interest in the impacts of climate change and traffic pattern. 
 \end{itemize}
 
 
@@ -368,28 +378,30 @@ specification, which presents the assumptions, theories, definitions and finally
 the instance models.  
 
 \subsection{Problem Description} \label{Sec_pd}
-This project is intended to investigate how climate, traffic might impact corrosion-induced damage for reinforced concrete bridges by influencing the chloride exposure.
+This project is intended to investigate how climate and traffic might impact corrosion-induced damage for reinforced concrete bridges by influencing their chloride exposure.
 
 \subsubsection{Terminology and  Definitions}
 This subsection provides a list of terms that are used in the subsequent
 sections and their meaning, with the purpose of reducing ambiguity and making it
-easier to correctly understand the requirements:
+easier to correctly understand the requirements.
 
 \begin{itemize}
-\item Mass Flow Rate: The amount of water displaced by a single tire.
-\item Spray density: Spray density is the measure of how closely packed the droplets or particles are within the spray plume. It quantifies the amount of material dispersed per unit area. In this document, it is referred to the density of water in the air (mass of water per unit air volume) in the environment.
-\item Airborne deposition: The process of particles moving from the atmosphere to the earth's surface.
-\item Deposition rate: The rate at which a substance is deposited onto a surface over a specific period of time.
-\item Drainage: The removal of a surface's water from an area with excess water.
-\item AADT:  The average daily traffic volume at a given location over an entire year, measured by number of vehicles.
-\item AADTT:  The average daily truck traffic volume at a given location over an entire year, measured by number of vehicles.
+\item Mass Flow Rate (MFR): The amount of water displaced by a single tire. (kg/s)
+\item Spray density: Spray density is the measure of how closely packed the droplets or particles are within the spray plume. It quantifies the amount of material dispersed per unit area. In this document, it is referring to the density of water in the air (mass of water per unit volume of air) in the environment. (\si{kg/m^3})
+\item Spray: when water droplets, generally less that 0.5 mm (0.02 inches) in diameter and suspended in the air, are formed after water has impacted a smooth surface and been atomized.
+\item Splash: water drops greater than 1.0 mm (0.04 inches) in diameter, which follow a ballistic path away from the tire.
+\item Airborne deposition: The process of particles moving from the atmosphere to the Earth's surface.
+\item Deposition rate: The rate at which a substance is deposited onto a surface over a specific period of time. (\si{kg/m^3})
+\item Drainage: The process by which water or other liquids flow away from an area with excess water.
+\item AADT:  The average daily traffic volume at a given location over an entire year, measured by the number of vehicles.
+\item AADTT:  The average daily truck traffic volume at a given location over an entire year, measured by the number of vehicles.
 
 \end{itemize}
 
 \subsubsection{Physical System Description} \label{sec_phySystDescrip}
 
 
-The key physical system of BCP, as shown in Figure \ref{4mechanism} provided by [\reref{ref4}], simulate the situation that a vehicle spray and splash the water, it includes the following elements:
+The key physical system of BCP, as shown in Figure \ref{4mechanism}, simulate the situation where a vehicle sprays and splashes the water. It includes the following elements:
 
 \begin{itemize}
 
@@ -407,7 +419,7 @@ The key physical system of BCP, as shown in Figure \ref{4mechanism} provided by 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.9\textwidth]{phymodel}
-\caption{\label{4mechanism} Mechanisms of vehicle spray and splash}
+\caption{\label{4mechanism} Mechanisms of vehicle spray and splash [\reref{ref4}]}
 
 \end{center}
 \end{figure}
@@ -425,24 +437,16 @@ The key physical system of BCP, as shown in Figure \ref{4mechanism} provided by 
 \newpage
 \subsubsection{Goal Statements}
 
-\noindent Given the climate data, traffic data and coordinate across different regions and time period, the goal statements are:
+\noindent Given the climate data, traffic data and geographical coordinates, the goal statement is:
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_ChlorideExposurePrediction}:] Predict the chloride exposure for bridges in Ontario in the past and future, allow user to input coordinate and return the prediction for that location.
-
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_ChlorideExposurePrediction}:] Predict the chloride exposure for bridges in Ontario in the past and future.
 \end{itemize}
 
 \subsection{Solution Characteristics Specification}
 
-\begin{figure}[H]
-  \includegraphics[scale=0.9]{RelationsBetweenTM_GD_IM_DD_A.pdf}
-\end{figure}
-
-The instance models that govern this project are presented in
-Subsection~\ref{sec_instance}.  The information to understand the meaning of the
-instance models and their derivation is also presented, so that the instance
-models can be verified.
+The instance models that govern this project are presented in Section~\ref{sec_instance}.  The theoretical models and general definitions being refined by the instance models are in Section~\ref{sec_theoretical} and Section~\ref{sec_gendef} separately. Section~\ref{sec_datadef} includes symbols and equations provided for the problem, and Section~\ref{sec_assumpt} simplifies the original problem by offering reasonable assumptions.
 
 \subsubsection{Types}
 
@@ -475,25 +479,24 @@ Input:
 \end{itemize}
 Output:
 \begin{itemize}
-\item predictedChlorideExposure = \{$\mathbb{R}$\}
+\item predictedChlorideExposure = [$\mathbb{R}$]
 \end{itemize}
 
 
 \subsection{Scope Decisions}
-\begin{itemize}
-\item Only the damage due to the chloride from deicing salt is considered; other sources of damage, like car accident and mechanical wear, are not considered.
-\end{itemize}
+Only the damage due to the chloride from deicing salt is considered; other sources of damage, like car accident and mechanical wear, are not considered.
 
 % \plt{This section is optional.}
 \subsection{Modelling Decisions}
+Section~\ref{sec_assumpt} begins with reasonable assumptions that simplify the original problem. Section~\ref{sec_theoretical} and Section~\ref{sec_gendef} present the theoretical models and general definitions being refined by the instance models, respectively. Section~\ref{sec_datadef} includes the symbols and equations provided for the problem, while Section~\ref{sec_instance} describes the instance models that govern this project.
 
 \subsubsection{Assumptions} \label{sec_assumpt}
 
 This section simplifies the original problem and helps in developing the
 theoretical model by filling in the missing information for the physical system.
-The numbers given in the square brackets refer to the theoretical model [TM],
-general definition [GD], data definition [DD], instance model [IM], or likely
-change [LC], in which the respective assumption is used.
+The numbers given in the square brackets refer to the Theoretical Model [TM],
+General Definition [GD], Data Definition [DD], Instance Model [IM], or Likely
+Change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
@@ -1237,16 +1240,14 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
 \subsubsection{Input Data Constraints} \label{sec_DataConstraints}    
 
 Table~\ref{TblInputVar} shows the data constraints on the input output
-variables.  The column for physical constraints gives the physical limitations
-on the range of values that can be taken by the variable.  The column for
-software constraints restricts the range of inputs to reasonable values.  The
-software constraints will be helpful in the design stage for picking suitable
+variables. The column for physical constraints gives the physical limitations
+on the range of values that can be taken by the variable. The column for
+software constraints restricts the range of inputs to reasonable values. The software constraints will be helpful in the design stage for picking suitable
 algorithms.  The constraints are conservative, to give the user of the model the
-flexibility to experiment with unusual situations.  The column of typical values
-is intended to provide a feel for a common scenario.  The uncertainty column
+flexibility to experiment with unusual situations. The column for typical values lists the most frequent occurrences in the traffic and climate model. The uncertainty column
 provides an estimate of the confidence with which the physical quantities can be
 measured.  This information would be part of the input if one were performing an
-uncertainty quantification exercise. In the BCP project, I would talk about not only the input variables mentioned in instance models, but also include those in other models that the software need to process. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside Ontario. This will be done by input checking algorithm later. \\
+uncertainty quantification exercise. In the BCP project, we talk about not only the input variables mentioned in instance models, but also include those in other models that the instance models use. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside Ontario. This will be done by input checking algorithm later. \\
 The specification parameters in Table~\ref{TblInputVar} are listed in
 Table~\ref{TblConstants}.
 
@@ -1258,10 +1259,10 @@ Table~\ref{TblConstants}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $AADT$ & $AADT > 0$ & $AADT > 0$ & 559 & 10\%  \\
-  $AADTT$ & $AADTT > 0$ & $AADTT > 0$ & 103  & 10\%
+  $AADT$ & $AADT \ge 0$ & $AADT \ge 0$ & 559 & 10\%  \\
+  $AADTT$ & $AADTT \ge 0$ & $AADTT \ge 0$ & 103  & 10\%
   \\
-  $h_{total}$ & $h_{total}>0$ & $h_{total}>0$ &  70  & 10\%
+  $h_{total}$ & $h_{total} \ge 0$ & $h_{total} \ge 0$ &  70  & 10\%
   \\
   $lat$ & $-90 \leq lat \leq 90$ & $-90 \leq lat \leq 90$ & 48.0863 & 10\%
   \\
@@ -1279,9 +1280,7 @@ Table~\ref{TblConstants}.
 \subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
 
 \noindent
-A correct solution must exhibit the chloride exposure values that does not exceed the solubility limits of chloride ions. 
-
-
+A correct solution must exhibit the chloride exposure values that does not exceed the solubility limits of chloride ions, which is according to the \href{https://en.m.wikipedia.org/wiki/Sodium_chloride}{property of sodium chloride}.
 \begin{table}[!h]
 \caption{Output Variables} \label{TblOutputVar}
 \renewcommand{\arraystretch}{1.2}
@@ -1289,7 +1288,7 @@ A correct solution must exhibit the chloride exposure values that does not excee
   \toprule
   \textbf{Var} & \textbf{Physical Constraints} \\
   \midrule 
-  $C_s$ & $C_s < 357 kg/m^3$ (by~\href{https://www2.gov.bc.ca/assets/gov/environment/air-land-water/water/waterquality/water-quality-guidelines/approved-wqgs/chloride-or.pdf}{Water Quality Guidelines}) \\
+  $C_s$ & $C_s < 360 ~ kg/m^3$  \\
   
    \bottomrule
 \end{longtable*}
@@ -1306,20 +1305,19 @@ qualities that the software is expected to exhibit.
 \subsection{Functional Requirements}
 
 \begin{itemize}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map of the jurisdiction that users could click on as approach of input.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept input that is inside Ontario (By \iref{I_DFSB}).
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept coordinate that is inside Ontario (By \iref{I_DFSB}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map that users could click on as approach of input.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select the different concerned parameter, including chloride on pier, chloride on deck, and the different salt application rate. 
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select the different concerned parameter, such as chloride on pier or chloride on deck, and the different salt application rate. 
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The result list of chloride exposure rate should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The output should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of chloride exposure rate should be of (two decimal data?TODO ask), showing the trend of chloride exposure from 2006 to 2100 at the input location (By \iref{I_COTS}, \iref{I_DFSB}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The output need to be a list of two decimal data showing the trend of chloride exposure in the past and future at the input location (By \iref{I_COTS}, \iref{I_DFSB}).
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of chloride exposure rate should have an visualization of line graph and histogram. TODO ask which they prefer
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The output should have an visualization of line graph or histogram.
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The output should be able to be downloaded by users to their local machine. 
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The result list of chloride exposure rate (and the visualization?TODO ask) should be able to be downloaded by users to their local machine. 
 
 
 \end{itemize}
@@ -1329,7 +1327,7 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Reliability}:]   \textbf{Reliability}: The predictions generated by the software should be accurate and reliable, reflecting real-world conditions and factors influencing chloride exposure.
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Reliability}:]   \textbf{Reliability}: The reliability is measured and verified in the \href{}{VnVplan}.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}: The software interface should be intuitive and user-friendly, allowing users in the section \ref{SecUserCharacteristics} to easily input coordinates and look at the predicted chloride exposure in the past and future.
 
@@ -1337,8 +1335,7 @@ qualities that the software is expected to exhibit.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]  \textbf{Portability}: This software should be able to run on recent versions of Google Chrome, Firefox, MS Edge and Safari. The operating system include Windows 7+ and Mac OS X 10.7+.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Scalability}:]   \textbf{Scalability}: The software should be scalable to accommodate potential future expansions or updates, ensuring its continued usefulness as new data or techniques become available.
-
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Scalability}:]   \textbf{Scalability}: The software should be scalable to accommodate potential future expansions to more jurisdictions, support concurrent users while maintaining a quick response time.
 \end{itemize}
 
 \subsection{Rationale}
