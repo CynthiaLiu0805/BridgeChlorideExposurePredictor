@@ -22,7 +22,9 @@
 \usepackage{enumitem}
 \usepackage[round]{natbib}
 \usepackage{setspace}
-\doublespacing
+
+
+%\doublespacing
 
 %\usepackage{refcheck}
 
@@ -511,9 +513,11 @@ Change [LC], in which the respective assumption is used.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_tireWidth}:] The tire width for all the vehicles are the same. (RefBy: \tref{T_MFRG})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MFR}, \dref{D_SD})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MRCA} - \dref{D_SDSW})
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Data}:] The climate and traffic is constant over the entire area of each 25-km grid cell. (RefBy: \iref{I_DFSB})
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Calibration}:] The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves (RefBy: \dref{D_MRBWSW})
 
 %The surface chloride exposure data is in a 25-km grid resolution. This is because the climate data extracted from the CanRCM4 model ([\reref{ref13}]) is at a resolution of 25 $\times$ 25 km.
 
@@ -543,7 +547,7 @@ SI Units&\si{m}\\
 Equation& $\mathit{WD} = 6 \times 10^{-4} \cdot T^{0.09} (L \cdot I)^{0.6} \cdot S^{-0.33} $\\
 \hline
 Description & 
-The above equation computes the water film thickness based on the rainfall intensity and pavement surface properties.
+The above equation computes the water film thickness (WD) based on the rainfall intensity and pavement surface properties.
 \begin{itemize}
 
 \item $\mathit{WD}$ is the water depth. ($m$)
@@ -589,7 +593,7 @@ Equation& $\mathit{MR_W} = V \cdot b \cdot \mathit{WD} \cdot \rho_{water} $\\
 
 \hline
 Description & 
-The above equation is the general equation for mass flow rate, which is the maximum amount of water available for splash and spray.
+The above equation is the general equation for mass flow rate (MFR), which is the maximum amount of water available for splash and spray.
 \begin{itemize}
 
 \item $V$ is the truck speed. ($m/s$)
@@ -601,10 +605,12 @@ The above equation is the general equation for mass flow rate, which is the maxi
 \item $\rho_{water}$ is the density of water. ($kg/m^{3}$)
 
 \end{itemize}
-
-
 \\
 \hline
+
+  Note & $b$, the tire width, is assumed to be the same for all vehicles according to \aref{A_tireWidth}. $V$, the truck speed, is assumed to be the same for all vehicles, taken as the highway speed limit, according to \aref{A_Speed}. $\mathit{WD}$, the result of \tref{T_WFT}, is used as a parameter in this equation.\\
+  \hline
+
   Source & [\reref{ref5}] \\
   \hline
   Ref.\ By & \dref{D_MFR}\\ 
@@ -632,11 +638,11 @@ SI Units&\si{kg\per\metre^3} \\
 \hline
 Equation & $C_{{s}_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \times \frac{ADT-N}{N_{lane}}+ \mathit{SD_{total\_cl}} \times \frac{N}{N_{lane}}) \times t_2$ \\
   \hline
-  Description& The above equation computes the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier every winter, accounting for all the days with snow in a typical winter season.
+  Description& The above equation computes the mass of chloride ions per unit air volume sprayed and splashed ($C_{{s}_{air}}$) by all the vehicles passing near the bridge pier every winter, accounting for all the days with snow in a typical winter season.
   
 \begin{itemize}
 
-\item $\mathit{SD_{total\_cl}}$ is the mass of chloride ions per unit air volume. ($kg/m^3$)
+\item $\mathit{SD_{total\_cl}}$ is the mass of chloride ions per unit air volume, calculated in \ddref{DD_SDTCL}. (\si{kg/m^3})
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles. (ratio)
 
@@ -653,7 +659,7 @@ Equation & $C_{{s}_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \ti
 
 \\
 \hline
-Notes & The first part in the parentheses calculate the chloride exposure by light-duty vehicle, and the second part is for heavy-duty vehicles. The calculation focus on the road lane that is closest to the bridge component, so $N_{lane}$ is included in the denominator.
+Notes & The first part in the parentheses calculate the chloride exposure by light-duty vehicle, and the second part is for heavy-duty vehicles. The calculation focus on the road lane that is closest to the bridge component, so $N_{lane}$ is included in the denominator, to turn the total traffic for the road into traffic for one lane.
 \\
 \hline
   Source & [\reref{ref4}] \\
@@ -722,26 +728,113 @@ instance models.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{D_MFR}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_MRCA}\\
 \hline
-Label &\bf Mass flow rate\\
+Label &\bf Mass flow rate for capillary adhesion\\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
 SI Units&\si{kg\per s}\\
 \hline
 Equation& 
-\begin{equation}
-     \begin{cases}
-     \mathit{MR_{CA}} = V_{speed} \times b \times K \times h_{film} \times \rho_{water} & \text{for} ~ CA \\
-      \mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} & \text{for} ~ TP\\
-      \mathit{MR_{BW}} = MR_{SW} = 0.5 \times V_{speed} \times b \times (h_{app} \\ - K \times h_{film} - (1-K) \times h_{app}) \times \rho_{water} & \text{for} ~ BW ~ and~ SW \\
-      \end{cases}\nonumber
-  \end{equation}
-  
+     $\mathit{MR_{CA}} = V_{speed} \times b \times K \times h_{film} \times \rho_{water}$
   \\
 \hline
-Description & The above equations compute the contribution to the amount of water displaced by a single tire (MFR) of each splash and spray mechanism, using the following equations in the order presented until the total amount of available water is exhausted. $\mathit{MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}}$ stands for capillary adhesion, tread pickup, bow waves and side waves correspondingly.
+Description & This equation compute the contribution to the amount of water displaced by a single tire (MFR) of capillary adhesion mechanism.
+
+\begin{itemize}
+
+\item $V_{speed} $ is the heavy vehicle speed. ($km/h$)
+
+\item $b$ is the tire width. ($m$)
+
+\item $K$ is the ratio of the tire width that is not a groove to the tire width. (ratio)
+
+\item $h_{film}$ is the depth of the water film picked up in each rotation. ($m$)
+
+\item $\rho_{water}$ is the density of water. ($kg/m^{3}$)
+
+\end{itemize}
+\\
+\hline
+Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed, as stated in \aref{A_Speed}\\
+\hline
+  Source & [\reref{ref4}] \\
+  \hline
+  Ref.\ By & \dref{D_SDCA} \\ 
+  \hline
+  Use\ & \aref{A_Speed},  \tref{T_MFRG}\\
+  \hline
+\end{tabular}
+
+\end{minipage}\\
+
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_MRTP}\\
+\hline
+Label &\bf Mass flow rate for tread pickup\\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per s}\\
+\hline
+Equation& 
+      $\mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water}$
+  \\
+\hline
+Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of tread pickup mechanism. The tread pickup will be activated only if there is water remaining after the capillarity adhesion
+
+\begin{itemize}
+
+\item $V_{speed} $ is the heavy vehicle speed. ($km/h$)
+
+\item $b$ is the tire width. ($m$)
+
+\item $K$ is the ratio of the tire width that is not a groove to the tire width. (ratio)
+
+\item $h_{app}$ is the thickness of melted water per day with snow melting. ($m$)
+
+\item $\rho_{water}$ is the density of water. ($kg/m^{3}$)
+
+\end{itemize}
+
+\\
+\hline
+Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed, as stated in \aref{A_Speed}. It also uses $h_{app}$, which is the result calculated from \ddref{DD_DWFT}.\\
+\hline
+  Source & [\reref{ref4}] \\
+  \hline
+  Ref.\ By & \dref{D_SDTP} \\ % \ddref{dsq}, \ddref{dwft}\\
+  \hline
+  Use\ & \aref{A_Speed},  \tref{T_MFRG}, \ddref{DD_DWFT}\\
+  \hline
+\end{tabular}
+
+\end{minipage}\\
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_MRBWSW}\\
+\hline
+Label &\bf Mass flow rate for bow waves and side waves\\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per s}\\
+\hline
+Equation& $\mathit{MR_{BW}} = MR_{SW} = 0.5 \times V_{speed} \times b \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \times \rho_{water} $ \\
+\hline
+Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of bow waves mechanism and side waves mechanism, this equation will be activated only if there is water remaining after the capillary adhesion and tread pickup.
 
 \begin{itemize}
 
@@ -758,13 +851,13 @@ Description & The above equations compute the contribution to the amount of wate
 \item $\rho_{water}$ is the density of water. ($kg/m^{3}$)
 
 \end{itemize}
-
-The tread pickup will be activated only if there is water remaining after the capillarity adhesion, and the bow and side waves will be activated only if there is water remaining after the capillary adhesion and tread pickup.
 \\
+\hline
+Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed, as stated in \aref{A_Speed}. It also uses $h_{app}$, which is the result calculated from \ddref{DD_DWFT}.\\
 \hline
   Source & [\reref{ref4}] \\
   \hline
-  Ref.\ By & \dref{D_SD} \\ % \ddref{dsq}, \ddref{dwft}\\
+  Ref.\ By & \dref{D_SDBW},  \dref{D_SDSW} \\ % \ddref{dsq}, \ddref{dwft}\\
   \hline
   Use\ & \aref{A_Speed},  \tref{T_MFRG}, \ddref{DD_DWFT}\\
   \hline
@@ -781,7 +874,7 @@ The maximum mass flow rate associated with capillary adhesion ($\mathit{MR_{CA}}
 \mathit{MR_{CA}} = \left[\frac{V_{speed}}{2\pi R}\right] \cdot \left[ 2\pi R \times b \times K \times h_{film} \right] \times \rho_{water} = \left[V_{speed} \times b \times K \times h_{film} \right] \times  \rho_{water} 
 \]
 \\
-After capillary action, the tire is able to displace a volume of water within its tread. The maximum flow rate for this mechanism ($MR_{TP}$) will occur when all the water contained in the tread volume is flung out of the tread during each tire rotation. Thus, it can be computed as the number of tire rotations per second multiplied by the capacity of tire’s tread on each rotation multiplied by the density of water:
+After capillary action, the tire is able to displace a volume of water within its tread. The maximum flow rate for this mechanism ($\mathit{MR_{TP}}$) will occur when all the water contained in the tread volume is flung out of the tread during each tire rotation. Thus, it can be computed as the number of tire rotations per second multiplied by the capacity of the tire’s tread on each rotation multiplied by the density of water:
  \[ 
 \mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} 
 \]
@@ -799,6 +892,45 @@ So, $\mathit{MR_{BW}}$ and $\mathit{MR_{SW}}$ can be estimated separately as:
 where $\alpha$ and $\beta$ are calibration factors that satisfy $\alpha + \beta = 1$. Until other evidence is available, it will be assumed that $\alpha = \beta = 0.5$.
 
 
+\newpage
+
+%GD2
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_SDCA}\\
+\hline
+Label &\bf Spray density for capillary adhesion \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per\metre^3}\\
+\hline
+Equation&
+     $\mathit{SD_{CA}} = (-2.69 \times 10^{-5} \times V' + 2.43 \times 10^{-3}) \times \mathit{MR_{CA}} $
+\\
+\hline
+Description & Spray density is derived by conducting regression analysis to develop relationship between spray density, mass flow rate and vehicle speed, to compute the concentration of water kicked up to the environment. The detailed process could be found in section 6.6.1 in [\reref{ref4}] .
+\begin{itemize}
+
+\item $V'$ is the heavy vehicle speed according to \aref{A_Speed} . ($miles/h$)
+
+\item $\mathit{MR_{CA}}$ is the mass flow rate for capillary adhesion, calculated by  \dref{D_MRCA}. ($kg/s$)
+\end{itemize}
+
+\\
+\hline
+  Source & [\reref{ref4}] \\
+  \hline
+  Ref.\ By & \ddref{DD_TSD} \\
+  \hline
+  Use \ & \aref{A_Speed}, \dref{D_MRCA} \\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
 
 %GD2
@@ -808,31 +940,23 @@ where $\alpha$ and $\beta$ are calibration factors that satisfy $\alpha + \beta 
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{D_SD}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_SDTP}\\
 \hline
-Label &\bf Spray density \\
+Label &\bf Spray density for tread pickup \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
 SI Units&\si{kg\per\metre^3}\\
 \hline
 Equation&
-\begin{equation}
-     \begin{cases}
-     \mathit{SD_{CA}} = (-2.69 \times 10^{-5} \times V' + 2.43 \times 10^{-3}) \times \mathit{MR_{CA}} & \text{for} ~ CA \\
-      \mathit{SD_{TP}} = (1.16 \times 10^{-5} \times V' - 5.25 \times 10^{-5}) \times \mathit{MR_{TP}} & \text{for} ~ TP\\      
-      \mathit{SD_{BW}} = (2.67 \times 10^{-5} \times V' - 4.71 \times 10^{-4}) \times \mathit{MR_{BW}} & \text{for} ~ BW\\
-       \mathit{SD_{SW}} = (1.65 \times 10^{-5} \times V' - 3.99 \times 10^{-4}) \times \mathit{MR_{SW}} & \text{for} ~ SW\\      
-      \end{cases}\nonumber
-  \end{equation}
-\\
+      $\mathit{SD_{TP}} = (1.16 \times 10^{-5} \times V' - 5.25 \times 10^{-5}) \times \mathit{MR_{TP}}$ \\    
 \hline
 Description & Spray density is derived by conducting regression analysis to develop relationship between spray density, mass flow rate and vehicle speed, to compute the concentration of water kicked up to the environment. The detailed process could be found in section 6.6.1 in [\reref{ref4}] .
 \begin{itemize}
 
-\item $V'$ is the heavy vehicle speed. ($miles/h$)
+\item $V'$ is the heavy vehicle speed according to \aref{A_Speed} . ($miles/h$)
 
-\item $\mathit{MR_{CA}, MR_{TP}, MR_{BW}, MR_{SW}}$ is the mass flow rate for capillary adhesion, tread pickup, bow waves and side waves correspondingly. ($kg/s$)
+\item $\mathit{MR_{TP}}$ is the mass flow rate for tread pickup, calculated by  \dref{D_MRTP}. ($kg/s$)
 \end{itemize}
 
 \\
@@ -841,10 +965,86 @@ Description & Spray density is derived by conducting regression analysis to deve
   \hline
   Ref.\ By & \ddref{DD_TSD} \\
   \hline
-  Use \ & \aref{A_Speed}, \dref{D_MFR} \\
+  Use \ & \aref{A_Speed}, \dref{D_MRTP} \\
   \hline
 \end{tabular}
 \end{minipage}\\
+
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_SDBW}\\
+\hline
+Label &\bf Spray density for bow waves\\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per\metre^3}\\
+\hline
+Equation& $  \mathit{SD_{BW}} = (2.67 \times 10^{-5} \times V' - 4.71 \times 10^{-4}) \times \mathit{MR_{BW}} $
+\\
+\hline
+Description & Spray density is derived by conducting regression analysis to develop relationship between spray density, mass flow rate and vehicle speed, to compute the concentration of water kicked up to the environment. The detailed process could be found in section 6.6.1 in [\reref{ref4}] .
+\begin{itemize}
+
+\item $V'$ is the heavy vehicle speed according to \aref{A_Speed}. ($miles/h$)
+
+\item $\mathit{MR_{BW}}$ is the mass flow rate for bow waves, calculated by  \dref{D_MRBWSW}. ($kg/s$)
+\end{itemize}
+
+\\
+\hline
+  Source & [\reref{ref4}] \\
+  \hline
+  Ref.\ By & \ddref{DD_TSD} \\
+  \hline
+  Use \ & \aref{A_Speed}, \dref{D_MRBWSW} \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& GD\refstepcounter{defnum}\thedefnum \label{D_SDSW}\\
+\hline
+Label &\bf Spray density for side waves \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&\si{kg\per\metre^3}\\
+\hline
+Equation& $\mathit{SD_{SW}} = (1.65 \times 10^{-5} \times V' - 3.99 \times 10^{-4}) \times \mathit{MR_{SW}}$
+\\
+\hline
+Description & Spray density is derived by conducting regression analysis to develop relationship between spray density, mass flow rate and vehicle speed, to compute the concentration of water kicked up to the environment. The detailed process could be found in section 6.6.1 in [\reref{ref4}] .
+\begin{itemize}
+
+\item $V'$ is the heavy vehicle speed according to \aref{A_Speed} . ($miles/h$)
+
+\item $\mathit{MR_{SW}}$ is the mass flow rate for side waves, calculated by  \dref{D_MRBWSW}. ($kg/s$)
+
+\end{itemize}
+
+\\
+\hline
+  Source & [\reref{ref4}] \\
+  \hline
+  Ref.\ By & \ddref{DD_TSD} \\
+  \hline
+  Use \ & \aref{A_Speed}, \dref{D_MRBWSW} \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
 
 %GD3
 \noindent
@@ -879,23 +1079,160 @@ SI Units&\si{kg\per\metre^3}\\
 \end{itemize}
 \\
   \hline
-  Notes \ & This equation simplified \tref{T_CSASG} by using AADT and AADTT that are generated from existing database for calculation for light traffic and heavy-duty traffic. \\  
+  Notes \ & This equation refines \tref{T_CSASG} by using AADT from \ddref{DD_AADT}, and AADTT from \ddref{DD_AADTT}, to simplify the calculation for light traffic and heavy-duty traffic. $t_2$, generated from \ddref{DD_t2} is also used as parameter, and the result of \ddref{DD_SDTCL} is used here as $\mathit{SD_{total~cl}}$. \\  
   \hline
   Sources & [\reref{ref7}, \reref{ref8}] \\
   \hline
   Ref.\ By & \iref{I_COTS} \\
   \hline
-  Use \ & \aref{A_AADT}, \ddref{DD_SDTCL}, \tref{T_CSASG} \\
+  Use \ & \aref{A_AADT}, \tref{T_CSASG} , \ddref{DD_AADT}, \ddref{DD_AADTT}, \ddref{DD_t2}, \ddref{DD_SDTCL}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
+%DD
 \subsubsection{Data Definitions}\label{sec_datadef}
 This section collects and defines all the data needed to build the instance
 models. The dimension of each quantity is also given.  
 ~\newline
 
-%DD1, Mapp
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_AADT}\\
+\hline
+Label& \bf AADT\\
+\hline
+Symbol & $AADT$\\
+\hline
+% Units& $Mt^{-3}$\\
+% \hline
+  SI Units & N/A\\
+  \hline
+  Description & AADT is the Annual Average Daily Traffic, it is given by the traffic model. 
+  \\
+  \hline
+  Sources& [\reref{ref7}] \\
+  \hline
+  Ref.\ By & \dref{D_CSAS}   \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_AADTT}\\
+\hline
+Label& \bf AADTT\\
+\hline
+Symbol & $AADTT$\\
+\hline
+% Units& $Mt^{-3}$\\
+% \hline
+  SI Units & N/A\\
+  \hline
+  Description & AADTT is the Annual Average Daily Truck Traffic, it is given by the traffic model. 
+  \\
+  \hline
+  Sources& [\reref{ref7}] \\
+  \hline
+  Ref.\ By & \dref{D_CSAS}  \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_htotal}\\
+\hline
+Label& \bf Total snowfall \\
+\hline
+Symbol & $h_{total}$\\
+\hline
+% Units& $Mt^{-3}$\\
+% \hline
+  SI Units & m\\
+  \hline
+  Description & $h_{total}$ is the total snowfall during a winter season, it is given by the climate model. 
+  \\
+  \hline
+  Sources& [\reref{ref7}] \\
+  \hline
+  Ref.\ By & \ddref{DD_DSQ}, \ddref{DD_DWFT} \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_t1}\\
+\hline
+Label& \bf Snowfall days \\
+\hline
+Symbol & $t_1$\\
+\hline
+% Units& $Mt^{-3}$\\
+% \hline
+  SI Units & day\\
+  \hline
+  Description & $t_1$ is the number of days with snowfall, it is given by the climate model. 
+  \\
+  \hline
+  Sources& [\reref{ref7}] \\
+  \hline
+  Ref.\ By & \ddref{DD_DSQ}   \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_t2}\\
+\hline
+Label& \bf Snow melting days\\
+\hline
+Symbol & $t_2$\\
+\hline
+% Units& $Mt^{-3}$\\
+% \hline
+  SI Units & day\\
+  \hline
+  Description &  $t_2$ is the number of days with snow melting, it is given by the climate model. 
+  \\
+  \hline
+  Sources& [\reref{ref7}] \\
+  \hline
+  Ref.\ By & \dref{D_CSAS}, \ddref{DD_DWFT}   \\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+
+%DD, Mapp
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -913,25 +1250,20 @@ Symbol &$M_{app}$\\
   SI Units & $kg/m^2$\\
   \hline
   Equation& 
-\begin{equation}
-     \begin{cases}
-     M_{app} = M_{total}/t_{1} \\
-     M_{app}=\frac{V_{salt} \times h_{total}}{t_1 \times W_{lane}}\\
-      \end{cases}\nonumber
-  \end{equation}\\
+
+     $M_{app}=\frac{V_{salt} \times h_{total}}{t_1 \times W_{lane}}$\\
+
   \hline
-  Description & The equation determine the quantity of deicing salts applied per day with snowfall, with \aref{A_deicingSalts}. In some case there is absence of the data of $M_{total}$, the second equation is used.
+  Description & The equation determine the quantity of deicing salts applied per day with snowfall, according to \aref{A_deicingSalts}, that the deicing salts are applied on the days of snowfall. 
   
 \begin{itemize}
 
-\item $M_{total}$ is the total amount of deicing salts applied on the road during the winter season. ($kg/m^2$)
-
-\item $t_{1}$ is the number of days with snowfall.
-
 \item $V_{salt}$ is the normalized salt application rate. ($t/cm/km$)
-\item $h_{total}$ is the total snowfall during a winter season. ($m$)
+\item $h_{total}$ is the total snowfall during a winter season, given by the climate model \ddref{DD_htotal}. ($m$)
 
-\item $W_{lane}$ is the lane width according to \aref{A_laneWidth}. ($m$).
+\item $t_{1}$ is the number of days with snowfall, given by the climate model \ddref{DD_t1}.
+
+\item $W_{lane}$ is the lane width. According to \aref{A_laneWidth}, all the lane has the same width. ($m$).
 \end{itemize}
 
   \\
@@ -940,7 +1272,7 @@ Symbol &$M_{app}$\\
   \hline
   Ref.\ By & \ddref{DD_RSW}   \\
   \hline
-  Use & \aref{A_deicingSalts}, \aref{A_laneWidth} \\
+  Use & \aref{A_deicingSalts}, \aref{A_laneWidth}, \ddref{DD_htotal}, \ddref{DD_t1} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -967,9 +1299,9 @@ Symbol &$h_{app}$\\
   Description & The equaition above calculates the thickness of melted water per day with snow melting.
 \begin{itemize}
 
-\item $h_{total}$ is the the total snowfall during a winter season, given by the climate model. ($m$)
+\item $h_{total}$ is the the total snowfall during a winter season, given by the climate model \ddref{DD_htotal}. ($m$)
 
-\item $t_2$ is the number of days with snow melting.
+\item $t_2$ is the number of days with snow melting, given by the climate model \ddref{DD_t2}.
 
 
 \end{itemize}
@@ -978,7 +1310,9 @@ Symbol &$h_{app}$\\
   \hline
   Sources& [\reref{ref4}, \reref{ref9}] \\
   \hline
-  Ref.\ By & \dref{D_MFR}, \ddref{DD_RSW} \\ 
+  Use & \ddref{DD_htotal}, \ddref{DD_t2}\\
+  \hline
+  Ref.\ By &  \dref{D_MRTP}, \dref{D_MRBWSW},  \ddref{DD_RSW} \\ 
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1000,7 +1334,7 @@ SI Units&none\\
 \hline
 Equation & $\theta_{chloride}=\frac{\text{mass of }Cl^{-}}{\text{mass of } NaCl}$ \\
 \hline
-Description & This equation computes the molar mass ratio of chloride to deicing salts, where we assume the main component of deicing salts is NaCl.
+Description & This equation computes the molar mass ratio of chloride to deicing salts, where we assume the main component of deicing salts is NaCl (\aref{A_NaCl}).
 \begin{itemize}
 \item $Cl^-$ is the chloride ions whose exposure we want to investigate.
 \item $NaCl$ is the most commonly used salt.
@@ -1038,10 +1372,10 @@ Description & The spray density (i.e. mass of water per unit air volume kicked u
 
 \begin{itemize}
 
-\item $\mathit{SD_{CA}}$ is the spray density due to capillary adhesion.
-\item $\mathit{SD_{TP}}$ is the spray density due to tread pickup.
-\item $\mathit{SD_{BW}}$ is the spray density due to bow waves.
-\item $\mathit{SD_{SW}}$ is the spray density due to side waves.
+\item $\mathit{SD_{CA}}$ is the spray density due to capillary adhesion, calculated by \dref{D_SDCA}.
+\item $\mathit{SD_{TP}}$ is the spray density due to tread pickup, calculated by \dref{D_SDTP}.
+\item $\mathit{SD_{BW}}$ is the spray density due to bow waves, calculated by \dref{D_SDBW}
+\item $\mathit{SD_{SW}}$ is the spray density due to side waves, calculated by \dref{D_SDSW}.
 
 \end{itemize}
 
@@ -1051,7 +1385,7 @@ Description & The spray density (i.e. mass of water per unit air volume kicked u
   \hline
   Ref.\ By & \ddref{DD_SDTCL} \\ 
   \hline
-  Use\ & \dref{D_SD}\\
+  Use\ & \dref{D_SDCA}, \dref{D_SDTP}, \dref{D_SDBW}, \dref{D_SDSW}\\
   \hline
 \end{tabular}
 
@@ -1078,9 +1412,9 @@ Equation & $\delta_{salt} =\frac{M_{app}}{h_{app} \times \rho_{water}}$ \\
 Description & This equation computes the ratio of the mass of salt applied per unit area of road to the mass of water per unit area of road.
 \begin{itemize}
 
-\item $M_{app}$ is the quantity of deicing salts applied per day. ($kg/m^2$)
+\item $M_{app}$ is the quantity of deicing salts applied per day, calculated by \ddref{DD_DSQ}. ($kg/m^2$)
 
-\item $h_{app}$ is the thickness of melted water per day. ($m$)
+\item $h_{app}$ is the thickness of melted water per day, calcualted by \ddref{DD_DWFT}. ($m$)
 
 \item $\rho_{water}$ is the density of water. ($kg/m^{3}$) 
 \end{itemize}
@@ -1113,14 +1447,14 @@ SI Units&\si{kg\per\metre^3} \\
 \hline
 Equation & $\mathit{SD_{totalcl} =SD_{total} \times \delta_{salt} \times \theta_{chloride}}$ \\
 \hline
-Description & This equation computes the mass of chloride ions per unit air volume kicked up by each truck.
+Description & This equation computes the mass of chloride ions per unit air volume kicked up by each truck, where we assume the chloride ions are from NaCl (\aref{A_NaCl}).
 \begin{itemize}
+\item $\theta_{chloride}$ is the molar mass ratio of chloride to deicing salts, calculated by \ddref{DD_RCL}. (ratio)
+\item $SD_{total}$ is the mass of water per unit air volume, calculated by \ddref{DD_TSD}. ($kg/m^3$)
 
-\item $SD_{total}$ is the mass of water per unit air volume. ($kg/m^3$)
+\item $\delta_{salt}$ is the salt-to-water mass ratio per unit area of road, calculated by \ddref{DD_RSW}. (ratio)
 
-\item $\delta_{salt}$ is the salt-to-water mass ratio per unit area of road. (ratio)
 
-\item $\theta_{chloride}$ is the molar mass ratio of chloride to deicing salts. (ratio)
 
 \end{itemize}
 
