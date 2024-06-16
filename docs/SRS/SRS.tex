@@ -23,7 +23,6 @@
 \usepackage[round]{natbib}
 \usepackage{setspace}
 
-
 %\doublespacing
 
 %\usepackage{refcheck}
@@ -684,7 +683,6 @@ deposition at a certain distance from the road.
 This section collects the laws and equations that will be used in building the
 instance models.
 
-%GD1
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -816,13 +814,13 @@ Description & The above equation computes the contribution to the amount of wate
 \end{itemize}
 \\
 \hline
-Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed and tire width, as stated in \aref{A_tireWidth}, \aref{A_Speed}. It also uses $h_{app}$, which is the result calculated from \ddref{DD_DWFT}.\\
+Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed and tire width, as stated in \aref{A_tireWidth}, \aref{A_Speed}. It also uses $h_{app}$, which is the result calculated from \ddref{DD_DWFT}. The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, according to \aref{A_Calibration}. \\
 \hline
   Source & [\reref{ref4}] \\
   \hline
   Ref.\ By & \dref{D_SDBW},  \dref{D_SDSW} \\ % \ddref{dsq}, \ddref{dwft}\\
   \hline
-  Use\ & \aref{A_tireWidth}, \aref{A_Speed},  \tref{T_MFRG}, \ddref{DD_DWFT}\\
+  Use\ & \aref{A_tireWidth}, \aref{A_Speed}, \aref{A_Calibration}, \tref{T_MFRG}, \ddref{DD_DWFT}\\
   \hline
 \end{tabular}
 
@@ -857,7 +855,6 @@ where $\alpha$ and $\beta$ are calibration factors that satisfy $\alpha + \beta 
 
 \newpage
 
-%GD2
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -896,7 +893,6 @@ Description & Spray density is derived by conducting regression analysis to deve
 \end{minipage}\\
 
 
-%GD2
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1009,7 +1005,6 @@ Description & Spray density is derived by conducting regression analysis to deve
 \end{minipage}\\
 
 
-%GD3
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1051,7 +1046,6 @@ SI Units&\si{kg\per\metre^3}\\
 \end{tabular}
 \end{minipage}\\
 
-%DD
 \subsubsection{Data Definitions}\label{sec_datadef}
 This section collects and defines all the data needed to build the instance
 models. The dimension of each quantity is also given.  
@@ -1077,7 +1071,7 @@ Symbol & $AADT$\\
   \hline
   Sources& [\reref{ref7}] \\
   \hline
-  Ref.\ By & \dref{D_CSAS}   \\
+  Ref.\ By & \dref{D_CSAS}, \iref{I_COTD}   \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1131,7 +1125,7 @@ Symbol & $h_{total}$\\
   \hline
   Sources& [\reref{ref7}] \\
   \hline
-  Ref.\ By & \ddref{DD_DSQ}, \ddref{DD_DWFT} \\
+  Ref.\ By & \ddref{DD_DSQ}, \ddref{DD_DWFT}, \iref{I_COTD} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1191,7 +1185,6 @@ Symbol & $t_2$\\
 \end{minipage}\\
 
 
-%DD, Mapp
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1234,7 +1227,6 @@ Symbol &$M_{app}$\\
 \end{tabular}
 \end{minipage}\\
 
-%DD2, water thickness
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1274,7 +1266,6 @@ Symbol &$h_{app}$\\
 \end{tabular}
 \end{minipage}\\
 
-%DD4, total spray density
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1353,7 +1344,6 @@ Description & This equation computes the ratio of the mass of salt applied per u
 \end{tabular}
 \end{minipage}\\
 
-%DD6, SDtotal cl
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1405,7 +1395,7 @@ The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}, \iref{
 
 ~\newline
 
-%IM1
+
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1465,7 +1455,6 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
 
 ~\newline
 
-%IM2
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1503,7 +1492,6 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
 
 
 ~\newline
-%IM3 input coordinate and output the data
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -1609,7 +1597,7 @@ qualities that the software is expected to exhibit.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The result list of chloride exposure rate should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of chloride exposure rate should be of two decimal data %?TODO ask)
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of chloride exposure rate should be of two decimal data%?TODO ask)
 , showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_COTS}, \iref{I_DFSB})
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of chloride exposure rate should have an visualization of line graph and histogram. % TODO ask which they prefer
@@ -1641,10 +1629,10 @@ should be able to be downloaded by users to their local machine.
 The assumptions made in this document are based on practical considerations to simplify and quantify the data required in the model:
 \begin{itemize} 
 \item In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. 
-\item In \aref{A_laneWidth}, \aref{A_tireWidth} and \aref{A_Speed}, they simplify the model by standardizing the lane width, tire width and vehicle speed, which streamlines the analysis and allows for consistent calculations.
+\item \aref{A_laneWidth}, \aref{A_tireWidth} and \aref{A_Speed} simplify the model by standardizing the lane width, tire width and vehicle speed, which streamlines the analysis and allows for consistent calculations.
 \item \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions, as NaCl is one of the most widely used deicing salts due to its effectiveness and affordability.
 \item \aref{A_Data} is assumed following the resolution of the CanRCM4 model ([\reref{ref13}]), where the climate data are extracted from.
-\item \aref{A_Calibration} The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves (RefBy: \dref{D_MRBWSW}).
+\item \aref{A_Calibration} The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves.
 
 \end{itemize}
 
@@ -1684,29 +1672,39 @@ other.
 \noindent
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} &  \\
+	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_tireWidth} & \aref{A_Speed} & \aref{A_Data} & \aref{A_Calibration} \\
 \hline
-\tref{T_WFT}        & & & &  \\ \hline
-\tref{T_MFRG}        & & & &  \\ \hline
-\tref{T_CSASG}        & X & & & \\ \hline
-\tref{T_TAD}        & & & & \\ \hline
-\dref{D_MFR}           & & & & \\ \hline
-\dref{D_SD}         & & & & \\ \hline
-\dref{D_CSAS}         & X & & & X \\ \hline
-\ddref{DD_DSQ}    & X & X & & \\ \hline
-\ddref{DD_DWFT}    & X & & & \\ \hline
-\ddref{DD_RCL}    & & & X & \\ \hline
-\ddref{DD_TSD}    & & & & \\ \hline
-\ddref{DD_RSW}    & & & & \\ \hline
-\ddref{DD_SDTCL}    & & & X & \\ \hline
-\iref{I_COTS}         & & & & \\ \hline
-\iref{I_DFSB}         & & & & \\ \hline
-\lcref{LC_laneWidth}     & & X & & \\ \hline
-\lcref{LC_SASC}    & & & & \\ \hline
-\ulcref{ULC_saltSame}   & X & & & \\ \hline
-\ulcref{ULC_NaCl}   & & & X & \\ \hline
+\tref{T_WFT}       & & & & & &  &   \\ \hline
+\tref{T_MFRG}      & & & & X & X &  &  \\ \hline
+\tref{T_CSASG}        & & & & & &  & \\ \hline
+\tref{T_TAD}        & & & & & & &\\ \hline
+\dref{D_MRCA}          & & & & X & X &  &  \\ \hline
+\dref{D_MRTP}          & & & & X & X &  &  \\ \hline
+\dref{D_MRBWSW}          & & & & X & X &  & X  \\ \hline
+\dref{D_SDCA}            & & & & & X &  &  \\ \hline
+\dref{D_SDTP}            & & & & & X &  &  \\ \hline
+\dref{D_SDBW}            & & & & & X &  &  \\ \hline
+\dref{D_SDSW}            & & & & & X &  &  \\ \hline
+\dref{D_CSAS}       & & & & & & & \\ \hline
+\ddref{DD_AADT}  & & & & & & & \\ \hline
+\ddref{DD_AADTT}  & & & & & & & \\ \hline
+\ddref{DD_htotal}  & & & & & & & \\ \hline
+\ddref{DD_t1}  & & & & & & & \\ \hline
+\ddref{DD_t2}  & & & & & & & \\ \hline
+\ddref{DD_DSQ}   & X & X &  &  & & &  \\ \hline
+\ddref{DD_DWFT}    & & & & & & & \\ \hline
+\ddref{DD_TSD}    & & & & & & & \\ \hline
+\ddref{DD_RSW}    & & & & & & & \\ \hline
+\ddref{DD_SDTCL}    & & & X & & & &\\ \hline
+\iref{I_COTS}       & & & & & & & \\ \hline
+\iref{I_COTD}       & & & & & & & \\ \hline
+\iref{I_DFSB}       & & & & & & X & \\ \hline
+\lcref{LC_laneWidth}     & & X & & & &  & \\ \hline
+\lcref{LC_SASC}   & & & & & & & \\ \hline
+\ulcref{ULC_saltSame}   & X & & & & &  &\\ \hline
+\ulcref{ULC_NaCl}   & & & X & & &  & \\ \hline
 
 \hline
 \end{tabular}
@@ -1716,53 +1714,71 @@ other.
 
 
 \newpage
+\begin{landscape}% Landscape page
+        
 \begin{table}[H]
 \centering
 \setlength{\tabcolsep}{2pt}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-	& \tref{T_WFT} & \tref{T_MFRG} & \tref{T_CSASG} & \tref{T_TAD} & \dref{D_MFR} & \dref{D_SD}  & \dref{D_CSAS} &\ddref{DD_DSQ} & \ddref{DD_DWFT} & \ddref{DD_RCL} &  \ddref{DD_TSD} & \ddref{DD_RSW} &\ddref{DD_SDTCL} & \iref{I_COTS} & \iref{I_DFSB}\\ 
+	& \tref{T_WFT} & \tref{T_MFRG} & \tref{T_CSASG} & \tref{T_TAD} & \dref{D_MRCA} & \dref{D_MRTP} & \dref{D_MRBWSW} & \dref{D_SDCA} & \dref{D_SDTP} & \dref{D_SDBW} & \dref{D_SDSW} & \dref{D_CSAS}& \ddref{DD_DSQ} & \ddref{DD_DWFT}  &  \ddref{DD_TSD} & \ddref{DD_RSW} &\ddref{DD_SDTCL} & \iref{I_COTS} & \iref{I_COTD}  & \iref{I_DFSB}\\ 
 \hline
 
-\tref{T_WFT}          & & X & & & & & & & & & & & & &  \\ \hline
-\tref{T_MFRG}        & & & & & X & & & & & & & & & & \\ \hline
-\tref{T_CSASG}       & & & & & & & X & & & & & & & & \\ \hline
-\tref{T_TAD}           & & & & & & & & & & & & & & X &\\ \hline
-\dref{D_MFR}         & & & & & & X & & & & & & & & & \\ \hline
-\dref{D_SD}           & & & & & & & & & & & X & & & &\\ \hline
-\dref{D_CSAS}       & & & & & & & & & & & & & & X &\\ \hline
-\ddref{DD_DSQ}    & & & & & & & & & & & & X & & &\\ \hline
-\ddref{DD_DWFT}  & & & & & X & & & & & & & X & & &\\ \hline
-\ddref{DD_RCL}    & & & & & & & & & & & & & X & &\\ \hline
-\ddref{DD_TSD}    & & & & & & & & & & & & & X & &\\ \hline
-\ddref{DD_RSW}    & & & & & & & & & & & & & X & & \\ \hline
-\ddref{DD_SDTCL}  & & & X & & & & X & & & & & & & &\\ \hline
-\iref{I_COTS}         & & & & & & & & & & & & & & & X \\ \hline
-\iref{I_DFSB}         & & & & & & & & & & & & & & &\\ 
+\tref{T_WFT}       &  & X &  & & &  & &  &  &  &  & & &  &  & &&  & &  \\ \hline
+\tref{T_MFRG}     &  X &  &  & & X & X  & X &  &  &  &  & & &  &  & &&  & & \\ \hline
+\tref{T_CSASG}     &  &  &  & & &  & &  &  &  &  & X & &  &  & &X&  & &\\ \hline
+\tref{T_TAD}       &  & &  & & &  & &  &  &  &  & & &  &  & &&X  & &\\ \hline
+\dref{D_MRCA}         &  & X &  & & &  & &  X &  &  &  & & &  &  & &&  & & \\ \hline
+\dref{D_MRTP}         &  &  X &  & & &  & &  &X  &  &  & & & X &  & &&  & &  \\ \hline
+\dref{D_MRBWSW}        &  & X &  & & &  & &  &  & X  & X & & & X  &  & &&  & & \\ \hline
+\dref{D_SDCA}         &  &  &  & & X &  & &  &  &  &  & & &  & X  & &&  & & \\ \hline
+\dref{D_SDTP}          &  &  &  & & & X & &  &  &  &  & & &  &  X & &&  & &  \\ \hline
+\dref{D_SDBW}          &  &  &  & & &  & X &  &  &  &  & & &  & X & &&  & &\\ \hline
+\dref{D_SDSW}           &  &  &  & & &  & X &  &  &  &  & & &  & X & &&  & &  \\ \hline
+\dref{D_CSAS}       &  &  & X & & &  & &  &  &  &  &  & &  &  & &X& X & &\\ \hline
+\ddref{DD_AADT}    &  &  &  & & &  & &  &  &  &  & X & &  &  & &&  & X & \\ \hline
+\ddref{DD_AADTT}    &  &  &  & & &  & &  &  &  &  & X& &  &  & &&  & & \\ \hline
+\ddref{DD_htotal}   &  &  &  & & &  & &  &  &  &  & & X & X &  & &&  & X & \\ \hline
+\ddref{DD_t1}        &  &  &  & & &  & &  &  &  &  & & X &  &  & &&  & & \\ \hline
+\ddref{DD_t2}        &  &  &  & & &  & &  &  &  &  & X & &  X &  & &&  & & \\ \hline
+\ddref{DD_DSQ}     &  &  &  & & &  & &  &  &  &  & & &  &  & X &&  & &  \\ \hline
+\ddref{DD_DWFT}     &  &  &  & & & X & X &  &  &  &  & & &  &  & X &&  & & \\ \hline
+\ddref{DD_TSD}     &  &  &  & & &  & & X & X & X & X & & &  &  & &X&  & & \\ \hline
+\ddref{DD_RSW}      &  &  &  & & &  & &  &  &  &  & & X & X &  & &X&  & & \\ \hline
+\ddref{DD_SDTCL}    &  &  & X & & &  & &  &  &  &  & X & &  &  X&X &&  & & \\ \hline
+\iref{I_COTS}        &  &  &  & X & &  & &  &  &  &  &  X & &  &  & &&  & & X \\ \hline
+\iref{I_COTD}        &  &  &  & & &  & &  &  &  &  & & &  &  & &&  & & X \\ \hline
+\iref{I_DFSB}       &  &  &  & & &  & &  &  &  &  & & &  &  & &&  X & X & \\ \hline
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
 \label{Table:A_trace}
 \end{table}
+ \end{landscape}
 
 \newpage
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-	& \iref{I_COTS} & \iref{I_DFSB} & \rref{R_Inputs} & \rref{R_OutputInputs}  & \rref{R_Output} & \nfrref{NFR_Reliability} & \nfrref{NFR_Usability} & \nfrref{NFR_Maintainability} & \nfrref{NFR_Portability} & \nfrref{NFR_Scalability} \\
+\begin{tabular}{|c|c|c|c|}
+\hline 
+	& \iref{I_COTS} & \iref{I_COTD} & \iref{I_DFSB}  \\
 
 \hline
-\iref{I_COTS}         & & & & & X & & & & & \\ \hline
-\iref{I_DFSB}         & & & X & X & & & X & & X &\\  \hline
-\rref{R_Inputs}     & & X & & & & & & X & & \\ \hline
-\rref{R_OutputInputs} & & & & & X & X & & & & \\ \hline
-\rref{R_Output} & & & & X & & & & & & \\ \hline
-\nfrref{NFR_Reliability}   & & X & & & & & & & & \\ \hline
-\nfrref{NFR_Usability}   & & X & & X & & & & & & \\ \hline
-\nfrref{NFR_Maintainability}   & & & & & & & & & & X \\ \hline
-\nfrref{NFR_Portability}   & & & & & & & & & & \\ \hline
-\nfrref{NFR_Scalability}   & & & & & & & & X & & \\
+\rref{R_InputMap} & & & X  \\ \hline
+\rref{R_Inputs}     & & & X \\ \hline
+
+\rref{R_Parameter} & X & X &  \\ \hline
+
+\rref{R_Map} &&& X \\ \hline
+\rref{R_OutputInputs} & X  &X & \\ \hline
+\rref{R_OutputVisualization} & & & X\\ \hline
+
+\rref{R_OutputDownload} &  & & X\\ \hline
+\nfrref{NFR_Reliability}   & X & X & X \\ \hline
+\nfrref{NFR_Usability}   & & & X \\ \hline
+\nfrref{NFR_Maintainability}   & & & X \\ \hline
+\nfrref{NFR_Portability}   & & & X \\ \hline
+\nfrref{NFR_Scalability}   & & & X \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
@@ -1800,7 +1816,7 @@ other.
   \\  
   $W_{lane}$ & lane width & 3.75 & m
   \\  
-  $V_{salt}$ & salt application rate & 0.06 & t/cm/km
+  $V_{salt}$ & salt application rate & 0.05 & t/cm/km
   \\
   $\theta_{chloride}$ &  molar mass ratio of chloride ions over deicing salts & 0.61 & N/A \\
   $\Theta$ & ratio of chloride ions sprayed and  \\
