@@ -155,7 +155,8 @@
 Jan 27, 2024 & 0.0 & Initial release\\
 Feb 23, 2024 & 0.1 & Add more details according to feedback from peer review\\
 Mar 7, 2024 & 0.2 & Modified according to feedback from Dr. Spence Smith\\
-Apr 13, 2024 & 1 & Final revision \\
+Apr 13, 2024 & 0.3 & Final revision for 741\\
+June 13, 2024 & 0.4 & Revision for BCP base on feedback from Dr. Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -1471,7 +1472,7 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
   \hline
   Equation& $C_s = 0.11 \times h_{total} - 0.000189 \times AADT ~ per ~ lane + 3.349$\\ 
   \hline
-  Description& The above equation computes the chloride ions deposition on bridge decks. It is based on a linear regression model by \reref{ref6},  that characterize the relationship between the surface chloride concentration on bridge decks and two key factors: the annual snowfall amount ($h_{total}$) and the AADT
+  Description& The above equation computes the chloride ions deposition on bridge decks. It is based on a linear regression model by [\reref{ref6}],  that characterize the relationship between the surface chloride concentration on bridge decks and two key factors: the annual snowfall amount ($h_{total}$) and the AADT
 
 \begin{itemize}
 
@@ -1615,7 +1616,7 @@ should be able to be downloaded by users to their local machine.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Reliability}:]   \textbf{Reliability}: The reliability is measured and verified in the \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnVplan}.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}: The software interface should be intuitive and user-friendly, allowing users in the section \ref{SecUserCharacteristics} to easily input coordinates and look at the predicted chloride exposure in the past and future.
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}: The software interface should be intuitive and easy to use, allowing users in the section \ref{SecUserCharacteristics} to easily input coordinates and look at the predicted chloride exposure in no more than five minutes.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:] \textbf{Maintainability}: The code for this software should be designed and structured in a way that it could be easily comprehended and modified by other potential developers, taking only 10\% of the origin develop time.
 
