@@ -1420,7 +1420,7 @@ Label &\bf Mass of chloride ions \\
 % \hline
 SI Units&\si{kg\per\metre^3} \\
 \hline
-Equation & $\mathit{SD_{totalcl} =SD_{total} \times \delta_{salt} \times \theta_{chloride}}$ \\
+Equation & $\mathit{SD_{total\_cl} =SD_{total} \times \delta_{salt} \times \theta_{chloride}}$ \\
 \hline
 Description & This equation computes the mass of chloride ions per unit air volume kicked up by each truck, where we assume the chloride ions are from NaCl (\aref{A_NaCl}).
 \begin{itemize}
@@ -1489,7 +1489,7 @@ The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}, \iref{
   \hline
   Ref.\ By & \iref{I_DFSB}, \lcref{LC_SASC}  \\
   \hline
-  Uses \ & \aref{A_deicingSaltsDeposition} \tref{T_TAD}, \dref{D_CSAS} \\
+  Uses \ & \aref{A_deicingSaltsDeposition}, \tref{T_TAD}, \dref{D_CSAS} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1823,9 +1823,10 @@ Table~\ref{Table:A_others} shows the dependencies of theoretical models, general
 with an ``X'' may have to be modified as well. 
 
 \subsection{Traceability Between Models}
+
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=0.8\textwidth]{TraceabilityBetweenModels}
+ \includegraphics[width=\textwidth]{TraceabilityBetweenModels}
 \caption{Traceability Between Models}
 \label{Fig_TraceabilityBetweenModels} 
 \end{center}
