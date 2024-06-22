@@ -1817,48 +1817,56 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 \section{Traceability Matrices and Graphs}
 
 The purpose of the traceability matrices is to provide easy references on what
-has to be additionally modified if a certain component is changed.  Every time a
-component is changed, the items in the column of that component that are marked
-with an ``X'' may have to be modified as well. Table~\ref{Table:A_others} shows the dependencies of theoretical models, general definitions, data definitions, instance models, and likely changes on the assumptions. Table~\ref{Table:A_trace} shows the dependencies of theoretical models, general definitions, data definitions, and instance models with each other. Table~\ref{Table:R_trace} shows the
-dependencies of instance models, requirements, and data constraints on each
-other. 
+has to be additionally modified if a certain component is changed.  Figure~\ref{Fig_TraceabilityBetweenModels} shows how \iref{I_COTS} is determined using the other models.
+\\
+Table~\ref{Table:A_others} shows the dependencies of theoretical models, general definitions, data definitions, instance models, and likely changes on the assumptions. Table~\ref{Table:A_trace} shows the dependencies of theoretical models, general definitions, data definitions, and instance models with each other. Table~\ref{Table:R_trace} shows the dependencies of instance models, requirements, and data constraints on each other. Every time a component is changed, the items in the column of that component that are marked
+with an ``X'' may have to be modified as well. 
+
+\subsection{Traceability Between Models}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=0.8\textwidth]{TraceabilityBetweenModels}
+\caption{Traceability Between Models}
+\label{Fig_TraceabilityBetweenModels} 
+\end{center}
+\end{figure}
 
 \noindent
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_tireWidth} & \aref{A_Speed} & \aref{A_Data} & \aref{A_Calibration} \\
+	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_tireWidth} & \aref{A_Speed} & \aref{A_LinearGrowthTraffic} & \aref{A_Data} & \aref{A_Calibration} \\
 \hline
-\tref{T_WFT}       & & & & & &  &   \\ \hline
-\tref{T_MFRG}      & & & & X & X &  &  \\ \hline
-\tref{T_CSASG}        & & & & & &  & \\ \hline
-\tref{T_TAD}        & & & & & & &\\ \hline
-\dref{D_MRCA}          & & & & X & X &  &  \\ \hline
-\dref{D_MRTP}          & & & & X & X &  &  \\ \hline
-\dref{D_MRBWSW}          & & & & X & X &  & X  \\ \hline
-\dref{D_SDCA}            & & & & & X &  &  \\ \hline
-\dref{D_SDTP}            & & & & & X &  &  \\ \hline
-\dref{D_SDBW}            & & & & & X &  &  \\ \hline
-\dref{D_SDSW}            & & & & & X &  &  \\ \hline
-\dref{D_CSAS}       & & & & & & & \\ \hline
-\ddref{DD_AADT}  & & & & & & & \\ \hline
-\ddref{DD_AADTT}  & & & & & & & \\ \hline
-\ddref{DD_htotal}  & & & & & & & \\ \hline
-\ddref{DD_t1}  & & & & & & & \\ \hline
-\ddref{DD_t2}  & & & & & & & \\ \hline
-\ddref{DD_DSQ}   & X & X &  &  & & &  \\ \hline
-\ddref{DD_DWFT}    & & & & & & & \\ \hline
-\ddref{DD_TSD}    & & & & & & & \\ \hline
-\ddref{DD_RSW}    & & & & & & & \\ \hline
-\ddref{DD_SDTCL}    & & & X & & & &\\ \hline
-\iref{I_COTS}       & & & & & & & \\ \hline
-\iref{I_COTD}       & & & & & & & \\ \hline
-\iref{I_DFSB}       & & & & & & X & \\ \hline
-\lcref{LC_laneWidth}     & & X & & & &  & \\ \hline
-\lcref{LC_SASC}   & & & & & & & \\ \hline
-\ulcref{ULC_saltSame}   & X & & & & &  &\\ \hline
-\ulcref{ULC_NaCl}   & & & X & & &  & \\ \hline
+\tref{T_WFT}       & & & & & &  & &   \\ \hline
+\tref{T_MFRG}      & & & & X & X & &  &  \\ \hline
+\tref{T_CSASG}        & & & & &  & &  & \\ \hline
+\tref{T_TAD}        & & & & &  & & &\\ \hline
+\dref{D_MRCA}          & & & & X & X  & &  &  \\ \hline
+\dref{D_MRTP}          & & & & X & X  & &  &  \\ \hline
+\dref{D_MRBWSW}          & & & & X & X  & &  & X  \\ \hline
+\dref{D_SDCA}            & & & & & X  & &  &  \\ \hline
+\dref{D_SDTP}            & & & & & X  & &  &  \\ \hline
+\dref{D_SDBW}            & & & & & X  & &  &  \\ \hline
+\dref{D_SDSW}            & & & & & X  & &  &  \\ \hline
+\dref{D_CSAS}       & & & & &  & & & \\ \hline
+\ddref{DD_AADT}  & & & & & & X &  & \\ \hline
+\ddref{DD_AADTT}  & & & & &  & X & & \\ \hline
+\ddref{DD_htotal}  & & & & & & &  & \\ \hline
+\ddref{DD_t1}  & & & & & &  & & \\ \hline
+\ddref{DD_t2}  & & & & & &  & & \\ \hline
+\ddref{DD_DSQ}   & X & X & &   &  & & &  \\ \hline
+\ddref{DD_DWFT}    & & & & & &  & & \\ \hline
+\ddref{DD_TSD}    & & & & & & &  & \\ \hline
+\ddref{DD_RSW}    & & & & & & &  & \\ \hline
+\ddref{DD_SDTCL}    & & & X &  & & & &\\ \hline
+\iref{I_COTS}       & & & & & & & &  \\ \hline
+\iref{I_COTD}       & & & & & &  & & \\ \hline
+\iref{I_DFSB}       & & & & &  & & X & \\ \hline
+\lcref{LC_laneWidth}     & & X & &  & & &  & \\ \hline
+\lcref{LC_SASC}   & & & & & &  & & \\ \hline
+\ulcref{ULC_saltSame}   & X & & &  & & &  &\\ \hline
+\ulcref{ULC_NaCl}   & & & X &  & & &  & \\ \hline
 
 \hline
 \end{tabular}

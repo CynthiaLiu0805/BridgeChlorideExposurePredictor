@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net" modified="2024-06-22T19:59:20.936Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="GjfPYYwuQLuMq_pHFnb0" version="24.6.2" type="device">
+  <diagram name="Page-1" id="1k6B99gD8dEa5np927o4">
+    <mxGraphModel dx="1784" dy="1606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-X4KIvyzEZClRnqMIglF-11" value="GD8" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="380" y="60" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-X4KIvyzEZClRnqMIglF-14" value="IM1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="810" y="-120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-X4KIvyzEZClRnqMIglF-18" value="$$C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \times e^{-0.5d}$$" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="-90" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-X4KIvyzEZClRnqMIglF-19" value="$$C_{s_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total\_cl} \times AADTT ~per~ lane) \times t_2$$" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="630" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-X4KIvyzEZClRnqMIglF-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.63;entryY=0.018;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="-X4KIvyzEZClRnqMIglF-18" target="-X4KIvyzEZClRnqMIglF-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-X4KIvyzEZClRnqMIglF-22" value="Use" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="540" y="-90" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-X4KIvyzEZClRnqMIglF-23" value="$$long:\mathbb{R} \times lat:\mathbb{R} \rightarrow AADT: \mathbb{R} $$" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-480" y="-10" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-X4KIvyzEZClRnqMIglF-25" value="$$long:\mathbb{R} \times lat:\mathbb{R} \rightarrow AADTT: \mathbb{R} $$" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-480" y="80" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-X4KIvyzEZClRnqMIglF-26" value="$$long:\mathbb{R} \times lat:\mathbb{R} \times year:\mathbb{N}&amp;nbsp; \rightarrow t_2: \mathbb{N}$$" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-480" y="170" width="340" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
