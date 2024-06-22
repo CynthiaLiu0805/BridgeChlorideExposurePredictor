@@ -133,7 +133,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for Bridge Corrosion Predictor : A Chloride Exposure Prediction Model} 
+\title{Software Requirements Specification for Bridge Corrosion Predictor (BCP): A Chloride Exposure Prediction Model} 
 \author{Cynthia Liu}
 \date{\today}
 	
@@ -215,6 +215,7 @@ $C_s$ & \si{kg/m^3} & chloride concentration on the bridge substructure\\
 $C_{s_{air}}$ & \si{kg/m^3} & chloride concentration sprayed and splashed by all vehicles per winter\\
 $\delta_{salt}$ & kg/kg & ratio of mass of salt over mass of water for a unit area of road\\
 $d$ & \si{m} & distance between road edge and nearby bridge structure\\
+$D(x)$ & \si{kg/m^3} & total airborne deposition at a certain distance from the road\\
 $h_{app}$ & \si{m} & daily water film thickness on the road\\
 $h_{film}$ & \si{m} & depth of the water film picked up in each rotation\\
 $h_{total}$ & \si{m} & the total snowfall during a winter season\\
@@ -223,7 +224,6 @@ $K$ & m/m & ratio of the tire width that is not a groove to the full tire width\
 $L$ & \si{m} & drainage length\\
 $lat$ & \si{\degree} & latitude\\
 $long$ & \si{\degree} & longitude\\
-
 $M_{app}$ & \si{kg/m^2} & deicing salts quantity applied per day\\
 $M_{total}$ & \si{kg/m^2} & total amount of deicing salts quantity over winter\\
 $\mathit{MR_{BW}}$ & \si{kg/s} & MFR displaced by a single tire due to bow\\
@@ -238,13 +238,14 @@ $\mathit{SD_{CA}}$ & \si{kg/m^{3}} & spray density by a single tire due to capil
 $\mathit{SD_{SW}}$ & \si{kg/m^{3}} & spray density by a single tire due to side waves\\
 $\mathit{SD_{TP}}$ & \si{kg/m^{3}} & spray density by a single tire due to tread pickup\\
 $\mathit{SD_{total}}$ & \si{kg/m^{3}} & spray density kicked up by each passing truck\\
-$\mathit{SD_{total~cl}}$ & \si{kg/m^3} & mass of chloride ions per unit air volume\\
+$\mathit{SD_{total\_cl}}$ & \si{kg/m^3} & mass of chloride ions per unit air volume\\
 $S$ & \si{m/m} & slope as a ratio\\
 $T$ & \si{mm} & profile depth\\
 $t_1$ & days & number of days with snowfall\\
 $t_2$ & days & number of days with snow melting\\
 $V$ & \si{m/s} & truck speed\\
-$V_{salt}$ & \si{t/cm/km} & normalized salt application rate\\
+$V_{salt_{h}}$ & \si{t/cm/km} & normalized high salt application rate\\
+$V_{salt_{l}}$ & \si{t/cm/km} & normalized low salt application rate\\
 $V_{speed}$ & \si{km/h} & heavy vehicle speed for calculating mass flow rate\\
 $V'$ & \si{miles/h} & heavy vehicle speed for calculating spray density\\ %because the formulas are determined using regression fitting so unit doesn't matter
 $W_{lane}$ & \si{m} & lane width\\
@@ -292,38 +293,71 @@ TP & Tread Pickup\\
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   $\mathbb{R}$ & Real number \\
-  $[\mathbb{R}]$ & a list of real number\\
+ % $[\mathbb{R}]$ & a list of real number\\
+  $\mathbb{N}$ & Natural number \\
+  $[x]_t^n$ & A list of values over time period $t$ to $n$ \\
+
   \bottomrule
 \end{tabular}\\
 
 
-\subsection{Symbolic Content}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description} & \textbf{typical content} \\
+\subsection{Symbolic Parameters}
+This section includes the symbolic parameters introduced in the report. We use symbolic parameters to represent values that typically remain constant.
+
+\begin{table}[!h]
+
+  \renewcommand{\arraystretch}{1.2}
+\noindent \begin{longtable*}{l l l l c} 
+  \toprule
+ \textbf{Symbol} & \textbf{Description} & \textbf{Value} & \textbf{Unit}\\
+
+
   \midrule 
-  Jurisdiction & An area that share a particular set of laws or rules & Ontario \\
-  Unit-grid & Minimum area that share the same climate and traffic data & 25-km grid \\
-  %Government & A group of people or system governing an organized community & Ministry of Transportation?\\
+  JURISDICTION & An area that share a particular set of laws or rules & Ontario & - \\
+  GRID\_SIZE & Minimum area sharing the same climate and traffic data & 25 $\times$ 25 & - \\
+  $V$ &  speed of vehicle & $62.1371$ & miles/h   \\
+  $V_{speed}$ & speed of heavy vehicle & $100$ & km/h   \\
+  $b$ & tire width & $0.56$ & m   \\
+  $d$ & distance between road edge and bridge substructure & 3.5 & m
+  \\
+  $h_{film}$ & depth of the water film picked up in each rotation & 0.0001 & m
+  \\
+  $K$ & ratio of tire width that is not a groove to tire width & 0.75& N/A
+  \\
+  $\rho_{water}$ & water density & 997 & \si{kg/m^3}
+  \\  
+  $W_{lane}$ & lane width & 3.75 & m
+  \\  
+  $V_{salt_{h}}$ & high salt application rate & 0.07 & t/cm/km \\
+  $V_{salt_{l}}$ & low salt application rate & 0.05 & t/cm/km
+  \\
+  $\theta_{chloride}$ &  molar mass ratio of chloride ions over deicing salts & 0.61 & N/A \\
+  $\Theta$ & ratio of chloride ions sprayed and  \\
+  & splashed by trucks over light-duty vehicles& 6 & N/A  \\  
+  
   \bottomrule
-\end{tabular}\\
+\end{longtable*}
+  \caption{Auxiliary Constant} \label{TblConstants}
+\end{table}
 
+
+\break
+~\newpage
 
 \pagenumbering{arabic}
 
 \section{Introduction}
-Most of the bridges on highways are made with reinforced concrete decks. Unfortunately, the weather conditions and the traffic pattern cause bridge surface to be damaged by chloride-induced corrosion. Many elements influence this situation, such as the quality of construction materials, and the maintenance practices employed. One of the most important ones is deicing salts. The primary deiicing salt used is sodium chloride (rock salt). When the salt melts the snow and is in contact with water, it may have a chemical reaction and release chloride ions. The ions could penetrate the concrete and induce corrosion in the reinforcing steel, thus damaging a bridge's structure and its capacity. \\
+Most of the bridges on highways are made with reinforced concrete decks. Unfortunately, weather conditions and traffic pattern cause bridge surfaces to be damaged by chloride-induced corrosion. Many elements influence the amount of damage, such as the quality of construction materials, and the maintenance practices employed. One of the most important factors is deicing salts. The primary deiicing salt used is sodium chloride (rock salt). When the salt melts the snow and is in contact with water, it may have a chemical reaction and release chloride ions. The ions could penetrate the concrete and induce corrosion in the reinforcing steel, thus damaging a bridge's structure and its capacity. \\
 There is a tight connection between chloride exposure, weather conditions and traffic flow. Specifically, the amount of deicing salt applied on the road surface greatly depends on the amount of snowfall, and the amount of water and dissolved chloride ions that end up on nearby objects depends on the traffic patterns.\\
-Given these complexities, there is a need for a software that can integrate weather and traffic data to predict potential corrosion for the bridges. This document provides specifications for a software called Bridge Corrosion Predictor (BCP) designed to address this need. \\
+Given the complex relationship between weather, traffic and chloride exposure, and the importance of bridge safety and maintenance, there is a need for a software that can integrate weather and traffic data to predict potential corrosion for the bridges. This document provides specifications for such a software called Bridge Corrosion Predictor (BCP). \\
 The following section outlines the document's purpose, delineates its scope of requirements, describes the intended audience's characteristics, and provides an overview of the document's organization.
 
 \subsection{Purpose of Document}
-This document details the requirements of the software BCP. The
+This document details the requirements of BCP. The
 responsibilities of the user and software are laid out and the requirements that the software must satisfy are explicitly detailed. This document provides the Software Requirements Specification (SRS) for a project to investigate how the climate and traffic could have impact on the corrosion-induced damage for reinforced concrete, or to be more specific, how they influence the chloride exposure. 
 
 \subsection{Scope of Requirements} 
-The entire document is written assuming chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. Another scope of the document is the factors that affect bridge corrosion is limit to chloride levels, climatic conditions, and traffic patterns. %, and we only consider the province of Ontario.
+The entire document is written assuming chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. The factors that affect bridge corrosion are assumed to be limited to chloride levels, climatic conditions, and traffic patterns. %, and we only consider the province of Ontario.
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, and the ability to comprehend basic results generated through computational fluid dynamics. The users of BCP may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
@@ -354,14 +388,14 @@ Figure 1 shows the system context of the software. The user should input a coord
 \item Provide valid coordinates to the software.
 \end{itemize}
 
-\item Developers Responsibilities:
+\item Developer Responsibilities:
 \begin{itemize}
 \item Provide valid climate model and traffic model to the software.
 \end{itemize}
 
 \item BCP Responsibilities:
 \begin{itemize}
-\item Build a database storing the chloride exposure data for every unit grid in the past and future.
+\item Build a database storing the chloride exposure data for every GRID\_SIZE grid in the past and future.
 \item Search and return the chloride exposure trend at given input coordinate.
 \item Provide visualization of the output, such as histograms, line graphs, or grids displaying the data.
 \end{itemize}
@@ -374,7 +408,7 @@ The end user of BCP should have a high school understanding of geographic coordi
  A stakeholder is a person, group or organization with a vested interest in the project. For BCP, the stakeholders include:
 
 \begin{itemize}
-\item Government: Government entities require the accurate data to use as a reference for planning the road construction of the jurisdiction. For example, they might want to adjust the thickness of the road in certain areas based on the data from this model.
+\item Government: Government entities require the accurate data to use as a reference for planning the road construction of JURISDICTION. For example, they might want to adjust the thickness of the road in certain areas based on the data from this model.
 \item Researcher: Professionals within the civil engineering field who are concerned with the impacts of climate change on corrosion damage. In particular, this project is conducted in collaboration with Dr.\ Cancan Yang and Ph.D. candidate Mingsai Xu from the Department of Civil Engineering at McMaster University.
 \item Developer: Individuals involved in the development, maintenance, and potential future enhancements of the predictive model. This group may include software developers or engineers tasked with inheriting, sustaining, and advancing the model beyond the initial research phase.
 \item Casual user: People that are interested in the chloride exposure rate of their area and those interest in the impacts of climate change and traffic pattern. 
@@ -445,20 +479,16 @@ The key physical system of BCP, as shown in Figure \ref{4mechanism}, simulate th
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_ChlorideExposurePrediction}:] Predict the chloride exposure for bridges in the jurisdiction in the past and future.
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_ChlorideExposurePrediction}:] Predict the chloride exposure for bridges in JURISDICTION in the past and future.
 \end{itemize}
 
 \subsection{Solution Characteristics Specification}
+Section~\ref{sec_assumpt} begins with reasonable assumptions that simplify the original problem. Section~\ref{sec_theoretical} and Section~\ref{sec_gendef} present the theoretical models and general definitions being refined by the instance models, respectively. Section~\ref{sec_datadef} includes the symbols and equations provided for the problem, while Section~\ref{sec_instance} describes the instance models that govern this project.
 
-The instance models that govern this project are presented in Section~\ref{sec_instance}.  The theoretical models and general definitions being refined by the instance models are in Section~\ref{sec_theoretical} and Section~\ref{sec_gendef} separately. Section~\ref{sec_datadef} includes symbols and equations provided for the problem, and Section~\ref{sec_assumpt} simplifies the original problem by offering reasonable assumptions.
-
-\subsection{Scope Decisions}
+\subsubsection{Scope Decisions}
 Only the damage due to the chloride from deicing salt is considered; other sources of damage, like car accident and mechanical wear, are not considered.
 
 % \plt{This section is optional.}
-\subsection{Modelling Decisions}
-Section~\ref{sec_assumpt} begins with reasonable assumptions that simplify the original problem. Section~\ref{sec_theoretical} and Section~\ref{sec_gendef} present the theoretical models and general definitions being refined by the instance models, respectively. Section~\ref{sec_datadef} includes the symbols and equations provided for the problem, while Section~\ref{sec_instance} describes the instance models that govern this project.
-
 \subsubsection{Assumptions} \label{sec_assumpt}
 
 This section simplifies the original problem and helps in developing the
@@ -480,10 +510,13 @@ Change [LC], in which the respective assumption is used.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MRCA} - \dref{D_SDSW})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Data}:] The climate and traffic is constant over the entire area of each unit grid cell. (RefBy: \iref{I_DFSB})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_LinearGrowthTraffic}:]  All highway segments has a linear annual growth rate of 2\% AADT and AADTT. (RefBy: \ddref{DD_AADT}, \ddref{DD_AADTT})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Calibration}:] The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves (RefBy: \dref{D_MRBWSW})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Data}:] The climate and traffic is constant over the entire area of each GRID\_SIZE cell. (RefBy: \iref{I_DFSB})
 
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Calibration}:] The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves. (RefBy: \dref{D_MRBWSW})
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_deicingSaltsDeposition}:] The deposition of deicing salts along a highway in Sweden is similar to other JURISDICTION. (RefBy: \iref{I_COTS})
 
 \end{itemize}
 
@@ -578,7 +611,7 @@ The above equation is the general equation for mass flow rate (MFR), which is th
   \hline
   Ref.\ By & \dref{D_MRCA}, \dref{D_MRTP}, \dref{D_MRBWSW}\\ 
   \hline
-  Use\ & \aref{A_tireWidth}, \aref{A_Speed}, \tref{T_WFT}\\
+  Uses\ & \aref{A_tireWidth}, \aref{A_Speed}, \tref{T_WFT}\\
   \hline
 \end{tabular}
 
@@ -629,7 +662,7 @@ Notes & The first part in the parentheses calculate the chloride exposure by lig
   \hline
   Ref.\ By & \dref{D_CSAS} \\ 
   \hline
-  Use \ & \ddref{DD_SDTCL}  \\
+  Uses \ & \ddref{DD_SDTCL}  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -649,7 +682,7 @@ Notes & The first part in the parentheses calculate the chloride exposure by lig
 % \hline
 SI Units&\si{kg\per\metre^3} \\
 \hline
-Equation & $D(x) = a_{spray} \times e^{b_{spray}~x} + a_{splash} \times e^{b_{splash}~x} $\\ 
+Equation & $D(x) = a_{spray} \times e^{-0.05x} + a_{splash} \times e^{-0.5x} $\\ 
   \hline
   Description& The above equation describes the total airborne
 deposition at a certain distance from the road.
@@ -660,13 +693,7 @@ deposition at a certain distance from the road.
 
 \item $a_{splash}$ is the maximum deposition rates that occur from splash. (\si{kg/m^3})
 
-\item $b_{spray}$ is the spray emission rate coefficient, it is a constant in Table \ref{TblConstants}. 
-
-\item  $b_{splash}$ is the splash emission rate coefficient, it is a constant in Table \ref{TblConstants}.
-
 \item $x$ is the distance between the road and the object. (m)
-
-\item $e$ is the base of natural logarithm.
 
 \end{itemize}
 
@@ -702,7 +729,7 @@ Equation&
      $\mathit{MR_{CA}} = V_{speed} \times b \times K \times h_{film} \times \rho_{water}$
   \\
 \hline
-Description & This equation compute the contribution to the amount of water displaced by a single tire (MFR) of capillary adhesion mechanism.
+Description & This equation compute the contribution to the amount of water displaced by a single tire (MFR) of capillary adhesion mechanism ($\mathit{MR_{CA}}$).
 
 \begin{itemize}
 
@@ -725,12 +752,20 @@ Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehi
   \hline
   Ref.\ By & \dref{D_SDCA} \\ 
   \hline
-  Use\ &  \aref{A_tireWidth}, \aref{A_Speed}, \tref{T_MFRG}\\
+  Uses\ &  \aref{A_tireWidth}, \aref{A_Speed}, \tref{T_MFRG}\\
   \hline
 \end{tabular}
-
 \end{minipage}\\
 
+
+\subsubsection*{Detailed derivation of mass flow rate for capillary adhesion}
+
+The following derivation is based on the theories purposed in [\reref{ref4}].\\
+The maximum mass flow rate associated with capillary adhesion ($\mathit{MR_{CA}}$) is estimated as the number of tire rotations per second multiplied by the volume of water dispersed on each tire rotation multiplied by the density of water, or
+ \[ 
+\mathit{MR_{CA}} = \left[\frac{V_{speed}}{2\pi R}\right] \cdot \left[ 2\pi R \times b \times K \times h_{film} \right] \times \rho_{water} = \left[V_{speed} \times b \times K \times h_{film} \right] \times  \rho_{water} 
+\]
+\\
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -750,7 +785,7 @@ Equation&
       $\mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water}$
   \\
 \hline
-Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of tread pickup mechanism. The tread pickup will be activated only if there is water remaining after the capillarity adhesion
+Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of tread pickup mechanism ($\mathit{MR_{TP}}$). The tread pickup will be activated only if there is water remaining after the capillarity adhesion
 
 \begin{itemize}
 
@@ -774,11 +809,25 @@ Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehi
   \hline
   Ref.\ By & \dref{D_SDTP} \\ % \ddref{dsq}, \ddref{dwft}\\
   \hline
-  Use\ & \aref{A_tireWidth}, \aref{A_Speed},  \tref{T_MFRG}, \ddref{DD_DWFT}\\
+  Uses\ & \aref{A_tireWidth}, \aref{A_Speed},  \tref{T_MFRG}, \ddref{DD_DWFT}\\
   \hline
 \end{tabular}
 
 \end{minipage}\\
+
+
+
+\subsubsection*{Detailed derivation of mass flow rate for tread pickup}
+
+
+After capillary action, the tire is able to displace a volume of water within its tread. The maximum flow rate for this mechanism ($\mathit{MR_{TP}}$) will occur when all the water contained in the tread volume is flung out of the tread during each tire rotation. Thus, it can be computed as the number of tire rotations per second multiplied by the capacity of the tire’s tread on each rotation multiplied by the density of water:
+ \[ 
+\mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} 
+\]
+\\
+
+
+
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -796,7 +845,7 @@ SI Units&\si{kg\per s}\\
 \hline
 Equation& $\mathit{MR_{BW}} = MR_{SW} = 0.5 \times V_{speed} \times b \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \times \rho_{water} $ \\
 \hline
-Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of bow waves mechanism and side waves mechanism, this equation will be activated only if there is water remaining after the capillary adhesion and tread pickup.
+Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of bow waves mechanism ($\mathit{MR_{BW}}$) and side waves mechanism ($\mathit{MR_{SW}}$). This equation will be activated only if there is water remaining after the capillary adhesion and tread pickup.
 
 \begin{itemize}
 
@@ -821,26 +870,15 @@ Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehi
   \hline
   Ref.\ By & \dref{D_SDBW},  \dref{D_SDSW} \\ % \ddref{dsq}, \ddref{dwft}\\
   \hline
-  Use\ & \aref{A_tireWidth}, \aref{A_Speed}, \aref{A_Calibration}, \tref{T_MFRG}, \ddref{DD_DWFT}\\
+  Uses\ & \aref{A_tireWidth}, \aref{A_Speed}, \aref{A_Calibration}, \tref{T_MFRG}, \ddref{DD_DWFT}\\
   \hline
 \end{tabular}
 
 \end{minipage}\\
 
 
-\subsubsection*{Detailed derivation of mass flow rate}
+\subsubsection*{Detailed derivation of mass flow rate for bow waves and side waves}
 
-The following derivation is based on the theories purposed in [\reref{ref4}].\\
-The maximum mass flow rate associated with capillary adhesion ($\mathit{MR_{CA}}$) is estimated as the number of tire rotations per second multiplied by the volume of water dispersed on each tire rotation multiplied by the density of water, or
- \[ 
-\mathit{MR_{CA}} = \left[\frac{V_{speed}}{2\pi R}\right] \cdot \left[ 2\pi R \times b \times K \times h_{film} \right] \times \rho_{water} = \left[V_{speed} \times b \times K \times h_{film} \right] \times  \rho_{water} 
-\]
-\\
-After capillary action, the tire is able to displace a volume of water within its tread. The maximum flow rate for this mechanism ($\mathit{MR_{TP}}$) will occur when all the water contained in the tread volume is flung out of the tread during each tire rotation. Thus, it can be computed as the number of tire rotations per second multiplied by the capacity of the tire’s tread on each rotation multiplied by the density of water:
- \[ 
-\mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water} 
-\]
-\\
 Any remaining water for which there is no capacity either underneath the tire contact area or within the tire tread must be displaced to the front of the tire or to the side, causing the bow wave and side wave, respectively. So, the total mass flow rate that can be attributed to bow and side wave mechanisms can be written as:
  \[ 
 \mathit{MR_{BW} + MR_{SW}} =  \rho_{water} \times b \times V_{speed} \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \]
@@ -888,7 +926,7 @@ Description & Spray density is derived by conducting regression analysis to deve
   \hline
   Ref.\ By & \ddref{DD_TSD} \\
   \hline
-  Use \ & \aref{A_Speed}, \dref{D_MRCA} \\
+  Uses \ & \aref{A_Speed}, \dref{D_MRCA} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -925,7 +963,7 @@ Description & Spray density is derived by conducting regression analysis to deve
   \hline
   Ref.\ By & \ddref{DD_TSD} \\
   \hline
-  Use \ & \aref{A_Speed}, \dref{D_MRTP} \\
+  Uses \ & \aref{A_Speed}, \dref{D_MRTP} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -962,7 +1000,7 @@ Description & Spray density is derived by conducting regression analysis to deve
   \hline
   Ref.\ By & \ddref{DD_TSD} \\
   \hline
-  Use \ & \aref{A_Speed}, \dref{D_MRBWSW} \\
+  Uses \ & \aref{A_Speed}, \dref{D_MRBWSW} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1000,7 +1038,7 @@ Description & Spray density is derived by conducting regression analysis to deve
   \hline
   Ref.\ By & \ddref{DD_TSD} \\
   \hline
-  Use \ & \aref{A_Speed}, \dref{D_MRBWSW} \\
+  Uses \ & \aref{A_Speed}, \dref{D_MRBWSW} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1020,7 +1058,7 @@ Description & Spray density is derived by conducting regression analysis to deve
 % \hline
 SI Units&\si{kg\per\metre^3}\\
   \hline
-  Equation & $C_{s_{air}} = (\mathit{SD_{totalcl}} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total~cl} \times AADTT ~per~ lane) \times t_2$ \\
+  Equation & $C_{s_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total\_cl} \times AADTT ~per~ lane) \times t_2$ \\
   \hline
   Description& This equation refines \tref{T_CSASG}. The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of days with snow melting.
   
@@ -1042,7 +1080,7 @@ SI Units&\si{kg\per\metre^3}\\
   \hline
   Ref.\ By & \iref{I_COTS} \\
   \hline
-  Use \ &  \tref{T_CSASG} , \ddref{DD_AADT}, \ddref{DD_AADTT}, \ddref{DD_t2}, \ddref{DD_SDTCL}\\
+  Uses \ &  \tref{T_CSASG} , \ddref{DD_AADT}, \ddref{DD_AADTT}, \ddref{DD_t2}, \ddref{DD_SDTCL}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1067,12 +1105,16 @@ Symbol & $AADT$\\
 \hline
   SI Units & N/A\\
   \hline
-  Description & AADT is the Annual Average Daily Traffic, it is given by the traffic model. 
+ Equation & $long:\mathbb{R} \times lat:\mathbb{R} \rightarrow AADT: \mathbb{R} $\\
+  \hline
+  Description & $AADT$ is the Annual Average Daily Truck Traffic, it is given by the traffic model. The $AADT$ for each GRID\_SIZE grid could be found by inputing the coordinate. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of 2\%, so the future $AADT$ values are determined using this growth rate. An example of the $AADT$ in traffic model could be found in Table \ref{Table:AADT}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
   \hline
   Ref.\ By & \dref{D_CSAS}, \iref{I_COTD}   \\
+  \hline
+   Uses \ &  \aref{A_LinearGrowthTraffic}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1094,12 +1136,16 @@ Symbol & $AADTT$\\
 % \hline
   SI Units & N/A\\
   \hline
-  Description & AADTT is the Annual Average Daily Truck Traffic, it is given by the traffic model. 
+ Equation & $long:\mathbb{R} \times lat:\mathbb{R} \rightarrow AADTT: \mathbb{R} $\\
+  \hline
+  Description & $AADTT$ is the Annual Average Daily Truck Traffic, it is given by the traffic model. The $AADTT$ for each GRID\_SIZE grid could be found by inputing the coordinate. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of 2\%, so the future $AADTT$ values are determined using this growth rate. An example of the $AADTT$ in traffic model could be found in Table \ref{Table:AADTT}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
   \hline
   Ref.\ By & \dref{D_CSAS}  \\
+  \hline
+   Uses \ &  \aref{A_LinearGrowthTraffic}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1121,7 +1167,10 @@ Symbol & $h_{total}$\\
 % \hline
   SI Units & m\\
   \hline
-  Description & $h_{total}$ is the total snowfall during a winter season, it is given by the climate model. 
+ Equation & $long:\mathbb{R} \times lat:\mathbb{R} \times year:\mathbb{N} \rightarrow h_{total}: \mathbb{R} $\\
+  \hline
+  Description & $h_{total}$ is the total snowfall during a winter season, it is given by the climate model. The $h_{total}$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $h
+_{total}$ in climate model could be found in Table \ref{Table:htotal}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1148,7 +1197,10 @@ Symbol & $t_1$\\
 % \hline
   SI Units & day\\
   \hline
-  Description & $t_1$ is the number of days with snowfall, it is given by the climate model. 
+ Equation & $long:\mathbb{R} \times lat:\mathbb{R} \times year:\mathbb{N} \rightarrow t_1: \mathbb{N} $\\
+  \hline
+  Description & $t_1$ is the number of days with snowfall during a winter season, it is given by the climate model. The $t_1$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t
+_1$ in climate model could be found in Table \ref{Table:t1}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1175,7 +1227,10 @@ Symbol & $t_2$\\
 % \hline
   SI Units & day\\
   \hline
-  Description &  $t_2$ is the number of days with snow melting, it is given by the climate model. 
+ Equation & $long:\mathbb{R} \times lat:\mathbb{R} \times year:\mathbb{N} \rightarrow t_2: \mathbb{N} $\\
+  \hline
+  Description & $t_2$ is the number of days with snow melting during a winter season, it is given by the climate model. The $t_2$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t
+_2$ in climate model could be found in Table \ref{Table:t2}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1202,14 +1257,20 @@ Symbol &$M_{app}$\\
   \hline
   Equation& 
 
-     $M_{app}=\frac{V_{salt} \times h_{total}}{t_1 \times W_{lane}}$\\
+     \[M_{app}= \left\{
+\begin{aligned}
+  & \frac{V_{salt_h} \times h_{total}}{t_1 \times W_{lane}} && \text{for high salt application rate} \\
+  & \frac{V_{salt_l} \times h_{total}}{t_1 \times W_{lane}} && \text{for low salt application rate} 
+\end{aligned} \right. \]
+\\
 
   \hline
-  Description & The equation determine the quantity of deicing salts applied per day with snowfall, according to \aref{A_deicingSalts}, that the deicing salts are applied on the days of snowfall. 
-  
+  Description & The equation determine the quantity of deicing salts applied per day with snowfall, according to \aref{A_deicingSalts}, that the deicing salts are applied on the days of snowfall. There are two cases of calculating $M_{app}$, one is for high salt application rate, and the other one is low salt application rate, both taken as constant in Table \ref{TblConstants}.
+
 \begin{itemize}
 
-\item $V_{salt}$ is the normalized salt application rate, it is a constant in Table \ref{TblConstants}. (t/cm/km)
+\item $V_{salt_h}$ is the normalized high salt application rate, it is a constant in Table \ref{TblConstants}. (t/cm/km)
+\item $V_{salt_l}$ is the normalized low salt application rate, it is a constant in Table \ref{TblConstants}. (t/cm/km)
 \item $h_{total}$ is the total snowfall during a winter season, given by the climate model \ddref{DD_htotal}. (m)
 
 \item $t_{1}$ is the number of days with snowfall, given by the climate model \ddref{DD_t1}.
@@ -1223,7 +1284,7 @@ Symbol &$M_{app}$\\
   \hline
   Ref.\ By & \ddref{DD_RSW}   \\
   \hline
-  Use & \aref{A_deicingSalts}, \aref{A_laneWidth}, \ddref{DD_htotal}, \ddref{DD_t1} \\
+  Uses & \aref{A_deicingSalts}, \aref{A_laneWidth}, \ddref{DD_htotal}, \ddref{DD_t1} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1260,9 +1321,9 @@ Symbol &$h_{app}$\\
   \hline
   Sources& [\reref{ref4}, \reref{ref9}] \\
   \hline
-  Use & \ddref{DD_htotal}, \ddref{DD_t2}\\
-  \hline
   Ref.\ By &  \dref{D_MRTP}, \dref{D_MRBWSW},  \ddref{DD_RSW} \\ 
+  \hline
+  Uses & \ddref{DD_htotal}, \ddref{DD_t2}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1300,7 +1361,7 @@ Description & The spray density (i.e. mass of water per unit air volume kicked u
   \hline
   Ref.\ By & \ddref{DD_SDTCL} \\ 
   \hline
-  Use\ & \dref{D_SDCA}, \dref{D_SDTP}, \dref{D_SDBW}, \dref{D_SDSW}\\
+  Uses\ & \dref{D_SDCA}, \dref{D_SDTP}, \dref{D_SDBW}, \dref{D_SDSW}\\
   \hline
 \end{tabular}
 
@@ -1340,7 +1401,7 @@ Description & This equation computes the ratio of the mass of salt applied per u
   \hline
   Ref.\ By & \ddref{DD_SDTCL} \\ 
   \hline
-  Use \ &   \ddref{DD_DSQ}, \ddref{DD_DWFT} \\
+  Uses \ &   \ddref{DD_DSQ}, \ddref{DD_DWFT} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1378,7 +1439,7 @@ Description & This equation computes the mass of chloride ions per unit air volu
   \hline
   Ref.\ By & \tref{T_CSASG}, \dref{D_CSAS} \\ 
   \hline
-  Use \ & \aref{A_NaCl}, \ddref{DD_TSD}, \ddref{DD_RSW} \\
+  Uses \ & \aref{A_NaCl}, \ddref{DD_TSD}, \ddref{DD_RSW} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1391,7 +1452,7 @@ one which is expressed in mathematical terms. It uses concrete symbols defined
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}, \iref{I_DFSB}.
+The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}, \iref{I_COTD}, \iref{I_DFSB}.
 
 
 ~\newline
@@ -1407,20 +1468,19 @@ The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}, \iref{
   \hline
   Label& \bf Chloride on the pier \\
   \hline
-  Input& $C_{s_{air}}, e, d$\\
+  Input& $C_{s_{air}}, d$\\
   \hline
   Output& $C_s$ \\
   \hline
   Equation& $C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \times  e^{-0.5d}$\\ 
   \hline
-  Description& The above equation computes the chloride ions deposition on bridge substructure, taking into account the distance between the edge of the road near the bridge substructure and the bridge substructure. It is a refinement of \tref{T_TAD}, and use the result from \dref{D_CSAS}, where the chloride exposure rate is calculated with the climate and traffic data.
+  Description& The above equation is a refinement of \tref{T_TAD}, it is assumed that the situation in Sweden is similar to other JURISDICTION, so theories in [\reref{ref11}, \reref{ref12}] could be applied. This equation computes the chloride ions deposition on bridge substructure, taking into account the distance between the edge of the road near the bridge substructure and the bridge substructure. 
 \begin{itemize}
 
-\item $C_{s_{air}}$ is the cumulative mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier. (\si{kg/m^3})
+\item $C_{s_{air}}$ is the result from \dref{D_CSAS}, which is the cumulative mass of chloride ions per unit air volume sprayed and splashed by all the vehicles passing near the bridge pier. (\si{kg/m^3})
 
 \item $d$ is the distance between the road edge and nearby bridge structure, it is a constant in Table \ref{TblConstants}. (m)
 
-\item $e$ is the base of natural logarithm.
 
 \end{itemize}
   \\
@@ -1429,13 +1489,18 @@ The goal \gsref{G_ChlorideExposurePrediction} is solved by \iref{I_COTS}, \iref{
   \hline
   Ref.\ By & \iref{I_DFSB}, \lcref{LC_SASC}  \\
   \hline
-  Use \ & \tref{T_TAD}, \dref{D_CSAS} \\
+  Uses \ & \aref{A_deicingSaltsDeposition} \tref{T_TAD}, \dref{D_CSAS} \\
   \hline
 \end{tabular}
 \end{minipage}\\
 
 \subsubsection*{Detailed derivation of chloride on the surface}
-According to [\reref{ref12}], the spray emission rate coefficient and splash emission rate coefficient could be taken as -0.05 and -0.5, and the distance between road edge and nearby bridge structure is $d$, so we have: 
+In \tref{T_TAD}, it is mentioned that
+\[
+C_s = a_{spray} \times e^{-0.05x} + a_{splash} \times e^{-0.5x}\\ 
+\]
+\\
+Given the distance between road edge and nearby bridge structure is $d$, we have: 
 \[
 C_s = a_{spray} \times e^{-0.05d} + a_{splash} \times e^{-0.5d}\\ 
 \]
@@ -1448,7 +1513,15 @@ a_{spray} = a_{air} \times 0.015
 a_{splash} = a_{air} \times 0.985
 \]
 \\
-Combining the above equation in the scenario of chloride, we have:
+Combining the above equation in the scenario of chloride, that is, $a_{air}$ is the total maximum chloride deposition rate that can occur:
+\[
+a_{spray} = C_{s_{air}} \times 0.015
+\]
+\[
+a_{splash} = C_{s_{air}} \times 0.985
+\]
+\\
+then we have:
 \[
 C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \times  e^{-0.5d}
 \]
@@ -1486,7 +1559,7 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
   \hline
   Ref.\ By & \iref{I_DFSB}  \\
   \hline
-  Use \ & \ddref{DD_AADT}, \ddref{DD_htotal} \\
+  Uses \ & \ddref{DD_AADT}, \ddref{DD_htotal} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1503,20 +1576,22 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
   \hline
   Label& \bf Search data for specific coordinate \\
   \hline
-  Input& $(long, lat)$\\
+  Input& $long:\mathbb{R},lat:\mathbb{R}$\\
   \hline
-  Output & [$C_{s}$] \\
+  Output & $[C_{s}]_{t}^{n}$ \\
   \hline
-  Description & This instance model get the longitude and latitude as input, and return a list of chloride exposure rate as output, which is the result of \iref{I_COTS} and \iref{I_COTD}. The searching process is conducted using coding logic. This is the model that the end user of this software will encounter.
+  Description & This instance model get the longitude and latitude as input, and return a list of chloride exposure rate, over the time periods $t$ to $n$ as output, which is the result of \iref{I_COTS} and \iref{I_COTD}. The searching process is conducted using coding logic. This is the model that the end user of this software will encounter.
 
 \begin{itemize}
 
 \item $(long, lat)$ is the coordinate of a location. (\degree, \degree)
-\item \texttt{[}$C_{s}$\texttt{]} is a list of chloride exposure data. ([\si{kg/m^3}])
+\item $[C_{s}]_{t}^{n}$ is a list of chloride exposure data over the time periods $t$ to $n$. ([\si{kg/m^3}])
+\item $t$ is the start time for the period.
+\item $n$ is the end time for the period.
 \end{itemize}
  \\
   \hline
-  Use \ & \aref{A_Data}, \iref{I_COTS}, \iref{I_COTD}
+  Uses \ & \aref{A_Data}, \iref{I_COTS}, \iref{I_COTD}
   \\
   \hline
  \end{tabular}
@@ -1532,7 +1607,7 @@ software constraints restricts the range of inputs to reasonable values. The sof
 algorithms.  The constraints are conservative, to give the user of the model the
 flexibility to experiment with unusual situations. The column for typical values lists the most frequent occurrences in the traffic and climate model. The uncertainty column
 provides an estimate of the confidence with which the physical quantities can be
-measured.  This information would be part of the input if one were performing an uncertainty quantification exercise. In the BCP project, we talk about not only the input variables mentioned in instance models, but also include those in other models that the instance models use. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside the jurisdiction. This will be done by input checking algorithm later. \\
+measured.  This information would be part of the input if one were performing an uncertainty quantification exercise. In the BCP project, we talk about not only the input variables mentioned in instance models, but also include those in other models that the instance models use. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside JURISDICTION. This will be done by input checking algorithm later. \\
 The specification parameters in Table~\ref{TblInputVar} are listed in
 Table~\ref{TblConstants}.
 
@@ -1590,20 +1665,19 @@ qualities that the software is expected to exhibit.
 \subsection{Functional Requirements}
 
 \begin{itemize}
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map of the jurisdiction that users could click on as approach of input.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map of JURISDICTION that users could click on as approach of input.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept coordinate that is inside the jurisdiction. (By \iref{I_DFSB})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept coordinate that is inside JURISDICTION. (By \iref{I_DFSB})
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select the different concerned parameter, including chloride on pier, chloride on deck, and the different salt application rate. (By \iref{I_COTS}, \iref{I_COTD},  \iref{I_DFSB})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select the different concerned parameter: for chloride on pier (\iref{I_COTS}) consider the different salt application rate (\ddref{DD_DSQ}), while the chloride on deck (\iref{I_COTD}) is not related to salt application rate.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The result list of chloride exposure rate should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of chloride exposure rate should be of two decimal data%?TODO ask)
-, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_COTS}, \iref{I_DFSB})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of chloride exposure rate should be of two decimal data \an{TODO ask how many decimal they want}, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_COTS}, \iref{I_DFSB})
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of chloride exposure rate should have an visualization of line graph and histogram. % TODO ask which they prefer
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of chloride exposure rate should have an visualization of line graph and histogram. \an{TODO ask which they prefer}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The result list of chloride exposure rate %(and the visualization?TODO ask) 
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The result list of chloride exposure rate \an{(and the visualization?TODO ask) }
 should be able to be downloaded by users to their local machine. 
 
 
@@ -1616,13 +1690,13 @@ should be able to be downloaded by users to their local machine.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Reliability}:]   \textbf{Reliability}: The reliability is measured and verified in the \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnVplan}.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}: The software interface should be intuitive and easy to use, allowing users in the section \ref{SecUserCharacteristics} to easily input coordinates and look at the predicted chloride exposure in no more than five minutes.
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}: The software interface should be intuitive and easy to use, allowing users in the section \ref{SecUserCharacteristics} to easily input coordinates and look at the predicted chloride exposure in no more than five minutes. More measurements about usability could be found in \href{https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnVplan}.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:] \textbf{Maintainability}: The code for this software should be designed and structured in a way that it could be easily comprehended and modified by other potential developers, taking only 10\% of the origin develop time.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]  \textbf{Portability}: This software should be able to run on recent versions of Google Chrome, Firefox, MS Edge and Safari. The operating system include Windows 7+ and Mac OS X 10.7+.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Scalability}:]   \textbf{Scalability}: The software should be scalable to accommodate potential future expansions to more jurisdictions, support concurrent users while maintaining a quick response time.
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Scalability}:]   \textbf{Scalability}: The software should be scalable to accommodate potential future expansions to more JURISDICTION, support concurrent users while maintaining a quick response time.
 \end{itemize}
 
 \subsection{Rationale}
@@ -1632,6 +1706,7 @@ The assumptions made in this document are based on practical considerations to s
 \item In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. 
 \item \aref{A_laneWidth}, \aref{A_tireWidth} and \aref{A_Speed} simplify the model by standardizing the lane width, tire width and vehicle speed, which streamlines the analysis and allows for consistent calculations.
 \item \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions, as NaCl is one of the most widely used deicing salts due to its effectiveness and affordability.
+\item It has been observed that the traffic volume across Ontario experiences an annual growth rate of about 2\% on average, so to account for the time-variant nature of traffic volume and its impact on chloride exposure, a linear annual growth rate of 2\% was applied to both AADT and AADTT for all highway segments in \aref{A_LinearGrowthTraffic}.
 \item \aref{A_Data} is assumed following the resolution of the CanRCM4 model ([\reref{ref13}]), where the climate data are extracted from.
 \item \aref{A_Calibration} The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves.
 
@@ -1659,7 +1734,85 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 
 \end{itemize}
 
-\newpage
+\section{Sample Tables for Climate Model and Traffic Model}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline 
+ long & lat & AADT \\
+
+\hline
+277.9257 & 46.40717 & 559 \\ \hline
+278.0479 & 46.8391 & 559 \\ \hline
+279.4862 & 43.03779 & 2489  \\ \hline
+\end{tabular}
+\caption{AADT - Anuual Average Daily Traffic}
+\label{Table:AADT}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline 
+ long & lat & AADTT \\
+
+\hline
+277.9257 & 46.40717 & 103 \\ \hline
+278.0479 & 46.8391 & 103 \\ \hline
+279.4862 & 43.03779 & 433  \\ \hline
+\end{tabular}
+\caption{AADTT - Anuual Average Daily Truck Traffic}
+\label{Table:AADTT}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+ long & lat & 2006 & 2007 & 2008 & ... & 2100  \\
+
+\hline
+277.9257 & 46.40717 & 128.2556 & 177.2936 & 131.0888 & ... & 84.54496\\ \hline
+278.0479 & 46.8391 & 103.0215 & 58.72967 & 45.85082 & ... & 53.21502 \\ \hline
+279.4862 & 43.03779 & 114.4002  & 55.12466 & 42.80479 & ... & 52.90405\\ \hline
+\end{tabular}
+\caption{$h_{total}$ - Total Snowfall during a Winter}
+\label{Table:htotal}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+ long & lat & 2006 & 2007 & 2008 & ... & 2100  \\
+
+\hline
+277.9257 & 46.40717 & 99 & 113 & 83 & ... & 65\\ \hline
+278.0479 & 46.8391 & 70 & 75 & 59 & ... & 44 \\ \hline
+279.4862 & 43.03779 & 73  & 74 & 59 & ... & 46\\ \hline
+\end{tabular}
+\caption{$t_1$ - Number of Days with Snowfall}
+\label{Table:t1}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+ long & lat & 2006 & 2007 & 2008 & ... & 2100  \\
+
+\hline
+277.9257 & 46.40717 & 89 & 84 & 81 & ... & 84\\ \hline
+278.0479 & 46.8391 & 89 & 79 & 69 & ... & 53 \\ \hline
+279.4862 & 43.03779 & 89  & 65 & 70 & ... & 52\\ \hline
+\end{tabular}
+\caption{$t_2 $ - Number of Days with Snow Melting}
+\label{Table:t2}
+\end{table}
 
 \section{Traceability Matrices and Graphs}
 
@@ -1713,11 +1866,8 @@ other.
 \label{Table:A_others}
 \end{table}
 
-
-\newpage
-\begin{landscape}% Landscape page
-        
-\begin{table}[H]
+\begin{landscape}% Landscape page        
+\begin{table}[h]
 \centering
 \setlength{\tabcolsep}{2pt}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -1784,48 +1934,6 @@ other.
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
 \label{Table:R_trace}
-\end{table}
-
-
-\newpage
-\section{Values of Auxiliary Constants}
-
-\begin{table}[!h]
-
-  \renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l l l c} 
-  \toprule
- \textbf{Symbol} & \textbf{Description} & \textbf{Value} & \textbf{Unit}\\
-
-
-  \midrule 
-  $V$ &  speed of vehicle & $62.1371$ & miles/h   \\
-  $V_{speed}$ & speed of heavy vehicle & $100$ & km/h   \\
-  $b$ & tire width & $0.56$ & m \\
-  
-  $b_{spray}$ & spray emission rate coefficient & -0.05 & N/A
-  \\
-  $b_{splash}$ & splash emission rate coefficient & -0.5 & N/A
-  \\
-  $d$ & distance between the road edge and the bridge substructure & 3.5 & m
-  \\
-  $h_{film}$ & depth of the water film picked up in each rotation & 0.0001 & m
-  \\
-  $K$ & ratio of the tire width that is not a groove to the tire width & 0.75& N/A
-  \\
-  $\rho_{water}$ & water density & 997 & \si{kg/m^3}
-  \\  
-  $W_{lane}$ & lane width & 3.75 & m
-  \\  
-  $V_{salt}$ & salt application rate & 0.05 & t/cm/km
-  \\
-  $\theta_{chloride}$ &  molar mass ratio of chloride ions over deicing salts & 0.61 & N/A \\
-  $\Theta$ & ratio of chloride ions sprayed and  \\
-  & splashed by trucks over light-duty vehicles& 6 & N/A  \\  
-  
-  \bottomrule
-\end{longtable*}
-  \caption{Auxiliary Constant} \label{TblConstants}
 \end{table}
 
 
