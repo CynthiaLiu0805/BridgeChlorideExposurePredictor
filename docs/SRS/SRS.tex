@@ -157,6 +157,7 @@ Feb 23, 2024 & 0.1 & Add more details according to feedback from peer review\\
 Mar 7, 2024 & 0.2 & Modified according to feedback from Dr. Spence Smith\\
 Apr 13, 2024 & 0.3 & Final revision for 741\\
 June 13, 2024 & 0.4 & Revision for BCP base on feedback from Dr. Smith\\
+% characterize the changes rather than source of feedback
 \bottomrule
 \end{tabularx}
 
@@ -302,18 +303,18 @@ TP & Tread Pickup\\
 
 
 \subsection{Symbolic Parameters}
-This section includes the symbolic parameters introduced in the report. We use symbolic parameters to represent values that typically remain constant.
+This section includes the symbolic parameters introduced in the report. We use symbolic parameters to represent values that are constant for a specific implementation of BCP. The value could be modified to create a new instance of BCP. For instance, JURISDICTION could be changed to provide the tool for a province or state other than Ontario.
 
 \begin{table}[!h]
 
   \renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l l l c} 
+\noindent \begin{longtable*}{l l l l} 
   \toprule
  \textbf{Symbol} & \textbf{Description} & \textbf{Value} & \textbf{Unit}\\
 
 
   \midrule 
-  JURISDICTION & An area that share a particular set of laws or rules & Ontario & - \\
+  JURISDICTION & An geographic area sharing a same set of laws or rules & Ontario & - \\
   GRID\_SIZE & Minimum area sharing the same climate and traffic data & 25 $\times$ 25 & - \\
   $V$ &  speed of vehicle & $62.1371$ & miles/h   \\
   $V_{speed}$ & speed of heavy vehicle & $100$ & km/h   \\
@@ -442,7 +443,9 @@ easier to correctly understand the requirements.
 \item Deposition rate: The rate at which a substance is deposited onto a surface over a specific period of time. (\si{kg/m^3})
 \item Drainage: The process by which water or other liquids flow away from an area with excess water.
 \item AADT: The average daily traffic volume at a given location over an entire year, measured by the number of vehicles.
-\item AADTT:  The average daily truck traffic volume at a given location over an entire year, measured by the number of vehicles.
+\item AADTT: The average daily truck traffic volume at a given location over an entire year, measured by the number of vehicles.
+\item Pier: An upright support for a structure or superstructure such as an arch or bridge. A bridge pier is a type of structure that extend to the ground below.
+\item Deck: The surface of a bridge.
 
 \end{itemize}
 
@@ -475,7 +478,7 @@ The key physical system of BCP, as shown in Figure \ref{4mechanism}, simulate th
 \newpage
 \subsubsection{Goal Statements}
 
-\noindent Given the climate data, traffic data and geographical coordinates, the goal statement is:
+\noindent Given the climate data, traffic data and geographical coordinates, the goal is to:
 
 \begin{itemize}
 
@@ -506,9 +509,9 @@ Change [LC], in which the respective assumption is used.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_NaCl}:] The main component of deicing salt is NaCl. (RefBy: \ddref{DD_SDTCL})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_tireWidth}:] The tire width for all the vehicles are the same. (RefBy: \tref{T_MFRG},  \dref{D_MRCA} - \dref{D_SDSW})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_tireWidth}:] The tire width for all the vehicles are the same. (RefBy: \tref{T_MFRG},  \dref{D_MRCA} -- \dref{D_SDSW})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MRCA} - \dref{D_SDSW})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MRCA} -- \dref{D_SDSW})
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_LinearGrowthTraffic}:]  All highway segments has a linear annual growth rate of 2\% AADT and AADTT. (RefBy: \ddref{DD_AADT}, \ddref{DD_AADTT})
 
@@ -517,6 +520,8 @@ Change [LC], in which the respective assumption is used.
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Calibration}:] The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves. (RefBy: \dref{D_MRBWSW})
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_deicingSaltsDeposition}:] The deposition of deicing salts along a highway in Sweden is similar to other JURISDICTION. (RefBy: \iref{I_COTS})
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_fourMechanisms}:] The amount of water is enough to activate all four kinds of mechanisms of vehicle spray and splash. (RefBy: \dref{D_MRCA}, \dref{D_MRTP}, \dref{D_MRBWSW})
 
 \end{itemize}
 
@@ -589,7 +594,7 @@ Equation& $\mathit{MR_W} = V \cdot b \cdot \mathit{WD} \cdot \rho_{water} $\\
 
 \hline
 Description & 
-The above equation is the general equation for mass flow rate (MFR), which is the maximum amount of water available for splash and spray.
+The above equation ($\mathit{MR_W}$) is the general equation for mass flow rate (MFR), which is the maximum amount of water available for splash and spray.
 \begin{itemize}
 
 \item $V$ is the truck speed. (m/s)
@@ -684,8 +689,7 @@ SI Units&\si{kg\per\metre^3} \\
 \hline
 Equation & $D(x) = a_{spray} \times e^{-0.05x} + a_{splash} \times e^{-0.5x} $\\ 
   \hline
-  Description& The above equation describes the total airborne
-deposition at a certain distance from the road.
+  Description& The above equation describes the total airborne deposition $D$ at a certain distance $x$ from the road.
 
 \begin{itemize}
 
@@ -746,13 +750,13 @@ Description & This equation compute the contribution to the amount of water disp
 \end{itemize}
 \\
 \hline
-Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed and same tire width, as stated in \aref{A_tireWidth}, \aref{A_Speed} \\
+Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicles have the same speed and same tire width, as stated in \aref{A_tireWidth} and \aref{A_Speed} \\
 \hline
   Source & [\reref{ref4}] \\
   \hline
   Ref.\ By & \dref{D_SDCA} \\ 
   \hline
-  Uses\ &  \aref{A_tireWidth}, \aref{A_Speed}, \tref{T_MFRG}\\
+  Uses\ &  \aref{A_tireWidth}, \aref{A_Speed}, \aref{A_fourMechanisms}, \tref{T_MFRG}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -785,7 +789,7 @@ Equation&
       $\mathit{MR_{TP}} = V_{speed} \times b \times (1-K) \times h_{app} \times \rho_{water}$
   \\
 \hline
-Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of tread pickup mechanism ($\mathit{MR_{TP}}$). The tread pickup will be activated only if there is water remaining after the capillarity adhesion
+Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of tread pickup mechanism ($\mathit{MR_{TP}}$). 
 
 \begin{itemize}
 
@@ -803,13 +807,13 @@ Description & The above equation computes the contribution to the amount of wate
 
 \\
 \hline
-Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed and tire width, as stated in \aref{A_tireWidth}, \aref{A_Speed}. It also uses $h_{app}$, which is the result calculated from \ddref{DD_DWFT}.\\
+Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed and tire width, as stated in \aref{A_tireWidth}, \aref{A_Speed}. It also uses $h_{app}$, which is the result calculated from \ddref{DD_DWFT}. As stated in \aref{A_fourMechanisms}, this equation will always be activated as the amount of water is enough.\\
 \hline
   Source & [\reref{ref4}] \\
   \hline
   Ref.\ By & \dref{D_SDTP} \\ % \ddref{dsq}, \ddref{dwft}\\
   \hline
-  Uses\ & \aref{A_tireWidth}, \aref{A_Speed},  \tref{T_MFRG}, \ddref{DD_DWFT}\\
+  Uses\ & \aref{A_tireWidth}, \aref{A_Speed}, \aref{A_fourMechanisms}, \tref{T_MFRG}, \ddref{DD_DWFT}\\
   \hline
 \end{tabular}
 
@@ -845,8 +849,7 @@ SI Units&\si{kg\per s}\\
 \hline
 Equation& $\mathit{MR_{BW}} = MR_{SW} = 0.5 \times V_{speed} \times b \times (h_{app} - K \times h_{film} - (1-K) \times h_{app}) \times \rho_{water} $ \\
 \hline
-Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of bow waves mechanism ($\mathit{MR_{BW}}$) and side waves mechanism ($\mathit{MR_{SW}}$). This equation will be activated only if there is water remaining after the capillary adhesion and tread pickup.
-
+Description & The above equation computes the contribution to the amount of water displaced by a single tire (MFR) of bow waves mechanism ($\mathit{MR_{BW}}$) and side waves mechanism ($\mathit{MR_{SW}}$). 
 \begin{itemize}
 
 \item $V_{speed} $ is the heavy vehicle speed, it is a constant in Table \ref{TblConstants}. (km/h)
@@ -864,13 +867,13 @@ Description & The above equation computes the contribution to the amount of wate
 \end{itemize}
 \\
 \hline
-Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed and tire width, as stated in \aref{A_tireWidth}, \aref{A_Speed}. It also uses $h_{app}$, which is the result calculated from \ddref{DD_DWFT}. The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, according to \aref{A_Calibration}. \\
+Notes & This equation is a refinement of \tref{T_MFRG}, it assumes that all vehicle have same speed and tire width, as stated in \aref{A_tireWidth}, \aref{A_Speed}. It also uses $h_{app}$, which is the result calculated from \ddref{DD_DWFT}. The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, according to \aref{A_Calibration}. As stated in \aref{A_fourMechanisms}, this equation will always be activated as the amount of water is enough.\\
 \hline
   Source & [\reref{ref4}] \\
   \hline
   Ref.\ By & \dref{D_SDBW},  \dref{D_SDSW} \\ % \ddref{dsq}, \ddref{dwft}\\
   \hline
-  Uses\ & \aref{A_tireWidth}, \aref{A_Speed}, \aref{A_Calibration}, \tref{T_MFRG}, \ddref{DD_DWFT}\\
+  Uses\ & \aref{A_tireWidth}, \aref{A_Speed}, \aref{A_Calibration}, \aref{A_fourMechanisms}, \tref{T_MFRG}, \ddref{DD_DWFT}\\
   \hline
 \end{tabular}
 
@@ -1058,7 +1061,7 @@ Description & Spray density is derived by conducting regression analysis to deve
 % \hline
 SI Units&\si{kg\per\metre^3}\\
   \hline
-  Equation & $C_{s_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \times (AADT~ per~ lane - AADTT ~per~ lane) + SD_{total\_cl} \times AADTT ~per~ lane) \times t_2$ \\
+  Equation & $C_{s_{air}} = (\mathit{SD_{total\_cl}} \times \frac{1}{\Theta} \times (AADT - AADTT) + SD_{total\_cl} \times AADTT) \times t_2$ \\
   \hline
   Description& This equation refines \tref{T_CSASG}. The cumulative mass of chloride ions per unit air volume sprayed and splashed by all vehicles every winter, can be calculated by first finding the mass of chloride ions per unit air volume sprayed and splashed by all the vehicles per day, and times with the number of days with snow melting.
   
@@ -1068,9 +1071,9 @@ SI Units&\si{kg\per\metre^3}\\
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles, it is a constant in Table \ref{TblConstants}.
 
-\item $AADT ~per~ lane$ is the annual average daily traffic per lane, given by traffic model \ddref{DD_AADT}.
+\item $AADT$ is the annual average daily traffic per lane, given by traffic model \ddref{DD_AADT}.
 
-\item $AADTT~ per~ lane$ is the annual average daily truck traffic per lane, given by traffic model \ddref{DD_AADTT}.
+\item $AADTT$ is the annual average daily truck traffic per lane, given by traffic model \ddref{DD_AADTT}.
 
 \item $t_2$ is the number of days with snow melting, given by climate model in \ddref{DD_t2}.
 \end{itemize}
@@ -1105,16 +1108,17 @@ Symbol & $AADT$\\
 \hline
   SI Units & N/A\\
   \hline
- Equation & $long:\mathbb{R} \times lat:\mathbb{R} \rightarrow AADT: \mathbb{R} $\\
+ Equation & $AADT:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $\\
   \hline
-  Description & $AADT$ is the Annual Average Daily Truck Traffic, it is given by the traffic model. The $AADT$ for each GRID\_SIZE grid could be found by inputing the coordinate. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of 2\%, so the future $AADT$ values are determined using this growth rate. An example of the $AADT$ in traffic model could be found in Table \ref{Table:AADT}.
+  Description & $AADT(long, lat)$ is the Annual Average Daily Truck Traffic as a function of position, given by the longitude (long) and latitude (lat). The $AADT$ for each GRID\_SIZE grid is found by interpolating the data in the traffic data table (following the pattern in Table \ref{Table:AADT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of 2\%. Future $AADT$ values are determined using this growth rate. 
+
   \\
   \hline
   Sources& [\reref{ref7}] \\
   \hline
   Ref.\ By & \dref{D_CSAS}, \iref{I_COTD}   \\
   \hline
-   Uses \ &  \aref{A_LinearGrowthTraffic}\\
+   Uses \ &  \aref{A_LinearGrowthTraffic}, \aref{A_Data}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1145,7 +1149,7 @@ Symbol & $AADTT$\\
   \hline
   Ref.\ By & \dref{D_CSAS}  \\
   \hline
-   Uses \ &  \aref{A_LinearGrowthTraffic}\\
+   Uses \ &  \aref{A_LinearGrowthTraffic}, \aref{A_Data}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1177,6 +1181,8 @@ _{total}$ in climate model could be found in Table \ref{Table:htotal}.
   \hline
   Ref.\ By & \ddref{DD_DSQ}, \ddref{DD_DWFT}, \iref{I_COTD} \\
   \hline
+   Uses \ & \aref{A_Data}\\
+  \hline
 \end{tabular}
 \end{minipage}\\
 
@@ -1206,6 +1212,8 @@ _1$ in climate model could be found in Table \ref{Table:t1}.
   Sources& [\reref{ref7}] \\
   \hline
   Ref.\ By & \ddref{DD_DSQ}   \\
+  \hline
+   Uses \ & \aref{A_Data}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1237,6 +1245,8 @@ _2$ in climate model could be found in Table \ref{Table:t2}.
   \hline
   Ref.\ By & \dref{D_CSAS}, \ddref{DD_DWFT}   \\
   \hline
+   Uses \ &   \aref{A_Data}\\
+  \hline
 \end{tabular}
 \end{minipage}\\
 
@@ -1253,7 +1263,7 @@ Label& \bf Deicing salts quantity\\
 \hline
 Symbol &$M_{app}$\\
 \hline
-  SI Units & $kg/m^2$\\
+  SI Units & \si{kg/m^2}\\
   \hline
   Equation& 
 
@@ -1513,7 +1523,7 @@ a_{spray} = a_{air} \times 0.015
 a_{splash} = a_{air} \times 0.985
 \]
 \\
-Combining the above equation in the scenario of chloride, that is, $a_{air}$ is the total maximum chloride deposition rate that can occur:
+Combining the above equation in the scenario of chloride, where $a_{air}$ could be substituted as $C_{s_{air}}$, the total maximum chloride deposition rate that can occur:
 \[
 a_{spray} = C_{s_{air}} \times 0.015
 \]
@@ -1543,7 +1553,7 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
   \hline
   Output& $C_s$ \\
   \hline
-  Equation& $C_s = 0.11 \times h_{total} - 0.000189 \times AADT ~ per ~ lane + 3.349$\\ 
+  Equation& $C_s = 0.11 \times h_{total} - 0.000189 \times AADT + 3.349$\\ 
   \hline
   Description& The above equation computes the chloride ions deposition on bridge decks. It is based on a linear regression model by [\reref{ref6}],  that characterize the relationship between the surface chloride concentration on bridge decks and two key factors: the annual snowfall amount ($h_{total}$) and the AADT
 
@@ -1586,8 +1596,8 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
 
 \item $(long, lat)$ is the coordinate of a location. (\degree, \degree)
 \item $[C_{s}]_{t}^{n}$ is a list of chloride exposure data over the time periods $t$ to $n$. ([\si{kg/m^3}])
-\item $t$ is the start time for the period.
-\item $n$ is the end time for the period.
+\item $t$ is the start year (an integer) for the period, based on the availability of data in the climate and traffic models.
+\item $n$ is the end year (an integer) for the period, based on the availability of data in the climate and traffic models.
 \end{itemize}
  \\
   \hline
@@ -1665,15 +1675,15 @@ qualities that the software is expected to exhibit.
 \subsection{Functional Requirements}
 
 \begin{itemize}
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map of JURISDICTION that users could click on as approach of input.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map of JURISDICTION that users can click to provide the input coordinate (longitude \& latitude).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept coordinate that is inside JURISDICTION. (By \iref{I_DFSB})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept coordinate that are inside JURISDICTION. (By \iref{I_DFSB})
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select the different concerned parameter: for chloride on pier (\iref{I_COTS}) consider the different salt application rate (\ddref{DD_DSQ}), while the chloride on deck (\iref{I_COTD}) is not related to salt application rate.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The result list of chloride exposure rate should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of chloride exposure rate should be of two decimal data \an{TODO ask how many decimal they want}, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_COTS}, \iref{I_DFSB})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of chloride exposure rate should be of two decimal data \an{TODO ask how many decimal they want}, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_DFSB})
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of chloride exposure rate should have an visualization of line graph and histogram. \an{TODO ask which they prefer}
 
@@ -1735,7 +1745,7 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 \end{itemize}
 
 \section{Sample Tables for Climate Model and Traffic Model}
-
+This section includes the sample tables for climate model and traffic model. The longitude and latitude are the center coordinate of each grid. The method to determine which grid the input coordinate belongs to is to find the pair of longitude and latitude in the table with closest distance.
 
 \begin{table}[H]
 \centering
@@ -1751,6 +1761,8 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 \caption{AADT - Anuual Average Daily Traffic}
 \label{Table:AADT}
 \end{table}
+
+
 
 \begin{table}[H]
 \centering
@@ -1835,39 +1847,39 @@ with an ``X'' may have to be modified as well.
 \noindent
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_tireWidth} & \aref{A_Speed} & \aref{A_LinearGrowthTraffic} & \aref{A_Data} & \aref{A_Calibration} \\
+	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_tireWidth} & \aref{A_Speed} & \aref{A_LinearGrowthTraffic} & \aref{A_Data} & \aref{A_Calibration} & \aref{A_deicingSaltsDeposition} &\aref{A_fourMechanisms}\\
 \hline
-\tref{T_WFT}       & & & & & &  & &   \\ \hline
-\tref{T_MFRG}      & & & & X & X & &  &  \\ \hline
-\tref{T_CSASG}        & & & & &  & &  & \\ \hline
-\tref{T_TAD}        & & & & &  & & &\\ \hline
-\dref{D_MRCA}          & & & & X & X  & &  &  \\ \hline
-\dref{D_MRTP}          & & & & X & X  & &  &  \\ \hline
-\dref{D_MRBWSW}          & & & & X & X  & &  & X  \\ \hline
-\dref{D_SDCA}            & & & & & X  & &  &  \\ \hline
-\dref{D_SDTP}            & & & & & X  & &  &  \\ \hline
-\dref{D_SDBW}            & & & & & X  & &  &  \\ \hline
-\dref{D_SDSW}            & & & & & X  & &  &  \\ \hline
-\dref{D_CSAS}       & & & & &  & & & \\ \hline
-\ddref{DD_AADT}  & & & & & & X &  & \\ \hline
-\ddref{DD_AADTT}  & & & & &  & X & & \\ \hline
-\ddref{DD_htotal}  & & & & & & &  & \\ \hline
-\ddref{DD_t1}  & & & & & &  & & \\ \hline
-\ddref{DD_t2}  & & & & & &  & & \\ \hline
-\ddref{DD_DSQ}   & X & X & &   &  & & &  \\ \hline
-\ddref{DD_DWFT}    & & & & & &  & & \\ \hline
-\ddref{DD_TSD}    & & & & & & &  & \\ \hline
-\ddref{DD_RSW}    & & & & & & &  & \\ \hline
-\ddref{DD_SDTCL}    & & & X &  & & & &\\ \hline
-\iref{I_COTS}       & & & & & & & &  \\ \hline
-\iref{I_COTD}       & & & & & &  & & \\ \hline
-\iref{I_DFSB}       & & & & &  & & X & \\ \hline
-\lcref{LC_laneWidth}     & & X & &  & & &  & \\ \hline
-\lcref{LC_SASC}   & & & & & &  & & \\ \hline
-\ulcref{ULC_saltSame}   & X & & &  & & &  &\\ \hline
-\ulcref{ULC_NaCl}   & & & X &  & & &  & \\ \hline
+\tref{T_WFT}       & & & & & &  & & & &  \\ \hline
+\tref{T_MFRG}      & & & & X & X & &  & & & \\ \hline
+\tref{T_CSASG}        & & & & &  & &  & & &\\ \hline
+\tref{T_TAD}        & & & & &  & & && &\\ \hline
+\dref{D_MRCA}          & & & & X & X  & &  & & &X \\ \hline
+\dref{D_MRTP}          & & & & X & X  & &  & & &X \\ \hline
+\dref{D_MRBWSW}          & & & & X & X  & &  & X  & &X\\ \hline
+\dref{D_SDCA}            & & & & & X  & &  & & & \\ \hline
+\dref{D_SDTP}            & & & & & X  & &  & & & \\ \hline
+\dref{D_SDBW}            & & & & & X  & &  && &  \\ \hline
+\dref{D_SDSW}            & & & & & X  & &  && &  \\ \hline
+\dref{D_CSAS}       & & & & &  & & && & \\ \hline
+\ddref{DD_AADT}  & & & & & & X &  && & \\ \hline
+\ddref{DD_AADTT}  & & & & &  & X & & & &\\ \hline
+\ddref{DD_htotal}  & & & & & & &  && & \\ \hline
+\ddref{DD_t1}  & & & & & &  & && & \\ \hline
+\ddref{DD_t2}  & & & & & &  & & & &\\ \hline
+\ddref{DD_DSQ}   & X & X & &   &  & & & & & \\ \hline
+\ddref{DD_DWFT}    & & & & & &  & && &\\ \hline
+\ddref{DD_TSD}    & & & & & & &  && & \\ \hline
+\ddref{DD_RSW}    & & & & & & &  && & \\ \hline
+\ddref{DD_SDTCL}    & & & X &  & & & && &\\ \hline
+\iref{I_COTS}       & & & & & & & & & X & \\ \hline
+\iref{I_COTD}       & & & & & &  & && & \\ \hline
+\iref{I_DFSB}       & & & & &  & & X & & &\\ \hline
+\lcref{LC_laneWidth}     & & X & &  & & &  & && \\ \hline
+\lcref{LC_SASC}   & & & & & &  & && & \\ \hline
+\ulcref{ULC_saltSame}   & X & & &  && & & &  &\\ \hline
+\ulcref{ULC_NaCl}   & & & X &  & & && &  & \\ \hline
 
 \hline
 \end{tabular}
