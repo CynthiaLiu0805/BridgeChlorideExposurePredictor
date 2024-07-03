@@ -57,6 +57,7 @@ urlcolor=cyan          % color of external links
 Mar. 8, 2024 & 0 & Initial Release\\
 March 18, 2024 & 0.1 & Edit according to feedback from peer review \\
 April 5, 2024 & 1 & Edit according to feedback from Dr. Smith\\
+July 3, 2024 & 1.1 & Add modules for chloride on deck\\
 \bottomrule
 \end{tabularx}
 
@@ -147,7 +148,8 @@ The following table is taken directly from the Module Guide document for this pr
 & Single Water SAS Calculation Module \\
 & Single Chloride Ions SAS Calculation Module \\
 & All Chloride Ions SAS Calculation Module \\
-& Chloride Deposition Calculation Module \\
+& Chloride on Pier Calculation Module \\
+& Chloride on Deck Calculation Module \\
 & Chloride Exposure Database Generation Module\\
 \midrule
 
@@ -728,7 +730,7 @@ None
 \newpage
 
 
-\section{MIS of Single Chloride Ions SAS Calculation Module} \label{singleChlorideIonsSASCalculation Module}
+\section{MIS of Single Chloride Ions SAS Calculation Module} \label{singleChlorideIonsSASCalculationModule}
 This module determines the chloride ions sprayed and splashed by one truck.
 
 \subsection{Module}
@@ -849,10 +851,10 @@ None
 \newpage
 
 
-\section{MIS of Chloride Deposition Calculation Module} \label{chlorideDepositionCalculation Module}
-This module determine the deposition of chloride ions on the surface of the bridge substructure
+\section{MIS of Chloride on Pier Calculation Module} \label{chlorideonPierCalculationModule}
+This module determine the deposition of chloride ions on the pier of the bridge substructure
 \subsection{Module}
-chloride\_decomposition\_cal
+chloride\_on\_pier
 
 \subsection{Uses}
 
@@ -869,7 +871,7 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-chloride\_decomposition\_cal & C\_s\_air: sequence of $\mathbb{R}$ & results: sequence of $\mathbb{R}$ & - \\
+chloride\_on\_pier & C\_s\_air: sequence of $\mathbb{R}$ & results: sequence of $\mathbb{R}$ & - \\
 
 \hline
 \end{tabular}
@@ -886,10 +888,58 @@ None
 None
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{chloride\_decomposition\_cal($C\_s\_air$)}:
+\noindent \textbf{chloride\_\_on\_pier($C\_s\_air$)}:
 \begin{itemize}
 \item transition: None
 \item output: out := $C\_s\_air * 0.015 * e^{-0.05*d}  + C\_s\_air*0.985 * e^{-0.5*d}$, where d is a constant read from Constant Module, 0.015 and 0.985 being the coefficient of the formula.
+\item exception: exc := None
+\end{itemize}
+
+\subsubsection{Local Functions}
+None
+\newpage
+
+
+\section{MIS of Chloride on Deck Calculation Module} \label{chlorideonDeckCalculationModule}
+This module determine the deposition of chloride ions on the deck of the bridge substructure
+\subsection{Module}
+chloride\_on\_deck
+
+\subsection{Uses}
+Data Model Reading Module (Section \ref{dataModelReadingModule})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4.5cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+chloride\_on\_deck & h\_total: sequence of $\mathbb{R}$, AADT: sequence of $\mathbb{R}$ & results: sequence of $\mathbb{R}$ & - \\
+
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Routine Semantics}
+
+\noindent \textbf{chloride\_on\_deck(h\_total, AADT)}:
+\begin{itemize}
+\item transition: None
+\item output: out := $0.11*h\_total - 0.000189*AADT + 3.349$. This is a linear regression model.
 \item exception: exc := None
 \end{itemize}
 
@@ -908,7 +958,7 @@ calculate
 \subsection{Uses}
 
 Data Model Reading Module (Section \ref{dataModelReadingModule}), 
-Constant Module (Section \ref{constantModule}), Deicing Salts Calculation Module (Section \ref{deicingSaltsCalculationModule}), Melted Water Thickness Module (Section \ref{meltedWaterThicknessModule}), Single Water SAS Calculation Module (Section \ref{singleWaterSASCalculationModule}), Single Chloride Ions SAS Calculation Module (Section \ref{singleChlorideIonsSASCalculation Module}), All Chloride Ions SAS Calculation Module (Section \ref{allChlorideIonsSASCalculationModule}), Chloride Deposition Calculation Module (Section \ref{chlorideDepositionCalculation Module})
+Constant Module (Section \ref{constantModule}), Deicing Salts Calculation Module (Section \ref{deicingSaltsCalculationModule}), Melted Water Thickness Module (Section \ref{meltedWaterThicknessModule}), Single Water SAS Calculation Module (Section \ref{singleWaterSASCalculationModule}), Single Chloride Ions SAS Calculation Module (Section \ref{singleChlorideIonsSASCalculationModule}), All Chloride Ions SAS Calculation Module (Section \ref{allChlorideIonsSASCalculationModule}), Chloride on Pier Calculation Module (Section \ref{chlorideonPierCalculationModule}),  Chloride on Deck Calculation Module (Section \ref{chlorideonDeckCalculationModule})
 
 
 \subsection{Syntax}

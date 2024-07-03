@@ -1,5 +1,5 @@
 '''
-This module provides fifth step of the database generation. It is related to TM3 in SRS.
+This module provides fifth step of the database generation.
 Output: C_s_air: chloride ions sprayed and splashed by all vehicles in one winter season
 Input:  SD_totalCl: the chloride ions sprayed and splashed by one truck
         t2: the number of days with snow melting

@@ -5,7 +5,9 @@ Some names might differ because some notation could not by typed as code.'''
 
 class Constant:
 
-    salt_application_rate = 0.07 # V_salt
+    salt_application_rate_high = 0.07 # V_salt_h
+    salt_application_rate_low = 0.05 # V_salt_l
+
     W_lane = 3.75                # W_lane
     V_speed = 100                # V_speed
     b = 0.56                     # b

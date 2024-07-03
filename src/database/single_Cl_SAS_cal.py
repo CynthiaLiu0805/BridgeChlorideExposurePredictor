@@ -1,5 +1,5 @@
 '''
-This module provides fourth step of the database generation. It is related to DD5, DD6 in SRS.
+This module provides fourth step of the database generation. 
 Output: SD_totalCl: the chloride ions sprayed and splashed by one truck
 Input:  
         M_app: the quantity of deicing salts applied on a roadway per day during the winter season

@@ -41,7 +41,7 @@
 
 \begin{document}
 
-\title{Module Guide for Bridge Corrosion} 
+\title{Module Guide for Bridge Corrosion Predictor} 
 \author{Cynthia Liu}
 \date{\today}
 
@@ -57,6 +57,7 @@
 March 6, 2024 & 0.0 & Initial release\\
 March 18, 2024 & 0.1 & Edit according to feedback from peer review \\
 April 5, 2024 & 1 & Edit according to feedback from Dr. Smith\\
+July 3, 2024 & 1.1 & Add module for chloride on deck\\
 \bottomrule
 \end{tabularx}
 
@@ -74,7 +75,7 @@ This section records information for easy reference.
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   AC & Anticipated Change\\
-  BC & Bridge Corrosion\\
+  BCP & Bridge Corrosion Predictor\\
   DAG & Directed Acyclic Graph \\
   GUI & Graphical User Interface \\
   M & Module \\
@@ -209,7 +210,8 @@ The whole project could be divided into two parts. \mref{mHardware} to \mref{mOu
 \item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step3}:] Single Water SAS Calculation Module 
 \item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step4}:] Single Chloride Ions SAS Calculation Module 
 \item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step5}:] All Chloride Ions SAS Calculation Module 
-\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step6}:] Chloride Deposition Calculation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_step6}:] Chloride on Pier Calculation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCalculation_deck}:] Chloride on Deck  Calculation Module 
 \item [\refstepcounter{mnum} \mthemnum \label{mCalculation_result}:] Chloride Exposure Database Generation Module
 \item [\refstepcounter{mnum} \mthemnum \label{mFileIO}:] File I/O Module
 \item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plotting Module
@@ -237,7 +239,8 @@ The whole project could be divided into two parts. \mref{mHardware} to \mref{mOu
 & Single Water SAS Calculation Module \\
 & Single Chloride Ions SAS Calculation Module \\
 & All Chloride Ions SAS Calculation Module \\
-& Chloride Deposition Calculation Module \\
+& Chloride on Pier Calculation Module \\
+& Chloride on Deck Calculation Module \\
 & Chloride Exposure Database Generation Module\\
 \midrule
 
@@ -306,7 +309,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The kind of valid and invalid input coordinate data. 
 \item[Services:] Get input from the user and verify if the input is within the physical and software constraint, throw warning message if it is not. 
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
@@ -315,7 +318,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The algorithm for running the program.
 \item[Services:] Provide the main program and the GUI.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Library
 \end{description}
 
@@ -323,7 +326,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The database structure.
 \item[Services:] Find the data needed in the database by searching algorithm.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
@@ -331,7 +334,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The format and structure of the output chloride exposure data.
 \item[Services:] Provide the visualization of the resulting chloride exposure trend, using line graph or histogram. 
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Library
 \end{description}
 
@@ -340,7 +343,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The origin climate model and traffic model that the calculation is based on.
 \item[Services:]  Read data from the climate model and traffic model and store them in the data structure needed for further calculation.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
@@ -349,7 +352,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The constant used during calculation.
 \item[Services:] Store the constant for mantainability purpose.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
@@ -357,7 +360,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The formula to determine the quantity of deicing salts applied per day with snowfall.
 \item[Services:] Calculate and store the quantity of deicing salts applied per day with snowfall.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Object
 \end{description}
 
@@ -365,7 +368,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The formula to determine the thickness of melted water per day with snow melting.
 \item[Services:] Calculate and store the thickness of melted water per day with snow melting.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Object
 \end{description}
 
@@ -373,7 +376,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The formula to determine water sprayed and splashed by one truck using a Computational Fluid Dynamics (CFD)-based analytical model.
 \item[Services:] Calculate and store the water sprayed and splashed by one truck.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Object
 \end{description}
 
@@ -381,7 +384,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The formula to determine chloride ions sprayed and splashed by one truck.
 \item[Services:] Calculate and store the chloride ions sprayed and splashed by one truck.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Object
 \end{description}
 
@@ -389,23 +392,32 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The formula to determine chloride ions sprayed and splashed by all vehicles in one winter season.
 \item[Services:] Calculate and store the chloride ions sprayed and splashed by all vehicles in one winter season.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Chloride Deposition Calculation Module (\mref{mCalculation_step6})}
+\subsubsection{Chloride on Pier Calculation Module (\mref{mCalculation_step6})}
 \begin{description}
-\item[Secrets:] The formula to determine the deposition of chloride on the surface of the bridge substructure.
-\item[Services:] Calculate and store the deposition of chloride on the surface of the bridge substructure.
-\item[Implemented By:] BC
+\item[Secrets:] The formula to determine the deposition of chloride on the pier of the bridge substructure.
+\item[Services:] Calculate and store the deposition of chloride on the pier of the bridge substructure.
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Object
 \end{description}
+
+\subsubsection{Chloride on Deck Calculation Module (\mref{mCalculation_deck})}
+\begin{description}
+\item[Secrets:] The formula to determine the deposition of chloride on the deck of the bridge substructure.
+\item[Services:] Calculate and store the deposition of chloride on the deck of the bridge substructure.
+\item[Implemented By:] BCP
+\item[Type of Module:] Abstract Object
+\end{description}
+
 
 \subsubsection{Chloride Exposure Database Generation Module (\mref{mCalculation_result})}
 \begin{description}
 \item[Secrets:] The detail formula for calculating the chloride exposure database.
 \item[Services:] Save the chloride exposure data to the database to be used by the user end.
-\item[Implemented By:] BC
+\item[Implemented By:] BCP
 \item[Type of Module:] Abstract Object
 \end{description}
 
@@ -453,8 +465,12 @@ requirements and between the modules and the anticipated changes.
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
 R1 & \mref{mHardware}, \mref{mInput}, \mref{mControl}\\
-R2 & \mref{mControl}, \mref{mSearch}, \mref{mOutput}, \mref{mPlot}\\
-R3 & \mref{mOutput}, \mref{mCalculation_result}\\
+R2 & \mref{mInput}, \mref{mControl}\\
+R3 & \mref{mInput}, \mref{mControl}, \mref{mCalculation_step1}\\
+R4 & \mref{mControl}, \mref{mOutput}\\
+R5 & \mref{mSearch}, \mref{mCalculation_result}\\
+R6 &  \mref{mOutput}, \mref{mPlot}\\
+R7 &  \mref{mSearch}, \mref{mOutput}\\
 NFR1 & \mref{mSearch}, \mref{mCalculation_result}\\
 NFR2 & \mref{mControl},  \mref{mSearch}, \mref{mPlot}\\
 NFR3 & all modules\\
@@ -474,7 +490,7 @@ NFR5 & all modules\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acMoreCoordinate} & \mref{mInput}\\
-\acref{acAlgorithm} & one of \mref{mCalculation_step1}, \mref{mCalculation_step2}, \mref{mCalculation_step3}, \mref{mCalculation_step4}, \mref{mCalculation_step5}, \mref{mCalculation_step6}\\
+\acref{acAlgorithm} & one of \mref{mCalculation_step1}, \mref{mCalculation_step2}, \mref{mCalculation_step3}, \mref{mCalculation_step4}, \mref{mCalculation_step5}, \mref{mCalculation_step6}, \mref{mCalculation_deck}\\
 \acref{acOutputFile} & \mref{mControl} \\
 \bottomrule
 \end{tabular}
@@ -535,6 +551,7 @@ The specific timeline for module implementation is shown in below table:
 \mref{mSearch} & March 20, 2024 & Cynthia Liu\\
 \mref{mOutput}  & March 27, 2024 & Cynthia Liu\\
 \mref{mControl} & March 30, 2024 & Cynthia Liu\\
+\mref{mCalculation_deck} & July 3, 2024 & Cynthia Liu\\
 
 \bottomrule
 \end{tabular}

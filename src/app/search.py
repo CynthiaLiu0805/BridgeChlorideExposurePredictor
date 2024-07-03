@@ -9,7 +9,7 @@ import visualization
 class Search:
 
     def __init__(self, lon, lat):
-        self.file_name = 'results.csv'
+        self.file_name = 'pier_high.csv' #todo adapt to high/low salt application rate
         self.lon = lon
         self.lat = lat
         self.data = None

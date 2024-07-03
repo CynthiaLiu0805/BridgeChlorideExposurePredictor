@@ -1,5 +1,5 @@
 '''
-This module provides second step of the database generation. It is related to DD2 in SRS.
+This module provides second step of the database generation.
 Output: h_app: the thickness of melted water per day with snow melting
 Input: h_total: total snowfall during a winter season
        t2: the number of days with snow melting
