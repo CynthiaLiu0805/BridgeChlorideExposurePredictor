@@ -7,8 +7,8 @@ Input:  h_total: total snowfall during a winter seasonConstant
         AADT: annual average daily traffic per lane
 '''
 
-# TODO unit conversion
-
 def deck_calculation(h_total, AADT):
-    results = 0.11*h_total - 0.000189*AADT + 3.349
+    # Origin h_total is in cm, here it need to be in inches, divide by 2.54 for unit conversion
+    # The unit of result is in lbs/yd^3 , multiply by 0.59 to convert lbs/yd^3 to kg/m^3
+    results = (0.11*h_total/2.54 - 0.000189*AADT + 3.349)*0.59
     return results

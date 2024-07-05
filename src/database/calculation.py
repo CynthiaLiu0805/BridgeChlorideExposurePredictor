@@ -49,4 +49,4 @@ pier_low = chloride_on_pier.calculate(C_s_air_low)
 savefile(load.long, load.lat, pier_low, "pier_low.csv")
 
 deck = chloride_on_deck.deck_calculation(load.h_total, AADT)
-savefile(load.long, load.lat, pier_low, "deck.csv")
+savefile(load.long, load.lat, deck, "deck.csv")
