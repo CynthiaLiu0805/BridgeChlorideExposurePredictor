@@ -5,7 +5,8 @@ html, body {
 }
 
 .search-container {
-    display: flex;
+    /* display: flex; */
+    display: block;
     justify-content: space-between;
     position:absolute;
     z-index: 500;
@@ -38,9 +39,35 @@ th, td {
     padding: 8px;
     text-align: left;
 }
+.errormsg{
+    display: flex;
+    /* display: block; */
+    /* width:min-content; */
+
+    /* z-index: 500; */
+    justify-content: space-between;
+    position:absolute;
+    z-index: 500;
+    background-color: lightblue;
+    width: fit-content;
+    top: 30vh;
+    padding: 10px;
+    left: 3vw;
+}
 .search-result {
     display: flex;
+    /* display: block; */
+    width:min-content;
+
     z-index: 500;
+    justify-content: space-between;
+    position:absolute;
+    z-index: 500;
+    background-color: lightblue;
+    /* width: fit-content; */
+    top: 30vh;
+    padding: 10px;
+    left: 3vw;
 }
 .table {
     flex: 20%;
