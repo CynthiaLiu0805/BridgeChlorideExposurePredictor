@@ -3,56 +3,59 @@
 <head>
     <title>BCP</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        #map {
-            height: 400px;
-            width: 800px;
-            margin-right:2%;
-        }
-        input[type=text] {
-            width: 200px;
-            height: 30px;
-            font-size: 16px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow: auto;
-            display: block;
-            height: 300px;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        .search-result {
-            display: flex;
-        }
-        .table {
-            flex: 20%;
-        }
-        .plot {
-            flex: 80%;
-        }
-    </style>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
+
+
+    <!-- js -->
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/exception.js"></script>
+    <script type="text/javascript" src="js/input_check.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
+
+
+    <!-- style -->
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+ 
 </head>
 <body>
-    <h1 align="center">Bridge Corrosion Prediction</h1>
+    <div class='navbar navbar-default navbar-static-top'>
+        <div class='container-fluid'>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class='navbar-brand' href='index.html'>Bridge Corrosion Predictor</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class='active'><a href="index.html">Map</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    <!-- <h1 align="center">Bridge Corrosion Prediction</h1> -->
+
+    <div id="map"></div>
     <!-- The search section -->
     <div class="container" >
         <form id="search-form" action="/" method="post" align="right">
             Latitude: <input type="text" id="latitude" name="latitude"><br>
             Longitude: <input type="text" id="longitude" name="longitude"><br>
-            <input type="submit" value="Search">
+            <!-- <input type="submit" value="Search"> -->
+            <input type="button" id= "btnsubmit"  value="submit" >
+
         </form>
-        <div id="map" align="center"></div>
+        
     </div> 
     {% if warning %}
             {{ warning }}
@@ -90,23 +93,5 @@
         </div>
     </div>
     {% endif %}   
-    <!-- The map section -->
-    <script>
-        var map = L.map('map').setView([43.95, -79.7], 7);
-
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY3ludGhpYWwiLCJhIjoiY2x0b3FjNXUyMGh6eTJqcGF4MWllYjh0eCJ9.OHUn3IOjS99GIMLYMmyh4w', {
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
-        }).addTo(map);
-
-        function onMapClick(e) {
-            document.getElementById('latitude').value = e.latlng.lat;
-            document.getElementById('longitude').value = e.latlng.lng;
-        }
-        
-        map.on('click', onMapClick);
-    </script>
 </body>
 </html>
