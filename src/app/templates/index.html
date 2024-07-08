@@ -3,26 +3,17 @@
 <head>
     <title>BCP</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 
+    
+    <!-- <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/style.css"/> -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.css') }}">
 
-
-    <!-- js -->
-    <script type="text/javascript" src="js/map.js"></script>
-    <script type="text/javascript" src="js/exception.js"></script>
-    <script type="text/javascript" src="js/input_check.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/search.js"></script>
-
-
-    <!-- style -->
-    <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
- 
+    <style>
+        
+    </style>
 </head>
 <body>
     <div class='navbar navbar-default navbar-static-top'>
@@ -38,25 +29,22 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class='active'><a href="index.html">Map</a></li>
-              <li><a href="about.html">About</a></li>
+              <li><a href="{{ url_for('about') }}">About</a></li>
             </ul>
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
     <!-- <h1 align="center">Bridge Corrosion Prediction</h1> -->
-
-    <div id="map"></div>
     <!-- The search section -->
     <div class="container" >
         <form id="search-form" action="/" method="post" align="right">
             Latitude: <input type="text" id="latitude" name="latitude"><br>
             Longitude: <input type="text" id="longitude" name="longitude"><br>
-            <!-- <input type="submit" value="Search"> -->
-            <input type="button" id= "btnsubmit"  value="submit" >
-
+            <input type="submit" value="Search">
         </form>
         
     </div> 
+    <div id="map" align="center"></div>
     {% if warning %}
             {{ warning }}
     {% endif %}
@@ -93,5 +81,23 @@
         </div>
     </div>
     {% endif %}   
+    <!-- The map section -->
+    <script>
+        var map = L.map('map').setView([43.95, -79.7], 7);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY3ludGhpYWwiLCJhIjoiY2x0b3FjNXUyMGh6eTJqcGF4MWllYjh0eCJ9.OHUn3IOjS99GIMLYMmyh4w', {
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1
+        }).addTo(map);
+
+        function onMapClick(e) {
+            document.getElementById('latitude').value = e.latlng.lat;
+            document.getElementById('longitude').value = e.latlng.lng;
+        }
+        
+        map.on('click', onMapClick);
+    </script>
 </body>
 </html>

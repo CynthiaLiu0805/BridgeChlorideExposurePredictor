@@ -7,6 +7,9 @@ The functionality of plotting graph is achieved by calling visualization module 
 from flask import Flask, render_template, request
 from search import Search
 from input_check import Input_check
+from flask import Flask, request, url_for, redirect, render_template
+
+
 app = Flask(__name__)
 from exception import InputOutofOntarioError
 
@@ -30,7 +33,17 @@ def index():
     else:
         return render_template('index.html')
 
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    if request.method == 'POST':
+        # do stuff when the form is submitted
 
+        # redirect to end the POST handling
+        # the redirect can be to the same route or somewhere else
+        return redirect(url_for('index'))
+
+    # show the form, it wasn't submitted
+    return render_template('about.html')
 
 if __name__ == '__main__':
 
