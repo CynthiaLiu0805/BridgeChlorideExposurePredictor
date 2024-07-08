@@ -3,25 +3,28 @@ html, body {
     margin: 0;
     padding: 0;
 }
-.container {
+
+.search-container {
     display: flex;
     justify-content: space-between;
     position:absolute;
     z-index: 500;
     background-color: lightblue;
-    width: 10px;
-    top: 10%;
+    width: fit-content;
+    top: 10vh;
     padding: 10px;
+    left: 3vw;
 }
 #map {
     height: 100%;
     width: 100%;
-    position:absolute;
+    /* position:absolute; */
+    z-index: 400;
 }
 input[type=text] {
-    width: 200px;
-    height: 30px;
-    font-size: 16px;
+    width: 13vw;
+    height: 2vw;
+    /* font-size: 16px; */
 }
 table {
     width: 100%;
@@ -37,6 +40,7 @@ th, td {
 }
 .search-result {
     display: flex;
+    z-index: 500;
 }
 .table {
     flex: 20%;
@@ -44,3 +48,8 @@ th, td {
 .plot {
     flex: 80%;
 }
+.leaflet-control-zoom {
+    right: 10px;
+    bottom: 10px;
+    left: auto;
+  }
