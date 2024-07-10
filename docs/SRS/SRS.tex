@@ -513,7 +513,7 @@ Change [LC], in which the respective assumption is used.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MRCA} -- \dref{D_SDSW})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_LinearGrowthTraffic}:]  All highway segments has a linear annual growth rate of 2\% AADT and AADTT. (RefBy: \ddref{DD_AADT}, \ddref{DD_AADTT})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_LinearGrowthTraffic}:]  All highway segments has a linear annual growth rate of 2\% AADT and AADTT, with the baseline year being 2006. (RefBy: \ddref{DD_AADT}, \ddref{DD_AADTT})
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Data}:] The climate and traffic is constant over the entire area of each GRID\_SIZE cell. (RefBy: \iref{I_DFSB})
 
@@ -1110,7 +1110,7 @@ Symbol & $AADT$\\
   \hline
  Equation & $AADT:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $\\
   \hline
-  Description & $AADT(long, lat)$ is the Annual Average Daily Truck Traffic as a function of position, given by the longitude (long) and latitude (lat). The $AADT$ for each GRID\_SIZE grid is found by interpolating the data in the traffic data table (following the pattern in Table \ref{Table:AADT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of 2\%. Future $AADT$ values are determined using this growth rate. 
+  Description & $AADT(long, lat)$ is the Annual Average Daily Truck Traffic as a function of position, given by the longitude (long) and latitude (lat). The $AADT$ for each GRID\_SIZE grid is found by interpolating the data in the traffic data table (following the pattern in Table \ref{Table:AADT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of 2\% with the baseline year being 2006. Future $AADT$ values are determined using this growth rate. 
 
   \\
   \hline
@@ -1140,9 +1140,9 @@ Symbol & $AADTT$\\
 % \hline
   SI Units & N/A\\
   \hline
- Equation & $long:\mathbb{R} \times lat:\mathbb{R} \rightarrow AADTT: \mathbb{R} $\\
+ Equation & $AADTT: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $\\
   \hline
-  Description & $AADTT$ is the Annual Average Daily Truck Traffic, it is given by the traffic model. The $AADTT$ for each GRID\_SIZE grid could be found by inputing the coordinate. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of 2\%, so the future $AADTT$ values are determined using this growth rate. An example of the $AADTT$ in traffic model could be found in Table \ref{Table:AADTT}.
+  Description & $AADTT$ is the Annual Average Daily Truck Traffic, it is given by the traffic model. The $AADTT$ for each GRID\_SIZE grid could be found by inputing the coordinate. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of 2\% with the baseline year being 2006, so the future $AADTT$ values are determined using this growth rate. An example of the $AADTT$ in traffic model could be found in Table \ref{Table:AADTT}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1171,7 +1171,7 @@ Symbol & $h_{total}$\\
 % \hline
   SI Units & m\\
   \hline
- Equation & $long:\mathbb{R} \times lat:\mathbb{R} \times year:\mathbb{N} \rightarrow h_{total}: \mathbb{R} $\\
+ Equation & $h_{total}: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{R}$\\
   \hline
   Description & $h_{total}$ is the total snowfall during a winter season, it is given by the climate model. The $h_{total}$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $h
 _{total}$ in climate model could be found in Table \ref{Table:htotal}.
@@ -1203,7 +1203,7 @@ Symbol & $t_1$\\
 % \hline
   SI Units & day\\
   \hline
- Equation & $long:\mathbb{R} \times lat:\mathbb{R} \times year:\mathbb{N} \rightarrow t_1: \mathbb{N} $\\
+ Equation & $t_1: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{N}$ \\
   \hline
   Description & $t_1$ is the number of days with snowfall during a winter season, it is given by the climate model. The $t_1$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t
 _1$ in climate model could be found in Table \ref{Table:t1}.
@@ -1235,10 +1235,9 @@ Symbol & $t_2$\\
 % \hline
   SI Units & day\\
   \hline
- Equation & $long:\mathbb{R} \times lat:\mathbb{R} \times year:\mathbb{N} \rightarrow t_2: \mathbb{N} $\\
+ Equation & $t_2: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{N}$\\
   \hline
-  Description & $t_2$ is the number of days with snow melting during a winter season, it is given by the climate model. The $t_2$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t
-_2$ in climate model could be found in Table \ref{Table:t2}.
+  Description & $t_2$ is the number of days with snow melting during a winter season, it is given by the climate model. The $t_2$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t_2$ in climate model could be found in Table \ref{Table:t2}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1715,7 +1714,7 @@ The assumptions made in this document are based on practical considerations to s
 \item In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. 
 \item \aref{A_laneWidth}, \aref{A_tireWidth} and \aref{A_Speed} simplify the model by standardizing the lane width, tire width and vehicle speed, which streamlines the analysis and allows for consistent calculations.
 \item \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions, as NaCl is one of the most widely used deicing salts due to its effectiveness and affordability.
-\item It has been observed that the traffic volume across Ontario experiences an annual growth rate of about 2\% on average, so to account for the time-variant nature of traffic volume and its impact on chloride exposure, a linear annual growth rate of 2\% was applied to both AADT and AADTT for all highway segments in \aref{A_LinearGrowthTraffic}.
+\item It is important to note that the traffic data of the Pavement ME Design Traffic Map was collected in the year of 2006. However, It has been observed that the traffic volume across Ontario experiences an annual growth rate of about 2\% on average, so to account for the time-variant nature of traffic volume and its impact on chloride exposure, a linear annual growth rate of 2\% was applied to both AADT and AADTT for all highway segments in \aref{A_LinearGrowthTraffic}. 
 \item \aref{A_Data} is assumed following the resolution of the CanRCM4 model ([\reref{ref13}]), where the climate data are extracted from.
 \item \aref{A_Calibration} The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves.
 
