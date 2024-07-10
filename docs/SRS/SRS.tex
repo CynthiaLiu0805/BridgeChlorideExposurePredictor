@@ -201,6 +201,7 @@ their units. The symbols are listed in alphabetical order.
 \break
 \break
 
+
 \renewcommand{\arraystretch}{1.2}
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
@@ -225,6 +226,7 @@ $K$ & m/m & ratio of the tire width that is not a groove to the full tire width\
 $L$ & \si{m} & drainage length\\
 $lat$ & \si{\degree} & latitude\\
 $long$ & \si{\degree} & longitude\\
+$m$ & N/A & the end year for the chloride exposure rate period\\
 $M_{app}$ & \si{kg/m^2} & deicing salts quantity applied per day\\
 $M_{total}$ & \si{kg/m^2} & total amount of deicing salts quantity over winter\\
 $\mathit{MR_{BW}}$ & \si{kg/s} & MFR displaced by a single tire due to bow\\
@@ -232,6 +234,7 @@ $\mathit{MR_{CA}}$ & \si{kg/s} & MFR displaced by a single tire due to capillary
 $\mathit{MR_{SW}}$ & \si{kg/s} & MFR displaced by a single tire due to side waves\\
 $\mathit{MR_{TP}}$ & \si{kg/s} & MFR displaced by a single tire due to tread pickup\\
 $\mathit{MR_{W}}$ & \si{kg/s} & general MFR displaced by a single tire due to capillary adhesion\\
+$n$ & N/A & the start year for the chloride exposure rate period \\
 $N_{lane}$ & lane & number of lanes\\
 $\rho_{water}$ & \si{kg/m^{3}} & density of water\\
 $\mathit{SD_{BW}}$ & \si{kg/m^{3}} & spray density by a single tire due to bow\\
@@ -303,7 +306,7 @@ TP & Tread Pickup\\
 
 
 \subsection{Symbolic Parameters}
-This section includes the symbolic parameters introduced in the report. We use symbolic parameters to represent values that are constant for a specific implementation of BCP. The value could be modified to create a new instance of BCP. For instance, JURISDICTION could be changed to provide the tool for a province or state other than Ontario.
+This section includes the symbolic parameters introduced in the report. We use symbolic parameters to represent values that are constant for a specific implementation of BCP. The value could be modified to create a new instance of BCP. For instance, JURISDICTION could be changed to provide the tool for a province or state other than Ontario. The values for the symbolic parameters are from [\reref{ref7}].
 
 \begin{table}[!h]
 
@@ -391,7 +394,7 @@ Figure 1 shows the system context of the software. The user should input a coord
 
 \item Developer Responsibilities:
 \begin{itemize}
-\item Provide valid climate model and traffic model to the software.
+\item Provide valid climate table and traffic table to the software.
 \end{itemize}
 
 \item BCP Responsibilities:
@@ -1071,11 +1074,11 @@ SI Units&\si{kg\per\metre^3}\\
 
 \item $\Theta$ is the ratio of chloride ions sprayed and splashed by trucks to light-duty vehicles, it is a constant in Table \ref{TblConstants}.
 
-\item $AADT$ is the annual average daily traffic per lane, given by traffic model \ddref{DD_AADT}.
+\item $AADT$ is the annual average daily traffic per lane, given by traffic table \ddref{DD_AADT}.
 
-\item $AADTT$ is the annual average daily truck traffic per lane, given by traffic model \ddref{DD_AADTT}.
+\item $AADTT$ is the annual average daily truck traffic per lane, given by traffic table \ddref{DD_AADTT}.
 
-\item $t_2$ is the number of days with snow melting, given by climate model in \ddref{DD_t2}.
+\item $t_2$ is the number of days with snow melting, given by climate table in \ddref{DD_t2}.
 \end{itemize}
 \\
   \hline
@@ -1142,7 +1145,7 @@ Symbol & $AADTT$\\
   \hline
  Equation & $AADTT: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $\\
   \hline
-  Description & $AADTT$ is the Annual Average Daily Truck Traffic, it is given by the traffic model. The $AADTT$ for each GRID\_SIZE grid could be found by inputing the coordinate. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of 2\% with the baseline year being 2006, so the future $AADTT$ values are determined using this growth rate. An example of the $AADTT$ in traffic model could be found in Table \ref{Table:AADTT}.
+  Description & $AADTT$ is the Annual Average Daily Truck Traffic, it is given by the traffic table. The $AADTT$ for each GRID\_SIZE grid could be found by inputing the coordinate. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of 2\% with the baseline year being 2006, so the future $AADTT$ values are determined using this growth rate. An example of the $AADTT$ in traffic table could be found in Table \ref{Table:AADTT}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1173,8 +1176,8 @@ Symbol & $h_{total}$\\
   \hline
  Equation & $h_{total}: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{R}$\\
   \hline
-  Description & $h_{total}$ is the total snowfall during a winter season, it is given by the climate model. The $h_{total}$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $h
-_{total}$ in climate model could be found in Table \ref{Table:htotal}.
+  Description & $h_{total}$ is the total snowfall during a winter season, it is given by the climate table. The $h_{total}$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $h
+_{total}$ in climate table could be found in Table \ref{Table:htotal}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1205,8 +1208,8 @@ Symbol & $t_1$\\
   \hline
  Equation & $t_1: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{N}$ \\
   \hline
-  Description & $t_1$ is the number of days with snowfall during a winter season, it is given by the climate model. The $t_1$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t
-_1$ in climate model could be found in Table \ref{Table:t1}.
+  Description & $t_1$ is the number of days with snowfall during a winter season, it is given by the climate table. The $t_1$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t
+_1$ in climate table could be found in Table \ref{Table:t1}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1237,7 +1240,7 @@ Symbol & $t_2$\\
   \hline
  Equation & $t_2: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{N}$\\
   \hline
-  Description & $t_2$ is the number of days with snow melting during a winter season, it is given by the climate model. The $t_2$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t_2$ in climate model could be found in Table \ref{Table:t2}.
+  Description & $t_2$ is the number of days with snow melting during a winter season, it is given by the climate table. The $t_2$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t_2$ in climate table could be found in Table \ref{Table:t2}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1280,9 +1283,9 @@ Symbol &$M_{app}$\\
 
 \item $V_{salt_h}$ is the normalized high salt application rate, it is a constant in Table \ref{TblConstants}. (t/cm/km)
 \item $V_{salt_l}$ is the normalized low salt application rate, it is a constant in Table \ref{TblConstants}. (t/cm/km)
-\item $h_{total}$ is the total snowfall during a winter season, given by the climate model \ddref{DD_htotal}. (m)
+\item $h_{total}$ is the total snowfall during a winter season, given by the climate table \ddref{DD_htotal}. (m)
 
-\item $t_{1}$ is the number of days with snowfall, given by the climate model \ddref{DD_t1}.
+\item $t_{1}$ is the number of days with snowfall, given by the climate table \ddref{DD_t1}.
 
 \item $W_{lane}$ is the lane width. According to \aref{A_laneWidth}, all the lane has the same width, it is a constant in Table \ref{TblConstants}. (m).
 \end{itemize}
@@ -1319,9 +1322,9 @@ Symbol &$h_{app}$\\
   Description & The equaition above calculates the thickness of melted water per day with snow melting.
 \begin{itemize}
 
-\item $h_{total}$ is the the total snowfall during a winter season, given by the climate model \ddref{DD_htotal}. (m)
+\item $h_{total}$ is the the total snowfall during a winter season, given by the climate table \ddref{DD_htotal}. (m)
 
-\item $t_2$ is the number of days with snow melting, given by the climate model \ddref{DD_t2}.
+\item $t_2$ is the number of days with snow melting, given by the climate table \ddref{DD_t2}.
 
 
 \end{itemize}
@@ -1558,9 +1561,9 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
 
 \begin{itemize}
 
-\item $h_{total}$ is the total snowfall during a winter season, given by climate model in \ddref{DD_htotal}. (m)
+\item $h_{total}$ is the total snowfall during a winter season, given by climate table in \ddref{DD_htotal}. (m)
 
-\item $AADT$ is the annual average daily traffic, given by traffic model in \ddref{DD_AADT}.
+\item $AADT$ is the annual average daily traffic, given by traffic table in \ddref{DD_AADT}.
 \end{itemize}
   \\
   \hline
@@ -1587,16 +1590,16 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
   \hline
   Input& $long:\mathbb{R},lat:\mathbb{R}$\\
   \hline
-  Output & $[C_{s}]_{t}^{n}$ \\
+  Output & $[C_{s}]_{n}^{m}$ \\
   \hline
-  Description & This instance model get the longitude and latitude as input, and return a list of chloride exposure rate, over the time periods $t$ to $n$ as output, which is the result of \iref{I_COTS} and \iref{I_COTD}. The searching process is conducted using coding logic. This is the model that the end user of this software will encounter.
+  Description & This instance model get the longitude and latitude as input, and return a list of chloride exposure rate, over the time periods $n$ to $m$ as output, which is the result of \iref{I_COTS} and \iref{I_COTD}. The searching process is conducted using coding logic. This is the model that the end user of this software will encounter.
 
 \begin{itemize}
 
 \item $(long, lat)$ is the coordinate of a location. (\degree, \degree)
-\item $[C_{s}]_{t}^{n}$ is a list of chloride exposure data over the time periods $t$ to $n$. ([\si{kg/m^3}])
-\item $t$ is the start year (an integer) for the period, based on the availability of data in the climate and traffic models.
-\item $n$ is the end year (an integer) for the period, based on the availability of data in the climate and traffic models.
+\item $[C_{s}]_{n}^{m}$ is a list of chloride exposure data over the time periods $n$ to $m$. ([\si{kg/m^3}])
+\item $n$ is the start year (an integer) for the period, based on the availability of data in the climate and traffic tables.
+\item $m$ is the end year (an integer) for the period, based on the availability of data in the climate and traffic tables.
 \end{itemize}
  \\
   \hline
@@ -1614,7 +1617,7 @@ variables. The column for physical constraints gives the physical limitations
 on the range of values that can be taken by the variable. The column for
 software constraints restricts the range of inputs to reasonable values. The software constraints will be helpful in the design stage for picking suitable
 algorithms.  The constraints are conservative, to give the user of the model the
-flexibility to experiment with unusual situations. The column for typical values lists the most frequent occurrences in the traffic and climate model. The uncertainty column
+flexibility to experiment with unusual situations. The column for typical values lists the most frequent occurrences in the traffic and climate table. The uncertainty column
 provides an estimate of the confidence with which the physical quantities can be
 measured.  This information would be part of the input if one were performing an uncertainty quantification exercise. In the BCP project, we talk about not only the input variables mentioned in instance models, but also include those in other models that the instance models use. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside JURISDICTION. This will be done by input checking algorithm later. \\
 The specification parameters in Table~\ref{TblInputVar} are listed in
@@ -1673,6 +1676,9 @@ qualities that the software is expected to exhibit.
 \subsection{Functional Requirements}
 
 \begin{itemize}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputClimate}:] The climate table should be processed by domain expert, originally from the \href{https://climate-modelling.canada.ca/climatemodeldata/canrcm/CanRCM4/index.shtml}{CanRCM4}.
+ 
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputTraffic}:] The traffic table should be processed by domain expert, originally from the \href{https://icorridor-mto-on-ca.hub.arcgis.com/apps/50798e771bd0440dbc96fd85d8fde9a5/explore}{AASHTOWare Pavement ME Design Traffic Map}.
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map of JURISDICTION that users can click to provide the input coordinate (longitude \& latitude).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept coordinate that are inside JURISDICTION. (By \iref{I_DFSB})
@@ -1742,8 +1748,8 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 
 \end{itemize}
 
-\section{Sample Tables for Climate Model and Traffic Model}
-This section includes the sample tables for climate model and traffic model. The longitude and latitude are the center coordinate of each grid. The method to determine which grid the input coordinate belongs to is to find the pair of longitude and latitude in the table with closest distance.
+\section{Examples for Climate Table and Traffic Table}
+This section includes the sample tables for climate table and traffic table. The longitude and latitude are the center coordinate of each grid. The method to determine which grid the input coordinate belongs to is to find the pair of longitude and latitude in the table with closest distance.
 
 \begin{table}[H]
 \centering
