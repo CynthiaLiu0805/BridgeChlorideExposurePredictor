@@ -144,6 +144,8 @@ export default {
 
 .map {
   height: 100%;
+  z-index: 1000;
+
 }
 
 .controls {
