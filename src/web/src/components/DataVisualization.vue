@@ -1,6 +1,6 @@
 <template>
   <div>
-    <line-chart v-if="data" :data="data" />
+    <line-chart v-if="data" :data="chartData" />
   </div>
 </template>
 
@@ -23,7 +23,10 @@ export default {
   },
   data() {
     return {
-      chartData: null,
+      chartData:  {
+        labels: [ ],
+        datasets: [ ]
+      },
     };
   },
   watch: {
@@ -39,13 +42,14 @@ export default {
   methods: {
     generateChartData(data) {
       console.log(data);
-      const labels = Object.keys(data);
-      const values = Object.values(data);
+      const labels = Object?.keys(data);
+      const values = Object?.values(data);
       console.log(labels);
 
       this.chartData = {
         labels: labels,
-        datasets: [
+        datasets:
+        [
           {
             label: 'Value Over Time',
             backgroundColor: '#f87979',
@@ -53,6 +57,8 @@ export default {
           },
         ],
       };
+
+      console.log("chart data", data);
     },
   },
 };

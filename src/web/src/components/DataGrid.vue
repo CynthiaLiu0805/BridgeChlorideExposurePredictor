@@ -1,40 +1,44 @@
 <template>
   <div v-if="Object.keys(data).length" class="data-grid">
     <h2>Data for the Closest Point</h2>
-    <div v-if="closestLatitude && closestLongitude" class="subtitle">
+    <div v-if="latitude && longitude" class="subtitle">
       <p>Latitude: {{ latitude }}</p>
       <p>Longitude: {{ longitude }}</p>
     </div>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(entry, year) in data" :key="year">
-            <td>{{ year }}</td>
-            <td>{{ entry }}</td>
-          </tr>
-        </tbody>
-      </table>
+ 
+    <div class="flex-container">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(entry, year) in data" :key="year">
+              <td>{{ year }}</td>
+              <td>{{ entry }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="visualization-container">
+        <DataVisualization :data="data" />
+      </div>
     </div>
-    <DataVisualization :data="data" />
-
   </div>
 </template>
 
 <script>
 import Papa from 'papaparse';
-// import DataVisualization from './DataVisualization.vue';
+import DataVisualization from './DataVisualization.vue';
 
 
 export default {
   name: 'DataGrid',
   components: {
-    // DataVisualization,
+    DataVisualization,
   },
   props: ['longitude', 'latitude', 'dataOption', 'rateOption'],
   data() {
@@ -162,15 +166,26 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .data-grid {
   padding: 20px;
 }
 
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .table-container {
-  max-height: 60vh; /* Adjust this value as needed */
+  max-height: 50vh; /* Adjust this value as needed */
   overflow-y: auto;
+  flex: 1;
+}
+
+.visualization-container {
+  flex: 1;
+  padding-left: 20px; /* Adjust the spacing as needed */
 }
 
 table {

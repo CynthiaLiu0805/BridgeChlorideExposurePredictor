@@ -139,7 +139,7 @@ export default {
 <style scoped>
 .map-container {
   position: relative;
-  height: 100vh;
+  height: 90vh;
 }
 
 .map {
@@ -151,8 +151,9 @@ export default {
   top: 10px;
   left: 10px;
   background: white;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   z-index: 1000;
+  
 }
 </style>
