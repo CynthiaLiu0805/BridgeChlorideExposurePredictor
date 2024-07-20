@@ -2,7 +2,7 @@
   <div class="map-container">
     <div id="map" class="map" ></div>
     <div class="controls">
-      <h1>Check if a Coordinate is in Ontario</h1>
+      <!-- <h5>Check if a Coordinate is in Ontario</h5> -->
       <form @submit.prevent="checkCoordinate">
         <div>
           <label for="latitude">Latitude:</label>
@@ -26,10 +26,10 @@
             <option value="low">Low Rate</option>
           </select>
         </div>
-        <button type="submit">Check</button>
+        <!-- <button type="submit">Check</button> -->
       </form>
       <div v-if="result !== null">
-        <p v-if="result === true">The coordinate is within Ontario.</p>
+        <!-- <p v-if="result === true">The coordinate is within Ontario.</p> -->
         <!-- <p v-if="result === false">The coordinate is not within Ontario.</p> -->
         <p v-if="errorMessage">{{ errorMessage }}</p>
         <DataGrid v-if="result === true" :longitude="longitude" :latitude="latitude" :dataOption="selectedOption" :rateOption="rateOption" />
