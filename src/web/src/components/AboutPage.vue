@@ -29,10 +29,10 @@ export default {
 <style>
 .modal-overlay {
   position: fixed;
-  top: 0;
+  top: 0vh;
   right: 0;
   width: 300px;
-  height: 300px;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: flex-end;

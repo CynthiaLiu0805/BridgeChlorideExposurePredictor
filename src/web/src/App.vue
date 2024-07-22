@@ -46,11 +46,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 
 nav {
   display: flex;
+  height: 5vh;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;

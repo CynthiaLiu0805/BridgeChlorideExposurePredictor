@@ -1,36 +1,36 @@
 <template>
   <div class="map-container">
-    <div id="map" class="map" ></div>
+    <div id="map" class="map"></div>
     <div class="controls">
-      <!-- <h5>Check if a Coordinate is in Ontario</h5> -->
-      <form @submit.prevent="checkCoordinate">
-        <div>
-          <label for="latitude">Latitude:</label>
-          <input type="number" v-model.number="latitude" step="any" required>
+      <form @submit.prevent="checkCoordinate" class="form-container">
+        <div class="lat-lon-container">
+          <div class="form-group">
+            <label for="latitude">Latitude:</label>
+            <input type="number" v-model.number="latitude" step="any" required>
+          </div>
+          <div class="form-group">
+            <label for="longitude">Longitude:</label>
+            <input type="number" v-model.number="longitude" step="any" required>
+          </div>
         </div>
-        <div>
-          <label for="longitude">Longitude:</label>
-          <input type="number" v-model.number="longitude" step="any" required>
+        <div class="data-option-container">
+          <div class="form-group">
+            <label for="dataOption">Component:</label>
+            <select v-model="selectedOption" @change="handleDataOptionChange">
+              <option value="deck">Deck</option>
+              <option value="pier">Pier</option>
+            </select>
+          </div>
+          <div class="form-group" v-if="selectedOption === 'pier'">
+            <label for="rateOption">Select Rate:</label>
+            <select v-model="rateOption">
+              <option value="high">High Rate</option>
+              <option value="low">Low Rate</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label for="dataOption">Select Data Source:</label>
-          <select v-model="selectedOption" @change="handleDataOptionChange">
-            <option value="deck">Deck</option>
-            <option value="pier">Pier</option>
-          </select>
-        </div>
-        <div v-if="selectedOption === 'pier'">
-          <label for="rateOption">Select Rate:</label>
-          <select v-model="rateOption">
-            <option value="high">High Rate</option>
-            <option value="low">Low Rate</option>
-          </select>
-        </div>
-        <!-- <button type="submit">Check</button> -->
       </form>
       <div v-if="result !== null">
-        <!-- <p v-if="result === true">The coordinate is within Ontario.</p> -->
-        <!-- <p v-if="result === false">The coordinate is not within Ontario.</p> -->
         <p v-if="errorMessage">{{ errorMessage }}</p>
         <DataGrid v-if="result === true" :longitude="longitude" :latitude="latitude" :dataOption="selectedOption" :rateOption="rateOption" />
       </div>
@@ -135,7 +135,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .map-container {
   position: relative;
@@ -145,7 +144,6 @@ export default {
 .map {
   height: 100%;
   z-index: 1000;
-
 }
 
 .controls {
@@ -156,6 +154,36 @@ export default {
   padding: 5px;
   border-radius: 5px;
   z-index: 1000;
-  
+  text-align: left;
+
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5vw;
+}
+
+.lat-lon-container,
+.data-option-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box;
 }
 </style>

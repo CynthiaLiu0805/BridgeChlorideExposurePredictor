@@ -172,11 +172,13 @@ export default {
 </script>
 <style scoped>
 .data-grid {
-  padding: 20px;
+  margin-top: -2.5vh;
+  padding: 5px;
 }
 
 .table-container {
-  max-height: 50vh; /* Adjust this value as needed */
+  margin-top: -1vh;
+  max-height: 40vh; /* Adjust this value as needed */
   overflow-y: auto;
 }
 
@@ -187,7 +189,7 @@ table {
 
 th, td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 6px;
 }
 
 th {
