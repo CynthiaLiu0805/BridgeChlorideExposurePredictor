@@ -35,7 +35,7 @@ import DataVisualization from './DataVisualization.vue';
 
 
 export default {
-  name: 'DataGrid',
+  name: 'DataSearching',
   components: {
     DataVisualization,
   },
@@ -178,7 +178,7 @@ export default {
 
 .table-container {
   margin-top: -1vh;
-  max-height: 40vh; /* Adjust this value as needed */
+  max-height: 30vh; /* Adjust this value as needed */
   overflow-y: auto;
 }
 

@@ -1,11 +1,13 @@
 <template>
   <div>
     <div ref="chartWrapper">
-    <line-chart v-if="data" :data="chartData" />
+    <line-chart class="chart-wrapper" v-if="data" :data="chartData" />
     </div>
+    <div class="button-container">
+
     <button @click="downloadData">Download Data</button>
     <button @click="downloadJPG">Download Chart (JPG)</button>
-
+    </div>
   </div>
 </template>
 
@@ -60,7 +62,7 @@ export default {
         [
           {
             label: 'Value Over Time',
-            backgroundColor: '#f87979',
+            backgroundColor: '#c400a7',
             data: values,
           },
         ],
@@ -112,17 +114,21 @@ export default {
 </script>
 
 <style scoped>
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5vw;
+}
 button {
   margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #4CAF50;
+  padding: 8px 10px;
+  background-color: #660057;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  align-self: right;
 }
 
-button:hover {
-  background-color: #45a049;
-}
 </style>

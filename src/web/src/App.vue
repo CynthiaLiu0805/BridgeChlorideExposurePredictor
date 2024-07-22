@@ -55,7 +55,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #2c3e50;
+  background-color: #660057;
   color: white;
 }
 

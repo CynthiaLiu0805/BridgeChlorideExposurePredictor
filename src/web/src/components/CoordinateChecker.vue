@@ -24,11 +24,12 @@
           <div class="form-group" v-if="selectedOption === 'pier'">
             <label for="rateOption">Select Rate:</label>
             <select v-model="rateOption">
-              <option value="high">High Rate</option>
-              <option value="low">Low Rate</option>
+              <option value="high">High Rate (0.07)</option>
+              <option value="low">Low Rate (0.05)</option>
             </select>
           </div>
         </div>
+        <!-- <button type="submit">Check</button> -->
       </form>
       <div v-if="result !== null">
         <p v-if="errorMessage">{{ errorMessage }}</p>
@@ -42,7 +43,7 @@
 import * as turf from '@turf/turf';
 import ontario from './ontario.json';
 import L from 'leaflet';
-import DataGrid from './DataGrid.vue';
+import DataGrid from './DataSearching.vue';
 
 export default {
   name: 'InputCheck',
@@ -62,6 +63,18 @@ export default {
   },
   mounted() {
     this.initMap();
+  },
+  watch: {
+    latitude(newVal) {
+      if (newVal !== null) {
+        this.checkCoordinate();
+      }
+    },
+    longitude(newVal) {
+      if (newVal !== null) {
+        this.checkCoordinate();
+      }
+    }
   },
   methods: {
     convertLongitude(lon) {
@@ -155,7 +168,7 @@ export default {
   border-radius: 5px;
   z-index: 1000;
   text-align: left;
-
+  min-width: 30vw;
 }
 
 .form-container {
