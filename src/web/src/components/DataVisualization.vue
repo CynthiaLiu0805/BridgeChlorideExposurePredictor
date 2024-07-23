@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="chartWrapper">
-    <line-chart class="chart-wrapper" v-if="data" :data="chartData" />
+    <line-chart class="chart-wrapper" v-if="data" :data="chartData"  :options="chartOptions"/>
     </div>
     <div class="button-container">
 
@@ -61,12 +61,34 @@ export default {
         datasets:
         [
           {
-            label: 'Value Over Time',
+            label: 'Surface Chloride Concentration Over Time',
             backgroundColor: '#c400a7',
+            borderWidth: 1,
+            borderColor: '#660057',
+            pointRadius: 2.5,
+            pointBackgroundColor: '#777B7E', // Set the point color here
+            pointBorderColor: 'transparent', // Remove the point border here
+
             data: values,
           },
         ],
       };
+      this.chartOptions = {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Year' // Set your x-axis label here
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Chloride Concentration (kg/m^3)' // Set your y-axis label here
+          }
+        }
+      }
+    };
 
       console.log("chart data", data);
     },
@@ -121,14 +143,15 @@ export default {
   gap: 0.5vw;
 }
 button {
-  margin-top: 20px;
-  padding: 8px 10px;
+  margin-top: 0px;
+  padding: 5px 8px;
   background-color: #660057;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   align-self: right;
+  font-size: 12px; 
 }
 
 </style>

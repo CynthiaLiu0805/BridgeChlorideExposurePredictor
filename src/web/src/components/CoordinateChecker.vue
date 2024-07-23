@@ -168,7 +168,7 @@ export default {
   border-radius: 5px;
   z-index: 1000;
   text-align: left;
-  min-width: 30vw;
+  min-width: 35vw;
 }
 
 .form-container {
