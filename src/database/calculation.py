@@ -19,7 +19,7 @@ def savefile(long, lat, results, filename):
     df = pd.DataFrame(results)
 
     # Generate column headers
-    column_headers = ['LON', 'LAT'] + ['{}'.format(i) for i in range(2006, 2061)]
+    column_headers = ['LON', 'LAT'] + ['{}'.format(i) for i in range(2006, 2101)]
 
     # Set column headers
     df.columns = column_headers

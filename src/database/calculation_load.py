@@ -22,10 +22,10 @@ class Calculation_load:
             self.AADT = df1.iloc[:, 2].values
         if not df1.iloc[:, 3].isnull().any():
             self.AADTT = df1.iloc[:, 3].values
-        if not pd.read_excel(file_name, sheet_name='t1', usecols='B:BD', skiprows=0, nrows=1645).isnull().any().any():
-            self.t1 = pd.read_excel(file_name, sheet_name='t1', usecols='B:BD', skiprows=0, nrows=1645).values
-        if not pd.read_excel(file_name, sheet_name='htotal', usecols='B:BD', skiprows=0, nrows=1645).isnull().any().any():
-            self.h_total = pd.read_excel(file_name, sheet_name='htotal', usecols='B:BD', skiprows=0, nrows=1645).values
-        if not pd.read_excel(file_name, sheet_name='t2', usecols='B:BD', skiprows=0, nrows=1645).isnull().any().any():
-            self.t2 = pd.read_excel(file_name, sheet_name='t2', usecols='B:BD', skiprows=0, nrows=1645).values
+        if not pd.read_excel(file_name, sheet_name='t1', usecols='B:CR', skiprows=0, nrows=1645).isnull().any().any():
+            self.t1 = pd.read_excel(file_name, sheet_name='t1', usecols='B:CR', skiprows=0, nrows=1645).values
+        if not pd.read_excel(file_name, sheet_name='htotal', usecols='B:CR', skiprows=0, nrows=1645).isnull().any().any():
+            self.h_total = pd.read_excel(file_name, sheet_name='htotal', usecols='B:CR', skiprows=0, nrows=1645).values
+        if not pd.read_excel(file_name, sheet_name='t2', usecols='B:CR', skiprows=0, nrows=1645).isnull().any().any():
+            self.t2 = pd.read_excel(file_name, sheet_name='t2', usecols='B:CR', skiprows=0, nrows=1645).values
 

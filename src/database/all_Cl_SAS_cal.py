@@ -13,15 +13,15 @@ from constant import Constant
 
 # Because of the annual 2% increase in traffic volume, the AADT and AADTT are calculated as follows:
 def updateAADT(AADT):
-        resultAADT = np.zeros((1645, 55))
-        for i in range(1, 55):
+        resultAADT = np.zeros((1645, 95))
+        for i in range(1, 95):
             resultAADT[:,0] = AADT
             resultAADT[:,i] = resultAADT[:,i-1] + resultAADT[:,i-1] * 0.02
         return resultAADT
 
 def updateAADTT(AADTT):
-        resultAADTT = np.zeros((1645, 55))
-        for i in range(1, 55):
+        resultAADTT = np.zeros((1645, 95))
+        for i in range(1, 95):
             resultAADTT[:,0] = AADTT
             resultAADTT[:,i] = resultAADTT[:,i-1] + resultAADTT[:,i-1] * 0.02
         return resultAADTT
