@@ -28,7 +28,7 @@ def savefile(long, lat, results, filename):
     df.to_csv(filename, index=False)
 
 # Use all the other modules to generate the database
-load = Calculation_load('datamodel.xlsx')
+load = Calculation_load('data.xlsx')
 AADT = all_Cl_SAS_cal.updateAADT(load.AADT)
 AADTT = all_Cl_SAS_cal.updateAADTT(load.AADTT)
 # For high salt application rate
