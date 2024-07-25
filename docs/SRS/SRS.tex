@@ -133,7 +133,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for Bridge Corrosion Predictor (BCP): A Chloride Exposure Prediction Model} 
+\title{Software Requirements Specification for Bridge Chloride Exposure Predictor (BCEP): A Chloride Exposure Prediction Model} 
 \author{Cynthia Liu}
 \date{\today}
 	
@@ -156,8 +156,9 @@ Jan 27, 2024 & 0.0 & Initial release\\
 Feb 23, 2024 & 0.1 & Add more details according to feedback from peer review\\
 Mar 7, 2024 & 0.2 & Modified according to feedback from Dr. Spence Smith\\
 Apr 13, 2024 & 0.3 & Final revision for 741\\
-June 13, 2024 & 0.4 & Revision for BCP base on feedback from Dr. Smith\\
+June 13, 2024 & 0.4 & Revision base on feedback from Dr. Smith\\
 July 13, 2024 & 0.5 & Revision after requirement walkthrough meeting\\
+July 25, 2024 & 0.6 & Revision after task-based inspection\\
 % characterize the changes rather than source of feedback
 \bottomrule
 \end{tabularx}
@@ -271,7 +272,7 @@ A & Assumption\\
 AADT & Annual Average Daily Traffic\\
 AADTT & Annual Average Daily Truck Traffic\\
 ADT & Average Daily Traffic\\
-BCP & Bridge Corrosion Predictor \\
+BCEP & Bridge Chloride Exposure Predictor \\
 BW & Bow Waves\\
 CA & Capillary Adhesion\\
 DD & Data Definition\\
@@ -307,7 +308,7 @@ TP & Tread Pickup\\
 
 
 \subsection{Symbolic Parameters}
-This section includes the symbolic parameters introduced in the report. We use symbolic parameters to represent values that are constant for a specific implementation of BCP. The value could be modified to create a new instance of BCP. For instance, JURISDICTION could be changed to provide the tool for a province or state other than Ontario. The values for the symbolic parameters are from [\reref{ref7}].
+This section includes the symbolic parameters introduced in the report. We use symbolic parameters to represent values that are constant for a specific implementation of BCEP. The value could be modified to create a new instance of BCEP. For instance, JURISDICTION could be changed to provide the tool for a province or state other than Ontario. The values for the symbolic parameters are from [\reref{ref7}].
 
 \begin{table}[!h]
 
@@ -353,19 +354,19 @@ This section includes the symbolic parameters introduced in the report. We use s
 \section{Introduction}
 Most of the bridges on highways are made with reinforced concrete decks. Unfortunately, weather conditions and traffic pattern cause bridge surfaces to be damaged by chloride-induced corrosion. Many elements influence the amount of damage, such as the quality of construction materials, and the maintenance practices employed. One of the most important factors is deicing salts. The primary deiicing salt used is sodium chloride (rock salt). When the salt melts the snow and is in contact with water, it may have a chemical reaction and release chloride ions. The ions could penetrate the concrete and induce corrosion in the reinforcing steel, thus damaging a bridge's structure and its capacity. \\
 There is a tight connection between chloride exposure, weather conditions and traffic flow. Specifically, the amount of deicing salt applied on the road surface greatly depends on the amount of snowfall, and the amount of water and dissolved chloride ions that end up on nearby objects depends on the traffic patterns.\\
-Given the complex relationship between weather, traffic and chloride exposure, and the importance of bridge safety and maintenance, there is a need for a software that can integrate weather and traffic data to predict potential corrosion for the bridges. This document provides specifications for such a software called Bridge Corrosion Predictor (BCP). \\
+Given the complex relationship between weather, traffic and chloride exposure, and the importance of bridge safety and maintenance, there is a need for a software that can integrate weather and traffic data to predict potential corrosion for the bridges. This document provides specifications for such a software called Bridge Chloride Exposure Predictor (BCEP). \\
 The following section outlines the document's purpose, delineates its scope of requirements, describes the intended audience's characteristics, and provides an overview of the document's organization.
 
 \subsection{Purpose of Document}
-This document details the requirements of BCP. The
+This document details the requirements of BCEP. The
 responsibilities of the user and software are laid out and the requirements that the software must satisfy are explicitly detailed. This document provides the Software Requirements Specification (SRS) for a project to investigate how the climate and traffic could have impact on the corrosion-induced damage for reinforced concrete, or to be more specific, how they influence the chloride exposure. 
 
 \subsection{Scope of Requirements} 
-The entire document is written assuming chloride is the main source of corrosion damage to the reinforced concrete, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. The factors that affect bridge corrosion are assumed to be limited to chloride levels, climatic conditions, and traffic patterns. Additionally, the scope of the project is limited to provincial highway bridges because these bridges are of significant interest to stakeholders and we have the most comprehensive and reliable data available for these bridges. 
+The entire document is written assuming deicing salts are the main source of chlorides attacking concrete structures, and chloride ions are transported from the road to the exterior surface of bridge substructures through vehicle spray and splash mechanisms. The factors that affect bridge chloride exposure are assumed to be limited to salt application practices, climatic conditions, and traffic patterns. Additionally, the scope of the project is limited to provincial highway bridges because these bridges are of significant interest to stakeholders and we have the most comprehensive and reliable data available for these bridges. 
 %, and we only consider the province of Ontario.
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
-Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, and the ability to comprehend basic results generated through computational fluid dynamics. The users of BCP may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
+Readers of this documentation are expected to have a understanding of high school mathematics and chemistry, and the ability to comprehend basic results generated through computational fluid dynamics. The users of BCEP may exhibit diverse levels of expertise, as further detailed in Section \ref{SecUserCharacteristics}.
 
 \subsection{Organization of Document}
 The organization of this document follows the template for an SRS for scientific computing software proposed by Smith et al. [\reref{ref1}, \reref{ref2}, \reref{ref3}]. Starting with the reference material including units, symbols and abbreviations, this document next introduce the system that we are going to build from general to specific, including the problem, goal, assumptions, theoretical model and instance models. It also talks about the functional and nonfunctional requirements for this project.
@@ -398,7 +399,7 @@ Figure \ref{Fig_SystemContext} shows the system context of the software. The use
 \item Provide valid climate table and traffic table to the software.
 \end{itemize}
 
-\item BCP Responsibilities:
+\item BCEP Responsibilities:
 \begin{itemize}
 \item Build a database storing the chloride exposure data for every GRID\_SIZE grid in the past and future.
 \item Search and return the chloride exposure trend of the bridge component in given salt application rate at given input bridge site (coordinate).
@@ -407,10 +408,10 @@ Figure \ref{Fig_SystemContext} shows the system context of the software. The use
 \end{itemize}
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
-The end user of BCP should have a high school understanding of geographic coordinates. Additionally, users may benefit from university level of knowledge of bridge construction or civil engineering principles to better understand the context and implications of the predicted chloride exposure.
+The end user of BCEP should have a high school understanding of geographic coordinates. Additionally, users may benefit from university level of knowledge of bridge construction or civil engineering principles to better understand the context and implications of the predicted chloride exposure.
 
 \subsection{Stakeholders} \label{Stakeholders}
- A stakeholder is a person, group or organization with a vested interest in the project. For BCP, the stakeholders include:
+ A stakeholder is a person, group or organization with a vested interest in the project. For BCEP, the stakeholders include:
 
 \begin{itemize}
 \item Government agency: Government entities need this data for effective bridge management. By identifying bridges with higher corrosion risks, they can allocate budgets more efficiently.
@@ -457,7 +458,7 @@ easier to correctly understand the requirements.
 \subsubsection{Physical System Description} \label{sec_phySystDescrip}
 
 
-The key physical system of BCP, as shown in Figure \ref{4mechanism}, simulate the situation where a vehicle sprays and splashes the water. It includes the following elements:
+The key physical system of BCEP, as shown in Figure \ref{4mechanism}, simulate the situation where a vehicle sprays and splashes the water. It includes the following elements:
 
 \begin{itemize}
 
@@ -1620,7 +1621,7 @@ on the range of values that can be taken by the variable. The column for
 software constraints restricts the range of inputs to reasonable values. The software constraints will be helpful in the design stage for picking suitable
 algorithms.  The constraints are conservative, to give the user of the model the
 flexibility to experiment with unusual situations. The column for typical values lists the most frequent occurrences in the traffic and climate table. The uncertainty column
-provides an estimate of the confidence with which the physical quantities can be measured. This information would be part of the input if one were performing an uncertainty quantification exercise. In the BCP project, we talk about not only the input variables mentioned in instance models, but also include those in other models that the instance models use. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside JURISDICTION. This will be done by input checking algorithm later. \\
+provides an estimate of the confidence with which the physical quantities can be measured. This information would be part of the input if one were performing an uncertainty quantification exercise. In the BCEP project, we talk about not only the input variables mentioned in instance models, but also include those in other models that the instance models use. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside JURISDICTION. This will be done by input checking algorithm later. \\
 The specification parameters in Table~\ref{TblInputVar} are listed in
 Table~\ref{TblConstants}.
 
