@@ -43,8 +43,6 @@ export default {
   data() {
     return {
       data: {},
-      closestLatitude: null,
-      closestLongitude: null,
     };
   },
   computed: {
@@ -55,29 +53,27 @@ export default {
   watch: {
     longitude() {
       this.resetData();
-      this.loadData();
+      this.searchData();
     },
     latitude() {
       this.resetData();
-      this.loadData();
+      this.searchData();
     },
     dataOption() {
       this.resetData();
-      this.loadData();
+      this.searchData();
     },
     rateOption() {
       this.resetData();
-      this.loadData();
+      this.searchData();
     },
   },
   mounted() {
-    this.loadData();
+    this.searchData();
   },
   methods: {
     resetData() {
       this.data = {};
-      this.closestLatitude = null;
-      this.closestLongitude = null;
     },
     loadData() {
       let filePath = '';
@@ -91,21 +87,7 @@ export default {
         return;
         
       }
-    //   console.log("f", filePath);
-
-      Papa.parse(filePath, {
-        download: true,
-        // header: true,
-        complete: (results) => {
-        //   this.data = this.findClosest(results.data);
-          const closestPointData = this.findClosest(results.data);
-          this.data = closestPointData.values;
-          console.log("data", this.data)
-        },
-        error: (error) => {
-          console.error('Error loading CSV:', error);
-        },
-      });
+      return filePath
     },
     findClosest(data) {
       const lon = parseFloat(this.longitude);
@@ -116,57 +98,40 @@ export default {
 
       const distances = data.slice(1).map(row => {
         const lon_calculate = parseFloat(lon) < 0 ? parseFloat(lon) + 360 : parseFloat(lon);
-        // console.log("row lon", parseFloat(row[0]));
-        // console.log("row lat", parseFloat(row[1]));
-        // console.log("lat", lat);
-        // console.log("lon", lon_calculate);
-        // console.log("(parseFloat(row[1]) - parseFloat(lat))", (parseFloat(row[1]) - parseFloat(lat)));
-        // console.log("(parseFloat(row[0]) - parseFloat(lon))", (parseFloat(row[0]) - lon_calculate));
 
         const d = Math.sqrt((parseFloat(row[1]) - parseFloat(lat)) ** 2 + (parseFloat(row[0]) - lon_calculate) ** 2);
-        // console.log("d", d);
-
         return d;
       });
-      // console.log("distance", distances)
       const closestIndex = distances.indexOf(Math.min(...distances.filter(d => !isNaN(d))));
-          // console.log("closest index", closestIndex);
-          // console.log(data[closestIndex+1])
 
-      const resultR = data.filter((_, index) => index === closestIndex+1);
-    // console.log("result", resultR);
+      return closestIndex
 
-
-
-    //   const validDistances = distances.filter(d => !isNaN(d));
-    //   const minDistance = Math.min(...validDistances);
-
-    //   console.log("min dis", validDistances);
-    //   console.log("min", minDistance);
-
-
-    //   const closestIndex = distances.indexOf(Math.min(...validDistances));
-    //   const closestRow = data[closestIndex + 1]; // +1 to account for the header row
-    //   console.log("cloest row", distances.indexOf(minDistance));
-
-
-      // Merge year and data together
-      const result = years.reduce((acc, year, index) => {
-        acc[year] = resultR[0][index+2]; // +2 to skip latitude and longitude columns
-        return acc;
-      }, {});
-
-        return {
-        values: result,
-        latitude: resultR[1],
-        longitude: resultR[0],
-      };
-
-
-    //   console.log("data", validDistances);
-    //   console.log("cloestindex", Math.min(...validDistances));
-    //   return data.filter((_, index) => index === closestIndex);
     },
+    searchData() {
+
+      const filePath = this.loadData();
+      Papa.parse(filePath, {
+        download: true,
+        complete: (results) => {
+          const years = results.data[0].slice(2);
+          const closestIndex = this.findClosest(results.data);
+          const resultR = results.data.filter((_, index) => index === closestIndex+1);
+
+          // Merge year and data together
+          const result = years.reduce((acc, year, index) => {
+            acc[year] = resultR[0][index+2]; // +2 to skip latitude and longitude columns
+            return acc;
+          }, {});
+
+          this.data = result;
+          console.log("data", this.data)
+        },
+        error: (error) => {
+          console.error('Error loading CSV:', error);
+        },
+      });
+    },
+    
   },
 };
 </script>

@@ -58,6 +58,7 @@ Mar. 8, 2024 & 0 & Initial Release\\
 March 18, 2024 & 0.1 & Edit according to feedback from peer review \\
 April 5, 2024 & 1 & Edit according to feedback from Dr. Smith\\
 July 3, 2024 & 1.1 & Add modules for chloride on deck\\
+July 24, 2024 & 1.2 & Match the function name to the actual one \\
 \bottomrule
 \end{tabularx}
 
@@ -165,14 +166,14 @@ The following table is taken directly from the Module Guide document for this pr
 ~\newpage
 
 \section{MIS of Control Module} \label{controlModule} 
-This module provides the main program and the GUI of the software. It is related to R1 and R2 in the SRS.
+This module provides the main program and the GUI of the software.
 %\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
 
 %\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
 
 \subsection{Module}
 
-main
+app
 
 \subsection{Uses}
 \begin{itemize}
@@ -219,7 +220,7 @@ None
 
 \subsubsection{Access Routine Semantics}
 
-\noindent main():
+\noindent app():
 \begin{itemize}
 \item transition: Control and execute the other modules as follow:
 \begin{itemize}
@@ -243,9 +244,9 @@ None
 ~\newpage
 
 \section{MIS of Input Module} \label{inputModule} 
-This module get the input from user and verify if it is within the physical and software constraints, it is related to R1 in SRS.
+This module get the input from user and verify if it is within the physical and software constraints.
 \subsection{Module}
-input\_check
+CoordinateChecker
 \subsection{Uses}
 None
 
@@ -261,10 +262,9 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-read\_geoinfo & filename: String & - & FileNotFoundError\\
-convert\_longitude & long: String & long: $\mathbb{R}$ & ValueError \\
-convert\_latitude & lat: String & lat: $\mathbb{R}$ & ValueError \\
-is\_within\_ontario & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Boolean & InputOutofOntarioError \\
+convertLongitude & long: String & long: $\mathbb{R}$ & ValueError \\
+convertLatitude & lat: String & lat: $\mathbb{R}$ & ValueError \\
+checkCoordinate & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Boolean & InputOutofOntarioError \\
 
 \hline
 \end{tabular}
@@ -276,13 +276,15 @@ is\_within\_ontario & long: $\mathbb{R}$, lat: $\mathbb{R}$ & Boolean & InputOut
 \begin{itemize}
 \item lon: $\mathbb{R}$ \# longitude get from user.
 \item lat: $\mathbb{R}$ \# latitude get from user.
-\item boundary: GeoDataFrame \# the data read from geojson file
+\item isWithinOntario: Boolean \# if the point is within Ontario
+\item selectedOption: String \# the component that user wants to investigate
+\item rateOption: String \# the salt application rate that user wants to investigate
 \end{itemize}
 \subsubsection{Environment Variables}
 
 \begin{itemize}
 \item Keyboard: takes input from the keyboard by typing.
-\item File: the geojson file that contain the shape of Ontario.
+\item File: the geojson file that contains the shape of Ontario.
 \end{itemize}
 
 \subsubsection{Assumptions}
@@ -290,37 +292,35 @@ This module use the open source geojson file that contain the Ontario boundary, 
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{read\_geoinfo($filename$)}:
-\begin{itemize}
-\item transition: access the data from geojson file
-\item exception: exc := FileNotFoundError: $\nexists ~ filename$
-\end{itemize}
-
-\noindent \textbf{convert\_longitude($long$)}:
+\noindent \textbf{convertLongitude($long$)}:
 \begin{itemize}
 \item output: out := long: $\mathbb{R}$
-\item exception: exc := ValueError: $\lnot ~ isNumeric(long)$
+\item exception: exc := ValueError: isNaN(parseFloat($long$))
 \end{itemize}
 
-\noindent \textbf{convert\_latitude($long$)}:
+\noindent \textbf{convertLatitude($lat$)}:
 \begin{itemize}
 \item output: out := lat: $\mathbb{R}$
-\item exception: exc := ValueError: $\lnot ~ isNumeric(lat)$
+\item exception: exc := ValueError: isNaN(parseFloat($lat$))
 \end{itemize}
 
-
-\noindent \textbf{is\_within\_ontario($long, lat$)}:
+\noindent \textbf{checkCoordinate($long, lat$)}:
 \begin{itemize}
-\item output: out := Boolean
+\item output: out := isWithinOntario: Boolean
 \item exception: exc := InputOutofOntarioError: $\lnot ((long, lat) \in Ontario)$
 \end{itemize}
 
 \subsubsection{Local Functions}
-\noindent isNumeric($e$):
+\noindent isNaN($e$):
 \begin{itemize}
-\item output: out := Boolean \# check if the input $e$ is a string of float 
+\item output: out := Boolean \# check if the input $e$ is NaN 
 \end{itemize}
   
+\noindent parseFloat($s$):
+\begin{itemize}
+\item output: out := s: $\mathbb{R}$ \# convert the input $s$ from type string to float, if it is not number and can not be converted, it would return NaN 
+\end{itemize}
+
 \noindent InputOutofOntarioError:
 \begin{itemize}
 \item output: out := Exception \# raise this exception if the input is out of Ontario 
@@ -329,10 +329,10 @@ This module use the open source geojson file that contain the Ontario boundary, 
 ~\newpage
 
 \section{MIS of Data Searching Module} \label{dataSearchingModule} 
-This module finds the data needed in the database, it is related to R2 in SRS.
+This module finds the data needed in the database.
 \subsection{Module}
 
-search
+DataSearching
 
 \subsection{Uses}
  Input Module (Section \ref{inputModule}), Chloride Exposure Database Generation Module (Section \ref{calculationResultModule})
@@ -350,9 +350,9 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-read\_file & filename: String & data: sequence of $\mathbb{R}$ & FileNotFoundError \\
-find\_closest & long: $\mathbb{R}$, lat: $\mathbb{R}$ & index: $\mathbb{N}$   & - \\
-search & long: $\mathbb{R}$, lat: $\mathbb{R}$  & result: sequence of  $\mathbb{R}$ & - \\
+loadData & dataOption: String, rateOption: String & filePath: String & - \\
+findClosest & long: $\mathbb{R}$, lat: $\mathbb{R}$ & index: $\mathbb{N}$   & - \\
+searchData & long: $\mathbb{R}$, lat: $\mathbb{R}$  & data: sequence of  $\mathbb{R}$ & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -361,8 +361,7 @@ search & long: $\mathbb{R}$, lat: $\mathbb{R}$  & result: sequence of  $\mathbb{
 
 \subsubsection{State Variables}
 \begin{itemize}
-\item data: sequence of $\mathbb{R}$ \# the sequence of all data read from chloride exposure database
-\item result: sequence of $\mathbb{R}$ \# the sequence of predicted chloride exposure data that the user want
+\item data: sequence of $\mathbb{R}$ \# the sequence of predicted chloride exposure data that the user want
 
 \end{itemize}
 
@@ -375,18 +374,18 @@ search & long: $\mathbb{R}$, lat: $\mathbb{R}$  & result: sequence of  $\mathbb{
 All locations within Ontario, if it is not on water, must contain valid data. 
 
 \subsubsection{Access Routine Semantics}
-\noindent \textbf{read\_file($filename$)}:
+\noindent \textbf{loadData($dataOption, rateOption$)}:
 \begin{itemize}
-\item output: out := data \# sequence of $\mathbb{R}$ read from the file
+\item output: out := filePath \# filePath for the data that user want
 \item exception: exc := FileNotFoundError = $\nexists ~ filename$
 \end{itemize}
-\noindent \textbf{find\_closest($long, lat$)}: If the input coordinate is not the exact one in database, find the grid that it belongs to and return the index of center coordinate.
+\noindent \textbf{findClosest($long, lat$)}: If the input coordinate is not the exact one in database, find the grid that it belongs to and return the index of center coordinate.
 \begin{itemize}
 \item output: out := index: $\mathbb{N}$
 \end{itemize}
-\noindent \textbf{search($long, lat$)}:
+\noindent \textbf{searchData($long, lat$)}:
 \begin{itemize}
-\item output: out := result = search(find\_closest($long, lat$)) \# sequence of $\mathbb{R}$, the chloride exposure result
+\item output: out := data = search(findClosest($long, lat$)) \# sequence of $\mathbb{R}$, the chloride exposure result
 \item exception: exc := None
 \end{itemize}
 
@@ -396,11 +395,11 @@ None
 ~\newpage
 
 \section{MIS of Output Visualization Module} \label{outputVisualizationModule}
-This module provides the visualization of the resulting chloride exposure trend, it is related to R2 and R3 in SRS.
+This module provides the visualization of the resulting chloride exposure trend.
 
 \subsection{Module}
 
-visualization
+dataVisualization
 
 \subsection{Uses}
 
@@ -414,11 +413,13 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{7cm} p{2cm}}
+\begin{tabular}{p{4cm} p{4cm} p{2cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-draw & result: sequence of $\mathbb{R}$ & - & - \\
+generateChartData & data: sequence of $\mathbb{R}$ & - & - \\
+downloadData & - & - & - \\
+downloadJPG & - & - & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -429,15 +430,31 @@ draw & result: sequence of $\mathbb{R}$ & - & - \\
 None
 
 \subsubsection{Environment Variables}
-Screen: The graphs are displayed on the screen.
-
+\begin{itemize}
+\item Screen: The graphs are displayed on the screen.
+\item File: The files that could be downloaded to the local machine
+\end{itemize}
 \subsubsection{Assumptions}
 None
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{draw($result$)}:
+\noindent \textbf{generateChartData($data$)}:
 \begin{itemize}
-\item transition: display the graphs using the result from Data Searching Module.
+\item transition: display the graphs using the result data from Data Searching Module.
+\item output: out := None
+\item exception: exc := None
+\end{itemize}
+
+\noindent \textbf{downloadData()}:
+\begin{itemize}
+\item transition: download the data to the local machine
+\item output: out := None
+\item exception: exc := None
+\end{itemize}
+
+\noindent \textbf{downloadJPG()}:
+\begin{itemize}
+\item transition: download the visualization to the local machine
 \item output: out := None
 \item exception: exc := None
 \end{itemize}

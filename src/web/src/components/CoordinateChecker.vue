@@ -31,9 +31,9 @@
         </div>
         <!-- <button type="submit">Check</button> -->
       </form>
-      <div v-if="result !== null">
+      <div v-if="isWithinOntario !== null">
         <p v-if="errorMessage">{{ errorMessage }}</p>
-        <DataGrid v-if="result === true" :longitude="longitude" :latitude="latitude" :dataOption="selectedOption" :rateOption="rateOption" />
+        <DataGrid v-if="isWithinOntario === true" :longitude="longitude" :latitude="latitude" :dataOption="selectedOption" :rateOption="rateOption" />
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@ export default {
     return {
       latitude: null,
       longitude: null,
-      result: null,
+      isWithinOntario: null,
       errorMessage: null,
       map: null,
       selectedOption: 'deck',  // Default option
@@ -122,7 +122,7 @@ export default {
     checkCoordinate() {
       if (!ontario) {
         this.errorMessage = 'Ontario GeoJSON data is not loaded or is invalid.';
-        this.result = false;
+        this.isWithinOntario = false;
         return;
       }
 
@@ -130,14 +130,14 @@ export default {
       const convertedLatitude = this.convertLatitude(this.latitude);
 
       if (convertedLongitude === null || convertedLatitude === null) {
-        this.result = false;
+        this.isWithinOntario = false;
         return;
       }
 
       const point = turf.point([convertedLongitude, convertedLatitude]);
 
-      this.result = turf.booleanPointInPolygon(point, ontario);
-      this.errorMessage = this.result ? null : 'The coordinate is not within Ontario.';
+      this.isWithinOntario = turf.booleanPointInPolygon(point, ontario);
+      this.errorMessage = this.isWithinOntario ? null : 'The coordinate is not within Ontario.';
     },
     handleDataOptionChange() {
       // Reset rate option when switching data options
