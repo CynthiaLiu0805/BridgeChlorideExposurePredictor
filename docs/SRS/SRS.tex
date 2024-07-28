@@ -228,7 +228,7 @@ $K$ & m/m & ratio of the tire width that is not a groove to the full tire width\
 $L$ & \si{m} & drainage length\\
 $lat$ & \si{\degree} & latitude\\
 $long$ & \si{\degree} & longitude\\
-$m$ & N/A & the end year for the chloride exposure rate period\\
+$m$ & N/A & the end year for the period that surface chloride concentration is measured\\
 $M_{app}$ & \si{kg/m^2} & deicing salts quantity applied per day\\
 $M_{total}$ & \si{kg/m^2} & total amount of deicing salts quantity over winter\\
 $\mathit{MR_{BW}}$ & \si{kg/s} & MFR displaced by a single tire due to bow\\
@@ -236,7 +236,7 @@ $\mathit{MR_{CA}}$ & \si{kg/s} & MFR displaced by a single tire due to capillary
 $\mathit{MR_{SW}}$ & \si{kg/s} & MFR displaced by a single tire due to side waves\\
 $\mathit{MR_{TP}}$ & \si{kg/s} & MFR displaced by a single tire due to tread pickup\\
 $\mathit{MR_{W}}$ & \si{kg/s} & general MFR displaced by a single tire due to capillary adhesion\\
-$n$ & N/A & the start year for the chloride exposure rate period \\
+$n$ & N/A & the start year for the period that surface chloride concentration is measured\\
 $N_{lane}$ & lane & number of lanes\\
 $\rho_{water}$ & \si{kg/m^{3}} & density of water\\
 $\mathit{SD_{BW}}$ & \si{kg/m^{3}} & spray density by a single tire due to bow\\
@@ -418,7 +418,7 @@ The end user of BCEP should have a high school understanding of geographic coord
 \item Bridge engineer: Bridge engineers require the accurate data to use as a reference for planning the road construction of JURISDICTION. For example, they need the data to perform analysis and determining the minimum requirements for a bridge to stand for certain years. 
 \item Researcher: Professionals within the civil engineering field who are concerned with the impacts of climate change on corrosion damage. In particular, this project is conducted in collaboration with Dr.\ Cancan Yang and Ph.D. candidate Mingsai Xu from the Department of Civil Engineering at McMaster University.
 \item Developer: Individuals involved in the development, maintenance, and potential future enhancements of the predictive model. This group may include software developers or engineers tasked with inheriting, sustaining, and advancing the model beyond the initial research phase.
-\item Casual user: People that are interested in the chloride exposure rate of their area and those interest in the impacts of climate change and traffic pattern. 
+\item Casual user: People that are interested in the bridge chloride exposure of their area and those interest in the impacts of climate change and traffic pattern. 
 \end{itemize}
 
 
@@ -1599,7 +1599,7 @@ C_s = 0.015 \times C_{s_{air}} \times e^{-0.05d} + 0.985 \times C_{s_{air}} \tim
   \hline
   Output & $[C_{s}]_{n}^{m}$ \\
   \hline
-  Description & This instance model get the longitude and latitude as input, and return a list of chloride exposure rate, over the time periods $n$ to $m$ as output, which is the result of \iref{I_COTS} and \iref{I_COTD}. The searching process is conducted using coding logic. This is the model that the end user of this software will encounter.
+  Description & This instance model get the longitude and latitude as input, and return a list of surface chloride concentration, over the time periods $n$ to $m$ as output, which is the result of \iref{I_COTS} and \iref{I_COTD}. The searching process is conducted using coding logic. This is the model that the end user of this software will encounter.
 
 \begin{itemize}
 
@@ -1693,11 +1693,11 @@ qualities that the software is expected to exhibit.
 
 %\item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The result list of chloride exposure rate should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of chloride exposure rate should be of precise decimal data, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_DFSB})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of surface chloride concentration should be of precise decimal data, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_DFSB})
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of chloride exposure rate should have an visualization of line graph and table.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of surface chloride concentration should have an visualization of line graph and table.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The result list of chloride exposure rate and the visualization should be able to be downloaded by users to their local machine, in either csv or excel file. 
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The result list of surface chloride concentration and the visualization should be able to be downloaded by users to their local machine, in either csv or excel file. 
 
 
 \end{itemize}
