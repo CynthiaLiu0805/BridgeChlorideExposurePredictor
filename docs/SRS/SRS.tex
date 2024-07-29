@@ -1743,6 +1743,7 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_northern}:] Deicing salt is typically not used in the northern provinces. However, due to climate change, these provinces are now experiencing temperatures as low as -15 degrees. This may necessitate the use of deicing salt, which could lead to changes in adaptation strategies for those JURISDICTION. Further research is needed to fully understand these implications.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_salt}:] The application rate of deicing salt varies across different provinces due to differing policies, so the values $V_{salt_{h}}$ and $V_{salt_{l}}$ in Section \ref{SP} might change based on those variations.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_resolution}:] Currently, the resolution is limited to 25 km due to the constraints of the CanRCM4 model. If higher-resolution data becomes available in the future, the GRID\_SIZE in Section \ref{SP} can be adjusted accordingly.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_linearRegression}:] Th model used in \iref{I_COTD} demonstrated a correlation coefficient of 0.76. It is likely that it could be improved substantially if the composite chloride profiles were to be based on a much larger sampling in the future.
 \end{itemize}
 
 \section{Unlikely Changes}    
@@ -1892,6 +1893,7 @@ with an ``X'' may have to be modified as well.
 \lcref{LC_northern} & X &  & & && & & &  & && & \\ \hline
 \lcref{LC_salt} & & & & & & & & &  & && & \\ \hline
 \lcref{LC_resolution} & & & & & & & & &  & X && & \\ \hline
+\lcref{LC_linearRegression}  & & & & & & & & &  & && & \\ \hline
 \ulcref{ULC_saltSame}    & & && X & & &  && & & &  &\\ \hline
 \ulcref{ULC_NaCl}   & & & & & & X &  & & && &  & \\ \hline
 
