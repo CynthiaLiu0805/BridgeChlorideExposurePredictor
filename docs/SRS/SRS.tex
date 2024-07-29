@@ -238,7 +238,8 @@ $\mathit{MR_{TP}}$ & \si{kg/s} & MFR displaced by a single tire due to tread pic
 $\mathit{MR_{W}}$ & \si{kg/s} & general MFR displaced by a single tire due to capillary adhesion\\
 $n$ & N/A & the start year for the period that surface chloride concentration is measured\\
 $N_{lane}$ & lane & number of lanes\\
-$\rho_{water}$ & \si{kg/m^{3}} & density of water\\
+$r$ & N/A & linear growth rate for AADT and AADTT \\
+
 $\mathit{SD_{BW}}$ & \si{kg/m^{3}} & spray density by a single tire due to bow\\
 $\mathit{SD_{CA}}$ & \si{kg/m^{3}} & spray density by a single tire due to capillary adhesion\\
 $\mathit{SD_{SW}}$ & \si{kg/m^{3}} & spray density by a single tire due to side waves\\
@@ -257,6 +258,7 @@ $V'$ & \si{miles/h} & heavy vehicle speed for calculating spray density\\ %becau
 $W_{lane}$ & \si{m} & lane width\\
 $\mathit{WD}$ & \si{m} & water depth (thickness)\\
 $x$ & \si{m} & distance between road and object surface\\
+$\rho_{water}$ & \si{kg/m^{3}} & density of water\\
 $\Theta$ & N/A & ratio of chloride ions sprayed and splashed by trucks over those by light duty vehicles\\
 $\theta_{chloride}$ & N/A & molar mass ratio of chloride ions over deicing salts\\
 \bottomrule
@@ -319,28 +321,31 @@ This section includes the symbolic parameters introduced in the report. We use s
 
 
   \midrule 
-  JURISDICTION & An geographic area sharing a same set of laws or rules & Ontario & - \\
-  GRID\_SIZE & Minimum area sharing the same climate and traffic data & 25 $\times$ 25 & - \\
-  $V$ &  speed of vehicle & $62.1371$ & miles/h   \\
-  $V_{speed}$ & speed of heavy vehicle & $100$ & km/h   \\
   $b$ & tire width & $0.56$ & m   \\
   $d$ & distance between road edge and bridge substructure & 3.5 & m
   \\
+  
+  GRID\_SIZE & Minimum area sharing the same climate and traffic data & 25 $\times$ 25 & - \\
   $h_{film}$ & depth of the water film picked up in each rotation & 0.0001 & m
   \\
+  JURISDICTION & An geographic area sharing a same set of laws or rules & Ontario & - \\
   $K$ & ratio of tire width that is not a groove to tire width & 0.75& N/A
   \\
-  $\rho_{water}$ & water density & 997 & \si{kg/m^3}
-  \\  
-  $W_{lane}$ & lane width & 3.75 & m
-  \\  
+  $r$ & linear growth rate for AADT and AADTT & 2\% & N/A\\
+ 
+  $V$ &  speed of vehicle & $62.1371$ & miles/h   \\
+  $V_{speed}$ & speed of heavy vehicle & $100$ & km/h   \\
   $V_{salt_{h}}$ & high salt application rate & 0.07 & t/cm/km \\
   $V_{salt_{l}}$ & low salt application rate & 0.05 & t/cm/km
   \\
+  $W_{lane}$ & lane width & 3.75 & m
+  \\  
+  $\rho_{water}$ & water density & 997 & \si{kg/m^3}
+  \\  
   $\theta_{chloride}$ &  molar mass ratio of chloride ions over deicing salts & 0.61 & N/A \\
   $\Theta$ & ratio of chloride ions sprayed and  \\
   & splashed by trucks over light-duty vehicles& 6 & N/A  \\  
-  
+
   \bottomrule
 \end{longtable*}
   \caption{Auxiliary Constant} \label{TblConstants}
@@ -352,7 +357,7 @@ This section includes the symbolic parameters introduced in the report. We use s
 \pagenumbering{arabic}
 
 \section{Introduction}
-Most of the bridges on highways are made with reinforced concrete decks. Unfortunately, weather conditions and traffic pattern cause bridge surfaces to be damaged by chloride-induced corrosion. Many elements influence the amount of damage, such as the quality of construction materials, and the maintenance practices employed. One of the most important factors is deicing salts. The primary deiicing salt used is sodium chloride (rock salt). When the salt melts the snow and is in contact with water, it may have a chemical reaction and release chloride ions. The ions could penetrate the concrete and induce corrosion in the reinforcing steel, thus damaging a bridge's structure and its capacity. \\
+Most of the bridges on highways are made with reinforced concrete decks. Unfortunately, weather conditions and traffic pattern cause bridge surfaces to be damaged by chloride-induced corrosion. Many elements influence the amount of damage, such as the quality of construction materials, and the maintenance practices employed. One of the most important factors is deicing salts. The primary deicing salt used is sodium chloride (rock salt). When the salt melts the snow and is in contact with water, it may have a chemical reaction and release chloride ions. The ions could penetrate the concrete and induce corrosion in the reinforcing steel, thus damaging a bridge's structure and its capacity. \\
 There is a tight connection between chloride exposure, weather conditions and traffic flow. Specifically, the amount of deicing salt applied on the road surface greatly depends on the amount of snowfall, and the amount of water and dissolved chloride ions that end up on nearby objects depends on the traffic patterns.\\
 Given the complex relationship between weather, traffic and chloride exposure, and the importance of bridge safety and maintenance, there is a need for a software that can integrate weather and traffic data to predict potential corrosion for the bridges. This document provides specifications for such a software called Bridge Chloride Exposure Predictor (BCEP). \\
 The following section outlines the document's purpose, delineates its scope of requirements, describes the intended audience's characteristics, and provides an overview of the document's organization.
@@ -523,7 +528,7 @@ Change [LC], in which the respective assumption is used.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Speed}:] The speed for all the vehicles are the same, taken as the highway speed limit. (RefBy: \tref{T_MFRG}, \dref{D_MRCA} -- \dref{D_SDSW})
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_LinearGrowthTraffic}:]  All highway segments has a linear annual growth rate of 2\% AADT and AADTT, with the baseline year being 2006 based on the data from \href{https://icorridor-mto-on-ca.hub.arcgis.com/apps/50798e771bd0440dbc96fd85d8fde9a5/explore}{Ontario Ministry of Transportation}. (RefBy: \ddref{DD_AADT}, \ddref{DD_AADTT})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_LinearGrowthTraffic}:]  All highway segments has a linear annual growth rate of $r$ AADT and AADTT, with the baseline year being 2006 based on the data from \href{https://icorridor-mto-on-ca.hub.arcgis.com/apps/50798e771bd0440dbc96fd85d8fde9a5/explore}{Ontario Ministry of Transportation}. (RefBy: \ddref{DD_AADT}, \ddref{DD_AADTT})
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Data}:] The climate and traffic is constant over the entire area of each GRID\_SIZE cell. (RefBy: \iref{I_DFSB})
 
@@ -1120,7 +1125,7 @@ Symbol & $AADT$\\
   \hline
  Equation & $AADT:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $\\
   \hline
-  Description & $AADT(longitude, latitude)$ is the Annual Average Daily Traffic as a function of position, it is determined from the traffic table by taking two real number (longitude and latitude), and return a real number (AADT). An example of it could be found in Table \ref{Table:AADT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of 2\% with the baseline year being 2006. Future $AADT$ values are determined using this growth rate. 
+  Description & $AADT(longitude, latitude)$ is the Annual Average Daily Traffic as a function of position, it is determined from the traffic table by taking two real number (longitude and latitude), and return a real number (AADT). An example of it could be found in Table \ref{Table:AADT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of $r$ with the baseline year being 2006. Future $AADT$ values are determined using this growth rate. 
 
   \\
   \hline
@@ -1152,7 +1157,7 @@ Symbol & $AADTT$\\
   \hline
  Equation & $AADTT: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $\\
   \hline
-  Description & $AADTT(longitude, latitude)$ is the Annual Average Daily Truck Traffic as a function of position, it is determined from the traffic table by taking two real number (longitude and latitude), and return a real number (AADTT). An example of it could be found in Table \ref{Table:AADTT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of 2\% with the baseline year being 2006. Future $AADTT$ values are determined using this growth rate. 
+  Description & $AADTT(longitude, latitude)$ is the Annual Average Daily Truck Traffic as a function of position, it is determined from the traffic table by taking two real number (longitude and latitude), and return a real number (AADTT). An example of it could be found in Table \ref{Table:AADTT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of $r$ with the baseline year being 2006. Future $AADTT$ values are determined using this growth rate. 
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1688,7 +1693,7 @@ qualities that the software is expected to exhibit.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept coordinate that are inside JURISDICTION. (By \iref{I_DFSB})
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select parameters for the two bridge components: pier and deck. F or chloride on pier (\iref{I_COTS}) consider the different salt application rate (\ddref{DD_DSQ}), while the chloride on deck (\iref{I_COTD}) is not related to salt application rate.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select parameters for the two bridge components: pier and deck. For chloride on pier (\iref{I_COTS}) consider the different salt application rate (\ddref{DD_DSQ}), while the chloride on deck (\iref{I_COTD}) is not related to salt application rate.
 
 %\item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The result list of chloride exposure rate should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
@@ -1696,7 +1701,7 @@ qualities that the software is expected to exhibit.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of surface chloride concentration should have an visualization of line graph and table.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The result list of surface chloride concentration and the visualization should be able to be downloaded by users to their local machine, in either csv or excel file. 
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputDownload}:] The result list of surface chloride concentration and the visualization should be able to be downloaded by users to their local machine in csv. 
 
 
 \end{itemize}
@@ -1724,9 +1729,8 @@ The assumptions made in this document are based on practical considerations to s
 \item In \aref{A_deicingSalts}, the deicing salts need to be applied on the roads in time to ensure safe driving conditions during winter weather. 
 \item \aref{A_laneWidth}, \aref{A_tireWidth} and \aref{A_Speed} simplify the model by standardizing the lane width, tire width and vehicle speed, which streamlines the analysis and allows for consistent calculations.
 \item \aref{A_NaCl} simplifies the model while still capturing the essence of typical deicing salt compositions, as NaCl is one of the most widely used deicing salts due to its effectiveness and affordability.
-\item It is important to note that the traffic data of the Pavement ME Design Traffic Map was collected in the year of 2006. However, It has been observed that the traffic volume across Ontario experiences an annual growth rate of about 2\% on average, so to account for the time-variant nature of traffic volume and its impact on chloride exposure, a linear annual growth rate of 2\% was applied to both AADT and AADTT for all highway segments in \aref{A_LinearGrowthTraffic}. 
+\item It is important to note that the traffic data of the Pavement ME Design Traffic Map was collected in the year of 2006. However, It has been observed that the traffic volume across Ontario experiences an annual growth rate of about $r$ on average, so to account for the time-variant nature of traffic volume and its impact on chloride exposure, a linear annual growth rate of $r$ was applied to both AADT and AADTT for all highway segments in \aref{A_LinearGrowthTraffic}. 
 \item \aref{A_Data} is assumed following the resolution of the CanRCM4 model ([\reref{ref13}]), where the climate data are extracted from.
-\item \aref{A_Calibration} The calibration factor $\alpha$ and $\beta$ are assumed to be 0.5, in the calculation for mass flow rate of bowl waves and side waves.
 
 \end{itemize}
 
