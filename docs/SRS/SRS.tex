@@ -307,7 +307,7 @@ TP & Tread Pickup\\
 \end{tabular}\\
 
 
-\subsection{Symbolic Parameters}
+\subsection{Symbolic Parameters}\label{SP}
 This section includes the symbolic parameters introduced in the report. We use symbolic parameters to represent values that are constant for a specific implementation of BCEP. The value could be modified to create a new instance of BCEP. For instance, JURISDICTION could be changed to provide the tool for a province or state other than Ontario. The values for the symbolic parameters are from [\reref{ref7}].
 
 \begin{table}[!h]
@@ -1740,7 +1740,9 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_laneWidth}:] The lane width in some area might not be fixed, and the lane width standards might change in the future, so \aref{A_laneWidth} is likely to be changed. 
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_SASC}:] The proportions(0.015 and 0.985) in \iref{I_COTS} might change with the site characteristics of a bridge, such as the roadside environment (forested or urban), traffic characteristics (direction and volume), wind direction, and road surface condition. 
-
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_northern}:] Deicing salt is typically not used in the northern provinces. However, due to climate change, these provinces are now experiencing temperatures as low as -15 degrees. This may necessitate the use of deicing salt, which could lead to changes in adaptation strategies for those JURISDICTION. Further research is needed to fully understand these implications.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_salt}:] The application rate of deicing salt varies across different provinces due to differing policies, so the values $V_{salt_{h}}$ and $V_{salt_{l}}$ in Section \ref{SP} might change based on those variations.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_resolution}:] Currently, the resolution is limited to 25 km due to the constraints of the CanRCM4 model. If higher-resolution data becomes available in the future, the GRID\_SIZE in Section \ref{SP} can be adjusted accordingly.
 \end{itemize}
 
 \section{Unlikely Changes}    
@@ -1856,39 +1858,42 @@ with an ``X'' may have to be modified as well.
 \noindent
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_tireWidth} & \aref{A_Speed} & \aref{A_LinearGrowthTraffic} & \aref{A_Data} & \aref{A_Calibration} & \aref{A_deicingSaltsDeposition} &\aref{A_fourMechanisms}\\
+	& \aref{A_dissolve} & \aref{A_buildup} & \aref{A_pier} & \aref{A_deicingSalts}& \aref{A_laneWidth}& \aref{A_NaCl} & \aref{A_tireWidth} & \aref{A_Speed} & \aref{A_LinearGrowthTraffic} & \aref{A_Data} & \aref{A_Calibration} & \aref{A_deicingSaltsDeposition} &\aref{A_fourMechanisms}\\
 \hline
-\tref{T_WFT}       & & & & & &  & & & &  \\ \hline
-\tref{T_MFRG}      & & & & X & X & &  & & & \\ \hline
-\tref{T_CSASG}        & & & & &  & &  & & &\\ \hline
-\tref{T_TAD}        & & & & &  & & && &\\ \hline
-\dref{D_MRCA}          & & & & X & X  & &  & & &X \\ \hline
-\dref{D_MRTP}          & & & & X & X  & &  & & &X \\ \hline
-\dref{D_MRBWSW}          & & & & X & X  & &  & X  & &X\\ \hline
-\dref{D_SDCA}            & & & & & X  & &  & & & \\ \hline
-\dref{D_SDTP}            & & & & & X  & &  & & & \\ \hline
-\dref{D_SDBW}            & & & & & X  & &  && &  \\ \hline
-\dref{D_SDSW}            & & & & & X  & &  && &  \\ \hline
-\dref{D_CSAS}       & & & & &  & & && & \\ \hline
-\ddref{DD_AADT}  & & & & & & X &  && & \\ \hline
-\ddref{DD_AADTT}  & & & & &  & X & & & &\\ \hline
-\ddref{DD_htotal}  & & & & & & &  && & \\ \hline
-\ddref{DD_t1}  & & & & & &  & && & \\ \hline
-\ddref{DD_t2}  & & & & & &  & & & &\\ \hline
-\ddref{DD_DSQ}   & X & X & &   &  & & & & & \\ \hline
-\ddref{DD_DWFT}    & & & & & &  & && &\\ \hline
-\ddref{DD_TSD}    & & & & & & &  && & \\ \hline
-\ddref{DD_RSW}    & & & & & & &  && & \\ \hline
-\ddref{DD_SDTCL}    & & & X &  & & & && &\\ \hline
-\iref{I_COTS}       & & & & & & & & & X & \\ \hline
-\iref{I_COTD}       & & & & & &  & && & \\ \hline
-\iref{I_DFSB}       & & & & &  & & X & & &\\ \hline
-\lcref{LC_laneWidth}     & & X & &  & & &  & && \\ \hline
-\lcref{LC_SASC}   & & & & & &  & && & \\ \hline
-\ulcref{ULC_saltSame}   & X & & &  && & & &  &\\ \hline
-\ulcref{ULC_NaCl}   & & & X &  & & && &  & \\ \hline
+\tref{T_WFT}       & & & & & & & & &  & & & &  \\ \hline
+\tref{T_MFRG}      & & & & & & & X & X & &  & & & \\ \hline
+\tref{T_CSASG}        & & & & & & & &  & &  & & &\\ \hline
+\tref{T_TAD}        & & &  & & && &  & & && &\\ \hline
+\dref{D_MRCA}          & & & & & & & X & X  & &  & & &X \\ \hline
+\dref{D_MRTP}          & &  & & && & X & X  & &  & & &X \\ \hline
+\dref{D_MRBWSW}          & & & & & & & X & X  & &  & X  & &X\\ \hline
+\dref{D_SDCA}            & &  & & && & & X  & &  & & & \\ \hline
+\dref{D_SDTP}            & &  & & && & & X  & &  & & & \\ \hline
+\dref{D_SDBW}            & &  & & && & & X  & &  && &  \\ \hline
+\dref{D_SDSW}            & & & & & & & & X  & &  && &  \\ \hline
+\dref{D_CSAS}       & & & & & & & &  & & && & \\ \hline
+\ddref{DD_AADT}  & & & & & & & & & X &  && & \\ \hline
+\ddref{DD_AADTT}  & & &  & & && &  & X & & & &\\ \hline
+\ddref{DD_htotal}  & & &  & & && & & &  && & \\ \hline
+\ddref{DD_t1}  & & & &  & & && &  & && & \\ \hline
+\ddref{DD_t2}  & & & &  & & && &  & & & &\\ \hline
+\ddref{DD_DSQ}    & & && X & X & &   &  & & & & & \\ \hline
+\ddref{DD_DWFT}    & &  & & && & & &  & && &\\ \hline
+\ddref{DD_TSD}    & &  & & && & & & &  && & \\ \hline
+\ddref{DD_RSW}    & & & & & & & & & &  && & \\ \hline
+\ddref{DD_SDTCL}    &  & & && & X &  & & & && &\\ \hline
+\iref{I_COTS}       & & & & & && & & & & & X & \\ \hline
+\iref{I_COTD}       & & & & & & & & &  & && & \\ \hline
+\iref{I_DFSB}       & & &  & & && &  & & X & & &\\ \hline
+\lcref{LC_laneWidth}     &  & & && X & &  & & &  & && \\ \hline
+\lcref{LC_SASC}   & & &  & & && & &  & && & \\ \hline
+\lcref{LC_northern} & X &  & & && & & &  & && & \\ \hline
+\lcref{LC_salt} & & & & & & & & &  & && & \\ \hline
+\lcref{LC_resolution} & & & & & & & & &  & X && & \\ \hline
+\ulcref{ULC_saltSame}    & & && X & & &  && & & &  &\\ \hline
+\ulcref{ULC_NaCl}   & & & & & & X &  & & && &  & \\ \hline
 
 \hline
 \end{tabular}
