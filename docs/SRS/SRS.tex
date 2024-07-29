@@ -1120,7 +1120,7 @@ Symbol & $AADT$\\
   \hline
  Equation & $AADT:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $\\
   \hline
-  Description & $AADT(long, lat)$ is the Annual Average Daily Truck Traffic as a function of position, given by the longitude (long) and latitude (lat). The $AADT$ for each GRID\_SIZE grid is found by interpolating the data in the traffic data table (following the pattern in Table \ref{Table:AADT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of 2\% with the baseline year being 2006. Future $AADT$ values are determined using this growth rate. 
+  Description & $AADT(longitude, latitude)$ is the Annual Average Daily Traffic as a function of position, it is determined from the traffic table by taking two real number (longitude and latitude), and return a real number (AADT). An example of it could be found in Table \ref{Table:AADT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADT$ has a linear growth rate of 2\% with the baseline year being 2006. Future $AADT$ values are determined using this growth rate. 
 
   \\
   \hline
@@ -1152,7 +1152,7 @@ Symbol & $AADTT$\\
   \hline
  Equation & $AADTT: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $\\
   \hline
-  Description & $AADTT$ is the Annual Average Daily Truck Traffic, it is given by the traffic table. The $AADTT$ for each GRID\_SIZE grid could be found by inputing the coordinate. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of 2\% with the baseline year being 2006, so the future $AADTT$ values are determined using this growth rate. An example of the $AADTT$ in traffic table could be found in Table \ref{Table:AADTT}.
+  Description & $AADTT(longitude, latitude)$ is the Annual Average Daily Truck Traffic as a function of position, it is determined from the traffic table by taking two real number (longitude and latitude), and return a real number (AADTT). An example of it could be found in Table \ref{Table:AADTT}). The traffic data is constant over each GRID\_SIZE cell by \aref{A_Data}. According to \aref{A_LinearGrowthTraffic}, $AADTT$ has a linear growth rate of 2\% with the baseline year being 2006. Future $AADTT$ values are determined using this growth rate. 
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1183,7 +1183,7 @@ Symbol & $h_{total}$\\
   \hline
  Equation & $h_{total}: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{R}$\\
   \hline
-  Description & $h_{total}$ is the total snowfall during a winter season, it is given by the climate table. The $h_{total}$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $h
+  Description & $h_{total}(longitude, latitude, year)$ is the total snowfall during a winter season, it is determined from the climate table by taking two real number (longitude and latitude) and one natural number (year), and return a real number ($h_{total}$).  An example of the $h
 _{total}$ in climate table could be found in Table \ref{Table:htotal}.
   \\
   \hline
@@ -1215,8 +1215,7 @@ Symbol & $t_1$\\
   \hline
  Equation & $t_1: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{N}$ \\
   \hline
-  Description & $t_1$ is the number of days with snowfall during a winter season, it is given by the climate table. The $t_1$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t
-_1$ in climate table could be found in Table \ref{Table:t1}.
+  Description & $t_1(longitude, latitude, year)$ is the number of days with snowfall during a winter season, it is determined from the climate table by taking two real number (longitude and latitude) and one natural number (year), and return a real number ($t_1$). An example of the $t_1$ in climate table could be found in Table \ref{Table:t1}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1247,7 +1246,7 @@ Symbol & $t_2$\\
   \hline
  Equation & $t_2: \mathbb{R} \times \mathbb{R} \times \mathbb{N}  \rightarrow \mathbb{N}$\\
   \hline
-  Description & $t_2$ is the number of days with snow melting during a winter season, it is given by the climate table. The $t_2$ for each GRID\_SIZE grid could be found by inputing the coordinate and the year. An example of the $t_2$ in climate table could be found in Table \ref{Table:t2}.
+  Description & $t_2(longitude, latitude, year)$ is the number of days with snow melting during a winter season, it is determined from the climate table by taking two real number (longitude and latitude) and one natural number (year), and return a real number ($t_2$). An example of the $t_2$ in climate table could be found in Table \ref{Table:t2}.
   \\
   \hline
   Sources& [\reref{ref7}] \\
@@ -1743,7 +1742,7 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_northern}:] Deicing salt is typically not used in the northern provinces. However, due to climate change, these provinces are now experiencing temperatures as low as -15 degrees. This may necessitate the use of deicing salt, which could lead to changes in adaptation strategies for those JURISDICTION. Further research is needed to fully understand these implications.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_salt}:] The application rate of deicing salt varies across different provinces due to differing policies, so the values $V_{salt_{h}}$ and $V_{salt_{l}}$ in Section \ref{SP} might change based on those variations.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_resolution}:] Currently, the resolution is limited to 25 km due to the constraints of the CanRCM4 model. If higher-resolution data becomes available in the future, the GRID\_SIZE in Section \ref{SP} can be adjusted accordingly.
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_linearRegression}:] Th model used in \iref{I_COTD} demonstrated a correlation coefficient of 0.76. It is likely that it could be improved substantially if the composite chloride profiles were to be based on a much larger sampling in the future.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_linearRegression}:] Th model used in \iref{I_COTD} demonstrated a correlation coefficient of 0.76. It is likely that it could be improved substa ntially if the composite chloride profiles were to be based on a much larger sampling in the future.
 \end{itemize}
 
 \section{Unlikely Changes}    
