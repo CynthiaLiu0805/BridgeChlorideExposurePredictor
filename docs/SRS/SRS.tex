@@ -238,6 +238,7 @@ $\mathit{MR_{TP}}$ & \si{kg/s} & MFR displaced by a single tire due to tread pic
 $\mathit{MR_{W}}$ & \si{kg/s} & general MFR displaced by a single tire due to capillary adhesion\\
 $n$ & N/A & the start year for the period that surface chloride concentration is measured\\
 $N_{lane}$ & lane & number of lanes\\
+$p$ & N/A & number of decimal of chloride exposure result \\
 $r$ & N/A & linear growth rate for AADT and AADTT \\
 
 $\mathit{SD_{BW}}$ & \si{kg/m^{3}} & spray density by a single tire due to bow\\
@@ -331,6 +332,7 @@ This section includes the symbolic parameters introduced in the report. We use s
   JURISDICTION & An geographic area sharing a same set of laws or rules & Ontario & - \\
   $K$ & ratio of tire width that is not a groove to tire width & 0.75& N/A
   \\
+  $p$ & number of decimal of chloride exposure result & & N/A \\
   $r$ & linear growth rate for AADT and AADTT & 2\% & N/A\\
  
   $V$ &  speed of vehicle & $62.1371$ & miles/h   \\
@@ -1697,7 +1699,7 @@ qualities that the software is expected to exhibit.
 
 %\item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The result list of chloride exposure rate should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of surface chloride concentration should be of precise decimal data, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_DFSB})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of surface chloride concentration should be of $p$ decimal data, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_DFSB})
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputVisualization}:] The result list of surface chloride concentration should have an visualization of line graph and table.
 
