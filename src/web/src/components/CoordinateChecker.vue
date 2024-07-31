@@ -24,8 +24,8 @@
           <div class="form-group" v-if="selectedOption === 'pier'">
             <label for="rateOption">Select Rate:</label>
             <select v-model="rateOption">
-              <option value="high">High Rate (0.07)</option>
-              <option value="low">Low Rate (0.05)</option>
+              <option value="high">High Rate</option>
+              <option value="low">Low Rate</option>
             </select>
           </div>
         </div>

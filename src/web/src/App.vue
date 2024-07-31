@@ -3,7 +3,6 @@
     <nav>
       <div class="nav-left">Bridge Chloride Exposure Predictor</div>
       <div class="nav-right">
-        <a href="#map">Map</a>
         <a href="#" @click.prevent="toggleModal">About</a>
       </div>
     </nav>
