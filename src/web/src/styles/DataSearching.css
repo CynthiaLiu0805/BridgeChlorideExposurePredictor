@@ -1,0 +1,25 @@
+
+.data-grid {
+    margin-top: -2.5vh;
+    padding: 5px;
+  }
+  
+  .table-container {
+    margin-top: -1vh;
+    max-height: 30vh; /* Adjust this value as needed */
+    overflow-y: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 6px;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }

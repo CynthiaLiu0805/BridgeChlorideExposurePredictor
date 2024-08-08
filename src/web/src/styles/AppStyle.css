@@ -1,0 +1,35 @@
+
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 0px;
+  }
+  
+  nav {
+    display: flex;
+    height: 5vh;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #660057;
+    color: white;
+  }
+  
+  .nav-left {
+    font-size: 1.5em;
+  }
+  
+  .nav-right a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+  
+  .nav-right a:hover {
+    text-decoration: underline;
+  }
+  
