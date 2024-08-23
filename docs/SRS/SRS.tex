@@ -332,7 +332,7 @@ This section includes the symbolic parameters introduced in the report. We use s
   JURISDICTION & An geographic area sharing a same set of laws or rules & Ontario & - \\
   $K$ & ratio of tire width that is not a groove to tire width & 0.75& N/A
   \\
-  $p$ & number of decimal of chloride exposure result & & N/A \\
+  $p$ & number of decimal of chloride exposure result & 2 & N/A \\
   $r$ & linear growth rate for AADT and AADTT & 2\% & N/A\\
  
   $V$ &  speed of vehicle & $62.1371$ & miles/h   \\
@@ -1688,16 +1688,14 @@ qualities that the software is expected to exhibit.
 \subsection{Functional Requirements}
 
 \begin{itemize}
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputClimate}:] The climate table should be processed by domain expert, originally from the \href{https://climate-modelling.canada.ca/climatemodeldata/canrcm/CanRCM4/index.shtml}{CanRCM4}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputClimate}:] The climate table should be processed and updated by domain expert, originally from the \href{https://climate-modelling.canada.ca/climatemodeldata/canrcm/CanRCM4/index.shtml}{CanRCM4}.
  
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputTraffic}:] The traffic table should be processed by domain expert, originally from the \href{https://icorridor-mto-on-ca.hub.arcgis.com/apps/50798e771bd0440dbc96fd85d8fde9a5/explore}{AASHTOWare Pavement ME Design Traffic Map}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_InputTraffic}:] The traffic table should be processed and updated by domain expert, originally from the \href{https://icorridor-mto-on-ca.hub.arcgis.com/apps/50798e771bd0440dbc96fd85d8fde9a5/explore}{AASHTOWare Pavement ME Design Traffic Map}.
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_InputMap}:] The software should have a map of JURISDICTION that users can click to provide the input coordinate (longitude \& latitude).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The software should only accept coordinate that are inside JURISDICTION. (By \iref{I_DFSB})
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Parameter}:] The software should have an option for user to select parameters for the two bridge components: pier and deck. For chloride on pier (\iref{I_COTS}) consider the different salt application rate (\ddref{DD_DSQ}), while the chloride on deck (\iref{I_COTD}) is not related to salt application rate.
-
-%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Map}:] The result list of chloride exposure rate should be visualized in the map using color scheme to represent the severity of chloride exposure data across different regions.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] The result list of surface chloride concentration should be of $p$ decimal data, showing the trend of chloride exposure from 2006 to 2100 at the input location. (By \iref{I_DFSB})
 
@@ -1748,7 +1746,7 @@ The constraints in Table \ref{TblInputVar} are defined considering real-world sc
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_northern}:] Deicing salt is typically not used in the northern provinces. However, due to climate change, these provinces are now experiencing temperatures as low as -15 degrees. This may necessitate the use of deicing salt, which could lead to changes in adaptation strategies for those JURISDICTION. Further research is needed to fully understand these implications.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_salt}:] The application rate of deicing salt varies across different provinces due to differing policies, so the values $V_{salt_{h}}$ and $V_{salt_{l}}$ in Section \ref{SP} might change based on those variations.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_resolution}:] Currently, the resolution is limited to 25 km due to the constraints of the CanRCM4 model. If higher-resolution data becomes available in the future, the GRID\_SIZE in Section \ref{SP} can be adjusted accordingly.
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_linearRegression}:] Th model used in \iref{I_COTD} demonstrated a correlation coefficient of 0.76. It is likely that it could be improved substa ntially if the composite chloride profiles were to be based on a much larger sampling in the future.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_linearRegression}:] The model used in \iref{I_COTD} demonstrated a correlation coefficient of 0.76. It is likely that it could be improved substa ntially if the composite chloride profiles were to be based on a much larger sampling in the future.
 \end{itemize}
 
 \section{Unlikely Changes}    
