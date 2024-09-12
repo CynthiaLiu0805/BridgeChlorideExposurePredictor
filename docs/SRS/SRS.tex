@@ -156,9 +156,10 @@ Jan 27, 2024 & 0.0 & Initial release\\
 Feb 23, 2024 & 0.1 & Add more details according to feedback from peer review\\
 Mar 7, 2024 & 0.2 & Modified according to feedback from Dr. Spence Smith\\
 Apr 13, 2024 & 0.3 & Final revision for 741\\
-June 13, 2024 & 0.4 & Revision base on feedback from Dr. Smith\\
+June 13, 2024 & 0.4 & First revision for project\\
 July 13, 2024 & 0.5 & Revision after requirement walkthrough meeting\\
 July 25, 2024 & 0.6 & Revision after task-based inspection\\
+Sept 11, 2024 & 0.7 & Revision after prototype and requirement testing\\
 % characterize the changes rather than source of feedback
 \bottomrule
 \end{tabularx}
@@ -422,8 +423,8 @@ The end user of BCEP should have a high school understanding of geographic coord
 
 \begin{itemize}
 \item Government agency: Government entities need this data for effective bridge management. By identifying bridges with higher corrosion risks, they can allocate budgets more efficiently.
-\item Bridge engineer: Bridge engineers require the accurate data to use as a reference for planning the road construction of JURISDICTION. For example, they need the data to perform analysis and determining the minimum requirements for a bridge to stand for certain years. 
-\item Researcher: Professionals within the civil engineering field who are concerned with the impacts of climate change on corrosion damage. In particular, this project is conducted in collaboration with Dr.\ Cancan Yang and Ph.D. candidate Mingsai Xu from the Department of Civil Engineering at McMaster University.
+\item Bridge engineer: Bridge engineers require the accurate data to use as a reference for planning the road construction of JURISDICTION. For example, they need the data to perform analysis and determining the minimum requirements for a bridge to stand for certain years. In the preliminary site selection phase, they might randomly select locations, but for the actual design phase, they would have precise information about the bridge’s location.
+\item Researcher: Professionals within the civil engineering field who are concerned with the impacts of climate change on corrosion damage. In particular, this project is conducted in collaboration with Dr.~Cancan Yang and Ph.D. candidate Mingsai Xu from the Department of Civil Engineering at McMaster University.
 \item Developer: Individuals involved in the development, maintenance, and potential future enhancements of the predictive model. This group may include software developers or engineers tasked with inheriting, sustaining, and advancing the model beyond the initial research phase.
 \item Casual user: People that are interested in the bridge chloride exposure of their area and those interest in the impacts of climate change and traffic pattern. 
 \end{itemize}
@@ -1630,8 +1631,7 @@ variables. The column for physical constraints gives the physical limitations
 on the range of values that can be taken by the variable. The column for
 software constraints restricts the range of inputs to reasonable values. The software constraints will be helpful in the design stage for picking suitable
 algorithms.  The constraints are conservative, to give the user of the model the
-flexibility to experiment with unusual situations. The column for typical values lists the most frequent occurrences in the traffic and climate table. The uncertainty column
-provides an estimate of the confidence with which the physical quantities can be measured. This information would be part of the input if one were performing an uncertainty quantification exercise. In the BCEP project, we talk about not only the input variables mentioned in instance models, but also include those in other models that the instance models use. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside JURISDICTION. This will be done by input checking algorithm later. \\
+flexibility to experiment with unusual situations. The column for typical values lists the most frequent occurrences in the traffic and climate table. The uncertainty column provides an estimate of the confidence with which the physical quantities can be measured. This information would be part of the input if one were performing an uncertainty quantification exercise. In the BCEP project, we talk about not only the input variables mentioned in instance models, but also include those in other models that the instance models use. The physical constraints are purposed by [\reref{ref4}]. Beside those, the input of the software need to be coordinates inside JURISDICTION. This will be done by input checking algorithm later. \\
 The specification parameters in Table~\ref{TblInputVar} are listed in
 Table~\ref{TblConstants}.
 
