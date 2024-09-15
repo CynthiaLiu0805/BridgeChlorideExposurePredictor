@@ -80,8 +80,9 @@ export default {
       console.log("chart data", data);
     },
     downloadData() {
-      const r = [Object.keys(this.data)];
-      r.push(Object.values(this.data));
+      // const r = [Object.keys(this.data)];
+      // r.push(Object.values(this.data));
+      const r = Object.keys(this.data).map(key => [key, this.data[key]]);
 
       let csvContent = "data:text/csv;charset=utf-8," 
           + r.map(e => e.join(",")).join("\n");
