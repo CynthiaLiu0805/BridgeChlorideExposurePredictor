@@ -23,7 +23,11 @@
       </table>
       
     </div>
-    <DataVisualization :data="data" />
+    <DataVisualization :data="data" 
+    :longitude="longitude" 
+    :latitude="latitude" 
+    :componentType="dataOption" 
+    :saltApplicationRate="rateOption" />
 
   </div>
 </template>

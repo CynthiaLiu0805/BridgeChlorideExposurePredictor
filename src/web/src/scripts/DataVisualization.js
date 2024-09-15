@@ -17,6 +17,22 @@ export default {
       type: Object,
       required: true,
     },
+    longitude: {
+      type: Number,
+      required: true,
+    },
+    latitude: {
+      type: Number,
+      required: true,
+    },
+    componentType: {
+      type: String,
+      required: true,
+    },
+    saltApplicationRate: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -87,9 +103,11 @@ export default {
       let csvContent = "data:text/csv;charset=utf-8," 
           + r.map(e => e.join(",")).join("\n");
 
+      const fileName = `(${this.longitude}, ${this.latitude}), ${this.componentType}, ${this.saltApplicationRate} rate.csv`;
+
       const downloadAnchorNode = document.createElement('a');
       downloadAnchorNode.setAttribute("href", encodeURI(csvContent));
-      downloadAnchorNode.setAttribute("download", "data.csv");
+      downloadAnchorNode.setAttribute("download", fileName);
       document.body.appendChild(downloadAnchorNode);
       downloadAnchorNode.click();
       downloadAnchorNode.remove();
@@ -100,12 +118,14 @@ export default {
     downloadJPG() {
       this.$nextTick(() => {
         const chartWrapper = this.$refs.chartWrapper;
+        const fileName = `(${this.longitude}, ${this.latitude}), ${this.componentType}, ${this.saltApplicationRate} rate.jpg`;
+
         if (chartWrapper) {
           html2canvas(chartWrapper).then((canvas) => {
             const imgData = canvas.toDataURL('image/jpeg');
             const link = document.createElement('a');
             link.href = imgData;
-            link.download = 'chart.jpg';
+            link.download = fileName;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
