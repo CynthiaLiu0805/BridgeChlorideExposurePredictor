@@ -3,7 +3,9 @@
     <div class="modal-content" @click.stop>
       <span class="close" @click="close">&times;</span>
       <h2>About</h2>
-      <p>This is the Bridge Chloride Exposure Predictor application. Here you can find information about bridge chloride exposure prediction and how to use the app.</p>
+      <p>This is the Bridge Chloride Exposure Predictor application. Here you can find information about bridge chloride concentration exposure prediction and how to use the app.</p>
+      <p>For any problems or issues regarding the website, please contact Cynthialiu0805@gmail.com</p>
+      <p>For any interest in the theory behind, feel free to contact xum94@mcmaster.ca</p>
       <!-- Add more information as needed -->
     </div>
   </div>
