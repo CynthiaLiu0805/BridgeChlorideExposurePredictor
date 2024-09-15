@@ -22,7 +22,7 @@
             </select>
           </div>
           <div class="form-group" v-if="selectedOption === 'pier'">
-            <label for="rateOption">Select Rate:</label>
+            <label for="rateOption">Select Salt Application Rate:</label>
             <select v-model="rateOption">
               <option value="high">High Rate</option>
               <option value="low">Low Rate</option>
