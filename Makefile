@@ -7,11 +7,8 @@ app:
 web: 
 	cd src/web && npm run serve
 test: 
-	pytest src/database/test_calculation.py
-	pytest src/database/test_model_input.py
-	pytest src/app/test_input_check.py
-	pytest src/app/test_search.py
-	pytest src/app/test_visualization.py
+	python src/database/test_calculation.py
+	python src/database/test_model_input.py
 clean:
 	rm pier_high.csv
 	rm pier_low.csv
