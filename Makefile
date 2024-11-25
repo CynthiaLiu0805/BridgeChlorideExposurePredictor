@@ -13,4 +13,6 @@ test:
 	pytest src/app/test_search.py
 	pytest src/app/test_visualization.py
 clean:
-	rm results.csv
+	rm pier_high.csv
+	rm pier_low.csv
+	rm deck.csv

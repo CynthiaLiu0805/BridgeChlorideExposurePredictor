@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav>
-      <div class="nav-left">Ontario Bridge Chloride Exposure Predictor</div>
+      <div class="nav-left">Bridge Chloride Exposure Predictor</div>
       <div class="nav-right">
         <a href="#" @click.prevent="toggleModal">About</a>
       </div>
