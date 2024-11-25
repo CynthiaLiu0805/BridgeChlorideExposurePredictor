@@ -21,6 +21,8 @@ The folders and files for this project are as follows:
 │   └── VnVReport                
 │── src          
 |   ├── web         # code for user side of the software
+│   |   ├── public  # files generated from database
+│   │   └── src     # code for the website, including the geojson file for the jurisdiction boundary
 │   └── database    # code for generating the database  
 │── Makefile            # quick start commands
 │── requirements.txt    # dependencies

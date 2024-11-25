@@ -1,9 +1,0 @@
-============================= test session starts ==============================
-platform darwin -- Python 3.11.5, pytest-8.1.1, pluggy-1.4.0
-rootdir: /Users/liuyingxue/Documents/work/graduate/741/project/BridgeCorrosion
-plugins: dash-2.16.1
-collected 3 items
-
-src/app/test_visualization.py ...                                        [100%]
-
-============================== 3 passed in 1.89s ===============================
