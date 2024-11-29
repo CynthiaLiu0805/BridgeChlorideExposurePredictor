@@ -13,7 +13,7 @@ import pandas as pd
 class Calculation_load:
 
     def __init__(self, file_name):
-        df1 = pd.read_excel(file_name, sheet_name='Sheet1', usecols='A,B,D,E', skiprows=0, nrows=1645)
+        df1 = pd.read_excel(file_name, sheet_name='traffic', usecols='A,B,D,E', skiprows=0, nrows=1645)
         if not df1.iloc[:, 0].isnull().any():
             self.long = df1.iloc[:, 0].values
         if not df1.iloc[:, 1].isnull().any():
