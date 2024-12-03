@@ -40,6 +40,84 @@
 </template>
 
 
-<script src="../scripts/CoordinateChecker.js"></script>
+<script>
 
+import L from 'leaflet';
+import DataGrid from '../components/DataSearching.vue';
+import {
+  convertLongitude,
+  convertLatitude,
+  checkCoordinate,
+  handleDataOptionChange,
+} from '@/scripts/CoordinateChecker.js';
+export default {
+  name: 'InputCheck',
+  components: {
+    DataGrid,
+  },
+  data() {
+    return {
+      latitude: null,
+      longitude: null,
+      isWithinOntario: null,
+      errorMessage: null,
+      map: null,
+      selectedOption: 'deck', // Default option
+      rateOption: 'high', // Default rate option
+    };
+  },
+  mounted() {
+    this.initMap();
+  },
+  watch: {
+    latitude(newVal) {
+      if (newVal !== null) {
+        this.updateCoordinateCheck();
+      }
+    },
+    longitude(newVal) {
+      if (newVal !== null) {
+        this.updateCoordinateCheck();
+      }
+    },
+  },
+  methods: {
+    convertLongitude,
+    convertLatitude,
+    initMap() {
+      this.map = L.map('map').setView([44.0, -80.0], 6); // Set initial view to Ontario
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(this.map);
+
+      this.map.on('click', this.handleMapClick);
+    },
+    handleMapClick(event) {
+      const lat = event.latlng.lat;
+      const lon = event.latlng.lng;
+
+      this.latitude = lat;
+      this.longitude = lon;
+
+      this.updateCoordinateCheck();
+    },
+    updateCoordinateCheck() {
+      const result = checkCoordinate(
+        this.latitude,
+        this.longitude
+      );
+      this.isWithinOntario = result.isWithinOntario;
+      this.errorMessage = result.errorMessage;
+    },
+    handleDataOptionChange() {
+      this.rateOption = handleDataOptionChange(
+        this.selectedOption,
+        this.rateOption
+      );
+    },
+  },
+};
+</script>
 <style src="../styles/CoordinateChecker.css"></style>

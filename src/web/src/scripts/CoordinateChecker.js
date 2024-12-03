@@ -1,108 +1,96 @@
-
 import * as turf from '@turf/turf';
-import ontario from './ontario.json';
-import L from 'leaflet';
-import DataGrid from '../components/DataSearching.vue';
+import ontario from '@/assets/ontario.json';
 
-export default {
-  name: 'InputCheck',
-  components: {
-    DataGrid,
-  },
-  data() {
-    return {
-      latitude: null,
-      longitude: null,
-      isWithinOntario: null,
-      errorMessage: null,
-      map: null,
-      selectedOption: 'deck',  // Default option
-      rateOption: 'high',      // Default rate option
-    };
-  },
-  mounted() {
-    this.initMap();
-  },
-  watch: {
-    latitude(newVal) {
-      if (newVal !== null) {
-        this.checkCoordinate();
-      }
-    },
-    longitude(newVal) {
-      if (newVal !== null) {
-        this.checkCoordinate();
-      }
+/**
+ * Converts a longitude value to a normalized format for use in spatial calculations.
+ * 
+ * @param {number|string} lon - The longitude to convert.
+ * @returns {number|Object} A converted longitude value or an error object if the conversion fails.
+ */
+export function convertLongitude(lon) {
+  try {
+    const floatLon = parseFloat(lon);
+    if (isNaN(floatLon)) {
+      throw new Error('InputTypeMismatchError: Invalid longitude');
     }
-  },
-  methods: {
-    convertLongitude(lon) {
-      try {
-        const floatLon = parseFloat(lon);
-        if (isNaN(floatLon)) {
-          throw new Error('InputTypeMismatchError: Invalid longitude');
-        }
-        return floatLon > 0 ? floatLon - 360 : floatLon;
-      } catch (error) {
-        this.errorMessage = error.message;
-        return null;
-      }
-    },
-    convertLatitude(lat) {
-      try {
-        const floatLat = parseFloat(lat);
-        if (isNaN(floatLat)) {
-          throw new Error('InputTypeMismatchError: Invalid latitude');
-        }
-        return floatLat;
-      } catch (error) {
-        this.errorMessage = error.message;
-        return null;
-      }
-    },
-    initMap() {
-      this.map = L.map('map').setView([44.0, -80.0], 6); // Set initial view to Ontario
+    return floatLon > 0 ? floatLon - 360 : floatLon;
+  } catch (error) {
+    return { errorMessage: error.message };
+  }
+}
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(this.map);
 
-      this.map.on('click', this.handleMapClick);
-    },
-    handleMapClick(event) {
-      const lat = event.latlng.lat;
-      const lon = event.latlng.lng;
+/**
+ * Converts a latitude value to a normalized format for use in spatial calculations.
+ * 
+ * @param {number|string} lat - The latitude to convert.
+ * @returns {number|Object} A converted latitude value or an error object if the conversion fails.
+ */
+export function convertLatitude(lat) {
+  try {
+    const floatLat = parseFloat(lat);
+    if (isNaN(floatLat)) {
+      throw new Error('InputTypeMismatchError: Invalid latitude');
+    }
+    return floatLat;
+  } catch (error) {
+    return { errorMessage: error.message };
+  }
+}
 
-      this.latitude = lat;
-      this.longitude = lon;
 
-      this.checkCoordinate();
-    },
-    checkCoordinate() {
-      if (!ontario) {
-        this.errorMessage = 'Ontario GeoJSON data is not loaded or is invalid.';
-        this.isWithinOntario = false;
-        return;
-      }
+/**
+ * Validates whether the provided latitude and longitude coordinates are within Ontario.
+ * 
+ * @param {number|string} latitude - Latitude to be checked.
+ * @param {number|string} longitude - Longitude to be checked.
+ * @returns {Object} An object containing:
+ *   - `isWithinOntario`: Boolean indicating if the coordinates are within Ontario.
+ *   - `errorMessage`: A string describing any error that occurred, or `null` if no error.
+ */
+export function checkCoordinate(latitude, longitude) {
+  if (!ontario) {
+    return {
+      isWithinOntario: false,
+      errorMessage: 'Ontario GeoJSON data is not loaded or is invalid.',
+    };
+  }
 
-      const convertedLongitude = this.convertLongitude(this.longitude);
-      const convertedLatitude = this.convertLatitude(this.latitude);
+  const convertedLongitude = convertLongitude(longitude);
+  const convertedLatitude = convertLatitude(latitude);
 
-      if (convertedLongitude === null || convertedLatitude === null) {
-        this.isWithinOntario = false;
-        return;
-      }
+  if (convertedLongitude?.errorMessage || convertedLatitude?.errorMessage) {
+    return {
+      isWithinOntario: false,
+      errorMessage:
+        convertedLongitude?.errorMessage || convertedLatitude?.errorMessage,
+    };
+  }
 
-      const point = turf.point([convertedLongitude, convertedLatitude]);
+  const point = turf.point([convertedLongitude, convertedLatitude]);
+  const isWithinOntario = turf.booleanPointInPolygon(point, ontario);
 
-      this.isWithinOntario = turf.booleanPointInPolygon(point, ontario);
-      this.errorMessage = this.isWithinOntario ? null : 'The coordinate is not within Ontario.';
-    },
-    handleDataOptionChange() {
-      // Reset rate option when switching data options
-      if (this.selectedOption !== 'pier') {
-        this.rateOption = 'high';  // Reset to default for non-pier options
-      }
-    },
-  },
-};
+  return {
+    isWithinOntario,
+    errorMessage: isWithinOntario
+      ? null
+      : 'The coordinate is not within Ontario.',
+  };
+}
+
+
+/**
+ * Handles changes to the data option selection and resets the rate option if necessary.
+ * 
+ * @param {string} selectedOption - The newly selected data option.
+ * @param {string} rateOption - The current rate option, which may be reset.
+ * @returns {string} The updated rate option.
+ */
+export function handleDataOptionChange(selectedOption, rateOption) {
+  // Reset rate option when switching data options
+  if (selectedOption !== 'pier') {
+    rateOption = 'high'; // Reset to default for non-pier options
+  }
+  return rateOption;
+}
+

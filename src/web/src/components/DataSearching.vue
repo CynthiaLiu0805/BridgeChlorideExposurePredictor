@@ -31,6 +31,70 @@
 
   </div>
 </template>
-<script src="../scripts/DataSearching.js"></script>
+<!-- <script src="../scripts/DataSearching.js"></script> -->
+<script>
+import DataVisualization from '../components/DataVisualization.vue';
+import { determineFilePath, parseCSVAndFindData } from '@/scripts/DataSearching';
 
+export default {
+  name: 'DataSearching',
+  components: {
+    DataVisualization,
+  },
+  props: ['longitude', 'latitude', 'dataOption', 'rateOption'],
+  data() {
+    return {
+      data: {},
+    };
+  },
+  computed: {
+    headerText() {
+      return `Data for (${this.latitude}, ${this.longitude})`;
+    },
+  },
+  watch: {
+    longitude() {
+      this.searchData();
+    },
+    latitude() {
+      this.searchData();
+    },
+    dataOption() {
+      this.searchData();
+    },
+    rateOption() {
+      this.searchData();
+    },
+  },
+  mounted() {
+    this.searchData();
+  },
+  methods: {
+    searchData() {
+      if (!this.longitude || !this.latitude) {
+        this.data = {};
+        return;
+      }
+
+      try {
+        const filePath = determineFilePath(this.dataOption, this.rateOption);
+        parseCSVAndFindData(
+          filePath,
+          parseFloat(this.latitude),
+          parseFloat(this.longitude),
+          (result) => {
+            this.data = result;
+          },
+          (error) => {
+            console.error('Error loading CSV:', error);
+          }
+        );
+      } catch (error) {
+        console.error(error.message);
+        this.data = {};
+      }
+    },
+  },
+};
+</script>
 <style src="../styles/DataSearching.css"></style>
