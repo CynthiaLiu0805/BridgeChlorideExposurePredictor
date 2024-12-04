@@ -39,22 +39,28 @@ do we include the theory (the formulars used to calculated chloride exposure rat
 
 A quick start guide is provided in the [README.md](https://github.com/CynthiaLiu0805/BridgeCorrosion/blob/main/README.md) of the repository. 
 
-TODO: a picture of input and output, the one used
+As outlined in \autoref{fig:io}, there are two sources of input:
+
+- User Input: Information is entered through the website interface on the front end.
+- Developer Input: Updates (if any) to the traffic table, climate table, and salt application rate need to be made by editing the code directly.
+
+![Input and Output of BCEP.\label{fig:io}](img/inputoutput.png)
+The following sections provide guidance on modifying and customizing the website to suit other jurisdictions.
 
 ## Customization
 To adapt the code for jurisdictions beyond Ontario, follow these steps to ensure compatibility and proper results:  
 
 ### 1. Adapting Mechanisms  
-- The calculation mechanisms remain the same, but differences in deicing salt application policies should be considered when customizing for a new jurisdiction.  
+- The physical mechanisms remain the same, but differences in deicing salt application policies should be considered when customizing for a new jurisdiction.  
 
 ### 2. Data Collection and Preparation  
-1. Collect climate data and traffic data specific to the target jurisdiction.  
-2. Organize the data into a single Excel file.  
-3. **Ensure Consistency:**  
+- Collect climate data and traffic data specific to the target jurisdiction.  
+- Organize the data into a single Excel file.  
+- **Ensure Consistency:**  
    - **Grid Size Matching:** The grid sizes for climate and traffic data must align.  
    - **Row Alignment:** Each row in the sheets should represent the same location. For instance, row 2 across all sheets must correspond to the same longitude and latitude.  
 
-#### Climate Data Requirements
+#### 2.1 Climate Data Requirements
 - **Data Types**:
   - `htotal`: Total snowfall during winter
   - `t1`: Number of days with snowfall
@@ -62,13 +68,17 @@ To adapt the code for jurisdictions beyond Ontario, follow these steps to ensure
 
 - **Data Format**:  
   Climate data should be structured as shown below, with years as columns:
-  
+
+<div align="center">
+
 | Year  | 2006        | 2007        | 2008        | ...         |
 |-------|-------------|-------------|-------------|-------------|
 |       | 206.2145241 | 220.8943212 | 121.5795313 | ...         |
 |       | 211.174729  | 221.0476551 | 137.5310097 | ...         |
 
-#### Traffic Data Requirements
+</div>
+
+#### 2.2 Traffic Data Requirements
 - **Data Types**:
   - `AADT/Lane`: Anuual average daily traffic per lane
   - `AADTT/Lane`: Anuual average daily truck traffic per lane
@@ -76,11 +86,15 @@ To adapt the code for jurisdictions beyond Ontario, follow these steps to ensure
 - **Data Format**:  
 Traffic data should include coordinates, city, and traffic metrics per lane:
 
+<div align="center">
+
 | Longitude   | Latitude     | City     | AADT/Lane | AADTT/Lane |
 |-------------|--------------|----------|-----------|------------|
 | 274.712677  | 49.45780945  | Algoma   | 559       | 103        |
 | 275.9333496 | 47.5466156   | Algoma   | 559       | 103        |
 | 276.9502258 | 50.10984039  | Cochrane | 603       | 132        |
+
+</div>
 
 ### 3. Sheet Naming Conventions
 To ensure the tool functions correctly, the Excel file must follow specific naming conventions for each sheet:
@@ -92,12 +106,6 @@ To ensure the tool functions correctly, the Excel file must follow specific nami
 - **Traffic Data Sheet**:  
   - All traffic data (`AADT`, `AADTT`) should be included in a single sheet, as shown in the data format above.
   - The sheet must be named `traffic`.
-
-
-
-# Design and development
-
-## Continuous integration ?
 
 
 # Acknowledgements

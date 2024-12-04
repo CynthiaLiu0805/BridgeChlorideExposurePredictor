@@ -1,5 +1,5 @@
 import * as turf from '@turf/turf';
-import ontario from '@/assets/ontario.json';
+import boundary from '@/assets/boundary.json';
 
 /**
  * Converts a longitude value to a normalized format for use in spatial calculations.
@@ -49,7 +49,7 @@ export function convertLatitude(lat) {
  *   - `errorMessage`: A string describing any error that occurred, or `null` if no error.
  */
 export function checkCoordinate(latitude, longitude) {
-  if (!ontario) {
+  if (!boundary) {
     return {
       isWithinOntario: false,
       errorMessage: 'Ontario GeoJSON data is not loaded or is invalid.',
@@ -68,7 +68,7 @@ export function checkCoordinate(latitude, longitude) {
   }
 
   const point = turf.point([convertedLongitude, convertedLatitude]);
-  const isWithinOntario = turf.booleanPointInPolygon(point, ontario);
+  const isWithinOntario = turf.booleanPointInPolygon(point, boundary);
 
   return {
     isWithinOntario,
