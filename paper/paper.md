@@ -23,7 +23,7 @@ aas-journal: Astrophysical Journal <- The name of the AAS journal.
 
 
 # Summary
-The Bridge Chloride Exposure Predictor (BCEP) is a web-based tool designed to forecast future chloride exposure rates for bridges based on a calculation model (reference?) developed by Dr. Mingsai Xu and Dr. Cancan Yang, with an assumption that the climate and traffic data is constant within a specific GRID_SIZE for a JURISDICTION. This model integrates traffic and climate data to predict chloride exposure, specifically focusing on damage from deicing salts while excluding other factors such as mechanical wear or accidents. Currently, this model is validated for Ontario, Canada, and a demonstration website for an accessible overview is available [here](https://bcep.onrender.com/). Expanding the tool's applicability requires domain experts or developers to validate the traffic and climate data and generate chloride exposure rates for additional jurisdictions.
+The Bridge Chloride Exposure Predictor (BCEP) is a web-based tool designed to forecast future chloride exposure rates for bridges based on a calculation model [@Xu:2024] developed by Dr. Mingsai Xu and Dr. Cancan Yang, with an assumption that the climate and traffic data is constant within a specific GRID_SIZE for a JURISDICTION. This model integrates traffic and climate data to predict chloride exposure, specifically focusing on damage from deicing salts while excluding other factors such as mechanical wear or accidents. Currently, this model is validated for Ontario, Canada, and a demonstration website for an accessible overview is available [here](https://bcep.onrender.com/). Expanding the tool's applicability requires domain experts or developers to validate the traffic and climate data and generate chloride exposure rates for additional jurisdictions.
 
 
 # Statement of need
@@ -44,7 +44,11 @@ As outlined in \autoref{fig:io}, there are two sources of input:
 - User Input: Information is entered through the website interface on the front end.
 - Developer Input: Updates (if any) to the traffic table, climate table, and salt application rate need to be made by editing the code directly.
 
+<div align="center">
+
 ![Input and Output of BCEP.\label{fig:io}](img/inputoutput.png)
+
+</div>
 The following sections provide guidance on modifying and customizing the website to suit other jurisdictions.
 
 ## Customization
