@@ -2,9 +2,6 @@ const path = require('path');
 
 module.exports = {
   preset: '@vue/cli-plugin-unit-jest',
-  testMatch: [
-    "<rootDir>/src/web/src/tests/unit/**/*.test.[jt]s?(x)"
-  ],
 
   moduleFileExtensions: ['js', 'json', 'vue'], // Include Vue files
 
