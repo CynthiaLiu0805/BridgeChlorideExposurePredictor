@@ -10,7 +10,7 @@ from flask import Flask, render_template, request
 
 class Input_check:
     def __init__(self, lon, lat):
-        self.file_name = 'ontario_boundary.geojson' # Generate from https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/canada.geojson
+        self.file_name = 'ontario.geojson' # Generate from https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/canada.geojson
  
         self.lon = lon
         self.lat = lat
