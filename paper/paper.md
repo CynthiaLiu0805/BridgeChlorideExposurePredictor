@@ -1,17 +1,27 @@
 ---
-title: ''
+title: 'Bridge Chloride Exposure Predictor: a web-based tool that to forecast the future chloride exposure rates for bridges'
 tags:
   - Python
   - Vue
-  - 
+  - Bridge Engineering
+  - Climate change
+  - Predictive models
+  - Structural health monitoring
+
+
 authors:
-  - name: Cynthia Liu
+  - name: Yingxue (Cynthia) Liu
     orcid: 0000-0000-0000-0000
-    equal-contrib: true
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
+    affiliation: 1
+  - name: Mingsai Xu
+    affiliation: 1
+  - name: Spencer Smith
+    orcid: 0000-0002-0760-0987
+    affiliation: 1  
 affiliations:
  - name: McMaster University, Canada
-   index: 2
+   index: 1
+   ror: 02fa3aq29
 date: 25 November 2024
 bibliography: paper.bib
 
@@ -33,7 +43,7 @@ Most highway bridges are constructed with reinforced concrete decks, which are s
 While existing research explores the relationship between chloride and corrosion, there remains a lack of accessible tools, such as a user-friendly website, to visualize chloride exposure rates effectively. Accurate prediction of chloride exposure rates is essential for effective bridge management, construction planning, and research. Government agencies can use this data to prioritize maintenance and allocate budgets efficiently, focusing on bridges with higher corrosion risks. Bridge engineers can use the information to determine minimum structural requirements and ensure that bridges can endure their intended lifespan, particularly during the precise design phase. Researchers, especially those studying the impacts of climate change on infrastructure, benefit from predictive models to understand and mitigate corrosion damage. This project, conducted in collaboration with Dr. Cancan Yang and Dr. Mingsai Xu from McMaster University, highlights the importance of such tools in addressing the challenges posed by chloride-induced corrosion.
 
 
-do we include the theory (the formulars used to calculated chloride exposure rate) somewhere?
+do we include the theory (the formulas used to calculated chloride exposure rate) somewhere?
 
 # Features and usage
 
@@ -113,6 +123,6 @@ To ensure the tool functions correctly, the Excel file must follow specific nami
 
 
 # Acknowledgements
-
+We acknowledge the insights and suggestions from Dr. Mingsai Xu, Dr. Cancan Yang and Dr. Spencer Smith during the development of this program and the preparation of this paper.
 
 # References
