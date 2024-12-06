@@ -43,7 +43,7 @@ Most highway bridges are constructed with reinforced concrete decks, which are s
 While existing research explores the relationship between chloride and corrosion, there remains a lack of accessible tools, such as a user-friendly website, to visualize chloride exposure rates effectively. Accurate prediction of chloride exposure rates is essential for effective bridge management, construction planning, and research. Government agencies can use this data to prioritize maintenance and allocate budgets efficiently, focusing on bridges with higher corrosion risks. Bridge engineers can use the information to determine minimum structural requirements and ensure that bridges can endure their intended lifespan, particularly during the precise design phase. Researchers, especially those studying the impacts of climate change on infrastructure, benefit from predictive models to understand and mitigate corrosion damage. This project, conducted in collaboration with Dr. Cancan Yang and Dr. Mingsai Xu from McMaster University, highlights the importance of such tools in addressing the challenges posed by chloride-induced corrosion.
 
 
-do we include the theory (the formulas used to calculated chloride exposure rate) somewhere?
+Do we include the theory (the formulas used to calculated chloride exposure rate) somewhere? Or pointing to Mingsai's paper is enough?
 
 # Features and usage
 
@@ -56,7 +56,7 @@ As outlined in \autoref{fig:io}, there are two sources of input:
 
 <div align="center">
 
-![Input and Output of BCEP.\label{fig:io}](img/inputoutput.png)
+![Input and Output of BCEP](img/inputoutput.png)
 
 </div>
 The following sections provide guidance on modifying and customizing the website to suit other jurisdictions.
