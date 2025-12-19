@@ -5,6 +5,7 @@ database:
 app:
 	python src/app/main.py
 web: 
+	cd src/web && npm install 
 	cd src/web && npm run serve
 test: 
 	python src/database/test_calculation.py
