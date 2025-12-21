@@ -1,5 +1,5 @@
 requirements:
-	pip install -r requirements.txt --user
+	pip install -r requirements.txt
 database: 
 	python src/database/calculation.py
 app:
