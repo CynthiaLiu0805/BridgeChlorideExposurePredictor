@@ -2,8 +2,6 @@ requirements:
 	pip install -r requirements.txt
 database: 
 	python src/database/calculation.py
-app:
-	python src/app/main.py
 web: 
 	cd src/web && npm install 
 	cd src/web && npm run serve

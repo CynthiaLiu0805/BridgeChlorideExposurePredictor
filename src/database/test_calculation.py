@@ -17,7 +17,7 @@ from constant import Constant
 
 class TestCalculation(unittest.TestCase):
     def setUp(self):
-        self.load = Calculation_load('data.xlsx')
+        self.load = Calculation_load('data/data.xlsx')
         self.AADT = all_Cl_SAS_cal.updateAADT(self.load.AADT)
         self.AADTT = all_Cl_SAS_cal.updateAADTT(self.load.AADTT)
         self.M_app = deicing_salts_cal.calculate(self.load.h_total, self.load.t1, Constant.salt_application_rate_high)
