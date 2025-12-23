@@ -289,6 +289,9 @@ node_modules/
 package-lock.json
 package.json  
 
+# Node lock files
+src/web/package-lock.json
+
 # Python
 venv/
 __pycache__/

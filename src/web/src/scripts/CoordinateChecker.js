@@ -1,5 +1,6 @@
 import * as turf from '@turf/turf';
-import boundary from '@/assets/boundary.json';
+// import boundary from '@/assets/boundary.json';
+import boundary from '../../../../data/boundary.json';
 
 /**
  * Converts a longitude value to a normalized format for use in spatial calculations.

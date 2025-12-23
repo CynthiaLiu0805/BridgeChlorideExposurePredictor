@@ -12,6 +12,12 @@ import all_Cl_SAS_cal
 import chloride_on_pier
 from constant import Constant
 import chloride_on_deck
+from pathlib import Path
+
+# Get the project root directory
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+DATA_DIR = PROJECT_ROOT / 'data'
+WEB_PUBLIC_DIR = PROJECT_ROOT / 'src' / 'web' / 'public'
 
 def savefile(long, lat, results, filename):
     # Put longitude and latitude together
@@ -25,10 +31,16 @@ def savefile(long, lat, results, filename):
     df.columns = column_headers
 
     # Write to CSV
-    df.to_csv(filename, index=False)
+    # df.to_csv(DATA_DIR/filename, index=False)
+    df.to_csv(WEB_PUBLIC_DIR / filename, index=False)
+
+
+
 
 # Use all the other modules to generate the database
-load = Calculation_load('data.xlsx')
+load = Calculation_load(DATA_DIR / 'data.xlsx')
+
+# load = Calculation_load('data.xlsx')
 AADT = all_Cl_SAS_cal.updateAADT(load.AADT)
 AADTT = all_Cl_SAS_cal.updateAADTT(load.AADTT)
 # For high salt application rate
