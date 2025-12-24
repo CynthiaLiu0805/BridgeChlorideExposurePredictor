@@ -102,3 +102,5 @@ Users have the option to download the data for further analysis. The data is pre
 ## Quit
 Press `Command+ C` in terminal and `Ctrl + C` in PowerShell to quit the software.
 
+To exit your virtual environment enter `deactivate` at the terminal prompt.
+
