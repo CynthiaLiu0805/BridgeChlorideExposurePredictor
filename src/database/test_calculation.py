@@ -21,7 +21,7 @@ from pathlib import Path
 TEST_FILE_DIR = Path(__file__).parent
 
 # Construct the path to the data file
-data_file_path = TEST_FILE_DIR / '../../data/data.xlsx' 
+data_file_path = TEST_FILE_DIR / '../../data/data.xlsx'
 
 
 class TestCalculation(unittest.TestCase):
