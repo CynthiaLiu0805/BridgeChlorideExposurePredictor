@@ -7,8 +7,6 @@ module.exports = {
 
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.vue$': 'vue-jest', // Use vue-jest for .vue files
-
     '^.+\\.js$': 'babel-jest',
   },
   transformIgnorePatterns: [
