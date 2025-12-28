@@ -12,21 +12,30 @@ This project is intended to investigate how climate, traffic might impact corros
 The folders and files for this project are as follows:
 ```
 .
+├── data
+│   ├── boundary.json # boundary of jurisdiction in which software inputs are defined
+│   ├── data.xlsx     # traffic model and climate model
 ├── docs                   
-│   ├── SRS                
-│   ├── VnVPlan         
+│   ├── Checklists
 |   ├── Design
 │   |   ├── SoftArchitecture
 │   │   └── SoftDetailedDes 
+│   ├── Presentations                                
+│   ├── ProblemStatementAndGoals
+│   ├── Reflection                                
+│   ├── SRS                
+│   ├── VnVPlan         
 │   └── VnVReport                
+├── paper
+├── refs
 │── src          
-|   ├── web         # code for user side of the software
-│   |   ├── public  # files generated from database
-│   │   └── src     # code for the website, including the geojson file for the jurisdiction boundary
-│   └── database    # code for generating the database  
-│── Makefile            # quick start commands
-│── requirements.txt    # dependencies
-└── data.xlsx      # traffic model and climate model
+|   ├── app
+|   ├── database      # code for generating the database 
+|   └── web           # code for user side of the software
+│       ├── public    # files generated from database
+│       └── src       # code for the website, including the geojson file for the jurisdiction boundary 
+│── Makefile          # quick start commands
+└── requirements.txt  # dependencies
 ```
 ## Set Up
 
@@ -52,14 +61,14 @@ To avoid dependency conflicts, it is recommended to use a Python virtual environ
 
 After activation, your terminal prompt should be prefixed with `(venv)`.
 
+### Node and npm
+Node.js provides a JavaScript runtime environment to execute the JavaScript code outside of a web browser.  Npm is the package manager for Node.
+
+To install node in Windows using the [Installer](https://nodejs.org/en/download).  To install on a Mac, use the [Installer](https://nodejs.org/en/download) or `brew install node`.
+
 ### Vue
 The web interface is built using Vue and its dependencies are installed locally via npm.
 No global Vue installation is required.
-
-### Node
-Node.js provides a JavaScript runtime environment to execute the JavaScript code outside of a web browser.
-
-To install node in Windows using the [Installer](https://nodejs.org/en/download).  To install on a Mac, use the [Installer](https://nodejs.org/en/download) or `brew install node`.
 
 ### Make
 This project use [make](https://www.gnu.org/software/make/manual/make.html#Overview) as an access for running the software. 
@@ -89,7 +98,7 @@ cd src/web && npm run serve
 Then the software should be running in localhost.
 
 
-Notes: In some Python versions, you might need to do python3 instead of python to run the app. That is:
+Notes: In some Python versions, you might need to run python3 instead of python to run the app. That is:
 ```
 python3 src/database/calculation.py
 cd src/web && npm run serve
