@@ -28,7 +28,6 @@ The folders and files for this project are as follows:
 │   └── VnVReport                
 ├── paper
 │── src          
-|   ├── app
 |   ├── database      # code for generating the database 
 |   └── web           # code for user side of the software
 │       ├── public    # files generated from database
