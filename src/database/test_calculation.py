@@ -15,11 +15,18 @@ import single_Cl_SAS_cal
 import all_Cl_SAS_cal
 import chloride_on_pier
 from constant import Constant
+from pathlib import Path
+
+# Get the directory of the current test file (so works locally and for CI)
+TEST_FILE_DIR = Path(__file__).parent
+
+# Construct the path to the data file
+data_file_path = TEST_FILE_DIR / '../../data/data.xlsx' 
 
 
 class TestCalculation(unittest.TestCase):
     def setUp(self):
-        self.load = Calculation_load('../../data/data.xlsx')
+        self.load = Calculation_load(data_file_path)
         self.AADT = all_Cl_SAS_cal.updateAADT(self.load.AADT)
         self.AADTT = all_Cl_SAS_cal.updateAADTT(self.load.AADTT)
         self.M_app = deicing_salts_cal.calculate(self.load.h_total, self.load.t1,
