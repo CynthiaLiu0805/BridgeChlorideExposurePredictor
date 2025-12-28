@@ -1,6 +1,6 @@
 # Bridge Chloride Exposure Predictor
 
-Developer Names: Cynthia Liu
+Developer Names: Cynthia Liu, Spencer Smith
 
 Theory support: Mingsai Xu
 
@@ -12,7 +12,7 @@ This project is intended to investigate how climate, traffic might impact corros
 The folders and files for this project are as follows:
 ```
 .
-├── doc                   
+├── docs                   
 │   ├── SRS                
 │   ├── VnVPlan         
 |   ├── Design
@@ -56,23 +56,29 @@ After activation, your terminal prompt should be prefixed with `(venv)`.
 The web interface is built using Vue and its dependencies are installed locally via npm.
 No global Vue installation is required.
 
+### Node
+Node.js provides a JavaScript runtime environment to execute the JavaScript code outside of a web browser.
+
+To install node in Windows using the [Installer](https://nodejs.org/en/download).  To install on a Mac, use the [Installer](https://nodejs.org/en/download) or `brew install node`.
+
 ### Make
 This project use [make](https://www.gnu.org/software/make/manual/make.html#Overview) as an access for running the software. 
 
-To install make in windows, you can do 
+To install make in Windows, you can do 
 `winget install ezwinports.make` in PowerShell. \
 To install make in mac, do `brew install make` if you have [Homebrew](https://brew.sh/) installed. It is also available in other package managers. \
 After installation, restart PowerShell or Terminal to make it work.
 
 ## How to Start
 
-1. Download and unzip the zip file of this repo.
-2. Open the command line terminal (for mac) or PowerShell (for windows).
-3. Activate the Python virtual environment as procedures above in [Python Setup](#python-virtual-environment-recommended).
+1. Open the command line terminal (for mac) or PowerShell (for windows).
+2. Clone this repo via `git clone` in your folder of choice
+3. `cd` into the repo (`BridgeChlorideExposurePredictor` by default)
+3. Activate the Python virtual environment following the procedure above in [Python Setup](#python-virtual-environment-recommended).
 4. Do `make requirements` in the root folder of this repo to install the libraries and dependencies.
 5. Do `make database` to generate the chloride exposure database.
 6. Do `make web` to run the software on the local machine. 
-7. You should see the message from terminal saying that the software is running successfully in localhost. Usually it is http://127.0.0.1:5000 but it might differ from machines.
+7. You should see the message from terminal saying that the software is running successfully in localhost. Usually it is http://127.0.0.1:5000 but it might differ on your machine.
 
 ### Alternative ways to run
 If the above method does not work, you can try the following in the root folder of this repo:
