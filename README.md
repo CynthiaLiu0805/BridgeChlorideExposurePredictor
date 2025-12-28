@@ -27,7 +27,6 @@ The folders and files for this project are as follows:
 │   ├── VnVPlan         
 │   └── VnVReport                
 ├── paper
-├── refs
 │── src          
 |   ├── app
 |   ├── database      # code for generating the database 
