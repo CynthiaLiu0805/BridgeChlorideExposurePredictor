@@ -1,5 +1,4 @@
-# Presentations about your software
+# Presentations about BridgeChlorideExposurePredictor
 
-The folders and files for this folder are as follows:
-
-- <fill in details>
+- SRSPresentation.pdf: review of first draft of software requirements specification
+- Bridge Corrosion POC.pdf: review of initial proof of concept implementation
