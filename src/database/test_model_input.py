@@ -8,12 +8,12 @@ import pandas as pd
 
 class TestCalculation(unittest.TestCase):
     def setUp(self):
-        self.df = pd.read_excel("data/data.xlsx", sheet_name='traffic', usecols='A,B,D,E',
+        self.df = pd.read_excel("../../data/data.xlsx", sheet_name='traffic', usecols='A,B,D,E',
                                 skiprows=0)
-        self.t1 = pd.read_excel("data/data.xlsx", sheet_name='t1', usecols='B:BD', skiprows=0)
-        self.h_total = pd.read_excel("data/data.xlsx", sheet_name='htotal', usecols='B:BD',
+        self.t1 = pd.read_excel("../../data/data.xlsx", sheet_name='t1', usecols='B:BD', skiprows=0)
+        self.h_total = pd.read_excel("../../data/data.xlsx", sheet_name='htotal', usecols='B:BD',
                                      skiprows=0)
-        self.t2 = pd.read_excel("data/data.xlsx", sheet_name='t2', usecols='B:BD', skiprows=0)
+        self.t2 = pd.read_excel("../../data/data.xlsx", sheet_name='t2', usecols='B:BD', skiprows=0)
 
     def test_longitude(self):
         self.assertFalse(self.df.iloc[:, 0].isnull().any())
@@ -35,3 +35,7 @@ class TestCalculation(unittest.TestCase):
 
     def test_t2(self):
         self.assertFalse(self.t2.isnull().any().any())
+
+
+if __name__ == '__main__':
+    unittest.main()
