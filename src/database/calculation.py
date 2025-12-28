@@ -19,6 +19,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 DATA_DIR = PROJECT_ROOT / 'data'
 WEB_PUBLIC_DIR = PROJECT_ROOT / 'src' / 'web' / 'public'
 
+
 def savefile(long, lat, results, filename):
     # Put longitude and latitude together
     results = np.column_stack((long, lat, results))
@@ -33,8 +34,6 @@ def savefile(long, lat, results, filename):
     # Write to CSV
     # df.to_csv(DATA_DIR/filename, index=False)
     df.to_csv(WEB_PUBLIC_DIR / filename, index=False)
-
-
 
 
 # Use all the other modules to generate the database
