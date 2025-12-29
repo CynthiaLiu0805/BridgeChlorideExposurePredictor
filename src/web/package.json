@@ -63,6 +63,9 @@
       }
     ]
   },
+  "engines": {
+    "node": ">=18"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
