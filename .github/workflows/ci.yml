@@ -19,12 +19,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-          cache: "npm"
+          cache: npm
           cache-dependency-path: src/web/package-lock.json
           
       - name: Install dependencies
-        run: npm ci
         working-directory: src/web
+        run: npm ci
         
       - name: Run unit tests
+        working-directory: src/web
         run: npm test
