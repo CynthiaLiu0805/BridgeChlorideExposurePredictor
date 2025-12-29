@@ -1,3 +1,9 @@
+jest.mock('@turf/turf', () => ({
+  booleanPointInPolygon: jest.fn(() => true),
+  point: jest.fn(),
+  polygon: jest.fn(),
+}));
+
 jest.mock('@/assets/boundary.json', () => ({  type: 'FeatureCollection',
   features: [
     {
