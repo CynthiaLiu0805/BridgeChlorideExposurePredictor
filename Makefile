@@ -8,6 +8,7 @@ web:
 test: 
 	python src/database/test_calculation.py
 	python src/database/test_model_input.py
+	npm test --prefix src/web
 clean:
 	rm src/web/public/pier_high.csv
 	rm src/web/public/pier_low.csv
