@@ -5,27 +5,34 @@ This folder contains the source code for this project. The structure is as follo
 ```
 .
 ├── database
-│   ├── all_Cl_SAS_cal.py -Fifth step of the calculation
-│   ├── calculation.py - Use the other modules to do the calculation
-│   ├── calculation_load.py - Load the climate and traffic data for generating the database
-│   ├── chloride_on_deck.py - Calculation of chloride on deck
-│   ├── chloride_on_pier.py - Calculation of chloride on pier
-│   ├── constant.py - Store the constant
-│   ├── deicing_salts_cal.py - First step of the calculation
-│   ├── melted_water_thickness.py - Second step of the calculation
-│   ├── single_Cl_SAS_cal.py - Fourth step of the calculation
-│   ├── single_water_SAS_cal.py - Third step of the calculation
+│   ├── all_Cl_SAS_cal.py           # Fifth step of the calculation
+│   ├── calculation.py              # Use the other modules to do the calculation
+│   ├── calculation_load.py         # Load the climate and traffic data for generating the database
+│   ├── chloride_on_deck.py         # Calculation of chloride on deck
+│   ├── chloride_on_pier.py         # Calculation of chloride on pier
+│   ├── constant.py                 # Store the constant
+│   ├── deicing_salts_cal.py        # First step of the calculation
+│   ├── melted_water_thickness.py   # Second step of the calculation
+│   ├── single_Cl_SAS_cal.py        # Fourth step of the calculation
+│   ├── single_water_SAS_cal.py     # Third step of the calculation
 │   ├── test_calculation.py 
 │   └── test_model_input.py 
-└──  web
-    ├── exception.py - Store the InputOutofOntario exception
-    ├── input_check.py - Check if the input is valid
-    ├── main.py - The main program to start the app
-    ├── ontario_boundary.geojson - The geojson file used to shape the ontario boundary
-    ├── search.py - Search the input in the database
-    ├── visualization.py - Visual the result to an interactive line graph
-    ├── test_input_check.py
-    ├── test_search.py
-    ├── test_visualization.py
-    └── templates
-        └── index.html - The website template
+└── web
+    ├── public                      # Generated output files (not present initially) and basic html
+    ├── tests
+    |   └── unit                    # Unit tests for coordinate checking and data searching 
+    └── src
+        ├── assets                        # Stylesheets and images
+        ├── components
+        │   ├── AboutPage.vue             # About page component
+        │   ├── CoordinateChecker.vue     # Coordinate validation and input handling
+        │   ├── DataSearching.vue         # Data lookup and processing logic
+        │   └── DataVisualization.vue     # Visualization of prediction results
+        ├── scripts
+        │   ├── AppScript.js              # Shared application logic
+        │   ├── CoordinateChecker.js      # Logic for coordinate checking
+        │   ├── DataSearching.js          # Logic for data searching
+        │   └── DataVisualization.js      # Chart and visualization
+        ├── styles
+        ├── App.vue                       # Root Vue component
+        └── main.js                       # Application entry point
