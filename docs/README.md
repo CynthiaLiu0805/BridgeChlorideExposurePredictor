@@ -1,29 +1,28 @@
-<!-- <Please keep the folder structure as given in the template repo.  We will
-discuss each artifact as we get to it in the course.  In some cases, like for
-the SRS, you should have a file of the same name.  For other cases, like the
-design documentation, you are required to document your design, but it may not
-be via a module guide and module interface specification documents.>
 
-<The files and folders have been set-up with tex files that have external links
-so that cross-referencing is possible between documents.>
 
-<The tex files Common.tex so that they can share definitions.>
+This folder holds the documentation for BridgeChlorideExposurePredictor.  The documentation is based on the recommendations for the McMaster University Graduate Course [CAS 741: Development of Scientific Computing Software](https://gitlab.cas.mcmaster.ca/smiths/cas741).  The folders and files are as follows:
 
-<The files use Comments.tex so that the comments package can be used to embed
-comments into the generated pdf.  Comments can be set to false so that they do
-not appear.>
+- `Checklists`: Checklists used to review the design, documentation and implementation of the software.
 
-<None of the files are complete templates.  You will need to add extra
-information.  They are just intended to be a starting point.>
+- `Comments.tex`: A tex file shared by the other tex files to manage comments so that they can be embeddws in the generated pdfs.  Comments can be set to false so that they do
+not appear.
 
-<You should select an SRS template.  Three options are available in the repo, or
-you can introduce another template. You should delete any SRS options that you do
-not need. The folder SRS holds a template for Scientific Computing software;
-the folder SRS-Volere holds the Volere template in LaTeX; the folder SRS-Meyer holds
-the template that Dr. Mosser now uses in the third year requirements course.>
+- `Common.tex`: To share the program name and author names between all the documentation.
 
-<The Makefile assumes the SRS will be in a folder called SRS.  If you use the Makefile
-with a template other than the Scientific Computing template, you will have to delete
-the unnecessary folders and rename your folder to SRS.> -->
-# System Verification and Validation Plan (VnVPlan) 
-VnVPlan.pdf contains the System Verification and Validation Plan for Bridge Corrosion.
+- `Design`: High level design via a Module Guide and detailed design via a Module Interface Specification.
+
+- `Makefile`: Makefile that builds the LaTeX documentation in the other folders.
+
+- `Presentations`: Presentations for early review of the requirements and implementation.
+
+- `ProblemStatementAndGoals`: Summary of the problem BridgeChlorideExposurePredictor is intended to solve.
+
+- `README.md`: this file
+
+- `Reflection`: Reflection on the first pass through the design process and the changes for the next pass.
+
+- `SRS`: Software Requirements Specification.
+
+- `VnVPlan`: `VnVPlan.pdf` contains the Software Verification and Validation Plan for Bridge Corrosion.
+
+- `VnVReport`: Contains the report summarizing the results of executing the verification and validation plan.

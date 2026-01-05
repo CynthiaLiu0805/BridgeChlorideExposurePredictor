@@ -1,0 +1,1 @@
+This folder holds the files for a submission to the [Journal of Open Source Software](https://joss.theoj.org/).

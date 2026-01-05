@@ -1,7 +1,10 @@
-import { handleDataOptionChange, convertLongitude, convertLatitude } from '@/scripts/CoordinateChecker.js';
+jest.mock('@turf/turf', () => ({
+  booleanPointInPolygon: jest.fn(() => true),
+  point: jest.fn(),
+  polygon: jest.fn(),
+}));
 
-
-jest.mock('@/assets/ontario.json', () => ({  type: 'FeatureCollection',
+jest.mock('@/assets/boundary.json', () => ({  type: 'FeatureCollection',
   features: [
     {
       type: 'Feature',
@@ -20,6 +23,8 @@ jest.mock('@/assets/ontario.json', () => ({  type: 'FeatureCollection',
     },
   ],
 }));
+
+import { handleDataOptionChange, convertLongitude, convertLatitude } from '@/scripts/CoordinateChecker.js';
 
 // coordinateChecker.spec.js
 

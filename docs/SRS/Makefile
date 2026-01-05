@@ -3,12 +3,12 @@
 
 PROJECT=SRS #SRS or CA
 TEX=pdflatex
-BIBTEX=bibtex
+#BIBTEX=bibtex
 BUILDTEX=$(TEX) $(PROJECT).tex
 
 all:
 	$(BUILDTEX)
-	$(BIBTEX) $(PROJECT)
+#	$(BIBTEX) $(PROJECT)
 	$(BUILDTEX)
 	$(BUILDTEX)
 

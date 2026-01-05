@@ -10,6 +10,7 @@ t2: the number of days with snow melting
 '''
 import pandas as pd
 
+
 class Calculation_load:
     def __init__(self, file_name):
         # Load traffic sheet and auto-detect number of rows

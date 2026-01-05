@@ -1,6 +1,6 @@
 # Bridge Chloride Exposure Predictor
 
-Developer Names: Cynthia Liu
+Developer Names: Cynthia Liu, Spencer Smith
 
 Theory support: Mingsai Xu
 
@@ -12,21 +12,28 @@ This project is intended to investigate how climate, traffic might impact corros
 The folders and files for this project are as follows:
 ```
 .
-├── doc                   
-│   ├── SRS                
-│   ├── VnVPlan         
+├── data
+│   ├── boundary.json # boundary of jurisdiction in which software inputs are defined
+│   ├── data.xlsx     # traffic model and climate model
+├── docs                   
+│   ├── Checklists
 |   ├── Design
 │   |   ├── SoftArchitecture
 │   │   └── SoftDetailedDes 
+│   ├── Presentations                                
+│   ├── ProblemStatementAndGoals
+│   ├── Reflection                                
+│   ├── SRS                
+│   ├── VnVPlan         
 │   └── VnVReport                
+├── paper
 │── src          
-|   ├── web         # code for user side of the software
-│   |   ├── public  # files generated from database
-│   │   └── src     # code for the website, including the geojson file for the jurisdiction boundary
-│   └── database    # code for generating the database  
-│── Makefile            # quick start commands
-│── requirements.txt    # dependencies
-└── data.xlsx      # traffic model and climate model
+|   ├── database      # code for generating the database 
+|   └── web           # code for user side of the software
+│       ├── public    # files generated from database
+│       └── src       # code for the website, including the geojson file for the jurisdiction boundary 
+│── Makefile          # quick start commands
+└── requirements.txt  # dependencies
 ```
 ## Set Up
 
@@ -52,6 +59,11 @@ To avoid dependency conflicts, it is recommended to use a Python virtual environ
 
 After activation, your terminal prompt should be prefixed with `(venv)`.
 
+### Node and npm
+Node.js provides a JavaScript runtime environment to execute the JavaScript code outside of a web browser.  Npm is the package manager for Node.
+
+To install node in Windows using the [Installer](https://nodejs.org/en/download).  To install on a Mac, use the [Installer](https://nodejs.org/en/download) or `brew install node`.
+
 ### Vue
 The web interface is built using Vue and its dependencies are installed locally via npm.
 No global Vue installation is required.
@@ -59,20 +71,21 @@ No global Vue installation is required.
 ### Make
 This project use [make](https://www.gnu.org/software/make/manual/make.html#Overview) as an access for running the software. 
 
-To install make in windows, you can do 
+To install make in Windows, you can do 
 `winget install ezwinports.make` in PowerShell. \
 To install make in mac, do `brew install make` if you have [Homebrew](https://brew.sh/) installed. It is also available in other package managers. \
 After installation, restart PowerShell or Terminal to make it work.
 
 ## How to Start
 
-1. Download and unzip the zip file of this repo.
-2. Open the command line terminal (for mac) or PowerShell (for windows).
-3. Activate the Python virtual environment as procedures above in [Python Setup](#python-virtual-environment-recommended).
+1. Open the command line terminal (for mac) or PowerShell (for windows).
+2. Clone this repo via `git clone` in your folder of choice
+3. `cd` into the repo (`BridgeChlorideExposurePredictor` by default)
+3. Activate the Python virtual environment following the procedure above in [Python Setup](#python-virtual-environment-recommended).
 4. Do `make requirements` in the root folder of this repo to install the libraries and dependencies.
 5. Do `make database` to generate the chloride exposure database.
 6. Do `make web` to run the software on the local machine. 
-7. You should see the message from terminal saying that the software is running successfully in localhost. Usually it is http://127.0.0.1:5000 but it might differ from machines.
+7. You should see the message from terminal saying that the software is running successfully in localhost. Usually it is http://127.0.0.1:5000 but it might differ on your machine.
 
 ### Alternative ways to run
 If the above method does not work, you can try the following in the root folder of this repo:
@@ -83,7 +96,7 @@ cd src/web && npm run serve
 Then the software should be running in localhost.
 
 
-Notes: In some Python versions, you might need to do python3 instead of python to run the app. That is:
+Notes: In some Python versions, you might need to run python3 instead of python to run the app. That is:
 ```
 python3 src/database/calculation.py
 cd src/web && npm run serve
@@ -101,4 +114,6 @@ Users have the option to download the data for further analysis. The data is pre
 
 ## Quit
 Press `Command+ C` in terminal and `Ctrl + C` in PowerShell to quit the software.
+
+To exit your virtual environment enter `deactivate` at the terminal prompt.
 
