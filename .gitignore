@@ -292,3 +292,8 @@ venv/
 __pycache__/
 *.pyc
 
+
+# Generated files
+src/web/public/pier_high.csv
+src/web/public/pier_low.csv
+src/web/public/deck.csv
