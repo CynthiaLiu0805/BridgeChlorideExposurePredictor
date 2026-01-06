@@ -10,10 +10,19 @@ Constant:
         chloride_ratio: molar mass ratio of chloride ions over deicing salts
 '''
 from constant import Constant
+import numpy as np
 
 
 def calculate(M_app, h_app, SD_total):
     # ratio of the mass of salt over the mass of water per unit area of road
-    salt_to_water_ratio = M_app / (h_app * Constant.water_density)
+    salt_to_water_ratio = np.zeros_like(h_app, dtype=float)
+
+    # only compute where h_app > 0
+    mask = h_app > 0
+
+    salt_to_water_ratio[mask] = (
+        M_app[mask] / (h_app[mask] * Constant.water_density)
+    )
+
     SD_totalCl = SD_total * salt_to_water_ratio * Constant.chloride_ratio
     return SD_totalCl
