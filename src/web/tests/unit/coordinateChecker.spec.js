@@ -4,7 +4,7 @@ jest.mock('@turf/turf', () => ({
   polygon: jest.fn(),
 }));
 
-jest.mock('@/assets/boundary.json', () => ({  type: 'FeatureCollection',
+jest.mock('../../../data/boundary.json', () => ({  type: 'FeatureCollection',
   features: [
     {
       type: 'Feature',
