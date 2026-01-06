@@ -15,6 +15,7 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|scss|sass)$': 'identity-obj-proxy', // Mock CSS imports
     '^@/(.*)$': '<rootDir>/src/$1', // Map @ to src folder
+    '^@data/(.*)$': '<rootDir>/data/$1', // Map @ to data folder
 
   },
 };
