@@ -293,7 +293,7 @@ __pycache__/
 *.pyc
 
 # package-lock.json
-src/web/package-lock.json
+# src/web/package-lock.json
 
 # Generated files
 src/web/public/pier_high.csv

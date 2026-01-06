@@ -31,7 +31,7 @@ The folders and files for this project are as follows:
 |   ├── database      # code for generating the database 
 |   └── web           # code for user side of the software
 │       ├── public    # files generated from database
-│       └── src       # code for the website, including the geojson file for the jurisdiction boundary 
+│       └── src       # code for the website
 │── Makefile          # quick start commands
 └── requirements.txt  # dependencies
 ```
