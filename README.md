@@ -117,3 +117,104 @@ Press `Command+ C` in terminal and `Ctrl + C` in PowerShell to quit the software
 
 To exit your virtual environment enter `deactivate` at the terminal prompt.
 
+## Change for a Different Jurisdiction
+
+To apply this model to a different jurisdiction or to a different grid resolution, no changes to the core calculation code are required. Instead, the following inputs must be updated.
+
+### 1. data.xlsx
+
+Replace the contents of `data/data.xlsx` with region-specific data. 
+
+- All sheets (traffic, t1, t2, htotal) must have the same number of rows, see below for details.
+- Each row across all sheets must correspond to the same grid cell. The model does not assume a fixed grid size; the grid definition is implicitly determined by the input data.
+
+
+### 1.1 `traffic` Sheet
+
+Traffic characteristics for each grid cell.
+
+**Required columns:**
+| Column | Field     | Description                            |
+| ------ | --------- | -------------------------------------- |
+| **A**  | Longitude | Geographic longitude of the grid point |
+| **B**  | Latitude  | Geographic latitude of the grid point  |
+| **C**  | City      | City or location name                  |
+| **D**  | AADT/lane      | Annual Average Daily Traffic           |
+| **E**  | AADTT/lane     | Annual Average Daily Truck Traffic     |
+
+
+**Example layout:**
+|LON        |LAT        |CITY   |AADT/lane	|AADTT/lane|
+|---        | ---       |---    |---        |---       |
+|274.712677	|49.45780945|Algoma|559|103|
+|274.7636414|49.67531204|Algoma|559|103|
+|  ...    | ...  | ...  | ...  | ... |
+---
+
+
+### 1.2 `t1` Sheet
+
+Number of snow or ice days per year for each grid cell.
+
+**Required columns:**
+| Column | Field     | Description                            |
+| ------ | --------- | -------------------------------------- |
+| **A**  | Grid cell identifier | Each row corresponds to a grid cell (aligned with `traffic` sheet) |
+| **B, C, …**  | Year columns (e.g., 2005, 2006, 2007, …) | Number of snow or ice days in that year for the grid cell  |
+---
+
+**Example layout:**
+| Year | 2006 | 2007 | 2008 | ... |
+| ---- | ---- | ---- | ---- | --- |
+|      | 106  | 125  | 96   | ... |
+|      | 105  | 122  | 93   | ... |
+|      | 103  | 91   | 78   | ... |
+|      | ...  | ...  | ...  | ... |
+---
+
+
+### 1.3 `t2` Sheet
+
+Number of snow-melting days per year for each grid cell.
+
+
+**Required columns:**
+| Column | Field     | Description                            |
+| ------ | --------- | -------------------------------------- |
+| **A**  | Grid cell identifier | Each row corresponds to a grid cell (aligned with `traffic` sheet) |
+| **B, C, …**  | Year columns (e.g., 2005, 2006, 2007, …) | Number of snow-melting days in that year for the grid cell  |
+---
+
+**Example layout:**
+| Year | 2006 | 2007 | 2008 | ... |
+| ---- | ---- | ---- | ---- | --- |
+|      | 76   | 61   | 104  | ... |
+|      | 76   | 64   | 97   | ... |
+|      | 87   | 89   | 101  | ... |
+|      | ...  | ...  | ...  | ... |
+---
+
+
+### 1.4 `htotal` Sheet
+
+| Column      | Field                                    | Description                                                        |
+| ----------- | ---------------------------------------- | ------------------------------------------------------------------ |
+| **A**       | Grid cell identifier                     | Each row corresponds to a grid cell (aligned with `traffic` sheet) |
+| **B, C, …** | Year columns (e.g., 2005, 2006, 2007, …) | Total snow depth (cm) in that year for the grid cell               |
+
+**Example layout:**
+| Year | 2006 | 2007 | 2008 | ... |
+| ---- | ---- | ---- | ---- | --- |
+|      | 206.2145241|	220.8943212|	121.5795313 | ... |
+|      | 211.174729|	221.0476551|	137.5310097  | ... |
+|      | 165.2436496|	239.4575019|	130.4865169  | ... |
+|      | ...  | ...  | ...  | ... |
+---
+
+
+The model does not assume a fixed grid size; the grid definition is implicitly determined by the input data.
+
+### 2. boundary.json
+Replace the contents of `data/boundary.json` with one representing the new jurisdiction
+
+This boundary is used to check whether a grid cell belongs to the study area and may also affect visualization or filtering steps.
