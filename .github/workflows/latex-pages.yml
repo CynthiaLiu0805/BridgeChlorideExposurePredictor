@@ -41,7 +41,7 @@ jobs:
           while IFS= read -r file; do
             echo "Processing $file"
             # Build using existing Makefile rules
-            make -B "${file%.tex}.pdf"
+            make -B -f MakeTex "${file%.tex}.pdf"
               
             # Copy result into build-pdf, preserving structure
             rel=$(dirname "$file" | cut -d'/' -f2-)
